@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
-
 class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -209,7 +208,6 @@ class CustomFlatButton extends StatelessWidget {
   }
 }
 
-
 class CustomTextField extends StatefulWidget {
   final String hint;
   final TextEditingController controller;
@@ -268,7 +266,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 currentColor = widget.baseColor;
               }
             });
-          }, 
+          },
           //keyboardType: widget.inputType,
           controller: widget.controller,
           decoration: InputDecoration(

@@ -2,7 +2,6 @@ import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -33,7 +32,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       errorColor: Colors.red,
       controller: _fullname,
       hint: "Full Name",
-     
     );
     _phoneField = new CustomTextField(
       baseColor: Colors.grey,
@@ -154,10 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
-
 }
-
 
 class CustomFlatButton extends StatelessWidget {
   final String title;
@@ -212,7 +207,6 @@ class CustomFlatButton extends StatelessWidget {
     );
   }
 }
-
 
 class CustomTextField extends StatefulWidget {
   final String hint;
@@ -272,7 +266,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 currentColor = widget.baseColor;
               }
             });
-          }, 
+          },
           //keyboardType: widget.inputType,
           controller: widget.controller,
           decoration: InputDecoration(
