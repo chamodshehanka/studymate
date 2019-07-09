@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/dailyleisure.dart';
+import 'package:studymate/dailysocial.dart';
+import 'package:studymate/dailystudy.dart';
 
 final List<String> entries = <String>['8.30 - 10.30','11.00 - 12.30','13.00 - 14.30','15.00 - 16.00'];
 final List<String> subjects = <String>['Mathematics','Science','English','Sinhala'];
@@ -11,54 +14,32 @@ class DailyScreen extends StatefulWidget{
   class _DailyScreenState extends State<DailyScreen>{
   @override
   Widget build(BuildContext context) {
-   
-   return Scaffold(
-      appBar: AppBar(title: Text("StudyMate - Study Schedule"),
+  return MaterialApp(
+    home: DefaultTabController(
+      length: 3,
+      child: Scaffold(
+      appBar: AppBar(title: Text("StudyMate"),
       backgroundColor: Colors.deepOrange,
+      bottom: TabBar(tabs: <Widget>[
+        Tab(icon: Icon(Icons.library_books)),
+        Tab(icon: Icon(Icons.people)),
+        Tab(icon: Icon(Icons.games)),
+      ],),
       ),
-      backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: ListView(
-            padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Icon(
-                Icons.account_circle,
-                size: 90.0,
-              ),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: <Color>[
-                  Colors.deepOrange,
-                  Colors.orangeAccent,
-                  Colors.yellow,
-                ])
-              ),
-            ),
-            CustomListTile(Icons.person,'Profile',()=>{}),
-            CustomListTile(Icons.note,'Reminders',()=>{}),
-            CustomListTile(Icons.info, 'About Us', ()=>{}),
-            CustomListTile(Icons.settings,'Settings',()=>{}),
-            CustomListTile(Icons.exit_to_app,'Logout',()=>{}),
-          ],
-        ),
-      ),
+
       body:
-  ListView.separated(
-      padding: const EdgeInsets.all(8.0),
-      itemCount: entries.length,
-      itemBuilder: (BuildContext context,int index){
-        return Container(
-          height: 50.0,
-          child:
-          Text('${entries[index]}',
-          textAlign: TextAlign.left)
-          
-        );
-      }, separatorBuilder: (BuildContext context, int index) => const Divider(
-        color: Colors.blueAccent,
-      ),
-    )
-    );
+      TabBarView(
+        
+        children: <Widget>[
+          DailyStudy(),
+          DailySocial(),
+          DailyLeisure(),
+        ],
+      )
+  
+    ),
+    ),
+  ); 
   }
     
 }
