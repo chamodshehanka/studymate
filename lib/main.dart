@@ -11,21 +11,16 @@ var routes=<String,WidgetBuilder>{
   '/signin':(context) => SignInScreen(),
   '/signup' :(context) => SignUpScreen(),
   '/home' :(context) => HomeScreen(),
-  '/daily':(context) => DailyScreen(),
+  '/daily':(context) => DailyScreen()
 };
 
 void main() {
   var materialApp = MaterialApp(
-    title: 'StudyMate',
-        theme: ThemeData(
-         primaryColor: new Color(0xff622F74),
-          accentColor: Colors.orange
-        ),
-        debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
-        routes: routes
-  
-  );
-    return runApp(materialApp);
+      title: 'StudyMate',
+      theme: ThemeData(
+          primaryColor: new Color(0xff622F74), accentColor: Colors.orange),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+      routes: routes);
+  return runApp(materialApp);
 }
-
