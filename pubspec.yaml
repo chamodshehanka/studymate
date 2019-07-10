@@ -1,5 +1,5 @@
 name: studymate
-description: A new Flutter project.
+description: 
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^0.2.5
   flutter_web: any
   flutter_web_ui: any
 
