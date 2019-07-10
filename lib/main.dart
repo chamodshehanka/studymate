@@ -6,12 +6,12 @@ import 'package:studymate/home.dart';
 import 'package:studymate/signin.dart';
 import 'package:studymate/signup.dart';
 
-var routes=<String,WidgetBuilder>{
-  '/first':(context) => WelcomeScreen(),
-  '/signin':(context) => SignInScreen(),
-  '/signup' :(context) => SignUpScreen(),
-  '/home' :(context) => HomeScreen(),
-  '/daily':(context) => DailyScreen()
+var routes = <String, WidgetBuilder>{
+  '/first': (context) => WelcomeScreen(),
+  '/signin': (context) => SignInScreen(),
+  '/signup': (context) => SignUpScreen(),
+  '/home': (context) => HomeScreen(),
+  '/daily': (context) => DailyScreen()
 };
 
 void main() {
