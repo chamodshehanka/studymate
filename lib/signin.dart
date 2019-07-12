@@ -6,6 +6,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   CustomTextField _emailField;
