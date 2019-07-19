@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "410259195095",
+    "firebase_url": "https://studymate-sliit.firebaseio.com",
+    "project_id": "studymate-sliit",
+    "storage_bucket": "studymate-sliit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410259195095:android:0ab1452f52c60038",
+        "android_client_info": {
+          "package_name": "com.chamodshehanka.studymate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410259195095-j8ega3vfgigdetpe0cq88k2uiobvlt17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0Hf29GPn8lghVJNptyizXwqu4simLpm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410259195095-j8ega3vfgigdetpe0cq88k2uiobvlt17.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
