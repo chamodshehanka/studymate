@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/SplashScreen.dart';
+import 'package:studymate/screens/SplashScreen.dart';
 import 'package:studymate/daily.dart';
 import 'package:studymate/first.dart';
 import 'package:studymate/home.dart';
@@ -18,7 +18,7 @@ void main() {
   var materialApp = MaterialApp(
       title: 'StudyMate',
       theme: ThemeData(
-          primaryColor: new Color(0xff622F74), accentColor: Colors.orange),
+          primaryColor: new Color(0xff622F74), accentColor: Colors.deepPurple),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       routes: routes);
