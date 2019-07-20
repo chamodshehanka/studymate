@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/SplashScreen.dart';
-import 'package:studymate/daily.dart';
-import 'package:studymate/first.dart';
-import 'package:studymate/home.dart';
-import 'package:studymate/signin.dart';
-import 'package:studymate/signup.dart';
+import 'package:studymate/screens/SplashScreen.dart';
+import 'package:studymate/screens/daily.dart';
+import 'package:studymate/screens/first.dart';
+import 'package:studymate/screens/home.dart';
+import 'package:studymate/screens/signin.dart';
+import 'package:studymate/screens/signup.dart';
 
 var routes = <String, WidgetBuilder>{
   '/first': (context) => WelcomeScreen(),
@@ -18,7 +18,7 @@ void main() {
   var materialApp = MaterialApp(
       title: 'StudyMate',
       theme: ThemeData(
-          primaryColor: new Color(0xff622F74), accentColor: Colors.orange),
+          primaryColor: new Color(0xff622F74), accentColor: Colors.deepPurple),
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
       routes: routes);
