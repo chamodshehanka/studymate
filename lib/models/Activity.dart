@@ -1,0 +1,3 @@
+class Activity{
+  String id;
+}
