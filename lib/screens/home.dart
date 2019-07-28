@@ -264,6 +264,42 @@ primary: false,
           ),
         ),
       ),
+      Card(
+        child: InkWell(
+          splashColor: Colors.blue.withAlpha(30),
+          onTap: () {
+            print('Card tapped.');
+          },
+          child: Container(
+            width: 300,
+            height: 100,
+            child:FlatButton(
+              onPressed:()=>
+              Navigator.pushNamed(context, '/Appointment'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                  Icons.calendar_today,
+                  color:Colors.blueGrey,
+                  size:70.0,
+                  ),
+                  Text(
+                  "Appointment Management",
+                  style: TextStyle(
+                          color: Colors.blueAccent,
+                          decoration: TextDecoration.none,
+                          fontSize: 18.0,
+                          fontFamily: "OpenSans",
+                  ),
+                  ),
+                ],
+              )
+              
+            ),
+          ),
+        ),
+      ),
   ],
       )
     );
