@@ -54,7 +54,7 @@ class SIForm extends StatefulWidget{
 
   class _SIFormState extends State<SIForm>{
 
-      final _minimumPadding = 5.0;
+      final _minimumPadding = 4.0;
 
     Widget build(BuildContext context){
 
@@ -65,7 +65,7 @@ class SIForm extends StatefulWidget{
           title: Text('Appointment Management') ,
         ),
         body: Container(
-          margin: EdgeInsets.all(_minimumPadding * 7),
+          margin: EdgeInsets.all(_minimumPadding * 4),
           child:Column(
             children: <Widget>[
               Padding(
@@ -111,7 +111,7 @@ class SIForm extends StatefulWidget{
                 padding: EdgeInsets.only(bottom: _minimumPadding,top: _minimumPadding),
                 child:Column(children: <Widget>[
                   Container(
-                    margin:EdgeInsets.only(top:100.0 ),
+                    margin:EdgeInsets.only(top:40.0 ),
                     width: 250.0,
                     height: 60.0,
                   child:RaisedButton(
@@ -120,6 +120,7 @@ class SIForm extends StatefulWidget{
                     elevation:15.0 ,
                     highlightElevation: 20.0,
                     color:Colors.purple,
+                    textTheme: ButtonTextTheme.primary,
                     padding: EdgeInsets.symmetric(vertical:20.0),
                     child:Text('Send',textScaleFactor: 1.5,),
                     onPressed:(){
@@ -128,13 +129,14 @@ class SIForm extends StatefulWidget{
                     ),
                   ),
             Container(
-               margin:EdgeInsets.only(top:30.0 ),
+               margin:EdgeInsets.only(top:25.0 ),
                width: 250.0,
                height: 60.0,
               child: RaisedButton(
                 elevation:15.0 ,
                 highlightElevation: 20.0,
                 color:Colors.purple,
+                textTheme: ButtonTextTheme.primary,
                 padding: EdgeInsets.symmetric(vertical:20.0),
                 //color: Theme.of(context).primaryColorDark,
                 //textColor: Theme.of(context).primaryColorLight,
@@ -145,13 +147,14 @@ class SIForm extends StatefulWidget{
               ),
             ),
             Container(
-               margin:EdgeInsets.only(top:30.0 ),
+               margin:EdgeInsets.only(top:25.0 ),
                width: 250.0,
                height: 60.0,
               child: RaisedButton(
                 elevation:15.0 ,
                 highlightElevation: 20.0,
                 color:Colors.purple,
+                textTheme: ButtonTextTheme.primary,
                 padding: EdgeInsets.symmetric(vertical:20.0),
                 //color: Theme.of(context).accentColor,
                 //textColor: Theme.of(context).primaryColorDark,
