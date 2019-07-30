@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+//import 'dart:async';
 void main(){
   
 
@@ -13,36 +13,75 @@ void main(){
         primaryColor: Colors.purple,
         buttonColor: Colors.purple,
         accentColor: Colors.purple,
-        
-        
+        //home:new MyApp(),
       )
     )
   );
 }
-//class MyApp extends StatelessWidget {
-// final String appTitle = 'Date & Time picker';
-// @override
-// Widget build(BuildContext context) => MaterialApp(
-//       title: appTitle,
-//       home: MainPage(appTitle: appTitle),
-//    );
-//}
+/*class MyApp extends StatefulWidget {
+  @override
+  _State createState() => new _State();
+}
+class _State extends State<MyApp>{
 
-//class MainPage extends StatelessWidget {
-// final String appTitle;
-// const MainPage({this.appTitle});
+    DateTime _date = new DateTime.now();
+    TimeOfDay _time = new TimeOfDay.now();
 
-// @override
-// Widget build(BuildContext context) => Scaffold(
-//      appBar: AppBar(
-//         title: Text(appTitle),
-//       ),
-//       body: Center(
-//        child: (),
-//      ),
-//    );
-//}
+    Future<Null> _selectDate(BuildContext cotext) async{
+      final DateTime picked = await showDatePicker(
+          context: context,
+          initialDate: _date,
+          firstDate: new DateTime(2016),
+          lastDate: new DateTime(2016)
+      );
+      if(picked != null && picked != _date){
+        print('Date selected: ${_date.toString()}');
+        setState((){
+          _date = picked;
+        });
+      }
+    }
+    Future<Null> _selectTime(BuildContext cotext) async{
+      final TimeOfDay picked = await showTimePicker(
+          context: context,
+          initialTime: _time,
+      );
+      if(picked != null && picked != _time){
+        print('Time selected: ${_time.toString()}');
+        setState((){
+          _time = picked;
+        });
+      }
+    }
 
+    @override
+    Widget build(BuildContext context){
+      return new Scaffold(
+        appBar: new AppBar(
+          title:new Text('Name here'),
+        ),
+      body:new Container(
+        padding:new EdgeInsets.all(32.0),
+        child:new Column(
+        children:<Widget>[
+          new Text('Date selected: ${_date.toString()}'),
+          new RaisedButton(
+            child:new Text('Select Date'),
+            onPressed:(){_selectDate(context);}
+            ),
+            new Text(''),
+            new Text('Time selected: ${_time.toString()}'),
+            new RaisedButton(
+              child:new Text('Select Time'),
+              onPressed:(){_selectDate(context);}
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+*/
 class SIForm extends StatefulWidget{
 
   @override
@@ -54,7 +93,7 @@ class SIForm extends StatefulWidget{
 
   class _SIFormState extends State<SIForm>{
 
-      final _minimumPadding = 4.0;
+      final _minimumPadding = 5.0;
 
     Widget build(BuildContext context){
 
@@ -65,7 +104,7 @@ class SIForm extends StatefulWidget{
           title: Text('Appointment Management') ,
         ),
         body: Container(
-          margin: EdgeInsets.all(_minimumPadding * 4),
+          margin: EdgeInsets.all(_minimumPadding * 1),
           child:Column(
             children: <Widget>[
               Padding(
@@ -111,7 +150,7 @@ class SIForm extends StatefulWidget{
                 padding: EdgeInsets.only(bottom: _minimumPadding,top: _minimumPadding),
                 child:Column(children: <Widget>[
                   Container(
-                    margin:EdgeInsets.only(top:40.0 ),
+                    margin:EdgeInsets.only(top:100.0 ),
                     width: 250.0,
                     height: 60.0,
                   child:RaisedButton(
@@ -129,7 +168,7 @@ class SIForm extends StatefulWidget{
                     ),
                   ),
             Container(
-               margin:EdgeInsets.only(top:25.0 ),
+               margin:EdgeInsets.only(top:10.0 ),
                width: 250.0,
                height: 60.0,
               child: RaisedButton(
@@ -147,9 +186,9 @@ class SIForm extends StatefulWidget{
               ),
             ),
             Container(
-               margin:EdgeInsets.only(top:25.0 ),
+               margin:EdgeInsets.only(top:10.0 ),
                width: 250.0,
-               height: 60.0,
+               height:60.0,
               child: RaisedButton(
                 elevation:15.0 ,
                 highlightElevation: 20.0,
