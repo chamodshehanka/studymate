@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/SplashScreen.dart';
+import 'package:studymate/screens/createSchedule.dart';
 import 'package:studymate/screens/daily.dart';
 import 'package:studymate/screens/first.dart';
 import 'package:studymate/screens/home.dart';
@@ -13,7 +14,8 @@ var routes = <String, WidgetBuilder>{
   '/signup': (context) => SignUpScreen(),
   '/home': (context) => HomeScreen(),
   '/daily': (context) => DailyScreen(),
-  '/Appointment': (context) => SIForm(),
+  '/Appointment': (context) => MyApp(),
+  '/createSchedule':(context) => createSchedule()
 };
 
 void main() {
