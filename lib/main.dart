@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/SplashScreen.dart';
+import 'package:studymate/screens/createSchedule.dart';
 import 'package:studymate/screens/daily.dart';
 import 'package:studymate/screens/first.dart';
 import 'package:studymate/screens/home.dart';
 import 'package:studymate/screens/signin.dart';
 import 'package:studymate/screens/signup.dart';
+import 'package:studymate/screens/Appointment.dart';
 
 var routes = <String, WidgetBuilder>{
   '/first': (context) => WelcomeScreen(),
   '/signin': (context) => SignInScreen(),
   '/signup': (context) => SignUpScreen(),
   '/home': (context) => HomeScreen(),
-  '/daily': (context) => DailyScreen()
+  '/daily': (context) => DailyScreen(),
+  '/Appointment': (context) => MyApp(),
+  '/createSchedule':(context) => createSchedule()
 };
 
 void main() {
