@@ -9,16 +9,28 @@ import 'package:studymate/screens/signup.dart';
 import 'package:studymate/screens/Appointment.dart';
 import 'package:studymate/screens/subject.dart';
 
+import 'screens/accounttype.dart';
+import 'screens/add.dart';
+import 'screens/signup1.dart';
+
 var routes = <String, WidgetBuilder>{
   '/first': (context) => WelcomeScreen(),
   '/signin': (context) => SignInScreen(),
   '/signup': (context) => SignUpScreen(),
   '/home': (context) => HomeScreen(),
+<<<<<<< HEAD
   '/subject': (context) => SubjectScreen(),
+=======
+  '/signup1': (context) => SignUp1Screen(),
+  '/accounttype': (context) => AccountTypeScreen(),
+  '/add': (context) => AddScreen(),
+>>>>>>> dbe042a74e9ff9b61cc3734f6d617ffe917c93cd
   '/daily': (context) => DailyScreen(),
   '/Appointment': (context) => MyApp(),
   '/createSchedule':(context) => createSchedule()
 };
+
+
 
 void main() {
   var materialApp = MaterialApp(
