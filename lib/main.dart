@@ -7,12 +7,14 @@ import 'package:studymate/screens/home.dart';
 import 'package:studymate/screens/signin.dart';
 import 'package:studymate/screens/signup.dart';
 import 'package:studymate/screens/Appointment.dart';
+import 'package:studymate/screens/subject.dart';
 
 var routes = <String, WidgetBuilder>{
   '/first': (context) => WelcomeScreen(),
   '/signin': (context) => SignInScreen(),
   '/signup': (context) => SignUpScreen(),
   '/home': (context) => HomeScreen(),
+  '/subject': (context) => SubjectScreen(),
   '/daily': (context) => DailyScreen(),
   '/Appointment': (context) => MyApp(),
   '/createSchedule':(context) => createSchedule()
