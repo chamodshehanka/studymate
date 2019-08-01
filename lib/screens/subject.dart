@@ -21,9 +21,9 @@ class _SubjectScreenState extends State<SubjectScreen> {
               backgroundColor: Colors.deepOrange,
               bottom: TabBar(
                 tabs: <Widget>[
-                  Tab(icon: Icon(Icons.book)),
-                  Tab(icon: Icon(Icons.book)),
-                  Tab(icon: Icon(Icons.book)),
+                  Tab(icon:Text("8/9")),
+                  Tab(icon: Text("O/L")),
+                  Tab(icon: Text("A/L")),
                 ],
               ),
             ),

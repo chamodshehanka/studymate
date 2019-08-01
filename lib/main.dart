@@ -18,13 +18,10 @@ var routes = <String, WidgetBuilder>{
   '/signin': (context) => SignInScreen(),
   '/signup': (context) => SignUpScreen(),
   '/home': (context) => HomeScreen(),
-<<<<<<< HEAD
   '/subject': (context) => SubjectScreen(),
-=======
   '/signup1': (context) => SignUp1Screen(),
   '/accounttype': (context) => AccountTypeScreen(),
   '/add': (context) => AddScreen(),
->>>>>>> dbe042a74e9ff9b61cc3734f6d617ffe917c93cd
   '/daily': (context) => DailyScreen(),
   '/Appointment': (context) => MyApp(),
   '/createSchedule':(context) => createSchedule()

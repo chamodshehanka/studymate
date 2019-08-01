@@ -82,12 +82,7 @@ List getSubjects() {
   ListTile makeListTile(Subject subject) => ListTile(
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          leading: Container(
-            padding: EdgeInsets.only(right: 12.0),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white24))),
-          ),
+          
           title: Text(
             subject.title,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
