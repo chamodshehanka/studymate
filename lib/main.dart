@@ -24,10 +24,8 @@ var routes = <String, WidgetBuilder>{
   '/add': (context) => AddScreen(),
   '/daily': (context) => DailyScreen(),
   '/Appointment': (context) => MyApp(),
-  '/createSchedule':(context) => createSchedule()
+  '/createSchedule': (context) => createSchedule()
 };
-
-
 
 void main() {
   var materialApp = MaterialApp(
