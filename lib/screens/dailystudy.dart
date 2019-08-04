@@ -13,6 +13,8 @@ class DailyStudy extends StatefulWidget {
 class _DailyStudyState extends State<DailyStudy> {
   List subjects;
 
+  
+
   @override
   void initState() {
     subjects = getSubjects();
@@ -27,30 +29,69 @@ class _DailyStudyState extends State<DailyStudy> {
           child: Container(
             decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
             child: makeListTile(subject),
+                      ),
+              );
+            
+            
+            
+            
+            
+                final makeBody = Container(
+                  // decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: subjects.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return makeCard(subjects[index]);
+                    },
+                  ),
+                );
+            
+                return Scaffold(
+                  backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+                  body: makeBody,
+                );
+              }
+            
+              makeListTile(Subject subject) => ListTile(
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          leading: Container(
+            padding: EdgeInsets.only(right: 12.0),
+            decoration: new BoxDecoration(
+                border: new Border(
+                    right: new BorderSide(width: 1.0, color: Colors.white24))),
+            child: Text(subject.time,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
           ),
-  );
-
-
-
-
-
-    final makeBody = Container(
-      // decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: subjects.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeCard(subjects[index]);
-        },
-      ),
-    );
-
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
-      body: makeBody,
-    );
-  }
+          title: Text(
+            subject.title,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          trailing:
+              Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
+          onTap: () =>{
+                      showDialog(context: context,builder:(context){
+                  return AlertDialog(
+                    
+                    title: Text("Rate Performance"),
+                    content: TextField(
+                      controller: TextEditingController(),
+                    ),
+                    actions: <Widget>[
+                      MaterialButton(
+                        elevation: 5.0,
+                        child: Text("Submit",style: TextStyle(color: Colors.blueAccent)),
+                        onPressed:(){
+                          Navigator.of(context).pop(TextEditingController().text.toString());
+                        },
+                        )
+                    ],
+                  );
+                })
+                        });
 }
 
 class Subject {
@@ -71,29 +112,3 @@ List getSubjects() {
   Subject("History","16.00 - 17.00"),
   ];
 }
-
-
-  
-  ListTile makeListTile(Subject subject) => ListTile(
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          leading: Container(
-            padding: EdgeInsets.only(right: 12.0),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white24))),
-            child: Text(subject.time,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
-          title: Text(
-            subject.title,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          trailing:
-              Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
-          onTap: () {
-
-            
-          },
-        );
