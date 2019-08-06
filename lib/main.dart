@@ -7,7 +7,6 @@ import 'package:studymate/screens/home.dart';
 import 'package:studymate/screens/signin.dart';
 import 'package:studymate/screens/signup.dart';
 import 'package:studymate/screens/Appointment.dart';
-import 'package:studymate/screens/subject.dart';
 
 import 'screens/accounttype.dart';
 import 'screens/add.dart';
@@ -18,7 +17,6 @@ var routes = <String, WidgetBuilder>{
   '/signin': (context) => SignInScreen(),
   '/signup': (context) => SignUpScreen(),
   '/home': (context) => HomeScreen(),
-  '/subject': (context) => SubjectScreen(),
   '/signup1': (context) => SignUp1Screen(),
   '/accounttype': (context) => AccountTypeScreen(),
   '/add': (context) => AddScreen(),
@@ -26,6 +24,8 @@ var routes = <String, WidgetBuilder>{
   '/Appointment': (context) => NoteList(),
   '/createSchedule': (context) => createSchedule()
 };
+
+
 
 void main() {
   var materialApp = MaterialApp(
