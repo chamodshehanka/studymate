@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/SplashScreen.dart';
+import 'package:studymate/screens/createSchedule.dart';
 import 'package:studymate/screens/daily.dart';
 import 'package:studymate/screens/first.dart';
 import 'package:studymate/screens/home.dart';
 import 'package:studymate/screens/signin.dart';
 import 'package:studymate/screens/signup.dart';
+import 'package:studymate/screens/Appointment.dart';
+import 'package:studymate/screens/rewards.dart';
+import 'package:studymate/screens/badge.dart';
+import 'screens/accounttype.dart';
+import 'screens/add.dart';
+import 'screens/signup1.dart';
 
 var routes = <String, WidgetBuilder>{
   '/first': (context) => WelcomeScreen(),
   '/signin': (context) => SignInScreen(),
   '/signup': (context) => SignUpScreen(),
   '/home': (context) => HomeScreen(),
-  '/daily': (context) => DailyScreen()
+  '/signup1': (context) => SignUp1Screen(),
+  '/accounttype': (context) => AccountTypeScreen(),
+  '/add': (context) => AddScreen(),
+  '/daily': (context) => DailyScreen(),
+  '/Appointment': (context) => NoteList(),
+  '/badge': (context) => Badges(),
+  '/rewards': (context) => RewardsScreen(),
+  '/createSchedule': (context) => createSchedule()
 };
+
+
 
 void main() {
   var materialApp = MaterialApp(
