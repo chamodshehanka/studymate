@@ -1,212 +1,92 @@
+
+
 import 'package:flutter/material.dart';
-//import 'dart:async';
+
+import 'appointment list.dart';
+
 void main(){
-  
-
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title:'Appointment Management',
-      home:MyApp(),//SIForm(),
-      theme:ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.purple,
-        buttonColor: Colors.purple,
-        accentColor: Colors.purple,
-        //home:new MyApp(),
-      )
-    )
-  );
+  runApp(MyApp());
 }
-class MyApp extends StatefulWidget {
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
-  _State createState() => new _State();
+  Widget build(BuildContext context) {
+
+    return MaterialApp(
+      title: 'Appointment Management',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: NoteList(),
+    );
+  }
 }
-class _State extends State<MyApp>{
 
-    DateTime _date = new DateTime.now();
-    TimeOfDay _time = new TimeOfDay.now();
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
 
-    Future<Null> _selectDate(BuildContext cotext) async{
-      final DateTime picked = await showDatePicker(
-          context: context,
-          initialDate: _date,
-          firstDate: new DateTime(2016),
-          lastDate: new DateTime(2016)
-      );
-      if(picked != null && picked != _date){
-        print('Date selected: ${_date.toString()}');
-        setState((){
-          _date = picked;
-        });
-      }
-    }
-    Future<Null> _selectTime(BuildContext cotext) async{
-      final TimeOfDay picked = await showTimePicker(
-          context: context,
-          initialTime: _time,
-      );
-      if(picked != null && picked != _time){
-        print('Time selected: ${_time.toString()}');
-        setState((){
-          _time = picked;
-        });
-      }
-    }
+  final String title;
 
-    @override
-    Widget build(BuildContext context){
-      return new Scaffold(
-        appBar: new AppBar(
-          title:new Text('Name here'),
-        ),
-      body:new Container(
-        padding:new EdgeInsets.all(32.0),
-        child:new Column(
-        children:<Widget>[
-          new Text('Date selected: ${_date.toString()}'),
-          new RaisedButton(
-            child:new Text('Select Date'),
-            onPressed:(){_selectDate(context);}
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug painting" (press "p" in the console, choose the
+          // "Toggle Debug Paint" action from the Flutter Inspector in Android
+          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+          // to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
             ),
-            new Text(''),
-            new Text('Time selected: ${_time.toString()}'),
-            new RaisedButton(
-              child:new Text('Select Time'),
-              onPressed:(){_selectDate(context);}
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.display1,
             ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
-/*
-class SIForm extends StatefulWidget{
-
-  @override
-  State<StatefulWidget> createState(){
-
-    return _SIFormState();
-  }
-}
-
-  class _SIFormState extends State<SIForm>{
-
-      final _minimumPadding = 5.0;
-
-    Widget build(BuildContext context){
-
-      TextStyle textStyle = Theme.of(context).textTheme.title;
-
-      return Scaffold(
-        appBar:AppBar(
-          title: Text('Appointment Management') ,
-        ),
-        body: Container(
-          margin: EdgeInsets.all(_minimumPadding * 1),
-          child:Column(
-            children: <Widget>[
-              Padding(
-                padding:EdgeInsets.only(top: _minimumPadding, bottom: _minimumPadding),
-                child:TextField(
-                  style:textStyle,
-                decoration:InputDecoration(
-                    labelText: 'Patient ID',
-                    hintText: 'Enter Patient ID:IT18087048' ,
-                    labelStyle:textStyle ,
-                    border:OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)
-                    )
-                ),
-              )),
-              Padding(
-                padding:EdgeInsets.only(top: _minimumPadding, bottom: _minimumPadding),
-                child:TextField(
-                  style:textStyle,
-                decoration:InputDecoration(
-                    labelText: 'Patient Name',
-                    hintText: 'Enter Patient Name:A B C Jayaprada' ,
-                    labelStyle:textStyle ,
-                    border:OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)
-                    )
-                ),
-              )),
-              Padding(
-              padding:EdgeInsets.only(top: _minimumPadding, bottom: _minimumPadding),
-              child:TextField(
-                style:textStyle,
-                decoration:InputDecoration(
-                    labelText: 'Special Description',
-                    hintText: 'Enter Special Description:' ,
-                    labelStyle:textStyle ,
-                    border:OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)
-                    )
-                )
-              )),
-              Padding(
-                padding: EdgeInsets.only(bottom: _minimumPadding,top: _minimumPadding),
-                child:Column(children: <Widget>[
-                  Container(
-                    margin:EdgeInsets.only(top:100.0 ),
-                    width: 250.0,
-                    height: 60.0,
-                  child:RaisedButton(
-                    
-                    //splashColor: Colors.purple,
-                    elevation:15.0 ,
-                    highlightElevation: 20.0,
-                    color:Colors.purple,
-                    textTheme: ButtonTextTheme.primary,
-                    padding: EdgeInsets.symmetric(vertical:20.0),
-                    child:Text('Send',textScaleFactor: 1.5,),
-                    onPressed:(){
-
-                     }
-                    ),
-                  ),
-            Container(
-               margin:EdgeInsets.only(top:10.0 ),
-               width: 250.0,
-               height: 60.0,
-              child: RaisedButton(
-                elevation:15.0 ,
-                highlightElevation: 20.0,
-                color:Colors.purple,
-                textTheme: ButtonTextTheme.primary,
-                padding: EdgeInsets.symmetric(vertical:20.0),
-                //color: Theme.of(context).primaryColorDark,
-                //textColor: Theme.of(context).primaryColorLight,
-                child:Text('Edit',textScaleFactor: 1.5,) ,
-                onPressed: (){
-
-                },
-              ),
-            ),
-            Container(
-               margin:EdgeInsets.only(top:10.0 ),
-               width: 250.0,
-               height:60.0,
-              child: RaisedButton(
-                elevation:15.0 ,
-                highlightElevation: 20.0,
-                color:Colors.purple,
-                textTheme: ButtonTextTheme.primary,
-                padding: EdgeInsets.symmetric(vertical:20.0),
-                //color: Theme.of(context).accentColor,
-                //textColor: Theme.of(context).primaryColorDark,
-                child:Text('Cancel',textScaleFactor: 1.5,) ,
-                onPressed: (){
-                },
-              ),
-              ),
-            ],  
-          ),
-        ),
-      ],
-      )),
-      );
-    }
-  }*/
