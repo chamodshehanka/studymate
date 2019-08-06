@@ -7,7 +7,7 @@ void main(){
     MaterialApp(
       debugShowCheckedModeBanner: false,
       title:'Appointment Management',
-      home:MyApp(),//SIForm(),
+      home:NoteList(),//SIForm(),
       theme:ThemeData(
         brightness: Brightness.dark,
         primaryColor: Colors.purple,
@@ -18,7 +18,54 @@ void main(){
     )
   );
 }
-class MyApp extends StatefulWidget {
+
+class NoteList extends StatefulWidget {
+
+	@override
+  State<StatefulWidget> createState() {
+
+    var noteListState = NoteListState();
+        return noteListState;
+  }
+}
+
+class NoteListState extends State<NoteList> {
+
+	int count = 0;
+
+	@override
+  Widget build(BuildContext ctx) {
+
+    return Scaffold(
+
+
+	    appBar: AppBar(
+		    title: Text('Appointment Management'),
+	    ),
+
+	    body: getNoteListView(),
+      
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                debugPrint('FAB clicked');
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return NoteList();
+                }));
+              },
+      
+              tooltip: 'Add new Appointment',
+      
+              child: Icon(Icons.add),
+      
+            ),
+          );
+        }
+      
+        getNoteListView() {}
+}
+
+
+/*class MyApp extends StatefulWidget {
   @override
   _State createState() => new _State();
 }
@@ -81,7 +128,7 @@ class _State extends State<MyApp>{
     );
   }
 }
-/*
+
 class SIForm extends StatefulWidget{
 
   @override

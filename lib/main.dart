@@ -21,8 +21,8 @@ var routes = <String, WidgetBuilder>{
   '/accounttype': (context) => AccountTypeScreen(),
   '/add': (context) => AddScreen(),
   '/daily': (context) => DailyScreen(),
-  '/Appointment': (context) => MyApp(),
-  '/createSchedule':(context) => createSchedule()
+  '/Appointment': (context) => NoteList(),
+  '/createSchedule': (context) => createSchedule()
 };
 
 
