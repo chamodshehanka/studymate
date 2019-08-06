@@ -131,7 +131,7 @@ primary: false,
             width: 300,
             height: 100,
             child:FlatButton(
-              onPressed:()=>{Navigator.pushNamed(context, '/subject'),},
+              onPressed:()=>{},
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

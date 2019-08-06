@@ -87,7 +87,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          Navigator.pushNamed(context, '/add');
                         },
                         splashColor: Colors.black12,
                         borderColor: Colors.white,
