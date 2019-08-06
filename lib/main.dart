@@ -7,7 +7,8 @@ import 'package:studymate/screens/home.dart';
 import 'package:studymate/screens/signin.dart';
 import 'package:studymate/screens/signup.dart';
 import 'package:studymate/screens/Appointment.dart';
-
+import 'package:studymate/screens/rewards.dart';
+import 'package:studymate/screens/badge.dart';
 import 'screens/accounttype.dart';
 import 'screens/add.dart';
 import 'screens/signup1.dart';
@@ -22,6 +23,8 @@ var routes = <String, WidgetBuilder>{
   '/add': (context) => AddScreen(),
   '/daily': (context) => DailyScreen(),
   '/Appointment': (context) => NoteList(),
+  '/badge': (context) => Badges(),
+  '/rewards': (context) => RewardsScreen(),
   '/createSchedule': (context) => createSchedule()
 };
 
