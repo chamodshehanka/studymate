@@ -131,7 +131,7 @@ primary: false,
             width: 300,
             height: 100,
             child:FlatButton(
-              onPressed:()=>{},
+              onPressed:()=>{Navigator.pushNamed(context, '/subject'),},
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -304,6 +304,49 @@ primary: false,
           ),
         ),
       ),
+
+
+      Card(
+        child: InkWell(
+          splashColor: Colors.blue.withAlpha(30),
+          onTap: () {
+            print('Card tapped.');
+          },
+          child: Container(
+            width: 300,
+            height: 100,
+            child:FlatButton(
+              onPressed:()=>
+              Navigator.pushNamed(context, '/rewards'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                  Icons.stars,
+                  color:Colors.blueGrey,
+                  size:70.0,
+                  ),
+                  Text(
+                  "Reward Management",
+                  style: TextStyle(
+                          color: Colors.blueAccent,
+                          decoration: TextDecoration.none,
+                          fontSize: 18.0,
+                          fontFamily: "OpenSans",
+                  ),
+                  ),
+                ],
+              )
+              
+            ),
+          ),
+        ),
+      ),
+
+      
+
+
+
   ],
       )
     );
