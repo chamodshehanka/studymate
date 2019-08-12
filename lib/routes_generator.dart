@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/AccountTypeUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
 import 'package:studymate/screens/Appointment.dart';
 import 'package:studymate/screens/HomeUI.dart';
 import 'package:studymate/screens/WelcomeUI.dart';
@@ -11,7 +12,7 @@ import 'package:studymate/screens/rewards.dart';
 import 'package:studymate/screens/signin.dart';
 import 'package:studymate/screens/signup.dart';
 import 'package:studymate/screens/signup1.dart';
- 
+
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // final args = settings.arguments;
@@ -29,10 +30,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignUp1Screen());
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
-      case '/add': //WTF is add Suranga?
+      case '/add': //WTF is 'add' Suranga?
         return MaterialPageRoute(builder: (_) => AddScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
+      case '/activity':
+        return MaterialPageRoute(builder: (_) => ActivityScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
       case '/badge':
