@@ -155,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 300,
                   height: 100,
                   child: FlatButton(
-                      onPressed: () => {},
+                      onPressed: () => Navigator.pushNamed(context, '/activity'),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
