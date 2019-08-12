@@ -44,8 +44,8 @@ class _MyAppState extends State<MyApp> {
                                 padding: EdgeInsets.all(8.0),
                                 child:TextField(
                                 decoration:InputDecoration(
-                                labelText: 'Patient Name',
-                                hintText: 'Enter Patient Name:' ,
+                                labelText: 'Patient ID',
+                                hintText: '' ,
                                   ),
                                 )
                               ),
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
                                 child:TextField(
                                 decoration:InputDecoration(
                                 labelText: 'Special Description',
-                                hintText: 'Enter Special Description:' ,
+                                hintText: '' ,
                                   ),
                                 )
                               ),
@@ -62,8 +62,8 @@ class _MyAppState extends State<MyApp> {
                                 padding: EdgeInsets.all(8.0),
                                 child:TextField(
                                 decoration:InputDecoration(
-                                labelText: 'Appointment Date',
-                                hintText: 'Enter Appointment Date:' ,
+                                labelText: 'Date',
+                                hintText: '' ,
                                   ),
                                 )
                               ),
@@ -71,8 +71,17 @@ class _MyAppState extends State<MyApp> {
                                 padding: EdgeInsets.all(8.0),
                                 child:TextField(
                                 decoration:InputDecoration(
-                                labelText: 'Appointment Time',
-                                hintText: 'Enter Appointment Time:' ,
+                                labelText: 'Time',
+                                hintText: '' ,
+                                  ),
+                                )
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child:TextField(
+                                decoration:InputDecoration(
+                                labelText: 'Place',
+                                hintText: '' ,
                                   ),
                                 )
                               ),
@@ -81,9 +90,43 @@ class _MyAppState extends State<MyApp> {
                                 child: RaisedButton(
                                   child: Text("Request"),
                                   onPressed: () {
-                                    if (_formKey.currentState.validate()) {
-                                      _formKey.currentState.save();
-                                    }
+                                    showDialog(
+              context: context,
+              
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Center(child: Text('Alert')),                 
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          "Successful Added",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          FlatButton(
+                              child: Text('Yes'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }),
+                          FlatButton(
+                              child: Text('No'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                              })
+                                            ])
+                                          ],
+                                         ),
+                                       );
+                                     });
                                   },
                                 ),
                               )
