@@ -70,7 +70,8 @@ class WelcomeScreen extends StatelessWidget {
               fontWeight: FontWeight.w700,
               textColor: Colors.black54,
               onPressed: () {
-                Navigator.of(context).pushNamed("/signup");
+                Navigator.of(context)
+                    .pushNamed('/signup', arguments: 'Hello from first page');
               },
               splashColor: Colors.black12,
               borderColor: Colors.black12,
