@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-// import 'package:studymate/main.dart';
+import 'package:studymate/screens/AccountTypeUI.dart';
 import 'package:studymate/screens/Appointment.dart';
-import 'package:studymate/screens/accounttype.dart';
+import 'package:studymate/screens/HomeUI.dart';
+import 'package:studymate/screens/WelcomeUI.dart';
 import 'package:studymate/screens/add.dart';
 import 'package:studymate/screens/badge.dart';
 import 'package:studymate/screens/createSchedule.dart';
 import 'package:studymate/screens/daily.dart';
-import 'package:studymate/screens/first.dart';
-import 'package:studymate/screens/home.dart';
 import 'package:studymate/screens/rewards.dart';
 import 'package:studymate/screens/signin.dart';
 import 'package:studymate/screens/signup.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/widgets/HomeTile.dart';
 
 class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
@@ -29,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Colors.yellow,
                 ])),
               ),
-              CustomListTile(Icons.person, 'Profile', () => {}),
-              CustomListTile(Icons.note, 'Reminders', () => {}),
-              CustomListTile(Icons.info, 'About Us', () => {}),
-              CustomListTile(Icons.settings, 'Settings', () => {}),
-              CustomListTile(Icons.exit_to_app, 'Logout', () => {}),
+              HomeTile(Icons.person, 'Profile', () => {}),
+              HomeTile(Icons.note, 'Reminders', () => {}),
+              HomeTile(Icons.info, 'About Us', () => {}),
+              HomeTile(Icons.settings, 'Settings', () => {}),
+              HomeTile(Icons.exit_to_app, 'Logout', () => {}),
             ],
           ),
         ),
@@ -314,39 +315,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ],
-        ));
-  }
-}
-
-class CustomListTile extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final Function onTap;
-
-  CustomListTile(this.icon, this.text, this.onTap);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
-        child: InkWell(
-          splashColor: Colors.orangeAccent,
-          onTap: onTap,
-          child: Container(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(children: <Widget>[
-                  Icon(icon),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(text, style: TextStyle(fontSize: 16.0)),
-                  ),
-                ]),
-                Icon(Icons.arrow_right)
-              ],
-            ),
-          ),
         ));
   }
 }
