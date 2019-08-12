@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/AccountTypeUI.dart';
-import 'package:studymate/screens/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
 import 'package:studymate/screens/Appointment.dart';
 import 'package:studymate/screens/HomeUI.dart';
 import 'package:studymate/screens/WelcomeUI.dart';

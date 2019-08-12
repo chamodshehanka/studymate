@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/screens/ActivityScreen/tabs/SocialActivityTab.dart';
 
 class ActivityScreen extends StatefulWidget {
   _ActivityScreenState createState() => _ActivityScreenState();
@@ -24,7 +25,7 @@ class _ActivityScreenState extends State<ActivityScreen>{
           ),
           body: TabBarView(
             children: <Widget>[
-              // SocialActivityTab(),
+              SocialActivityTab(),
               // LeisureActivityTab(),
               // OtherActivityTab()
             ],
