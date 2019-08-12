@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(Badges());
+// void main() => runApp(Badges());
 
-class Badges extends StatefulWidget {
+class BadgesScreen extends StatefulWidget {
   @override
-  _BadgesState createState() => _BadgesState();
+  _BadgesScreenState createState() => _BadgesScreenState();
 }
 
-class _BadgesState extends State<Badges> {
+class _BadgesScreenState extends State<BadgesScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController badgeNameCtrl = TextEditingController();

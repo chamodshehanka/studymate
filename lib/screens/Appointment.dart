@@ -1,25 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Appointment Management',
-      home: MyApp(), //SIForm(),
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.purple,
-        buttonColor: Colors.purple,
-        accentColor: Colors.purple,
-        //home:new MyApp(),
-      )));
-}
-
-class MyApp extends StatefulWidget {
+class AppointmentScreen extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _AppointmentScreenState createState() => _AppointmentScreenState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AppointmentScreenState extends State<AppointmentScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
