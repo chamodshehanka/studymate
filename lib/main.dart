@@ -25,7 +25,7 @@ var routes = <String, WidgetBuilder>{
   '/Appointment': (context) => MyApp(),
   '/badge': (context) => Badges(),
   '/rewards': (context) => RewardsScreen(),
-  '/createSchedule': (context) => createSchedule()
+  '/createSchedule': (context) => CreateSchedule()
 };
 
 

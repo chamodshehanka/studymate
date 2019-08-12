@@ -12,14 +12,14 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   final TextEditingController _number = new TextEditingController();
-  final TextEditingController _address = new TextEditingController();
+  // final TextEditingController _address = new TextEditingController();
   final TextEditingController _age = new TextEditingController();
   CustomTextField _nameField;
   CustomTextField _parentIDField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
   CustomTextField _phoneField;
-  CustomTextField _addressField;
+  // CustomTextField _addressField;
   CustomTextField _ageField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
@@ -41,15 +41,13 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
     );
 
     _parentIDField = new CustomTextField(
-       baseColor: Colors.grey,
+      baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
       controller: _parentID,
       hint: "Parent ID",
     );
 
-
-    
     _emailField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
@@ -76,13 +74,13 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       inputType: TextInputType.number,
     );
 
-    _addressField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _address,
-      hint: "Address",
-    );
+    // _addressField = new CustomTextField(
+    //   baseColor: Colors.grey,
+    //   borderColor: Colors.grey[400],
+    //   errorColor: Colors.red,
+    //   controller: _address,
+    //   hint: "Address",
+    // );
 
     _ageField = CustomTextField(
       baseColor: Colors.grey,
@@ -91,14 +89,8 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       controller: _age,
       hint: "Age",
       inputType: TextInputType.number,
-      
-    
     );
-           
-    
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -133,13 +125,11 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
                       child: _nameField,
                     ),
-
                     Padding(
-                      padding: 
+                      padding:
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-                      child: _parentIDField,    
+                      child: _parentIDField,
                     ),
-                    
                     Padding(
                       padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
@@ -156,17 +146,14 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                       child: _phoneField,
                     ),
                     Padding(
-                      padding: 
+                      padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
                     ),
-                  
                     Padding(
-                      padding: 
-                        EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
                       child: _ageField,
                     ),
-                    
-                
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 25.0, horizontal: 40.0),
@@ -175,9 +162,7 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         splashColor: Colors.black12,
                         borderColor: Colors.blueAccent,
                         borderWidth: 0,
@@ -226,7 +211,6 @@ class CustomFlatButton extends StatelessWidget {
   final Color splashColor;
   final Color borderColor;
   final double borderWidth;
-  
 
   CustomFlatButton(
       {this.title,
