@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './DoctorInputField.dart';
+import 'package:studymate/widgets/doctorInputField.dart';
 
 class AddScreen extends StatefulWidget {
   @override

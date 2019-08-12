@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// void main() => runApp(Badges());
-
 class BadgesScreen extends StatefulWidget {
   @override
   _BadgesScreenState createState() => _BadgesScreenState();
