@@ -29,7 +29,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignUp1Screen());
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
-      case '/add': //WTF is add Suranga?
+      case '/add': //WTF is 'add' Suranga?
         return MaterialPageRoute(builder: (_) => AddScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
