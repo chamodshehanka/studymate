@@ -24,6 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   carousel_slider: ^0.0.4
+  googleapis: ^0.54.0
 
 dev_dependencies:
   flutter_test:

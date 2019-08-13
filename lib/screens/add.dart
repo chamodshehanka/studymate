@@ -1,19 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'doctorInputField.dart';
+import 'package:studymate/widgets/doctorInputField.dart';
 
 class AddScreen extends StatefulWidget {
-
-
-
-
-@override
+  @override
   AddScreenState createState() => AddScreenState();
-    
 }
 
 class AddScreenState extends State<AddScreen> {
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -27,23 +20,26 @@ class AddScreenState extends State<AddScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                doctorInputField(
-                  Icon(Icons.person, color: Colors.white),'UserId'),
-                doctorInputField(
-                  Icon(Icons.lock, color: Colors.white),'Password'), 
+                DoctorInputField(
+                    Icon(Icons.person, color: Colors.white), 'UserId'),
+                DoctorInputField(
+                    Icon(Icons.lock, color: Colors.white), 'Password'),
                 Container(
-                  width: 150,
-                  child: RaisedButton(onPressed: () {Navigator.pushNamed(context, '/home');},color: Colors.deepOrange, textColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0)) ),
-                  child: Text('Log In',style: TextStyle(
-                    fontSize: 20.0
-                    
-                  ),),)
-                  
-
-                )
-                 
-                  
+                    width: 150,
+                    child: RaisedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/home');
+                      },
+                      color: Colors.deepOrange,
+                      textColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      child: Text(
+                        'Log In',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ))
               ],
             ),
           ),

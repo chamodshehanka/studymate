@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import "package:carousel_slider/carousel_slider.dart";
 
-class createSchedule extends StatefulWidget{
+class CreateSchedule extends StatefulWidget {
   @override
-  _createScheduleState createState()=> _createScheduleState();
-  
-  }
-  
-class _createScheduleState extends State<createSchedule>{
+  _CreateScheduleState createState() => _CreateScheduleState();
+}
+
+class _CreateScheduleState extends State<CreateSchedule> {
   int counter = 0;
-  void incrementCounter(){
+  void incrementCounter() {
     setState(() {
       counter++;
-    }); 
+    });
   }
+
   List<String> days = new List();
   CarouselSlider instance;
   @override
   void initState() {
-
     super.initState();
     days.add("Sunday");
     days.add("Monday");
@@ -28,35 +27,27 @@ class _createScheduleState extends State<createSchedule>{
     days.add("Friday");
     days.add("Saturday");
   }
- 
+
   @override
   Widget build(BuildContext context) {
-    
     instance = new CarouselSlider(
-      items: days.map((d){
+      items: days.map((d) {
         return new Container(
-          width :400,
-          margin:new EdgeInsets.symmetric(horizontal:5.0),
-          decoration:new BoxDecoration(
-            color:Colors.amber
-          ),
-          child:new Text(d)
-        );
+            width: 400,
+            margin: new EdgeInsets.symmetric(horizontal: 5.0),
+            decoration: new BoxDecoration(color: Colors.amber),
+            child: new Text(d));
       }).toList(),
-      height:550,
+      height: 550,
       autoPlay: false,
-      
-      );
+    );
 
     return Scaffold(
-      appBar: AppBar(title: Text("StudyMate"),
-      backgroundColor: Colors.deepOrange,
-      ),
-      backgroundColor: Colors.white,
-      body: instance
-
-    );
-    
-      }
+        appBar: AppBar(
+          title: Text("StudyMate"),
+          backgroundColor: Colors.deepOrange,
+        ),
+        backgroundColor: Colors.white,
+        body: instance);
+  }
 }
-
