@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:firebase_database/firebase_database.dart';
+import './create_account.dart';
+import './delete_account.dart';
+import '../main.dart';
 
-class AdminProfile extends StatelessWidget {
+class UserManagement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -9,17 +11,17 @@ class AdminProfile extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AdminProfilePage(),
+      home: UserManagementPage(),
     );
   }
 }
 
-class AdminProfilePage extends StatefulWidget {
+class UserManagementPage extends StatefulWidget {
   @override
-  _AdminProfilePage createState() => _AdminProfilePage();
+  _UserManagementPage createState() => _UserManagementPage();
 }
 
-class _AdminProfilePage extends State<AdminProfilePage> {
+class _UserManagementPage extends State<UserManagementPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +29,16 @@ class _AdminProfilePage extends State<AdminProfilePage> {
           centerTitle: true,
           backgroundColor: const Color.fromRGBO(56, 52, 175, 1.0),
           title: Text(
-            'MY ACCOUNT',
+            'User Management',
             style: TextStyle(fontWeight: FontWeight.normal),
           ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => MyApp()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              );
             },
           ),
         ),
@@ -44,7 +46,7 @@ class _AdminProfilePage extends State<AdminProfilePage> {
           child: Stack(
             children: <Widget>[
               Container(
-                color: const Color.fromRGBO(56, 52, 175, 1.0),
+                // color: const Color.fromRGBO(56, 52, 175, 1.0),
                 // padding: EdgeInsets.only(
                 // top: 20.0, right: 20.0, left: 20.0, bottom: 20.0),
                 child: Column(
@@ -54,28 +56,24 @@ class _AdminProfilePage extends State<AdminProfilePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           SizedBox(
-                            height: 40.0,
-                          ),
-                          Text(
-                            'Thilini Dureksha',
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 17,
-                            ),
+                            height: 100.0,
                           ),
                           SizedBox(
                             height: 30.0,
                           ),
-                          buildButtonContainer(),
+                          buildButtonContainer('Add New Account',
+                              Colors.indigoAccent[100], 'createAccount'),
                           SizedBox(
                             height: 30.0,
                           ),
+                          buildButtonContainer(
+                              'Delete Account', Colors.red, 'deleteAccount'),
                           SizedBox(
-                            height: 10.0,
-                            child: Container(
-                              color: Colors.indigoAccent[100],
-                            ),
+                            height: 30.0,
                           ),
+                          buildButtonContainer(
+                              'Overview', Colors.green[600], ''),
+                          SizedBox(height: 10.0),
                         ],
                       ),
                     ),
@@ -87,28 +85,33 @@ class _AdminProfilePage extends State<AdminProfilePage> {
         ));
   }
 
-  // final DatabaseReference database =
-  //     FirebaseDatabase.instance.reference().child("Admin");
-
-  sendData() {
-    // database.push().set({'name': 'John', 'last name': 'Doe'});
-  }
-
-  Widget buildButtonContainer() {
+  Widget buildButtonContainer(
+      String buttonTxt, Color buttonColor, String buttonAction) {
     return GestureDetector(
       onTap: () {
-        sendData();
+        switch (buttonAction) {
+          case 'createAccount':
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CreateAccount()));
+            break;
+          case 'deleteAccount':
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => DeleteAccount()));
+            break;
+          default:
+            break;
+        }
       },
       child: Container(
-        height: 45.0,
-        width: 250,
+        height: 65.0,
+        width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.0),
-          color: Colors.indigoAccent[100],
+          color: buttonColor,
         ),
         child: Center(
           child: Text(
-            'EDIT PROFILE',
+            buttonTxt,
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.0,

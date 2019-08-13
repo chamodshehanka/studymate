@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './parent/parent_register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import './admin/user_management.dart';
 
 main() {
   runApp(MyApp());
@@ -24,6 +25,22 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String _username, _password;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  // If already and registered user, he/she will be automatically redirected
+  @override
+  void initState() {
+    super.initState();
+    getUser().then((user) {
+      if (user != null) {
+         Navigator.push(
+            context, MaterialPageRoute(builder: (context) => UserManagement()));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,77 +51,43 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 padding: EdgeInsets.only(
                     top: 100.0, right: 20.0, left: 20.0, bottom: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image.asset('assets/logo.png'),
-                    SizedBox(
-                      height: 40.0,
-                    ),
-                    buildUsernameField(),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    buildPasswordField(),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(
-                            'Forgot Password ?',
-                            style: TextStyle(
-                              color: Colors.indigo[50],
-                            ),
-                          ),
-                        ],
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset('assets/logo.png'),
+                      SizedBox(
+                        height: 40.0,
                       ),
-                    ),
-                    SizedBox(
-                      height: 50.0,
-                    ),
-                    buildButtonContainer(),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Container(
-                      child: Center(
+                      buildUsernameField(),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      buildPasswordField(),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Container(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
                             Text(
-                              'Don\'t have an account ?',
+                              'Forgot Password ?',
                               style: TextStyle(
-                                color: Colors.white70,
+                                color: Colors.indigo[50],
                               ),
                             ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ParentRegister()),
-                                );
-                              },
-                              child: Text(
-                                'SIGN UP',
-                                style: TextStyle(
-                                  color: Colors.indigo[50],
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            )
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      buildButtonContainer(),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -113,7 +96,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildUsernameField() {
-    return TextField(
+    return TextFormField(
+      validator: (input) {
+        if (input.isEmpty) {
+          return 'Username is required';
+        }
+      },
+      onSaved: (input) => _username = input,
       style: TextStyle(
         color: Colors.white,
       ),
@@ -138,7 +127,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildPasswordField() {
-    return TextField(
+    return TextFormField(
+      validator: (input) {
+        if (input.length < 6) {
+          return 'Password should be minimun 6 characters';
+        }
+      },
+      onSaved: (input) => _password = input,
       style: TextStyle(
         color: Colors.white,
       ),
@@ -163,23 +158,48 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildButtonContainer() {
-    return Container(
-      height: 56.0,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
-        color: Colors.indigoAccent[100],
-      ),
-      child: Center(
-        child: Text(
-          'LOGIN',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        signIn();
+      },
+      child: Container(
+        height: 56.0,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          color: Colors.indigoAccent[100],
+        ),
+        child: Center(
+          child: Text(
+            'LOGIN',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> signIn() async {
+    final formState = _formKey.currentState;
+    if (formState.validate()) {
+      formState.save();
+      try {
+        FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: _username, password: _password);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => UserManagement()));
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+  }
+
+  // Get registerd in user with current device
+  Future<FirebaseUser> getUser() async{
+    return await auth.currentUser();
   }
 }

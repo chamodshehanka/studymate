@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:firebase_database/firebase_database.dart';
+import './user_management.dart';
 
-class AdminProfile extends StatelessWidget {
+class DeleteAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -9,17 +10,17 @@ class AdminProfile extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AdminProfilePage(),
+      home: DeleteAccountPage(),
     );
   }
 }
 
-class AdminProfilePage extends StatefulWidget {
+class DeleteAccountPage extends StatefulWidget {
   @override
-  _AdminProfilePage createState() => _AdminProfilePage();
+  _DeleteAccountPage createState() => _DeleteAccountPage();
 }
 
-class _AdminProfilePage extends State<AdminProfilePage> {
+class _DeleteAccountPage extends State<DeleteAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +28,16 @@ class _AdminProfilePage extends State<AdminProfilePage> {
           centerTitle: true,
           backgroundColor: const Color.fromRGBO(56, 52, 175, 1.0),
           title: Text(
-            'MY ACCOUNT',
+            'Delete Account',
             style: TextStyle(fontWeight: FontWeight.normal),
           ),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => MyApp()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserManagement()),
+              );
             },
           ),
         ),
