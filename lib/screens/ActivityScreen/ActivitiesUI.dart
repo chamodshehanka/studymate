@@ -7,7 +7,7 @@ class ActivityScreen extends StatefulWidget {
   _ActivityScreenState createState() => _ActivityScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen>{
+class _ActivityScreenState extends State<ActivityScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,5 +36,4 @@ class _ActivityScreenState extends State<ActivityScreen>{
       ),
     );
   }
-
 }

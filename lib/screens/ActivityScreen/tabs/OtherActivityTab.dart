@@ -8,6 +8,16 @@ class OtherActivityTab extends StatefulWidget {
 class _OtherActivityTabState extends State<OtherActivityTab> {
   @override
   Widget build(BuildContext context) {
-    return null;
+    return Scaffold(
+      backgroundColor: Colors.white10,
+      body: Container(
+        child: Text(
+          'This feature is coming soon',
+          style: TextStyle(
+              color: Colors.black45, fontWeight: FontWeight.bold, fontSize: 25),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }
