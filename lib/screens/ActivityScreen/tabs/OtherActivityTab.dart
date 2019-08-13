@@ -8,10 +8,6 @@ class OtherActivityTab extends StatefulWidget {
 class _OtherActivityTabState extends State<OtherActivityTab> {
   @override
   Widget build(BuildContext context) {
-    return TabBarView(
-      children: <Widget>[
-        Icon(Icons.directions_bike)
-      ],
-    );
+    return null;
   }
 }
