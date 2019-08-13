@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text("Home"),
           backgroundColor: Colors.deepPurple,
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.white,
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -53,20 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
+                  child: RaisedButton(
                       onPressed: () => Navigator.pushNamed(context, '/daily'),
+                      color: Colors.lightBlue,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.calendar_today,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Daily Schedule",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 17.0,
                               fontFamily: "OpenSans",
@@ -86,20 +87,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
+                  child: RaisedButton(
                       onPressed: () => {},
+                      color: Colors.cyan,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.timeline,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Progress Tracking",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 17.0,
                               fontFamily: "OpenSans",
@@ -119,22 +121,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
+                  child: RaisedButton(
                       onPressed: () => {
                             Navigator.pushNamed(context, '/subject'),
                           },
+                      color: Colors.green,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.book,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Subject Manager",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 18.0,
                               fontFamily: "OpenSans",
@@ -154,20 +157,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
-                      onPressed: () => Navigator.pushNamed(context, '/activity'),
+                  child: RaisedButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/activity'),
+                      color: Colors.deepPurpleAccent,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.games,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Activity Manager",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 18.0,
                               fontFamily: "OpenSans",
@@ -180,28 +185,29 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Card(
               child: InkWell(
-                splashColor: Colors.blue.withAlpha(30),
+                splashColor: Colors.white10,
                 onTap: () {
                   print('Card tapped.');
                 },
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
+                  child: RaisedButton(
                       onPressed: () =>
                           Navigator.pushNamed(context, '/createSchedule'),
+                      color: Colors.cyan,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.calendar_today,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Weekly Schedule",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 18.0,
                               fontFamily: "OpenSans",
@@ -221,22 +227,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
+                  child: RaisedButton(
                       onPressed: () {
                         Navigator.of(context).pushNamed("/accounttype");
                       },
+                      color: Colors.red,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.supervised_user_circle,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Profile",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 18.0,
                               fontFamily: "OpenSans",
@@ -256,21 +263,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
+                  child: RaisedButton(
                       onPressed: () =>
                           Navigator.pushNamed(context, '/Appointment'),
+                      color: Colors.amber,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.calendar_today,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Appointment Management",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 18.0,
                               fontFamily: "OpenSans",
@@ -290,20 +298,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: 300,
                   height: 100,
-                  child: FlatButton(
+                  child: RaisedButton(
                       onPressed: () => Navigator.pushNamed(context, '/rewards'),
+                      color: Colors.pink,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Icons.stars,
-                            color: Colors.blueGrey,
+                            color: Colors.white,
                             size: 70.0,
                           ),
                           Text(
                             "Reward Management",
                             style: TextStyle(
-                              color: Colors.blueAccent,
+                              color: Colors.white,
                               decoration: TextDecoration.none,
                               fontSize: 18.0,
                               fontFamily: "OpenSans",
