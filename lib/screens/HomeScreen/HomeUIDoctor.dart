@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/widgets/HomeTile.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreenDoctor extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreenDoctor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
