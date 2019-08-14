@@ -11,6 +11,7 @@ class _OtherActivityTabState extends State<OtherActivityTab> {
     return Scaffold(
       backgroundColor: Colors.white10,
       body: Container(
+        padding: EdgeInsets.all(50.0),
         child: Text(
           'This feature is coming soon',
           style: TextStyle(
