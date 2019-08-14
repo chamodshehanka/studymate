@@ -88,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 300,
                   height: 100,
                   child: RaisedButton(
-                      onPressed: () => {},
+                      onPressed: () => {
+                        Navigator.pushNamed(context, '/medicalRecord')
+                      },
                       color: Colors.cyan,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
