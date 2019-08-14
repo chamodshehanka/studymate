@@ -6,11 +6,11 @@ import 'package:studymate/screens/HomeUI.dart';
 import 'package:studymate/screens/RewardScreen/badge.dart';
 import 'package:studymate/screens/RewardScreen/rewards.dart';
 import 'package:studymate/screens/ScheduleScreen/daily.dart';
-import 'package:studymate/screens/WelcomeUI.dart';
+import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
+import 'package:studymate/screens/WelcomeScreen/signin.dart';
+import 'package:studymate/screens/WelcomeScreen/signup.dart';
 import 'package:studymate/screens/add.dart';
 import 'package:studymate/screens/createSchedule.dart';
-import 'package:studymate/screens/signin.dart';
-import 'package:studymate/screens/signup.dart';
 import 'package:studymate/screens/signup1.dart';
 
 class RouteGenerator {
