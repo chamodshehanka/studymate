@@ -58,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
             makeCardTile(Icons.calendar_today, "Appointments",
                 Colors.amber, "/Appointment"),
             makeCardTile(Icons.stars, "Reward Manager", Colors.pink, "/rewards")
+
           ],
         ));
   }
