@@ -46,22 +46,8 @@ class _DailySocialState extends State<DailySocial> {
       body: makeBody,
     );
   }
-}
 
-class Activity {
-  String title;
-  String time;
-  Activity(this.title, this.time);
-}
-
-List getActivities() {
-  return [
-    Activity("Friendly Talk", "9.30 - 9.45"),
-    Activity("Speech", "13.30 - 13.45"),
-  ];
-}
-
-ListTile makeListTile(Activity activity) => ListTile(
+  makeListTile(Activity activity) => ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       leading: Container(
         padding: EdgeInsets.only(right: 12.0),
@@ -78,5 +64,40 @@ ListTile makeListTile(Activity activity) => ListTile(
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
-      onTap: () {},
-    );
+      onTap: () => {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text("Rate Performance"),
+                    content: TextField(
+                      controller: TextEditingController(),
+                    ),
+                    actions: <Widget>[
+                      MaterialButton(
+                        elevation: 5.0,
+                        child: Text("Submit",
+                            style: TextStyle(color: Colors.blueAccent)),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pop(TextEditingController().text.toString());
+                        },
+                      )
+                    ],
+                  );
+                })
+          });
+}
+
+class Activity {
+  String title;
+  String time;
+  Activity(this.title, this.time);
+}
+
+List getActivities() {
+  return [
+    Activity("Friendly Talk", "9.30 - 9.45"),
+    Activity("Speech", "13.30 - 13.45"),
+  ];
+}

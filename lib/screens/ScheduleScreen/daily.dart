@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studymate/dailyleisure.dart';
-import 'package:studymate/dailysocial.dart';
-import 'package:studymate/dailystudy.dart';
+import 'package:studymate/screens/ScheduleScreen/dailyleisure.dart';
+import 'package:studymate/screens/ScheduleScreen/dailysocial.dart';
+import 'package:studymate/screens/ScheduleScreen/dailystudy.dart';
 
 final List<String> entries = <String>[
   '8.30 - 10.30',

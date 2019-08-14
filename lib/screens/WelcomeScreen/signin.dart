@@ -6,7 +6,6 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   CustomTextField _emailField;
@@ -87,7 +86,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          Navigator.pushNamed(context, '/add');
                         },
                         splashColor: Colors.black12,
                         borderColor: Colors.white,
