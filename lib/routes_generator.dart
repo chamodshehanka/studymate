@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/AccountTypeUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
 import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
-import 'package:studymate/screens/HomeUI.dart';
+import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/RewardScreen/badge.dart';
 import 'package:studymate/screens/RewardScreen/rewards.dart';
 import 'package:studymate/screens/ScheduleScreen/createSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/daily.dart';
+import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
+import 'package:studymate/screens/StudentScreen/add.dart';
+import 'package:studymate/screens/StudentScreen/signup1.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
 import 'package:studymate/screens/WelcomeScreen/signup.dart';
-import 'package:studymate/screens/add.dart';
-import 'package:studymate/screens/signup1.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
