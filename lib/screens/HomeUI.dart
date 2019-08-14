@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
-                            Icons.games,
+                            Icons.local_activity,
                             color: Colors.white,
                             size: 70.0,
                           ),
