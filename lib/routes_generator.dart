@@ -4,6 +4,7 @@ import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
+import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
 import 'package:studymate/screens/RewardScreen/badge.dart';
 import 'package:studymate/screens/RewardScreen/rewards.dart';
 import 'package:studymate/screens/ScheduleScreen/createSchedule.dart';
@@ -50,6 +51,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
         return MaterialPageRoute(builder: (_) => HomeScreenAdmin());
+      case '/medicalRecord':
+        return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       default:
         return _errorRoute();
     }
