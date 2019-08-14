@@ -13,8 +13,6 @@ import 'package:studymate/screens/StudentScreen/signup1.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
 
-
-
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // final args = settings.arguments;
@@ -44,7 +42,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => BadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
-      case 'createSchedule':
+      case '/createSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
       default:
         return _errorRoute();

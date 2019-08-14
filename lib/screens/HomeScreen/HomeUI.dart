@@ -44,69 +44,286 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisSpacing: 10.0,
           crossAxisCount: 2,
           children: <Widget>[
-            makeCardTile(Icons.calendar_today, "Daily Schedule",
-                Colors.lightBlue, "/daily"),
-            makeCardTile(Icons.timeline, "Progress Tracker", Colors.cyan, ""),
-            makeCardTile(
-                Icons.book, "Subject Manager", Colors.green, "/subject"),
-            makeCardTile(Icons.local_activity, "Activity Manager",
-                Colors.deepPurpleAccent, "/activity"),
-            makeCardTile(Icons.calendar_today, "Schedule", Colors.cyan,
-                "/createSchedule"),
-            makeCardTile(Icons.supervised_user_circle, "Profile", Colors.red,
-                "/accounttype"),
-            makeCardTile(Icons.calendar_today, "Appointments", Colors.amber,
-                "/Appointment"),
-            makeCardTile(Icons.stars, "Reward Manager", Colors.pink, "/rewards"),
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () => Navigator.pushNamed(context, '/daily'),
+                      color: Colors.lightBlue,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.calendar_today,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Daily Schedule",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 17.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () => {},
+                      color: Colors.cyan,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.timeline,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Progress Tracking",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 17.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () => {
+                            Navigator.pushNamed(context, '/subject'),
+                          },
+                      color: Colors.green,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.book,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Subject Manager",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 18.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/activity'),
+                      color: Colors.deepPurpleAccent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.local_activity,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Activity Manager",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 18.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                splashColor: Colors.white10,
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/createSchedule'),
+                      color: Colors.cyan,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.calendar_today,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Weekly Schedule",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 18.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed("/accounttype");
+                      },
+                      color: Colors.red,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.supervised_user_circle,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Profile",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 18.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () =>
+                          Navigator.pushNamed(context, '/Appointment'),
+                      color: Colors.amber,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.calendar_today,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Appointment Management",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 18.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            Card(
+              child: InkWell(
+                splashColor: Colors.blue.withAlpha(30),
+                onTap: () {
+                  print('Card tapped.');
+                },
+                child: Container(
+                  width: 300,
+                  height: 100,
+                  child: RaisedButton(
+                      onPressed: () => Navigator.pushNamed(context, '/rewards'),
+                      color: Colors.pink,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.stars,
+                            color: Colors.white,
+                            size: 70.0,
+                          ),
+                          Text(
+                            "Reward Management",
+                            style: TextStyle(
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              fontSize: 18.0,
+                              fontFamily: "OpenSans",
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
           ],
         ));
-  }
-
-  makeCardTile(IconData icon, String title, Color background, String path) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-      child: InkWell(
-        splashColor: Colors.blue.withAlpha(50),
-        child: Container(
-          width: 300,
-          height: 300,
-          child: RaisedButton(
-              elevation: 10.0,
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(40.0),
-              ),
-              onPressed: () => Navigator.pushNamed(context, path),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                      decoration: ShapeDecoration(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0)),
-                        color: background,
-                      ),
-                      width: 100,
-                      height: 100,
-                      child: Icon(
-                        icon,
-                        color: Colors.white,
-                        size: 60.0,
-                      )),
-                  SizedBox(height: 10.0),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: background,
-                      decoration: TextDecoration.none,
-                      fontSize: 16.0,
-                      fontFamily: "OpenSans",
-                    ),
-                  ),
-                ],
-              )),
-        ),
-      ),
-    );
   }
 }
