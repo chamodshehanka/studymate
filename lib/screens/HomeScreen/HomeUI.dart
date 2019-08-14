@@ -32,7 +32,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               HomeTile(Icons.person, 'Profile', () => {}),
               HomeTile(Icons.note, 'Reminders', () => {}),
-              HomeTile(Icons.info, 'About Us', () => {}),
+              HomeTile(Icons.info, 'About Us', () => {
+                RaisedButton(
+                  onPressed: () => Navigator.pushNamed(context, '/medicalRecord'),
+                )
+              }),
               HomeTile(Icons.settings, 'Settings', () => {}),
               HomeTile(Icons.exit_to_app, 'Logout', () => {}),
             ],
@@ -88,7 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 300,
                   height: 100,
                   child: RaisedButton(
-                      onPressed: () => {},
+                      
+                      onPressed: () => {Navigator.pushNamed(context, '/medicalRecord')},
+                      
                       color: Colors.cyan,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
