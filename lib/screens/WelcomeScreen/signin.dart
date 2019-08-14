@@ -113,11 +113,26 @@ class _SignInScreenState extends State<SignInScreen> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
                       child: CustomFlatButton(
-                        title: "Facebook Login",
+                        title: "Admin Login",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {Navigator.pushNamed(context, '/homeAdmin');},
+                        splashColor: Colors.black12,
+                        borderColor: Color.fromRGBO(59, 89, 152, 1.0),
+                        borderWidth: 0,
+                        color: Color.fromRGBO(59, 89, 152, 1.0),
+                      ),
+                    ),
+                     Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 14.0, horizontal: 40.0),
+                      child: CustomFlatButton(
+                        title: "Doctor Login",
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        textColor: Colors.white,
+                        onPressed: () {Navigator.pushNamed(context, '/homeDoctor');},
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(59, 89, 152, 1.0),
                         borderWidth: 0,
