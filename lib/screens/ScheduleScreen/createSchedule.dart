@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import "package:carousel_slider/carousel_slider.dart";
 
 class CreateSchedule extends StatefulWidget {
+  final int id;
+  CreateSchedule({Key key,this.id}):super(key:key);
   @override
   _CreateScheduleState createState() => _CreateScheduleState();
 }
 
-class _CreateScheduleState extends State<CreateSchedule> {
+class _CreateScheduleState extends State<CreateSchedule>{
+
   int counter = 0;
   void incrementCounter() {
     setState(() {
@@ -31,6 +34,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
   @override
   Widget build(BuildContext context) {
     instance = new CarouselSlider(
+      initialPage:widget.id,
       items: days.map((d) {
         return new Container(
             width: 400,
@@ -49,5 +53,12 @@ class _CreateScheduleState extends State<CreateSchedule> {
         ),
         backgroundColor: Colors.white,
         body: instance);
+  }
+}
+
+class Data{
+  int id;
+  Data(int id){
+    this.id = id;
   }
 }
