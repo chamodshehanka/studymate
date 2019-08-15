@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class TestUIScreen extends StatefulWidget {
@@ -7,6 +8,16 @@ class TestUIScreen extends StatefulWidget {
 class _TestUIScreenState extends State<TestUIScreen> {
   @override
   Widget build(BuildContext context) {
-    return null;
+    return MaterialApp(
+      title: 'Testing UIs',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Test Uis'),
+        ),
+        body: Center(
+          child: Container(),
+        ),
+      ),
+    );
   }
 }
