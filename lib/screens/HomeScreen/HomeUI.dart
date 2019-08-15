@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeTile(Icons.local_activity, "Activity Manager",
                 Colors.deepPurpleAccent, "/activity"),
             HomeTile(Icons.calendar_today, "Schedule Manager", Colors.cyan,
-                "/createSchedule"),
+                "/scheduleManager"),
             HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
                 "/accounttype"),
             HomeTile(Icons.calendar_today, "Appointments", Colors.amber,
