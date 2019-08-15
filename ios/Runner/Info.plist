@@ -24,8 +24,8 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>INSERT_REASON_HERE</string>
+	<!-- <key>NSCalendarsUsageDescription</key> -->
+	<!-- <string>INSERT_REASON_HERE</string> -->
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
