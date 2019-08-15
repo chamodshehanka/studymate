@@ -15,9 +15,23 @@ class _TestUIScreenState extends State<TestUIScreen> {
           title: Text('Test Uis'),
         ),
         body: Center(
-          child: Container(),
+          child: Container(
+            child: RaisedButton(
+              onPressed: (){},
+              child: Text('ssssss'),
+            ),
+            
+          ),
         ),
       ),
     );
   }
+}
+
+class GenerateTestUIButtons{
+  String title;
+  String route;
+  
+  GenerateTestUIButtons(this.title, this.route)
+  
 }
