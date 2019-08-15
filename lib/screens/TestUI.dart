@@ -11,27 +11,25 @@ class _TestUIScreenState extends State<TestUIScreen> {
     return MaterialApp(
       title: 'Testing UIs',
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Test Uis'),
-        ),
-        body: Center(
-          child: Container(
-            child: RaisedButton(
-              onPressed: (){},
-              child: Text('ssssss'),
-            ),
-            
+          appBar: AppBar(
+            title: Text('Test Uis'),
           ),
-        ),
-      ),
+          body: GridView(
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () => Navigator.pushNamed(context, '/testUI'),
+                child: Text('TestUI'),
+              )
+            ],
+            gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          )),
     );
   }
 }
 
-class GenerateTestUIButtons{
+class GenerateTestUIButtons {
   String title;
   String route;
-  
+
   GenerateTestUIButtons(this.title, this.route);
-  
 }
