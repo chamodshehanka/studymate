@@ -55,8 +55,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       case '/scheduleManager':
         return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
-      case 'createdSchedule' :
+      case '/createdSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
+      case '/testUI':
+        return MaterialPageRoute(builder: (_) => TestUIScreen());
       default:
         return _errorRoute();
     }
