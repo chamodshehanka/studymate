@@ -32,6 +32,6 @@ class GenerateTestUIButtons{
   String title;
   String route;
   
-  GenerateTestUIButtons(this.title, this.route)
+  GenerateTestUIButtons(this.title, this.route);
   
 }
