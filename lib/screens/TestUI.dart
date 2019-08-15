@@ -17,7 +17,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
           body: GridView(
             children: <Widget>[
               RaisedButton(
-                onPressed: () => Navigator.pushNamed(context, '/testUI'),
+                onPressed: () => Navigator.pushNamed(context, ''),
                 child: Text('TestUI'),
               )
             ],
