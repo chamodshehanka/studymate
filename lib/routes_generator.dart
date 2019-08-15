@@ -14,6 +14,7 @@ import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
 import 'package:studymate/screens/StudentScreen/add.dart';
 import 'package:studymate/screens/StudentScreen/signup.dart';
 import 'package:studymate/screens/StudentScreen/signup1.dart';
+import 'package:studymate/screens/TestUI.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
 
