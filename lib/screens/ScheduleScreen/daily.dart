@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/dailyleisure.dart';
-import 'package:studymate/screens/dailysocial.dart';
-import 'package:studymate/screens/dailystudy.dart';
+import 'package:studymate/screens/ScheduleScreen/dailyleisure.dart';
+import 'package:studymate/screens/ScheduleScreen/dailysocial.dart';
+import 'package:studymate/screens/ScheduleScreen/dailystudy.dart';
 
 final List<String> entries = <String>[
   '8.30 - 10.30',

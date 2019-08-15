@@ -25,10 +25,17 @@ dependencies:
   cupertino_icons: ^0.1.2
   carousel_slider: ^0.0.4
   googleapis: ^0.54.0
+  # device_calendar:  ^0.2.1+1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.2+1
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true 
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 
 # For information on the generic Dart part of this file, see the
