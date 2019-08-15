@@ -7,6 +7,7 @@ import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
 import 'package:studymate/screens/RewardScreen/badge.dart';
 import 'package:studymate/screens/RewardScreen/rewards.dart';
+import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/createSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
@@ -18,7 +19,7 @@ import 'package:studymate/screens/WelcomeScreen/signin.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // final args = settings.arguments;
+    //final args = settings.arguments;
 
     switch (settings.name) {
       case '/':
@@ -45,14 +46,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => BadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
-      case '/createSchedule':
-        return MaterialPageRoute(builder: (_) => CreateSchedule());
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
         return MaterialPageRoute(builder: (_) => HomeScreenAdmin());
       case '/medicalRecord':
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
+      case '/scheduleManager':
+        return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
+      case 'createdSchedule' :
+        return MaterialPageRoute(builder: (_) => CreateSchedule());
       default:
         return _errorRoute();
     }
