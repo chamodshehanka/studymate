@@ -17,8 +17,6 @@ import 'package:studymate/screens/StudentScreen/signup1.dart';
 import 'package:studymate/screens/TestUI.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
-import 'package:studymate/screens/UserScreen/Login.dart';
-import 'package:studymate/screens/UserScreen/admin/user_management.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -29,14 +27,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
-      case '/AdminSignin':
-        return MaterialPageRoute(builder: (_) => Login());
       case '/signup':
         return MaterialPageRoute(builder: (_) => SignUpScreen());
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case '/userManagementAdmin':
-        return MaterialPageRoute(builder: (_) => UserManagement());
       case '/signup1':
         return MaterialPageRoute(builder: (_) => SignUp1Screen());
       case '/accounttype':
