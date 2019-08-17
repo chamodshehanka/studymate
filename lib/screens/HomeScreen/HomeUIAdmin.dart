@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
           crossAxisSpacing: 10.0,
           crossAxisCount: 2,
           children: <Widget>[
-            HomeTile(Icons.verified_user, "User Manager", Colors.red, ""),
+            HomeTile(Icons.verified_user, "User Manager", Colors.red, "/userManagementAdmin"),
             HomeTile(Icons.calendar_today, "Appointments", Colors.amber, ""),
             HomeTile(Icons.local_activity, "Activity Manager", Colors.cyan, ""),
             HomeTile(Icons.book, "Subject Manager", Colors.lightBlue, ""),

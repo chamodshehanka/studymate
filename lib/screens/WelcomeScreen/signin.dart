@@ -117,14 +117,14 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {Navigator.pushNamed(context, '/homeAdmin');},
+                        onPressed: () {Navigator.pushNamed(context, '/AdminSignin');},
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(59, 89, 152, 1.0),
                         borderWidth: 0,
                         color: Color.fromRGBO(59, 89, 152, 1.0),
                       ),
                     ),
-                     Padding(
+                     Padding( 
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
                       child: CustomFlatButton(
@@ -132,7 +132,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {Navigator.pushNamed(context, '/homeDoctor');},
+                        onPressed: () {Navigator.pushNamed(context, '/AdminSignin');},
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(59, 89, 152, 1.0),
                         borderWidth: 0,
