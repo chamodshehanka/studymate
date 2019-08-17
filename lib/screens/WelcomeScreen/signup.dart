@@ -2,25 +2,19 @@ import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
-class SignUp1Screen extends StatefulWidget {
-  _SignUp1ScreenState createState() => _SignUp1ScreenState();
+class SignUpScreen extends StatefulWidget {
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _SignUp1ScreenState extends State<SignUp1Screen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _fullname = new TextEditingController();
-  final TextEditingController _parentID = new TextEditingController();
+  final TextEditingController _number = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
-  final TextEditingController _number = new TextEditingController();
-  final TextEditingController _address = new TextEditingController();
-  final TextEditingController _age = new TextEditingController();
   CustomTextField _nameField;
-  CustomTextField _parentIDField;
+  CustomTextField _phoneField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
-  CustomTextField _phoneField;
-  CustomTextField _addressField;
-  CustomTextField _ageField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
@@ -39,17 +33,14 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       controller: _fullname,
       hint: "Full Name",
     );
-
-    _parentIDField = new CustomTextField(
-       baseColor: Colors.grey,
+    _phoneField = new CustomTextField(
+      baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _parentID,
-      hint: "Parent ID",
+      controller: _number,
+      hint: "Phone Number",
+      inputType: TextInputType.number,
     );
-
-
-    
     _emailField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
@@ -66,39 +57,7 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       obscureText: true,
       hint: "Password",
     );
-
-    _phoneField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _number,
-      hint: "Phone Number",
-      inputType: TextInputType.number,
-    );
-
-    _addressField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _address,
-      hint: "Address",
-    );
-
-    _ageField = CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _age,
-      hint: "Age",
-      inputType: TextInputType.number,
-      
-    
-    );
-           
-    
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -133,13 +92,11 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
                       child: _nameField,
                     ),
-
                     Padding(
-                      padding: 
-                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-                      child: _parentIDField,    
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                      child: _phoneField,
                     ),
-                    
                     Padding(
                       padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
@@ -151,23 +108,6 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                       child: _passwordField,
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                      child: _phoneField,
-                    ),
-                    Padding(
-                      padding: 
-                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                    ),
-                  
-                    Padding(
-                      padding: 
-                        EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                      child: _ageField,
-                    ),
-                    
-                
-                    Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 25.0, horizontal: 40.0),
                       child: CustomFlatButton(
@@ -176,7 +116,7 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          
+                          Navigator.pushNamed(context, '/signin');
                         },
                         splashColor: Colors.black12,
                         borderColor: Colors.blueAccent,
@@ -226,7 +166,6 @@ class CustomFlatButton extends StatelessWidget {
   final Color splashColor;
   final Color borderColor;
   final double borderWidth;
-  
 
   CustomFlatButton(
       {this.title,
@@ -281,9 +220,6 @@ class CustomTextField extends StatefulWidget {
   final bool obscureText;
   final Function validator;
   final Function onChanged;
-  final Function value;
-  final List items;
-  final Function child;
 
   CustomTextField(
       {this.hint,
@@ -294,9 +230,6 @@ class CustomTextField extends StatefulWidget {
       this.errorColor,
       this.inputType = TextInputType.text,
       this.obscureText = false,
-      this.value,
-      this.items,
-      this.child,
       this.validator});
 
   _CustomTextFieldState createState() => _CustomTextFieldState();
