@@ -46,28 +46,29 @@ class _DailySocialState extends State<DailySocial> {
       body: makeBody,
     );
   }
+
   makeListTile(Activity activity) => ListTile(
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          leading: Container(
-            padding: EdgeInsets.only(right: 12.0),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white24))),
-            child: Text(activity.time,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
-          title: Text(
-            activity.title,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          trailing:
-              Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
-          onTap: () =>{
-                      showDialog(context: context,builder:(context){
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+        padding: EdgeInsets.only(right: 12.0),
+        decoration: new BoxDecoration(
+            border: new Border(
+                right: new BorderSide(width: 1.0, color: Colors.white24))),
+        child: Text(
+          activity.time,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+      title: Text(
+        activity.title,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
+      onTap: () => {
+            showDialog(
+                context: context,
+                builder: (context) {
                   return AlertDialog(
-                    
                     title: Text("Rate Performance"),
                     content: TextField(
                       controller: TextEditingController(),
@@ -75,17 +76,18 @@ class _DailySocialState extends State<DailySocial> {
                     actions: <Widget>[
                       MaterialButton(
                         elevation: 5.0,
-                        child: Text("Submit",style: TextStyle(color: Colors.blueAccent)),
-                        onPressed:(){
-                          Navigator.of(context).pop(TextEditingController().text.toString());
+                        child: Text("Submit",
+                            style: TextStyle(color: Colors.blueAccent)),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pop(TextEditingController().text.toString());
                         },
-                        )
+                      )
                     ],
                   );
                 })
-                        });
+          });
 }
-
 
 class Activity {
   String title;
