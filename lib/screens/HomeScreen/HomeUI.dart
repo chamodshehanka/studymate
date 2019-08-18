@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
                 "/accounttype"),
             HomeTile(Icons.calendar_today, "Appointments", Colors.amber,
-                "/Appointment"),
+                "/appointment"),
             HomeTile(Icons.stars, "Reward Manager", Colors.pink, "/rewards"),
             HomeTile(Icons.build, 'Test UIs', Colors.black, '/testUI'),
           ],
