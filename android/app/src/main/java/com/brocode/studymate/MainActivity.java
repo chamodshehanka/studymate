@@ -1,4 +1,4 @@
-package com.example.studymate;
+package com.brocode.studymate;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
