@@ -20,6 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^0.12.9
+  firebase_auth: 0.14.0+2
   # Firebase dependencies
   # firebase_auth:
   # cloud_firestore: ^0.12.9
