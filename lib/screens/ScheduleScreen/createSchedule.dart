@@ -40,7 +40,26 @@ class _CreateScheduleState extends State<CreateSchedule>{
             width: 400,
             margin: new EdgeInsets.symmetric(horizontal: 5.0),
             decoration: new BoxDecoration(color: Colors.amber),
-            child: new Text(d));
+            child: Stack(
+              children: <Widget>[
+                Text(d),
+                Positioned(
+                  bottom: 20,
+                  right: 0,
+                  child:RawMaterialButton(
+                    onPressed:()=>{},
+                    child: Icon(
+                      Icons.add,
+                      size:45.0,
+                      color: Colors.white,
+                    ),
+                    shape: new CircleBorder(),
+                    fillColor: Colors.red,
+                    elevation: 2.0,
+                  ))
+                
+              ],
+            ));
       }).toList(),
       height: 550,
       autoPlay: false,
