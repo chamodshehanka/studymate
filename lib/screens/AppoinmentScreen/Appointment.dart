@@ -70,7 +70,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                         padding: const EdgeInsets.all(5.0),
                         child: RaisedButton(color:Colors.purple,textColor:Colors.white ,
                           elevation: 4.0,
-                          splashColor: Colors.amberAccent,
+                        splashColor: Colors.amberAccent,
                           child: Text("Request"),
                           onPressed: () {
                             showDialog(
@@ -84,7 +84,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         Container(
-                                          
                                           child: Text(
                                             "Successful Added",
                                             textAlign: TextAlign.center,
