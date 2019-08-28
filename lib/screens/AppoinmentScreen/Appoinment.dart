@@ -17,7 +17,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   final _formKey = GlobalKey<FormState>();
   
 
-  void ValidateAndSave(){
+  void validateAndSave(){
     final form =_formKey.currentState;
     if(form.validate()){
       form.save();
@@ -87,7 +87,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                         elevation: 4.0,
                         splashColor: Colors.amberAccent,
                           child: Text("Request"),
-                         onPressed: ValidateAndSave,
+                         onPressed: validateAndSave,
                       ))
                     ],
                   ),
