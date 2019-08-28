@@ -17,10 +17,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
   }
 
   List<String> days = new List();
-  TimeOfDay _startTime = TimeOfDay.now();
-  TimeOfDay _endTime =
-      TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: TimeOfDay.now().minute);
-
+ 
   CarouselSlider instance;
   @override
   void initState() {
@@ -36,8 +33,74 @@ class _CreateScheduleState extends State<CreateSchedule> {
 
   @override
   Widget build(BuildContext context) {
+  
+    instance = new CarouselSlider(
+      initialPage: widget.id,
+      items: days.map((d) {
+        return new Container(
+            width: 400,
+            margin: new EdgeInsets.symmetric(horizontal: 5.0),
+            decoration: new BoxDecoration(color: Colors.amber),
+            child: Stack(
+              children: <Widget>[
+                Text(d),
+                Positioned(
+                    bottom: 20,
+                    right: 0,
+                    child: RawMaterialButton(
+                      onPressed: () => {
+                     showDialog(
+            context: context,
+            builder: (_) {
+              return MyDialog();
+            })
+                      },
+                      child: Icon(
+                        Icons.add,
+                        size: 45.0,
+                        color: Colors.white,
+                      ),
+                      shape: new CircleBorder(),
+                      fillColor: Colors.red,
+                      elevation: 2.0,
+                    ))
+              ],
+            ));
+      }).toList(),
+      height: 550,
+      autoPlay: false,
+    );
+
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("StudyMate"),
+          backgroundColor: Colors.deepOrange,
+        ),
+        backgroundColor: Colors.white,
+        body: instance);
+  }
+}
+
+class Data {
+  int id;
+  Data(int id) {
+    this.id = id;
+  }
+}
+
+
+class MyDialog extends StatefulWidget {
+  @override
+  _MyDialogState createState() => new _MyDialogState();
+}
+
+class _MyDialogState extends State<MyDialog> {
+   TimeOfDay _startTime = TimeOfDay.now();
+  TimeOfDay _endTime =
+      TimeOfDay(hour: TimeOfDay.now().hour + 1, minute: TimeOfDay.now().minute);
     final _formKey = GlobalKey<FormState>();
-    var selected;
+    var type;
+    var activity;
 
     Future<Null> selectStartTime(BuildContext context) async {
       final TimeOfDay picked =
@@ -62,53 +125,39 @@ class _CreateScheduleState extends State<CreateSchedule> {
         });
       }
     }
-
-    instance = new CarouselSlider(
-      initialPage: widget.id,
-      items: days.map((d) {
-        return new Container(
-            width: 400,
-            margin: new EdgeInsets.symmetric(horizontal: 5.0),
-            decoration: new BoxDecoration(color: Colors.amber),
-            child: Stack(
-              children: <Widget>[
-                Text(d),
-                Positioned(
-                    bottom: 20,
-                    right: 0,
-                    child: RawMaterialButton(
-                      onPressed: () => {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
+  
+  @override
+  Widget build(BuildContext context) {
+   return AlertDialog(
                                 content: Form(
                                   key: _formKey,
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
                                       DropdownButtonFormField<String>(
-                                        value: selected,
-                                        items: ["A", "B", "C"]
+                                        value: type,
+                                        hint: Text('Select Type'),
+                                        items: ["Study", "Leisure", "Social"]
                                             .map((label) => DropdownMenuItem(
                                                   child: Text(label),
                                                   value: label,
                                                 ))
                                             .toList(),
                                         onChanged: (value) {
-                                          setState(() => selected = value);
+                                          setState(() => type = value);
                                         },
                                       ),
                                       DropdownButtonFormField<String>(
-                                        value: selected,
-                                        items: ["A", "B", "C"]
+                                        hint: Text('Select Subject/Activity'),
+                                        value: activity,
+                                        items: ["Science", "Mathematics", "History"]
                                             .map((label) => DropdownMenuItem(
                                                   child: Text(label),
                                                   value: label,
                                                 ))
                                             .toList(),
                                         onChanged: (value) {
-                                          setState(() => selected = value);
+                                          setState(() => activity = value);
                                         },
                                       ),
                                       Text(
@@ -144,37 +193,5 @@ class _CreateScheduleState extends State<CreateSchedule> {
                                   ),
                                 ),
                               );
-                            })
-                      },
-                      child: Icon(
-                        Icons.add,
-                        size: 45.0,
-                        color: Colors.white,
-                      ),
-                      shape: new CircleBorder(),
-                      fillColor: Colors.red,
-                      elevation: 2.0,
-                    ))
-              ],
-            ));
-      }).toList(),
-      height: 550,
-      autoPlay: false,
-    );
-
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("StudyMate"),
-          backgroundColor: Colors.deepOrange,
-        ),
-        backgroundColor: Colors.white,
-        body: instance);
-  }
-}
-
-class Data {
-  int id;
-  Data(int id) {
-    this.id = id;
   }
 }
