@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
-import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
+import 'package:studymate/screens/AppoinmentScreen/Appoinment.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
