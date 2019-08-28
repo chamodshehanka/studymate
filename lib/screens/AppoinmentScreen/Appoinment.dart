@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:googleapis/datastore/v1.dart';
 
 class AppointmentScreen extends StatefulWidget {
   @override
@@ -10,18 +9,19 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   
   final _formKey = GlobalKey<FormState>();
 
-  int _PatientID;
+  String _PatientID;
   String _SpecialDescription;
-  int _Date;
-  int _Time;
+  String _Date;
+  String _Time;
   String _Place;
 
   void ValidateAndSave(){
     final form =_formKey.currentState;
     if(form.validate()){
-      print('Form is Valid');
+      form.save();
+      print('Form is Valid.Patient ID: $_PatientID,Special Description: $_SpecialDescription, Date: $_Date, Time: $_Time, Place: $_Place');
     }else{
-      print('Form is Invalid');
+      print('Form is Invalid.Patient ID: $_PatientID,Special Description: $_SpecialDescription, Date: $_Date, Time: $_Time, Place: $_Place');
     }
   }
   @override
@@ -39,26 +39,35 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                    
+                      new TextFormField(
+                      decoration: new InputDecoration(labelText: 'Appointment ID',prefixIcon: Icon(Icons.account_circle)),
+                      obscureText: true,
+                      validator: (value) => value.isEmpty ? 'Appointment ID can\'t be empty':null
+                     ),
                      new TextFormField(
-                      decoration: new InputDecoration(labelText: 'Patient ID'),
+                      decoration: new InputDecoration(labelText: 'Doctor ID',prefixIcon: Icon(Icons.account_circle)),
+                      obscureText: true,
+                      validator: (value) => value.isEmpty ? 'Doctor ID can\'t be empty':null
+                     ),
+                     new TextFormField(
+                      decoration: new InputDecoration(labelText: 'Patient ID',prefixIcon: Icon(Icons.account_circle)),
                       obscureText: true,
                       validator: (value) => value.isEmpty ? 'patient ID can\'t be empty':null
                      ),
                       new TextFormField(
-                      decoration: new InputDecoration(labelText: 'Special Description'),
+                      decoration: new InputDecoration(labelText: 'Special Description',prefixIcon: Icon(Icons.assignment)),
                       validator: (value) => value.isEmpty ? 'Special Description can\'t be empty':null
                      ),
                       new TextFormField(
-                      decoration: new InputDecoration(labelText: 'Date'),
+                      decoration: new InputDecoration(labelText: 'Date',prefixIcon: Icon(Icons.calendar_today)),
                       validator: (value) => value.isEmpty ? 'Date can\'t be empty':null
                      ),
                       new TextFormField(
-                      decoration: new InputDecoration(labelText: 'Time'),
+                      decoration: new InputDecoration(labelText: 'Time',prefixIcon: Icon(Icons.access_time )),
                       validator: (value) => value.isEmpty ? 'Time can\'t be empty':null
                      ),
                       new TextFormField(
-                      decoration: new InputDecoration(labelText: 'Place'),
+                      decoration: new InputDecoration(labelText: 'Place',prefixIcon: Icon(Icons.edit_location )),
                       validator: (value) => value.isEmpty ? 'Place can\'t be empty':null
                      ),
                       Padding(
