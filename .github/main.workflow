@@ -5,20 +5,20 @@ workflow "build and test app" {
 
 # Install dependencies
 action "install dependencies" {
-  uses = "steebchen/flutter@master"
+  uses = "Shehanka/studymate@master"
   args = "pub get"
 }
 
 # test app
 action "run tests" {
   needs = "install dependencies"
-  uses = "steebchen/flutter@master"
+  uses = "Shehanka/studymate@master"
   args = "test"
 }
 
 # Build APK
 action "build apk" {
   needs = "install dependencies"
-  uses  = "steebchen/flutter@master"
+  uses  = "Shehanka/studymate@master"
   args  = "build apk --release"
 }
