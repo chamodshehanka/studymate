@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 
-class DailySocial extends StatefulWidget {
-  DailySocial({Key key, this.title}) : super(key: key);
+class Grade89Subject extends StatefulWidget {
+  Grade89Subject({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _DailySocialState createState() => _DailySocialState();
+  _Grade89SubjectState createState() => _Grade89SubjectState();
 }
 
-class _DailySocialState extends State<DailySocial> {
-  List activities;
+class _Grade89SubjectState extends State<Grade89Subject> {
+  List subjects;
 
   @override
   void initState() {
-    activities = getActivities();
+    subjects = getSubjects();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Card makeCard(Activity activity) => Card(
+    Card makeCard(Subject subject) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
             decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-            child: makeListTile(activity),
+            child: makeListTile(subject),
           ),
         );
 
@@ -34,9 +34,9 @@ class _DailySocialState extends State<DailySocial> {
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: activities.length,
+        itemCount: subjects.length,
         itemBuilder: (BuildContext context, int index) {
-          return makeCard(activities[index]);
+          return makeCard(subjects[index]);
         },
       ),
     );
@@ -48,33 +48,35 @@ class _DailySocialState extends State<DailySocial> {
   }
 }
 
-class Activity {
+class Subject {
   String title;
-  String time;
-  Activity(this.title, this.time);
+  Subject(this.title);
 }
 
-List getActivities() {
+List getSubjects() {
   return [
-    Activity("Friendly Talk", "9.30 - 9.45"),
-    Activity("Speech", "13.30 - 13.45"),
+    Subject("Mathematics"),
+    Subject("Science"),
+    Subject("English"),
+    Subject("Sinhala"),
+    Subject("History"),
+    Subject("Religion"),
+    Subject("Civics"),
+    Subject("Geography"),
+    Subject("Art"),
+    Subject("Music"),
+    Subject("Drama"),
+    Subject("Dance"),
+    Subject("Tamil"),
+    Subject("Health"),
+    Subject("P.T.S."),
   ];
 }
 
-ListTile makeListTile(Activity activity) => ListTile(
+ListTile makeListTile(Subject subject) => ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      leading: Container(
-        padding: EdgeInsets.only(right: 12.0),
-        decoration: new BoxDecoration(
-            border: new Border(
-                right: new BorderSide(width: 1.0, color: Colors.white24))),
-        child: Text(
-          activity.time,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
       title: Text(
-        activity.title,
+        subject.title,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),

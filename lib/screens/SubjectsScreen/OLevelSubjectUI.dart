@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 
-class DailyStudy extends StatefulWidget {
-  DailyStudy({Key key, this.title}) : super(key: key);
+class OLevelSubject extends StatefulWidget {
+  OLevelSubject({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _DailyStudyState createState() => _DailyStudyState();
+  _OLevelSubjectState createState() => _OLevelSubjectState();
 }
 
-class _DailyStudyState extends State<DailyStudy> {
+class _OLevelSubjectState extends State<OLevelSubject> {
   List subjects;
 
   @override
@@ -31,10 +31,7 @@ class _DailyStudyState extends State<DailyStudy> {
   );
 
 
-
-
-
-    final makeBody = Container(
+  final makeBody = Container(
       // decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
       child: ListView.builder(
         scrollDirection: Axis.vertical,
@@ -55,8 +52,7 @@ class _DailyStudyState extends State<DailyStudy> {
 
 class Subject {
   String title;
-  String time;
-  Subject(this.title,this.time);
+  Subject(this.title);
 }
 
 
@@ -64,28 +60,29 @@ class Subject {
 List getSubjects() {
   return [
   
-  Subject("Mathematics","8.00 - 9.30"),
-  Subject("Science","10.30 - 12.00"),
-  Subject("English","12.30 - 13.30"),
-  Subject("Sinhala","15.00 - 16.00"),
-  Subject("History","16.00 - 17.00"),
-  ];
+  Subject("Mathematics"),
+  Subject("Science"),
+  Subject("English"),
+  Subject("Sinhala"),
+  Subject("History"),
+  Subject("Religion"),
+  Subject("Civics"),
+  Subject("Geography"),
+  Subject("Art"),
+  Subject("Music"),
+  Subject("Drama"),
+  Subject("Dance"),
+  Subject("Tamil"),
+  Subject("Health"),
+  Subject("P.T.S."),
+];
+  
 }
 
-
-  
   ListTile makeListTile(Subject subject) => ListTile(
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          leading: Container(
-            padding: EdgeInsets.only(right: 12.0),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white24))),
-            child: Text(subject.time,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
+        
           title: Text(
             subject.title,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
