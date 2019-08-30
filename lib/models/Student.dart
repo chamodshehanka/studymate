@@ -1,4 +1,4 @@
-class Student{
+class Student {
   String id;
   String name;
   int age;
@@ -8,7 +8,7 @@ class Student{
   int phone;
   double iqLevel;
 
-  // Student();
+  Student(this.id, this.name, this.age, this.grade, this.address, this.email,
+      this.phone, this.iqLevel);
 
-  Student(this.id, this.name, this.age, this.grade, this.address, this.email, this.phone, this.iqLevel);
 }
