@@ -1,9 +1,24 @@
-# workflow "Studymate workflow" {
-#   on = "push"
-#   resolves = ["GitHub Action for Google Cloud"]
-# }
+workflow "build and test app" {
+  on = "push"
+  resolves = ["build apk", "run tests"]
+}
 
-# action "GitHub Action for Google Cloud" {
-#   uses = "actions/gcloud/cli@6a43f01e0e930f639b90eec0670e88ba3ec4aba3"
-#   secrets = ["GITHUB_TOKEN"]
-# }
+# Install dependencies
+action "install dependencies" {
+  uses = "Shehanka/studymate@master"
+  args = "pub get"
+}
+
+# test app
+action "run tests" {
+  needs = "install dependencies"
+  uses = "Shehanka/studymate@master"
+  args = "test"
+}
+
+# Build APK
+action "build apk" {
+  needs = "install dependencies"
+  uses  = "Shehanka/studymate@master"
+  args  = "build apk --release"
+}
