@@ -17,6 +17,7 @@ import 'package:studymate/screens/StudentScreen/signup1.dart';
 import 'package:studymate/screens/TestUI.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
+import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -57,6 +58,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
       case '/createdSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
+      case '/subject':
+        return MaterialPageRoute(builder: (_) => SubjectsScreen());  
       case '/testUI':
         return MaterialPageRoute(builder: (_) => TestUIScreen());
       default:
