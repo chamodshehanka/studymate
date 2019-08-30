@@ -1,5 +1,10 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:studymate/models/Activity.dart';
+import 'package:studymate/services/ActivityService.dart';
 
 class LeisureActivityTab extends StatefulWidget {
   LeisureActivityTab({Key key, this.title});
@@ -10,17 +15,38 @@ class LeisureActivityTab extends StatefulWidget {
 }
 
 class _LeisureActivityTabState extends State<LeisureActivityTab> {
-  List leisureActivities;
+  List<Activity> activityList;
+  ActivityService activityService = ActivityService();
+  StreamSubscription<QuerySnapshot> activitySubscription;
+  // List leisureActivities;
 
   @override
   void initState() {
-    leisureActivities = getLeisureActivities();
+    // leisureActivities = getLeisureActivities();
     super.initState();
+
+    activityList = List();
+    activitySubscription?.cancel();
+    activitySubscription =
+        activityService.getActivityList().listen((QuerySnapshot snapshot) {
+      final List<Activity> activities = snapshot.documents
+          .map((documentSnapshot) => Activity.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.activityList = activities;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    activitySubscription?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Card makeCard(LeisureActivity leisureActivity) => Card(
+    Card makeCard(Activity leisureActivity) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
@@ -33,9 +59,10 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: leisureActivities.length,
+        itemCount: activityList.length,
         itemBuilder: (BuildContext context, int index) {
-          return makeCard(leisureActivities[index]);
+          // return makeCard(leisureActivities[index]);
+          return makeCard(activityList[index]);
         },
       ),
     );
@@ -46,7 +73,7 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
     );
   }
 
-  buildTilesList(LeisureActivity leisureActivity) => ListTile(
+  buildTilesList(Activity leisureActivity) => ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Container(
           padding: EdgeInsets.only(right: 12.0),
@@ -54,7 +81,7 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
               border: new Border(
                   right: new BorderSide(width: 1.0, color: Colors.white30))),
           child: Text(
-            leisureActivity.time,
+            leisureActivity.type,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
@@ -66,21 +93,4 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
             Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
         onTap: () => {},
       );
-}
-
-// Temp Leisure Activity data
-class LeisureActivity {
-  String name;
-  String time;
-
-  LeisureActivity(this.name, this.time);
-}
-
-List getLeisureActivities() {
-  return [
-    LeisureActivity('Painting', '45 min'),
-    LeisureActivity('Drawing', '25 min'),
-    LeisureActivity('Sudoku', '15 min'),
-    LeisureActivity('Snake & Ladder', '35 min'),
-  ];
 }
