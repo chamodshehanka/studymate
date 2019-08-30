@@ -5,7 +5,9 @@ import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
-import 'package:studymate/screens/RewardScreen/badge.dart';
+import 'package:studymate/screens/RewardScreen/Admin/new_badge.dart';
+import 'package:studymate/screens/RewardScreen/Admin/badge_collection.dart';
+import 'package:studymate/screens/RewardScreen/s_reward.dart';
 import 'package:studymate/screens/RewardScreen/rewards.dart';
 import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/createSchedule.dart';
@@ -43,10 +45,14 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ActivityScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
-      case '/badge':
+      case '/new_badge':
+        return MaterialPageRoute(builder: (_) => NewBadgeScreen());
+        case '/badge_collection':
         return MaterialPageRoute(builder: (_) => BadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
+       case '/s_rewards':
+        return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
