@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "410259195095",
-    "firebase_url": "https://studymate-sliit.firebaseio.com",
-    "project_id": "studymate-sliit",
-    "storage_bucket": "studymate-sliit.appspot.com"
+    "project_number": "469669100031",
+    "firebase_url": "https://studymate-v1.firebaseio.com",
+    "project_id": "studymate-v1",
+    "storage_bucket": "studymate-v1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:410259195095:android:3dc8fc15b4ab7fb4",
+        "mobilesdk_app_id": "1:469669100031:android:3dc8fc15b4ab7fb4",
         "android_client_info": {
           "package_name": "com.brocode.studymate"
         }
       },
       "oauth_client": [
         {
-          "client_id": "410259195095-j8ega3vfgigdetpe0cq88k2uiobvlt17.apps.googleusercontent.com",
+          "client_id": "469669100031-tfcjk4hk8d745qpsg988kcqifor58off.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD0Hf29GPn8lghVJNptyizXwqu4simLpm4"
+          "current_key": "AIzaSyBIm0y_LPXbMCSdZSp4BExA9-A3zIx_zAs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "410259195095-j8ega3vfgigdetpe0cq88k2uiobvlt17.apps.googleusercontent.com",
+              "client_id": "469669100031-tfcjk4hk8d745qpsg988kcqifor58off.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
