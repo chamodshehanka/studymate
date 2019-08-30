@@ -1,20 +1,25 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Activity {
-  String id;
-  String title;
-  String time;
-  Activity(this.title, this.time);
+  final String id;
+  final String name;
+  final String type;
+
+  Activity(this.name, this.type, this.id);
+
+  Activity.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        type = json['type'];
+
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'type': type
+  };
 
   List getActivities() {
-    // CollectionReference activityRef = Firestore.instance.collection('activity');
-    // Future<QuerySnapshot> eventQuery = activityRef.getDocuments();
-
-    // return documents;
     return [
-      Activity("eventQuery.toString()", "9.45 - 10.00"),
-      Activity("Play A Sport", "17.00 - 18.00"),
-      Activity("Watching Television", "18.30 - 19.00"),
+      // Activity("eventQuery.toString()", "9.45 - 10.00"),
+      // Activity("Play A Sport", "17.00 - 18.00"),
+      // Activity("Watching Television", "18.30 - 19.00"),
     ];
   }
 }
