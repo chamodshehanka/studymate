@@ -1,5 +1,5 @@
 name: studymate
-description: A new Flutter project.
+description: Study Mate is a system to help students with medical attention with their study, leisure and social schedules. This system will bring the students, parents and doctors together so that the students’ problems are handled efficiently.We are using cross platform because this system will be on android, ios and web,Weekly and monthly reports will be sent to parents and doctors.Since the schedules are managed according to student performance and interests students will not get bored with their studies.We have included the reward system to encourage students to complete their activities successfully within the given period of time.To decrease students’ stress levels we provide them activities such as listening to music,meditation etc
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,15 +19,28 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  firebase_core: 0.4.0+9
+  cloud_firestore: ^0.12.9
+  firebase_auth: 0.14.0+2
+  # Firebase dependencies
+  # firebase_auth:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  flutter_screenutil: ^0.4.2
   carousel_slider: ^0.0.4
+  googleapis: ^0.54.0
+  device_calendar:  ^0.2.1+1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.7.2+1
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true 
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 
 # For information on the generic Dart part of this file, see the
@@ -42,7 +55,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/icon/icon.png
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
