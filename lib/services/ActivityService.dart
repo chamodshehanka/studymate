@@ -5,9 +5,9 @@ final CollectionReference activityCollection =
     Firestore.instance.collection('activity');
 
 class ActivityService {
-  static final ActivityService _activityService = ActivityService();
+  // static final ActivityService _activityService = ActivityService();
 
-  factory ActivityService() => _activityService;
+  // factory ActivityService() => _activityService;
 
   Future<Activity> createActivity(String name, String type) {
     final TransactionHandler createTransaction = (Transaction tx) async {
@@ -38,10 +38,6 @@ class ActivityService {
 
     if (limit != null) {
       snapshots = snapshots.take(limit);
-    }
-
-    if(snapshots == null) {
-      print("Null");
     }
 
     return snapshots;
