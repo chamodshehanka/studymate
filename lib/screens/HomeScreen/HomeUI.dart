@@ -23,13 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Icon(
                   Icons.account_circle,
                   size: 90.0,
+                  color: Colors.white54,
                 ),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: <Color>[
-                  Colors.deepOrange,
-                  Colors.orangeAccent,
-                  Colors.yellow,
-                ])),
+                decoration: BoxDecoration(color: Colors.deepPurple),
               ),
               DrawerTile(Icons.person, 'Profile', () => {}),
               DrawerTile(Icons.note, 'Reminders', () => {}),
