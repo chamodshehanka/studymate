@@ -59,7 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         softWrap: true,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.blueAccent,
+                          color: Colors.deepPurpleAccent,
                           decoration: TextDecoration.none,
                           fontSize: 24.0,
                           fontWeight: FontWeight.w700,
@@ -91,7 +91,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         splashColor: Colors.black12,
                         borderColor: Colors.white,
                         borderWidth: 0,
-                        color: Colors.blueAccent,
+                        color: Colors.deepPurpleAccent,
                       ),
                     ),
                     Padding(
@@ -117,14 +117,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {Navigator.pushNamed(context, '/homeAdmin');},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/homeAdmin');
+                        },
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(59, 89, 152, 1.0),
                         borderWidth: 0,
-                        color: Color.fromRGBO(59, 89, 152, 1.0),
+                        color: Colors.deepPurple,
                       ),
                     ),
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
                       child: CustomFlatButton(
@@ -132,7 +134,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {Navigator.pushNamed(context, '/homeDoctor');},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/homeDoctor');
+                        },
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(59, 89, 152, 1.0),
                         borderWidth: 0,

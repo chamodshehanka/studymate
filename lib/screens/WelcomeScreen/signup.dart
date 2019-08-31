@@ -80,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         softWrap: true,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.blueAccent,
+                          color: Colors.deepPurpleAccent,
                           decoration: TextDecoration.none,
                           fontSize: 24.0,
                           fontWeight: FontWeight.w700,
@@ -151,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         splashColor: Colors.black12,
                         borderColor: Colors.blueAccent,
                         borderWidth: 0,
-                        color: Colors.blueAccent,
+                        color: Colors.deepPurpleAccent,
                       ),
                     ),
                   ],
