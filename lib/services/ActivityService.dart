@@ -29,6 +29,39 @@ class ActivityService {
     });
   }
 
+  //Get Only Leisure Activities
+  Stream<QuerySnapshot> getLeisureActivityList({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots =
+        activityCollection.where('type', isEqualTo: 'leisure').snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
+  }
+
+  //Get Only Social Activities
+  Stream<QuerySnapshot> getSocialActivityList({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots =
+        activityCollection.where('type', isEqualTo: 'social').snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
+  }
+
+  //Get All Activites
   Stream<QuerySnapshot> getActivityList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = activityCollection.snapshots();
 

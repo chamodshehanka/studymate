@@ -25,8 +25,9 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
 
     activityList = List();
     activitySubscription?.cancel();
-    activitySubscription =
-        activityService.getActivityList().listen((QuerySnapshot snapshot) {
+    activitySubscription = activityService
+        .getLeisureActivityList()
+        .listen((QuerySnapshot snapshot) {
       final List<Activity> activities = snapshot.documents
           .map((documentSnapshot) => Activity.fromMap(documentSnapshot.data))
           .toList();
