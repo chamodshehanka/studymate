@@ -6,18 +6,12 @@ class NewBadgeScreen extends StatefulWidget {
 }
 
 class _NewBadgeScreenState extends State<NewBadgeScreen> {
-
-
-  
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController badgeNameCtrl = TextEditingController();
   final TextEditingController typeCtrl = TextEditingController();
   final TextEditingController milestoneCtrl = TextEditingController();
   final TextEditingController descriptionCtrl = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +31,7 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-              ),
+          ),
           child: Form(
             key: _formKey,
             child: SingleChildScrollView(
@@ -47,10 +41,10 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                 children: <Widget>[
                   Center(
                     child: Container(
-                    margin: EdgeInsets.all(10.0),
+                      margin: EdgeInsets.all(10.0),
                       padding: EdgeInsets.all(10.0),
                       height: 180.0,
-                      width: 180.0, 
+                      width: 180.0,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border(
@@ -59,22 +53,22 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                           left: BorderSide(color: Colors.indigo, width: 3.0),
                           bottom: BorderSide(color: Colors.indigo, width: 3.0),
                         ),
-                          borderRadius: BorderRadius.all(
+                        borderRadius: BorderRadius.all(
                           Radius.circular(20.0),
                         ),
-                      ), 
-                       child:FlatButton(
-                        onPressed:() => Navigator.pushNamed(context, '/image_bank'),//popup
+                      ),
+                      child: FlatButton(
+                        onPressed: () =>
+                            Navigator.pushNamed(context, '/image_bank'), //popup
                         child: Icon(Icons.add,
-                            size: 160.0, color: Colors.grey.shade500 
-                            ),
-                          ),
-                  ),
+                            size: 160.0, color: Colors.grey.shade500),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
                     keyboardType: TextInputType.text,
-                    controller:badgeNameCtrl,
+                    controller: badgeNameCtrl,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -100,14 +94,12 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                       labelStyle: TextStyle(
                           color: Colors.indigo, fontWeight: FontWeight.bold),
                     ),
-                     ),
-                      
-                  
-                     const SizedBox(height: 20.0),
-                      TextFormField(
-                        controller:typeCtrl,
-                        decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextFormField(
+                    controller: typeCtrl,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.indigo,
                           width: 1.5,
@@ -131,9 +123,7 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                       labelStyle: TextStyle(
                           color: Colors.indigo, fontWeight: FontWeight.bold),
                     ),
-                   ),
-                   
-                      
+                  ),
                   const SizedBox(height: 20.0),
                   TextFormField(
                     keyboardType: TextInputType.number,
@@ -163,7 +153,6 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                       labelStyle: TextStyle(
                           color: Colors.indigo, fontWeight: FontWeight.bold),
                     ),
-                    
                   ),
                   const SizedBox(height: 20.0),
                   TextFormField(
@@ -195,47 +184,34 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                       labelStyle: TextStyle(
                           color: Colors.indigo, fontWeight: FontWeight.bold),
                     ),
-                    
                   ),
-                  
-                 Padding(
-                   padding: EdgeInsets.only(bottom: 15.0,top: 15.0,right:15.0,left:15.0),
-                   child: Row(children:<Widget>
-                  [
-                    Expanded(
-                      child:RaisedButton(
-                        
-                        
-                      
-                        child:Text('ADD'),
-                        onPressed: () {
-
-
-                          
-                        },
-                      ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: 15.0, top: 15.0, right: 15.0, left: 15.0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: RaisedButton(
+                            child: Text('ADD'),
+                            onPressed: () {},
+                          ),
+                        ),
+                        Container(
+                          width: 15.0,
+                        ),
+                        Expanded(
+                            child: RaisedButton(
+                          child: Text('CLEAR'),
+                          onPressed: () {},
+                        ))
+                      ],
                     ),
-                    Container(width: 15.0,),
-                      Expanded(
-                      child:RaisedButton(
-                      child:Text('CLEAR'),
-                        onPressed: () {
-                          
-                        },
-                      )
-                    )
-                  ],
                   ),
-                  ),
-                  
-                  
                 ],
               ),
             ),
           ),
         ),
-      
-        
       ),
     );
   }

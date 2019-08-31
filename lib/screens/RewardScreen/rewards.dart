@@ -12,7 +12,6 @@ class _RewardsScreenState extends State<RewardsScreen> {
         title: Text(
           "Rewards Management",
           style: TextStyle(fontWeight: FontWeight.bold),
-          
         ),
         backgroundColor: Colors.deepPurple,
         elevation: 0.0,
@@ -33,15 +32,14 @@ class MainContent extends StatelessWidget {
           child: Container(
             child: Column(
               children: <Widget>[
-                
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: Container(
                         height: 400.0,
                         child: FlatButton(
-                            onPressed: () =>
-                                Navigator.pushNamed(context, '/badge_collection'),
+                            onPressed: () => Navigator.pushNamed(
+                                context, '/badge_collection'),
                             child: Column(
                               children: <Widget>[
                                 Expanded(
