@@ -205,8 +205,4 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
           );
         });
   }
-
-  // void _editActivity(BuildContext context, Activity activity){
-
-  // }
 }

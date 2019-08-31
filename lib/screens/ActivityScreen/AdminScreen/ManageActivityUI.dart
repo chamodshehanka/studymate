@@ -59,8 +59,8 @@ class ManageActivityScreen extends StatelessWidget {
                         );
                       });
                 } else {
-                  showDialog<void>(
-                      context: context, child: Text('Something went wrong'));
+                  // showDialog<void>(
+                  //     context: context, child: Text('Something went wrong'));
                 }
               },
             ),
