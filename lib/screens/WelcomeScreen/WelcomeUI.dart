@@ -8,10 +8,10 @@ class WelcomeScreen extends StatelessWidget {
       body: new ListView(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 60.0),
+            padding: EdgeInsets.only(top: 160.0),
             child: Icon(
               Icons.school,
-              color: Colors.blueAccent,
+              color: Colors.deepPurpleAccent,
               size: 125.0,
             ),
           ),
@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
               softWrap: true,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.blueAccent,
+                color: Colors.deepPurpleAccent,
                 decoration: TextDecoration.none,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
@@ -59,7 +59,7 @@ class WelcomeScreen extends StatelessWidget {
               splashColor: Colors.black12,
               borderColor: Colors.white,
               borderWidth: 0,
-              color: Colors.blueAccent,
+              color: Colors.deepPurpleAccent,
             ),
           ),
           Padding(

@@ -26,8 +26,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Patient ID',
-                                labelStyle: TextStyle(
-                              color: Colors.grey,fontSize: 14.0),
+                              labelStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 14.0),
                             ),
                           )),
                       Padding(
@@ -35,8 +35,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Special Description',
-                               labelStyle: TextStyle(
-                              color: Colors.grey,fontSize: 14.0),
+                              labelStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 14.0),
                             ),
                           )),
                       Padding(
@@ -44,8 +44,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Date',
-                               labelStyle: TextStyle(
-                              color: Colors.grey,fontSize: 14.0),
+                              labelStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 14.0),
                             ),
                           )),
                       Padding(
@@ -53,8 +53,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Time',
-                                labelStyle: TextStyle(
-                              color: Colors.grey,fontSize: 14.0),
+                              labelStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 14.0),
                             ),
                           )),
                       Padding(
@@ -62,15 +62,17 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Place',
-                                labelStyle: TextStyle(
-                              color: Colors.grey,fontSize: 14.0),
+                              labelStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 14.0),
                             ),
                           )),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: RaisedButton(color:Colors.purple,textColor:Colors.white ,
+                        child: RaisedButton(
+                          color: Colors.purple,
+                          textColor: Colors.white,
                           elevation: 4.0,
-                        splashColor: Colors.amberAccent,
+                          splashColor: Colors.amberAccent,
                           child: Text("Request"),
                           onPressed: () {
                             showDialog(
@@ -98,13 +100,15 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                             children: <Widget>[
                                               FlatButton(
                                                   child: Text('Yes'),
-                                                  textColor: Colors.purpleAccent,
+                                                  textColor:
+                                                      Colors.purpleAccent,
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   }),
                                               FlatButton(
                                                   child: Text('No'),
-                                                  textColor: Colors.purpleAccent,
+                                                  textColor:
+                                                      Colors.purpleAccent,
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   })
