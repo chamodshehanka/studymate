@@ -1,11 +1,13 @@
-abstract class SuperService<T, ID> {
-  bool add(T t);
-  
-  bool update(T t);
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-  bool remove(ID id);
+abstract class SuperService<T, ID> {
+  Future<T> create(T t);
+  
+  Future<dynamic> update(T t);
+
+  Future<dynamic> remove(ID id);
 
   T getByID(ID id);
 
-  List getAll();
+  Stream<QuerySnapshot> getAll();
 }

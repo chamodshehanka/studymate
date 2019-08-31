@@ -8,7 +8,7 @@ class DB {
   }
 
   Future<String> createData(String name) async {
-    DocumentReference documentReference = await db.collection('path').add({});
+    DocumentReference documentReference = await db.collection('').add({});
     print(documentReference.documentID);
     return documentReference.documentID;
   }

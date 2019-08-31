@@ -1,25 +1,34 @@
 class Activity {
-  final String id;
-  final String name;
-  final String type;
+  String _id;
+  String _name;
+  String _type;
 
-  Activity(this.name, this.type, this.id);
+  Activity(this._id, this._name, this._type);
 
-  Activity.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        type = json['type'];
+  Activity.map(dynamic activity) {
+    this._id = activity['id'];
+    this._name = activity['name'];
+    this._type = activity['type'];
+  }
 
-  Map<String, dynamic> toJson() => {
-    'name': name,
-    'type': type
-  };
+  String get id => _id;
+  String get name => _name;
+  String get type => _type;
 
-  List getActivities() {
-    return [
-      // Activity("eventQuery.toString()", "9.45 - 10.00"),
-      // Activity("Play A Sport", "17.00 - 18.00"),
-      // Activity("Watching Television", "18.30 - 19.00"),
-    ];
+  Map<String, dynamic> toMap() {
+    var map = new Map<String, dynamic>();
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    map['name'] = _name;
+    map['type'] = _type;
+
+    return map;
+  }
+
+  Activity.fromMap(Map<String, dynamic> map) {
+    this._id = map['id'];
+    this._name = map['name'];
+    this._type = map['type'];
   }
 }
