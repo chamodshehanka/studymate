@@ -85,6 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  device_calendar:
+    dependency: "direct main"
+    description:
+      name: device_calendar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -123,6 +130,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  google_sign_in:
+    dependency: "direct main"
+    description:
+      name: google_sign_in
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.7"
   googleapis:
     dependency: "direct main"
     description:
