@@ -18,6 +18,7 @@ import 'package:studymate/screens/StudentScreen/add.dart';
 import 'package:studymate/screens/StudentScreen/signup.dart';
 import 'package:studymate/screens/StudentScreen/signup1.dart';
 import 'package:studymate/screens/TestUI.dart';
+import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
@@ -28,6 +29,8 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+      case '/welcome':
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
