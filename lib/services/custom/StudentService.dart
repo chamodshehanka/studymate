@@ -1,29 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/SuperService.dart';
 
 class StudentService implements SuperService<Student, String> {
   @override
-  bool add(t) {
+  Future<Student> create(Student t) {
     return null;
   }
 
   @override
-  List getAll() {
+  Stream<QuerySnapshot> getAll() {
     return null;
   }
 
   @override
-  getByID(id) {
+  Student getByID(String id) {
     return null;
   }
 
   @override
-  bool remove(id) {
+  Future remove(String id) {
     return null;
   }
 
   @override
-  bool update(t) {
+  Future update(Student t) {
     return null;
   }
 }
