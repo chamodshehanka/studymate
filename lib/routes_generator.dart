@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
@@ -44,15 +45,17 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DailyScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
+      case '/adminActivity':
+        return MaterialPageRoute(builder: (_) => AdminActivityScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
       case '/new_badge':
         return MaterialPageRoute(builder: (_) => NewBadgeScreen());
-        case '/badge_collection':
+      case '/badge_collection':
         return MaterialPageRoute(builder: (_) => BadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
-       case '/s_rewards':
+      case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
@@ -65,7 +68,7 @@ class RouteGenerator {
       case '/createdSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
       case '/subject':
-        return MaterialPageRoute(builder: (_) => SubjectsScreen());  
+        return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':
         return MaterialPageRoute(builder: (_) => TestUIScreen());
       default:

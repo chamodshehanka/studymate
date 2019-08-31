@@ -9,24 +9,30 @@ class TestUIScreen extends StatefulWidget {
 class _TestUIScreenState extends State<TestUIScreen> {
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder(
-        stream: Firestore.instance
-            .collection('activity')
-            .document('jB1nxpHZEy5TR61H26cs')
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return new Text("Loading");
-          }
-          var userDocument = snapshot.data;
-          return new Text(userDocument["name"]);
-        });
+    return Scaffold(
+      backgroundColor: Colors.white54,
+      body: Container(
+        child: ListView(
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Admin Activity'),
+              onPressed: () => {Navigator.pushNamed(context, '/adminActivity')},
+            ),
+          ],
+        ),
+      ),
+    );
+    // return new StreamBuilder(
+    //     stream: Firestore.instance
+    //         .collection('activity')
+    //         .document('jB1nxpHZEy5TR61H26cs')
+    //         .snapshots(),
+    //     builder: (context, snapshot) {
+    //       if (!snapshot.hasData) {
+    //         return new Text("Loading");
+    //       }
+    //       var userDocument = snapshot.data;
+    //       return new Text(userDocument["name"]);
+    //     });
   }
 }
-
-// class GenerateTestUIButtons {
-//   String title;
-//   String route;
-
-//   GenerateTestUIButtons(this.title, this.route);
-// }
