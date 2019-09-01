@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/MedicalRecord.dart';
-import 'package:studymate/services/MedicalRecordService.dart';
+import 'package:studymate/services/custom/MedicalRecordService.dart';
 
 class MedicalRecordUIScreen extends StatefulWidget {
   _MedicalRecordScreenState createState() => _MedicalRecordScreenState();
@@ -21,9 +21,8 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
 
     medicalRecordList = List();
     medicalRecordSubscription?.cancel();
-    medicalRecordSubscription = medicalRecordService
-        .getMedicalRecordList()
-        .listen((QuerySnapshot snapshot) {
+    medicalRecordSubscription =
+        medicalRecordService.getAll().listen((QuerySnapshot snapshot) {
       final List<MedicalRecord> medicalRecords = snapshot.documents
           .map((documentSnapshot) =>
               MedicalRecord.fromMap(documentSnapshot.data))
@@ -42,7 +41,6 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     buildTilesList(MedicalRecord medicalRecord) => ListTile(
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -73,13 +71,13 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
         );
 
     Card makeCard(MedicalRecord medicalRecord) => Card(
-      elevation: 8.0,
-      margin: new EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
-      child: Container(
-        decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-        child: buildTilesList(medicalRecord),
-      ),
-    );
+          elevation: 8.0,
+          margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          child: Container(
+            decoration: BoxDecoration(color: Colors.deepPurpleAccent),
+            child: buildTilesList(medicalRecord),
+          ),
+        );
 
     final medicalRecordBody = Container(
       child: ListView.builder(

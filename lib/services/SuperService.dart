@@ -9,5 +9,5 @@ abstract class SuperService<T, ID> {
 
   T getByID(ID id);
 
-  Stream<QuerySnapshot> getAll();
+  Stream<QuerySnapshot> getAll({int offset, int limit});
 }
