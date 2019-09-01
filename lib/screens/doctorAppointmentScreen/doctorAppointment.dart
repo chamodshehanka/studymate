@@ -6,9 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'taskscreen.dart';
 import 'task.dart';
 
-void main() => runApp(AppointmentScreen());
+void main() => runApp(DoctorAppointmentScreen());
 
-class AppointmentScreen extends StatelessWidget {
+class DoctorAppointmentScreen extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   FirestoreService fireServ = new FirestoreService();
   StreamSubscription<QuerySnapshot> todoTasks;
 
+  get children => null;
 
   @override
   void initState() {
@@ -67,16 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 80,
             child: ListView.builder(
+             
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return Stack(children: <Widget>[
+                    
                     // The containers in the background
-                    Column(children: <Widget>[
+                
                       Padding(
                         padding: EdgeInsets.only(left: 10.0, right: 10.0),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: 160.0,
+                          
                           child: Padding(
                             padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
                             child: Material(
@@ -145,7 +149,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                    ]),
                   ]);
                 }),
           ),
@@ -220,7 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 child: IconButton(
                     icon: Icon(
-                      FontAwesomeIcons.search,
+                      FontAwesomeIcons.checkSquare,
                       color: Colors.white,
                     ),
                     onPressed: () {
