@@ -23,6 +23,7 @@ import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
+import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -77,6 +78,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':
         return MaterialPageRoute(builder: (_) => TestUIScreen());
+      case '/profileUI':
+        return MaterialPageRoute(builder: (_) => ProfileUIScreen());  
       default:
         return _errorRoute();
     }

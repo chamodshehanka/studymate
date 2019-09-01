@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 decoration: BoxDecoration(color: Colors.deepPurple),
               ),
-              DrawerTile(Icons.person, 'Profile', () => {}),
+              DrawerTile(Icons.person, 'Profile', () => {Navigator.pushNamed(context, '/profileUI')}),
               DrawerTile(Icons.note, 'Reminders', () => {}),
               DrawerTile(Icons.info, 'About Us', () => {}),
               DrawerTile(Icons.settings, 'Settings', () => {}),

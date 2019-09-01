@@ -7,12 +7,12 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  //final TextEditingController _fullname = new TextEditingController();
+  final TextEditingController _fullname = new TextEditingController();
   final TextEditingController _number = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   final TextEditingController badgeNameCtrl = TextEditingController();
- // CustomTextField _nameField;
+  CustomTextField _nameField;
   CustomTextField _phoneField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
@@ -27,13 +27,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Navigator.of(context).pop();
     };
 
-   // _nameField = new CustomTextField(
-     // baseColor: Colors.grey,
-      //borderColor: Colors.grey[400],
-      //errorColor: Colors.red,
-      //controller: _fullname,
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _fullname,
+       hint: "Full Name",
       
-    //);
+    );
     _phoneField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
@@ -88,11 +89,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                       ),
                     ),
-                   // Padding(
-                      //padding:
-                        //  EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-                      //child: _nameField,
-                    //),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _nameField,
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
