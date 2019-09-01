@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
-import 'package:studymate/services/ActivityService.dart';
+import 'package:studymate/services/custom/ActivityService.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -81,11 +81,10 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
           trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
           onTap: () => {
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ManageActivityScreen(activity: activity)
-              )
-            )
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ManageActivityScreen(activity: activity)))
           },
         );
 

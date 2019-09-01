@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Activity.dart';
-import 'package:studymate/services/ActivityService.dart';
+import 'package:studymate/services/custom/ActivityService.dart';
 
 class ManageActivityScreen extends StatelessWidget {
   final Activity activity;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/widgets/doctorInputField.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class AddScreen extends StatefulWidget {
   @override
@@ -20,9 +20,9 @@ class AddScreenState extends State<AddScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                DoctorInputField(
+                StudymateTextField(
                     Icon(Icons.person, color: Colors.white), 'UserId'),
-                DoctorInputField(
+                StudymateTextField(
                     Icon(Icons.lock, color: Colors.white), 'Password'),
                 Container(
                     width: 150,

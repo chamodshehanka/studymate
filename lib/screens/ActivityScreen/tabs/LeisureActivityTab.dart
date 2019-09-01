@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Activity.dart';
-import 'package:studymate/services/ActivityService.dart';
+import 'package:studymate/services/custom/ActivityService.dart';
 
 class LeisureActivityTab extends StatefulWidget {
   LeisureActivityTab({Key key, this.title});
