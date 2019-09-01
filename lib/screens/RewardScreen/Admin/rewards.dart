@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class StudentRewardsScreen extends StatefulWidget {
-  _StudentRewardsScreenState createState() => _StudentRewardsScreenState();
+class RewardsScreen extends StatefulWidget {
+  _RewardsScreenState createState() => _RewardsScreenState();
 }
 
-class _StudentRewardsScreenState extends State<StudentRewardsScreen> {
+class _RewardsScreenState extends State<RewardsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +53,7 @@ class MainContent extends StatelessWidget {
                                       ),
                                        child: FlatButton(
                             onPressed: () =>
-                                Navigator.pushNamed(context, '/badges'),
+                                Navigator.pushNamed(context, '/badge_collection'),
 
                                       child: Row(
                                         children: <Widget>[
@@ -61,7 +61,7 @@ class MainContent extends StatelessWidget {
                                             padding: const EdgeInsets.only(
                                                 right: 50.0, left: 20.0),
                                             child: Icon(
-                                              Icons.star_border,
+                                              Icons.star,
                                               color: Colors.white,
                                               size: 50.0,
                                             ),
@@ -91,7 +91,7 @@ class MainContent extends StatelessWidget {
                                       ),
                                       child: FlatButton(
                             onPressed: () =>
-                                Navigator.pushNamed(context, '/achievments'),
+                                Navigator.pushNamed(context, '/image_bank'),
  
                                       child: Row(
                                         children: <Widget>[
@@ -99,13 +99,13 @@ class MainContent extends StatelessWidget {
                                             padding: const EdgeInsets.only(
                                                 right: 50.0, left: 20.0),
                                             child: Icon(
-                                              Icons.security,
+                                              Icons.camera_enhance,
                                               color: Colors.white,
                                               size: 50.0,
                                             ),
                                           ),
                                           Text(
-                                            "Achievments",
+                                            "Image Bank",
                                             textAlign: TextAlign.justify,
                                             style: TextStyle(
                                                 color: Colors.white,
