@@ -19,7 +19,7 @@ class StudentService implements SuperService<Student, String> {
   }
 
   @override
-  Future remove(String id) {
+  Future delete(String id) {
     return null;
   }
 

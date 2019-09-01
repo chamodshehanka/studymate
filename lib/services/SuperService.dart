@@ -5,7 +5,7 @@ abstract class SuperService<T, ID> {
 
   Future<dynamic> update(T t);
 
-  Future<dynamic> remove(ID id);
+  Future<dynamic> delete(ID id);
 
   T getByID(ID id);
 

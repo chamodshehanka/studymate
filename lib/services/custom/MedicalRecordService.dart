@@ -46,7 +46,7 @@ class MedicalRecordService extends SuperService<MedicalRecord, String> {
   }
 
   @override
-  Future remove(String id) {
+  Future delete(String id) {
     return null;
   }
 
