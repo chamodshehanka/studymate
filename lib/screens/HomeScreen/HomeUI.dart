@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             HomeTile(Icons.calendar_today, "Daily Schedule", Colors.lightBlue,
                 "/daily"),
-            HomeTile(Icons.timeline, "Progress Tracking", Colors.cyan, ""),
+            HomeTile(Icons.timeline, "Progress Tracking", Colors.cyan, "/medicalRecord"),
             HomeTile(Icons.book, "Subject Manager", Colors.green, "/subject"),
             HomeTile(Icons.local_activity, "Activity Manager",
                 Colors.deepPurpleAccent, "/activity"),
