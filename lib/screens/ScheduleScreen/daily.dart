@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ScheduleScreen/dailyleisure.dart';
 import 'package:studymate/screens/ScheduleScreen/dailysocial.dart';
 import 'package:studymate/screens/ScheduleScreen/dailystudy.dart';
+
 
 final List<String> entries = <String>[
   '8.30 - 10.30',
@@ -32,9 +34,9 @@ class _DailyScreenState extends State<DailyScreen> {
               backgroundColor: Colors.deepOrange,
               bottom: TabBar(
                 tabs: <Widget>[
-                  Tab(icon: Icon(Icons.library_books)),
-                  Tab(icon: Icon(Icons.people)),
-                  Tab(icon: Icon(Icons.games)),
+                  Tab(icon: Icon(Icons.library_books),text: "Study",),
+                  Tab(icon: Icon(Icons.people),text: "Social",),
+                  Tab(icon: Icon(Icons.games),text: "Leisure",),
                 ],
               ),
             ),
