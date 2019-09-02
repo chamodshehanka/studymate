@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
-import 'package:studymate/services/ActivityService.dart';
+import 'package:studymate/services/custom/ActivityService.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -18,15 +18,11 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final typeController = TextEditingController();
-  String selectedRadio;
-  String selectedRadioTile;
 
   @override
   void initState() {
     super.initState();
 
-    selectedRadio = null;
-    selectedRadioTile = null;
     activityList = List();
     activitySubscription?.cancel();
     activitySubscription =
@@ -44,18 +40,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   void dispose() {
     activitySubscription?.cancel();
     super.dispose();
-  }
-
-  setSelectedRadio(String val) {
-    setState(() {
-      selectedRadio = val;
-    });
-  }
-
-  setSelectedRadioTile(String val) {
-    setState(() {
-      selectedRadioTile = val;
-    });
   }
 
   @override
@@ -81,11 +65,10 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
           trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
           onTap: () => {
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ManageActivityScreen(activity: activity)
-              )
-            )
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ManageActivityScreen(activity: activity)))
           },
         );
 
@@ -170,18 +153,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                       },
                     ),
                   ),
-                  // Padding(
-                  //     padding: EdgeInsets.all(8.0),
-                  //     child: RadioListTile(
-                  //       value: 1,
-                  //       groupValue: selectedRadioTile,
-                  //       title: Text('Social'),
-                  //       onChanged: (val) {
-                  //         setSelectedRadioTile(val);
-                  //       },
-                  //       activeColor: Colors.purple,
-                  //       selected: true,
-                  //     )),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
@@ -192,13 +163,35 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           //Adding to DB
-                          activityService.createActivity(
-                              nameController.text, typeController.text);
-                          this.dispose();
+                          Future<Activity> isAdded =
+                              activityService.createActivity(
+                                  nameController.text, typeController.text);
+                          if (isAdded != null) {
+                            Navigator.pop(context);
+                            Scaffold.of(context).showSnackBar(new SnackBar(
+                              content: new Text('Sucessfully Added!'),
+                              backgroundColor: Colors.deepPurple,
+                            ));
+                          } else {
+                            //Have to add error message
+                            // this.dispose();
+                          }
                         }
                       },
                     ),
-                  )
+                  ),
+                  //Test Dispose button
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      color: Colors.redAccent,
+                      textColor: Colors.white,
+                      child: Text("Cancel"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
