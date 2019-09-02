@@ -12,7 +12,7 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepPurpleAccent,
         ),
         backgroundColor: Colors.white,
         drawer: Drawer(
@@ -53,7 +53,6 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
             HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
                 "/accounttype"),
             HomeTile(Icons.stars, "Rewards", Colors.pink, "/rewards"),
-
           ],
         ));
   }

@@ -9,7 +9,7 @@ class StudentService implements SuperService<Student, String> {
   }
 
   @override
-  Stream<QuerySnapshot> getAll() {
+  Stream<QuerySnapshot> getAll({int offset, int limit}) {
     return null;
   }
 
@@ -19,7 +19,7 @@ class StudentService implements SuperService<Student, String> {
   }
 
   @override
-  Future remove(String id) {
+  Future delete(String id) {
     return null;
   }
 
@@ -27,4 +27,5 @@ class StudentService implements SuperService<Student, String> {
   Future update(Student t) {
     return null;
   }
+  
 }

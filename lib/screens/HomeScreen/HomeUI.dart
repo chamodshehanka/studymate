@@ -23,13 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Icon(
                   Icons.account_circle,
                   size: 90.0,
+                  color: Colors.white54,
                 ),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: <Color>[
-                  Colors.deepOrange,
-                  Colors.orangeAccent,
-                  Colors.yellow,
-                ])),
+                decoration: BoxDecoration(color: Colors.deepPurple),
               ),
               DrawerTile(Icons.person, 'Profile', () => {}),
               DrawerTile(Icons.note, 'Reminders', () => {}),
@@ -47,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             HomeTile(Icons.calendar_today, "Daily Schedule", Colors.lightBlue,
                 "/daily"),
-            HomeTile(Icons.timeline, "Progress Tracking", Colors.cyan, ""),
+            HomeTile(Icons.timeline, "Progress Tracking", Colors.cyan, "/medicalRecord"),
             HomeTile(Icons.book, "Subject Manager", Colors.green, "/subject"),
             HomeTile(Icons.local_activity, "Activity Manager",
                 Colors.deepPurpleAccent, "/activity"),
