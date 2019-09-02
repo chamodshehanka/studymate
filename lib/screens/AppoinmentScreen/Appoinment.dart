@@ -28,38 +28,33 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
   List<Task> items;
   FirestoreService fireServ = new FirestoreService();
   StreamSubscription<QuerySnapshot> todoTasks;
 
-
   @override
   void initState() {
     super.initState();
 
-    items=new List();
+    items = new List();
 
     todoTasks?.cancel();
-    todoTasks=fireServ.getTaskList().listen((QuerySnapshot snapshot){
-        final List<Task> tasks=snapshot.documents
-        .map((documentSnapshot) => Task. fromMap(documentSnapshot.data))
-        .toList();
+    todoTasks = fireServ.getTaskList().listen((QuerySnapshot snapshot) {
+      final List<Task> tasks = snapshot.documents
+          .map((documentSnapshot) => Task.fromMap(documentSnapshot.data))
+          .toList();
 
-        setState(() {
+      setState(() {
         this.items = tasks;
       });
-      
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      
       body: Column(
         children: <Widget>[
           _myAppBar(context),
@@ -91,25 +86,21 @@ class _MyHomePageState extends State<MyHomePage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
-                                        
                                         '${items[index].taskappointmentID}',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 20.0),
-                                            
                                       ),
-                                      
                                       Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-
                                           Text(
-                                        '${items[index].taskname}',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20.0),
-                                      ),
+                                            '${items[index].taskname}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20.0),
+                                          ),
                                           Text(
                                             '${items[index].taskSpecialDescription}',
                                             style: TextStyle(
@@ -154,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFFAB47BC),
         child: Icon(
-         Icons.add,
+          Icons.add,
           color: Color(0xFFFAFAFA),
         ),
         onPressed: () {
@@ -162,13 +153,14 @@ class _MyHomePageState extends State<MyHomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => TaskScreen(Task('', '', '', '', '','')),
+                builder: (context) => TaskScreen(Task('', '', '', '', '', '')),
                 fullscreenDialog: true),
           );
         },
       ),
     );
   }
+
   Widget _myAppBar(context) {
     return Container(
       height: 80.0,

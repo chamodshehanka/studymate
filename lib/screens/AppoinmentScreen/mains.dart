@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -28,29 +27,31 @@ class CreatToDo extends StatefulWidget {
 }
 
 class _CreatToDoState extends State<CreatToDo> {
-  
   @override
   void initState() {
     super.initState();
   }
 
-readData(){
-    DocumentReference ds=Firestore.instance.collection('Appointment').document('taskappointmentID');
-    ds.get().then((datasnapshot){
-     print(datasnapshot.data['taskappointmentID']);
+  readData() {
+    DocumentReference ds = Firestore.instance
+        .collection('Appointment')
+        .document('taskappointmentID');
+    ds.get().then((datasnapshot) {
+      print(datasnapshot.data['taskappointmentID']);
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       body: Column(
-      children: <Widget>[
-        _myAppBar(context),
-        Center(child: Text('Appointment'),),
-      ],
+        children: <Widget>[
+          _myAppBar(context),
+          Center(
+            child: Text('Appointment'),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF4A148C),
@@ -59,13 +60,11 @@ readData(){
           color: Color(0xFFFAFAFA),
         ),
         onPressed: () {
-          
           //Navigator.push(context,MaterialPageRoute(builder: (context) => TaskScreen()),
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => NewTask(),
-                fullscreenDialog: true),
+                builder: (context) => NewTask(), fullscreenDialog: true),
           );
         },
       ),

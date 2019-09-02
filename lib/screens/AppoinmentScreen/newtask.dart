@@ -8,83 +8,90 @@ class NewTask extends StatefulWidget {
   NewTask();
   @override
   _NewTaskState createState() => _NewTaskState();
-
 }
 
-
 class _NewTaskState extends State<NewTask> {
+  String taskappointmentID,
+      taskname,
+      taskSpecialDescription,
+      taskDate,
+      taskTime,
+      taskplace;
 
-  String taskappointmentID,taskname,taskSpecialDescription,taskDate,taskTime,taskplace;
+  getTaskappointmentID(taskappointmentID) {
+    this.taskappointmentID = taskappointmentID;
+  }
 
- getTaskappointmentID(taskappointmentID){
-    this.taskappointmentID=taskappointmentID;
+  getTaskName(taskname) {
+    this.taskname = taskname;
   }
-  getTaskName(taskname){
-    this.taskname=taskname;
+
+  getTaskSpecialDescription(taskSpecialDescription) {
+    this.taskSpecialDescription = taskSpecialDescription;
   }
-  getTaskSpecialDescription(taskSpecialDescription){
-    this.taskSpecialDescription=taskSpecialDescription;
+
+  getTaskDate(taskDate) {
+    this.taskDate = taskDate;
   }
-  getTaskDate(taskDate){
-    this.taskDate=taskDate;
+
+  getTaskTime(taskTime) {
+    this.taskTime = taskTime;
   }
-  getTaskTime(taskTime){
-    this.taskTime=taskTime;
+
+  gettaskplace(taskplace) {
+    this.taskplace = taskplace;
   }
-  gettaskplace(taskplace){
-    this.taskplace=taskplace;
-  }
- 
-  createData(){
-    DocumentReference ds=Firestore.instance.collection('Appointment').document(taskname);
-    Map<String,dynamic> tasks={
-      "taskappointmentID":taskappointmentID,
-      "taskname":taskname,
-       "taskSpecialDescription":taskSpecialDescription,
-        "taskdate":taskDate,
-          "tasktime":taskTime,
-          "taskplace":taskplace,
+
+  createData() {
+    DocumentReference ds =
+        Firestore.instance.collection('Appointment').document(taskname);
+    Map<String, dynamic> tasks = {
+      "taskappointmentID": taskappointmentID,
+      "taskname": taskname,
+      "taskSpecialDescription": taskSpecialDescription,
+      "taskdate": taskDate,
+      "tasktime": taskTime,
+      "taskplace": taskplace,
     };
 
-    ds.setData(tasks).whenComplete((){
+    ds.setData(tasks).whenComplete(() {
       print("task updated");
     });
-
   }
-   final _formKey = GlobalKey<FormState>();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
         content: Form(
-          key: _formKey,
-          child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           _myAppBar(),
           Container(
-            alignment:FractionalOffset.center,
+            alignment: FractionalOffset.center,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height - 100,
             child: ListView(
               children: <Widget>[
                 Padding(
-                 padding: EdgeInsets.only(left: 14.0, right: 14.0),
-                  child: TextField(  
-                   // controller: _taskNameController,
-                    onChanged: (String taskappointmentID){
-                       getTaskappointmentID(taskappointmentID);   
+                  padding: EdgeInsets.only(left: 14.0, right: 14.0),
+                  child: TextField(
+                    // controller: _taskNameController,
+                    onChanged: (String taskappointmentID) {
+                      getTaskappointmentID(taskappointmentID);
                     },
                     decoration: InputDecoration(labelText: "Appointment ID "),
-                    
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
                   child: TextField(
-                   // controller: _taskNameController,
-                    onChanged: (String taskname){
-                       getTaskName(taskname);   
+                    // controller: _taskNameController,
+                    onChanged: (String taskname) {
+                      getTaskName(taskname);
                     },
                     decoration: InputDecoration(labelText: "Patient Name "),
                   ),
@@ -92,41 +99,41 @@ class _NewTaskState extends State<NewTask> {
                 Padding(
                   padding: EdgeInsets.only(left: 17.0, right: 17.0),
                   child: TextField(
-                    
                     //controller: _taskDetailsController,
-                    decoration: InputDecoration(labelText: "Special Description: "),
-                    onChanged: (String taskSpecialDescription){
-                       getTaskSpecialDescription(taskSpecialDescription);  
+                    decoration:
+                        InputDecoration(labelText: "Special Description: "),
+                    onChanged: (String taskSpecialDescription) {
+                      getTaskSpecialDescription(taskSpecialDescription);
                     },
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
                   child: TextField(
-                   // controller: _taskDateController,
+                    // controller: _taskDateController,
                     decoration: InputDecoration(labelText: "Date: "),
-                    onChanged: (String taskdate){
-                       getTaskDate(taskdate);   
+                    onChanged: (String taskdate) {
+                      getTaskDate(taskdate);
                     },
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
                   child: TextField(
-                  // controller: _taskTimeController,
+                    // controller: _taskTimeController,
                     decoration: InputDecoration(labelText: "Time: "),
-                    onChanged: (String tasktime){
-                       getTaskTime(tasktime);   
+                    onChanged: (String tasktime) {
+                      getTaskTime(tasktime);
                     },
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
                   child: TextField(
-                  //controller: _taskTimeController,
+                    //controller: _taskTimeController,
                     decoration: InputDecoration(labelText: "Place "),
-                    onChanged: (String taskplace){
-                       gettaskplace(taskplace);   
+                    onChanged: (String taskplace) {
+                      gettaskplace(taskplace);
                     },
                   ),
                 ),
@@ -149,7 +156,6 @@ class _NewTaskState extends State<NewTask> {
                     RaisedButton(
                         color: Color(0xFF4A148C),
                         onPressed: () {
-                          
                           createData();
                         },
                         child: const Text(
