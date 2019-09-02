@@ -10,7 +10,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/first'));
+    Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/welcome'));
   }
 
   @override
@@ -21,18 +21,18 @@ class _SplashScreenState extends State<SplashScreen> {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-            color: Colors.blueAccent,
+            color: Colors.deepPurpleAccent,
           ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.deepPurple,
               radius: 65.0,
               child: Icon(
                 Icons.school,
-                color: Colors.black,
+                color: Colors.white70,
                 size: 70.0,
               ),
             ),
@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
               padding: EdgeInsets.only(top: 10.0),
             ),
             Text(
-              'StudyMate',
+              'Studymate',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40.0,

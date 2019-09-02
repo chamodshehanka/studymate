@@ -9,7 +9,11 @@ class _RewardsScreenState extends State<RewardsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        title: Text(
+          "Rewards Management",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.deepPurple,
         elevation: 0.0,
         iconTheme: IconThemeData(color: Color(0xFF18D191), size: 10.0),
       ),
@@ -30,25 +34,18 @@ class MainContent extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text("Rewards Management",
-                        style: TextStyle(fontSize: 30.0),
-                        textAlign: TextAlign.left)
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
                     Expanded(
                       child: Container(
                         height: 400.0,
                         child: FlatButton(
-                            onPressed: () =>
-                                Navigator.pushNamed(context, '/badge'),
+                            onPressed: () => Navigator.pushNamed(
+                                context, '/badge_collection'),
                             child: Column(
                               children: <Widget>[
                                 Expanded(
                                   child: Padding(
                                     padding: (const EdgeInsets.only(
-                                        top: 30.0, bottom: 20.0)),
+                                        top: 50.0, bottom: 20.0)),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius:
@@ -59,7 +56,7 @@ class MainContent extends StatelessWidget {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 100.0, left: 20.0),
+                                                right: 50.0, left: 20.0),
                                             child: Icon(
                                               Icons.star,
                                               color: Colors.white,
@@ -81,7 +78,7 @@ class MainContent extends StatelessWidget {
                                 Expanded(
                                   child: Padding(
                                     padding: (const EdgeInsets.only(
-                                        top: 20.0, bottom: 20.0)),
+                                        top: 50.0, bottom: 20.0)),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius:
@@ -94,13 +91,13 @@ class MainContent extends StatelessWidget {
                                             padding: const EdgeInsets.only(
                                                 right: 50.0, left: 20.0),
                                             child: Icon(
-                                              Icons.star,
+                                              Icons.camera_enhance,
                                               color: Colors.white,
                                               size: 50.0,
                                             ),
                                           ),
                                           Text(
-                                            "Achievements",
+                                            "Image Bank",
                                             textAlign: TextAlign.justify,
                                             style: TextStyle(
                                                 color: Colors.white,

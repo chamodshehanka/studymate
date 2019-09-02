@@ -1,9 +1,16 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 
 class SignInScreen extends StatefulWidget {
+  final BaseAuthentication auth;
+
+  const SignInScreen({Key key, this.auth}) : super(key: key);
+
   _SignInScreenState createState() => _SignInScreenState();
 }
+
+enum AuthStatus { NOT_DETERMINED, NOT_LOGGED_IN, LOGGED_IN }
 
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _email = new TextEditingController();
@@ -13,9 +20,25 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
+  //Auth
+  // AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
+  // String _userId;
+
   @override
   void initState() {
     super.initState();
+
+    // widget.auth.getCurrentUser().then((user) {
+    //   FirebaseUser user = FirebaseAuth.instance.currentUser() as FirebaseUser;
+    //   setState(() {
+    //     if (user != null) {
+    //       _userId = user?.uid;
+    //     }
+
+    //     authStatus =
+    //         user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
+    //   });
+    // });
 
     onBackPress = () {
       Navigator.of(context).pop();
@@ -39,6 +62,34 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
+  // void _onLoggedIn() {
+  //   widget.auth.getCurrentUser().then((user){
+  //     setState(() {
+  //      _userId = user.uid.toString();
+  //     });
+  //   });
+
+  //   setState(() {
+  //    authStatus = AuthStatus.LOGGED_IN;
+  //   });
+  // }
+
+  // void _onSignedOut() {
+  //   setState(() {
+  //    authStatus = AuthStatus.NOT_LOGGED_IN;
+  //    _userId = null;
+  //   });
+  // }
+
+  // Widget _buildWaitingScreen() {
+  //   return Scaffold(
+  //     body: Container(
+  //       alignment: Alignment.center,
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -59,7 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         softWrap: true,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.blueAccent,
+                          color: Colors.deepPurpleAccent,
                           decoration: TextDecoration.none,
                           fontSize: 24.0,
                           fontWeight: FontWeight.w700,
@@ -91,7 +142,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         splashColor: Colors.black12,
                         borderColor: Colors.white,
                         borderWidth: 0,
-                        color: Colors.blueAccent,
+                        color: Colors.deepPurpleAccent,
                       ),
                     ),
                     Padding(
@@ -117,14 +168,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {Navigator.pushNamed(context, '/homeAdmin');},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/homeAdmin');
+                        },
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(59, 89, 152, 1.0),
                         borderWidth: 0,
-                        color: Color.fromRGBO(59, 89, 152, 1.0),
+                        color: Colors.deepPurple,
                       ),
                     ),
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
                       child: CustomFlatButton(
@@ -132,7 +185,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {Navigator.pushNamed(context, '/homeDoctor');},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/homeDoctor');
+                        },
                         splashColor: Colors.black12,
                         borderColor: Color.fromRGBO(59, 89, 152, 1.0),
                         borderWidth: 0,

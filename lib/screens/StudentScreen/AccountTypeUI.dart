@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/widgets/KusuraFlatButton.dart';
+import 'package:studymate/widgets/StudymateFlatButton.dart';
 
 class AccountTypeScreen extends StatelessWidget {
   @override
@@ -33,7 +33,7 @@ class AccountTypeScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: KusuraFlatButton(
+            child: StudymateFlatButton(
               title: "I'm Going To A School",
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -50,7 +50,7 @@ class AccountTypeScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: KusuraFlatButton(
+            child: StudymateFlatButton(
               title: "I'm Not Going To A School",
               fontSize: 22,
               fontWeight: FontWeight.w700,
