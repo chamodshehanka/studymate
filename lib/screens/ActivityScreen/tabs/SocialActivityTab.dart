@@ -72,23 +72,26 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   }
 
   buildTilesList(Activity socialActivity) => ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        leading: Container(
-          padding: EdgeInsets.only(right: 12.0),
-          decoration: new BoxDecoration(
-              border: new Border(
-                  right: new BorderSide(width: 1.0, color: Colors.white30))),
-          child: Text(
-            socialActivity.type,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
-        title: Text(
-          socialActivity.name,
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      leading: Container(
+        padding: EdgeInsets.only(right: 12.0),
+        decoration: new BoxDecoration(
+            border: new Border(
+                right: new BorderSide(width: 1.0, color: Colors.white30))),
+        child: Text(
+          socialActivity.type,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        trailing:
-            Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
-        onTap: () => {},
-      );
+      ),
+      title: Text(
+        socialActivity.name,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
+      onTap: () {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text("Sending Message"),
+          backgroundColor: Colors.deepPurple,
+        ));
+      });
 }

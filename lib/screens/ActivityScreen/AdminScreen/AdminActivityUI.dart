@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
@@ -169,14 +168,10 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                                   nameController.text, typeController.text);
                           if (isAdded != null) {
                             Navigator.pop(context);
-                            Fluttertoast.showToast(
-                                msg: 'Successfully Added!',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIos: 1,
-                                backgroundColor: Colors.greenAccent,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
+                            Scaffold.of(context).showSnackBar(new SnackBar(
+                              content: new Text('Sucessfully Added!'),
+                              backgroundColor: Colors.deepPurple,
+                            ));
                           } else {
                             //Have to add error message
                             // this.dispose();
