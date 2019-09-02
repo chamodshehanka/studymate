@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/widgets/StudymateFlatButton.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -163,10 +164,26 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           //Adding to DB
-                          activityService.createActivity(
-                              nameController.text, typeController.text);
-                          this.dispose();
+                          Future<Activity> isAdded =
+                              activityService.createActivity(
+                                  nameController.text, typeController.text);
+                          if (isAdded != null) {
+                            this.dispose();
+                          } else {
+                            this.dispose();
+                          }
                         }
+                      },
+                    ),
+                  ),
+                  //Test Dispose button
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: StudymateFlatButton(
+                      color: Colors.deepPurple,
+                      title: 'Cancel',
+                      onPressed: () {
+                        this.dispose();
                       },
                     ),
                   )

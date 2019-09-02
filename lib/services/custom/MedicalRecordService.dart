@@ -6,23 +6,27 @@ final CollectionReference medicalRecordCollection =
     Firestore.instance.collection('medicalRecord');
 
 class MedicalRecordService extends SuperService<MedicalRecord, String> {
-  Stream<QuerySnapshot> getMedicalRecordList({int offset, int limit}) {
-    Stream<QuerySnapshot> snapshots = medicalRecordCollection.snapshots();
-
-    if (offset != null) {
-      snapshots = snapshots.skip(offset);
-    }
-
-    if (limit != null) {
-      snapshots = snapshots.take(limit);
-    }
-
-    return snapshots;
-  }
-
   @override
-  Future<MedicalRecord> create(MedicalRecord t) {
-    return null;
+  Future<MedicalRecord> create(MedicalRecord medicalRecord) {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds =
+          await tx.get(medicalRecordCollection.document());
+
+      final MedicalRecord md = new MedicalRecord(ds.documentID,
+          medicalRecord.name, medicalRecord.date, medicalRecord.url);
+      final Map<String, dynamic> data = md.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return MedicalRecord.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
   }
 
   @override
@@ -42,16 +46,45 @@ class MedicalRecordService extends SuperService<MedicalRecord, String> {
 
   @override
   MedicalRecord getByID(String id) {
+    // return medicalRecordCollection.document(id).snapshots().;
     return null;
   }
 
   @override
   Future delete(String id) {
-    return null;
+    final TransactionHandler deleteTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds =
+          await tx.get(medicalRecordCollection.document(id));
+
+      await tx.delete(ds.reference);
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 
   @override
-  Future update(MedicalRecord t) {
-    return null;
+  Future update(MedicalRecord medicalRecord) {
+    final TransactionHandler updateTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds =
+          await tx.get(medicalRecordCollection.document(medicalRecord.id));
+
+      await tx.update(ds.reference, medicalRecord.toMap());
+      return {'updated': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(updateTransaction)
+        .then((result) => result['updated'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 }
