@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/ScheduleScreen/createSchedule.dart';
+import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/widgets/DrawerTile.dart';
 
 

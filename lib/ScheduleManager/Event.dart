@@ -73,7 +73,7 @@ class Event {
     }
   }
 
-  // TODO: look at using this method
+  
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['eventId'] = eventId;
