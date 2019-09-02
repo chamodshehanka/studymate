@@ -111,7 +111,8 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.network('https://flutter.dev/images/cookbook/network-image.png'),
+                  child: Image.network(
+                      'https://flutter.dev/images/cookbook/network-image.png'),
                 ),
                 //Test Dispose button
                 Padding(
