@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
-import 'package:studymate/widgets/StudymateFlatButton.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -168,8 +167,9 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                               activityService.createActivity(
                                   nameController.text, typeController.text);
                           if (isAdded != null) {
-                            this.dispose();
+                            Navigator.pop(context);
                           } else {
+                            //Have to add error message
                             this.dispose();
                           }
                         }
@@ -179,14 +179,15 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                   //Test Dispose button
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: StudymateFlatButton(
-                      color: Colors.deepPurple,
-                      title: 'Cancel',
+                    child: RaisedButton(
+                      color: Colors.redAccent,
+                      textColor: Colors.white,
+                      child: Text("Cancel"),
                       onPressed: () {
-                        this.dispose();
+                        Navigator.pop(context);
                       },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

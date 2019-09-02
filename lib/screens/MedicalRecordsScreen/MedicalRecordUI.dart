@@ -59,7 +59,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
             medicalRecord.name,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
+          trailing: Icon(Icons.open_in_new, color: Colors.white, size: 30.0),
           onTap: () => {
             // Navigator.push(
             //   context,
@@ -89,11 +89,17 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
           }),
     );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Medical Records'),
-        backgroundColor: Colors.deepPurple,
-      ),
-      body: medicalRecordBody,
-    );
+        appBar: AppBar(
+          title: Text('Medical Records'),
+          backgroundColor: Colors.deepPurple,
+        ),
+        body: medicalRecordBody,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.deepPurple,
+          child: Icon(Icons.add),
+          onPressed: () => _createNewMedicalRecord(context),
+        ));
   }
+
+  _createNewMedicalRecord(BuildContext context) {}
 }
