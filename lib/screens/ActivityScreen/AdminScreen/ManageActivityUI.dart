@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 
@@ -31,6 +32,21 @@ class ManageActivityScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: RaisedButton(
+              color: Colors.deepPurpleAccent,
+              child: Text('Save'),
+              onPressed: () {
+                if (activity.id != null) {
+                  Future isUpdated = activityService.updateActivity(activity);
+                  if(isUpdated != null) {
+                    Navigator.pop(context);
+                  }
+                } else {}
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: RaisedButton(
               color: Colors.redAccent,
               child: Text('Remove'),
               onPressed: () {
@@ -53,7 +69,19 @@ class ManageActivityScreen extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pop(ConfirmAction.ACCEPT);
-                                  activityService.deleteActivity(activity.id);
+                                  Future<dynamic> isDeleted = activityService
+                                      .deleteActivity(activity.id);
+                                  if (isDeleted != null) {
+                                    Navigator.pop(context);
+                                    Fluttertoast.showToast(
+                                        msg: 'Successfully Deleted!',
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIos: 1,
+                                        backgroundColor: Colors.greenAccent,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                  } else {}
                                 }),
                           ],
                         );
@@ -65,16 +93,6 @@ class ManageActivityScreen extends StatelessWidget {
               },
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: RaisedButton(
-              color: Colors.deepPurpleAccent,
-              child: Text('Save'),
-              onPressed: () => {
-                
-              },
-            ),
-          )
         ],
       ),
     );
