@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:googleapis/serviceusage/v1.dart';
 
 void main() => runApp(new MyApp());
 
@@ -19,13 +17,15 @@ class MyApp extends StatelessWidget {
   
 
 
-class ProfileUIScreen extends StatelessWidget {
+class ProfileUIScreen extends StatefulWidget {
+  @override
+  _ProfileUIScreenState createState() => _ProfileUIScreenState();
+}
+
+class _ProfileUIScreenState extends State<ProfileUIScreen> {
   Color gradientStar = Colors.orange[200];
+
   Color gradientEnd = Colors.purple;
-
- 
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -135,5 +135,5 @@ class ProfileUIScreen extends StatelessWidget {
                               ),
                               );
                               }
-                            }
+}
 
