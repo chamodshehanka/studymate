@@ -12,7 +12,7 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepPurpleAccent,
         ),
         backgroundColor: Colors.white,
         drawer: Drawer(

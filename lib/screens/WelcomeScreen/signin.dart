@@ -1,9 +1,16 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 
 class SignInScreen extends StatefulWidget {
+  final BaseAuthentication auth;
+
+  const SignInScreen({Key key, this.auth}) : super(key: key);
+
   _SignInScreenState createState() => _SignInScreenState();
 }
+
+enum AuthStatus { NOT_DETERMINED, NOT_LOGGED_IN, LOGGED_IN }
 
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _email = new TextEditingController();
@@ -13,9 +20,25 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
+  //Auth
+  // AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
+  // String _userId;
+
   @override
   void initState() {
     super.initState();
+
+    // widget.auth.getCurrentUser().then((user) {
+    //   FirebaseUser user = FirebaseAuth.instance.currentUser() as FirebaseUser;
+    //   setState(() {
+    //     if (user != null) {
+    //       _userId = user?.uid;
+    //     }
+
+    //     authStatus =
+    //         user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
+    //   });
+    // });
 
     onBackPress = () {
       Navigator.of(context).pop();
@@ -38,6 +61,34 @@ class _SignInScreenState extends State<SignInScreen> {
       hint: "Password",
     );
   }
+
+  // void _onLoggedIn() {
+  //   widget.auth.getCurrentUser().then((user){
+  //     setState(() {
+  //      _userId = user.uid.toString();
+  //     });
+  //   });
+
+  //   setState(() {
+  //    authStatus = AuthStatus.LOGGED_IN;
+  //   });
+  // }
+
+  // void _onSignedOut() {
+  //   setState(() {
+  //    authStatus = AuthStatus.NOT_LOGGED_IN;
+  //    _userId = null;
+  //   });
+  // }
+
+  // Widget _buildWaitingScreen() {
+  //   return Scaffold(
+  //     body: Container(
+  //       alignment: Alignment.center,
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

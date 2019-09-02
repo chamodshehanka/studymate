@@ -11,6 +11,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _number = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
+  final TextEditingController badgeNameCtrl = TextEditingController();
   CustomTextField _nameField;
   CustomTextField _phoneField;
   CustomTextField _emailField;
@@ -31,7 +32,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
       controller: _fullname,
-      hint: "Full Name",
+       hint: "Full Name",
+      
     );
     _phoneField = new CustomTextField(
       baseColor: Colors.grey,
@@ -107,6 +109,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
                       child: _passwordField,
                     ),
+                    const SizedBox(height: 20.0),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.indigo,
+                          width: 1.5,
+                          style: BorderStyle.solid,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.indigo,
+                          width: 1.5,
+                          style: BorderStyle.solid,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15.0),
+                        ),
+                      ),
+                      labelText: "Badge Name",
+                      labelStyle: TextStyle(
+                          color: Colors.indigo, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 25.0, horizontal: 40.0),
@@ -220,6 +251,7 @@ class CustomTextField extends StatefulWidget {
   final bool obscureText;
   final Function validator;
   final Function onChanged;
+  final String labelText;
 
   CustomTextField(
       {this.hint,
@@ -230,6 +262,7 @@ class CustomTextField extends StatefulWidget {
       this.errorColor,
       this.inputType = TextInputType.text,
       this.obscureText = false,
+      this.labelText,
       this.validator});
 
   _CustomTextFieldState createState() => _CustomTextFieldState();
