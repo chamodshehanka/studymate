@@ -4,7 +4,7 @@ import 'package:studymate/services/SuperService.dart';
 
 abstract class StudentService implements SuperService<Student, String> {
   @override
-  Future<Student> create(Student t) {
+  Future<Student> create(Student student) {
     return null;
   }
 
@@ -23,7 +23,7 @@ abstract class StudentService implements SuperService<Student, String> {
   }
 
   @override
-  Future update(Student t) {
+  Future update(Student student) {
     return null;
   }
   

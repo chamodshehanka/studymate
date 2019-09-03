@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/ScheduleScreen/createSchedule.dart';
+import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/widgets/DrawerTile.dart';
+
+
 
 class ScheduleManagerHome extends StatefulWidget {
   
   _ScheduleManagerHomeState createState() => _ScheduleManagerHomeState();
+  
 }
 
 class _ScheduleManagerHomeState extends State<ScheduleManagerHome> {
 
+  
+
   @override
   Widget build(BuildContext context) {
             final List<String> entries = <String>['Sunday', 'Monday', 'Tuesday','Wednesday','Thursday','Friday','Saturday'];
-final List<int> colorCodes = <int>[600, 500, 100,600,500,100,600];
 
     return Scaffold(
         appBar: AppBar(
@@ -55,8 +59,8 @@ ListView.separated(
         Navigator.push(context,MaterialPageRoute(builder:(context)=>CreateSchedule(id: index)));
       },
       child: Container(
-        height: 50,
-        color: Colors.amber[colorCodes[index]],
+        height: 70,
+        color: Colors.amber,
         child: Center(child: Text('${entries[index]}'),),
       ),
     );

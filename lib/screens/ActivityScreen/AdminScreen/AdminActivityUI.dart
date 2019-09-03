@@ -174,7 +174,10 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                             ));
                           } else {
                             //Have to add error message
-                            // this.dispose();
+                            Scaffold.of(context).showSnackBar(new SnackBar(
+                              content: new Text('Failed to Add!'),
+                              backgroundColor: Colors.deepPurple,
+                            ));
                           }
                         }
                       },
