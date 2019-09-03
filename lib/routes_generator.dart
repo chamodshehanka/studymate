@@ -16,8 +16,8 @@ import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
 import 'package:studymate/screens/StudentScreen/add.dart';
-import 'package:studymate/screens/StudentScreen/signup.dart';
-import 'package:studymate/screens/StudentScreen/signup1.dart';
+import 'package:studymate/screens/StudentScreen/editProfileNonSchoolStudent.dart';
+import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
 import 'package:studymate/screens/TestUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
@@ -36,12 +36,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
-      case '/signup':
-        return MaterialPageRoute(builder: (_) => SignUpScreen());
+      case '/schoolStudentEditPage':
+        return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case '/signup1':
-        return MaterialPageRoute(builder: (_) => SignUp1Screen());
+      case '/nonSchoolStudentEditPage':
+        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/add': //WTF is 'add' Suranga?

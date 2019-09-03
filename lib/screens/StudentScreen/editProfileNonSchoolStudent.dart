@@ -2,25 +2,23 @@ import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
-class SignUp1Screen extends StatefulWidget {
-  _SignUp1ScreenState createState() => _SignUp1ScreenState();
+class NonSchoolStudentScreen extends StatefulWidget {
+  _NonSchoolStudentScreenState createState() => _NonSchoolStudentScreenState();
 }
 
-class _SignUp1ScreenState extends State<SignUp1Screen> {
+class _NonSchoolStudentScreenState extends State<NonSchoolStudentScreen> {
   final TextEditingController _fullname = new TextEditingController();
   final TextEditingController _parentID = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   final TextEditingController _number = new TextEditingController();
-  // final TextEditingController _address = new TextEditingController();
-  final TextEditingController _age = new TextEditingController();
+  final TextEditingController _address = new TextEditingController();
   CustomTextField _nameField;
   CustomTextField _parentIDField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
   CustomTextField _phoneField;
-  // CustomTextField _addressField;
-  CustomTextField _ageField;
+  CustomTextField _addressField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
@@ -74,21 +72,12 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       inputType: TextInputType.number,
     );
 
-    // _addressField = new CustomTextField(
-    //   baseColor: Colors.grey,
-    //   borderColor: Colors.grey[400],
-    //   errorColor: Colors.red,
-    //   controller: _address,
-    //   hint: "Address",
-    // );
-
-    _ageField = CustomTextField(
+    _addressField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _age,
-      hint: "Age",
-      inputType: TextInputType.number,
+      controller: _address,
+      hint: "Address",
     );
   }
 
@@ -148,12 +137,8 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                     Padding(
                       padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                      child: _ageField,
-                    ),
+                       child: _addressField,   
+                    ), 
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 25.0, horizontal: 40.0),
@@ -320,7 +305,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               }
             });
           },
-          //keyboardType: widget.inputType,
+          keyboardType: widget.inputType,
           controller: widget.controller,
           decoration: InputDecoration(
             hintStyle: TextStyle(
