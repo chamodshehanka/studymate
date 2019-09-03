@@ -39,7 +39,7 @@ class AccountTypeScreen extends StatelessWidget {
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.of(context).pushNamed("/signup");
+                Navigator.of(context).pushNamed("/schoolStudentEditPage");
               },
               splashColor: Colors.black12,
               borderColor: Colors.white,
@@ -56,7 +56,7 @@ class AccountTypeScreen extends StatelessWidget {
               fontWeight: FontWeight.w700,
               textColor: Colors.black54,
               onPressed: () {
-                Navigator.of(context).pushNamed("/signup1");
+                Navigator.of(context).pushNamed("/nonSchoolStudentEditPage");
               },
               splashColor: Colors.black12,
               borderColor: Colors.black12,

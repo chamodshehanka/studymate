@@ -2,16 +2,24 @@ import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
-class SignUpScreen extends StatefulWidget {
-  _SignUpScreenState createState() => _SignUpScreenState();
+class SchoolStudentScreen extends StatefulWidget {
+  _SchoolStudentScreenState createState() => _SchoolStudentScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
   final TextEditingController _fullname = new TextEditingController();
+  final TextEditingController _parentID = new TextEditingController();
+  final TextEditingController _birthday = new TextEditingController();
+  final TextEditingController _school = new TextEditingController();
+  final TextEditingController _address = new TextEditingController();
   final TextEditingController _number = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   CustomTextField _nameField;
+  CustomTextField _parentField;
+  CustomTextField _bithdayField;
+  CustomTextField _schoolField;
+  CustomTextField _addressField;
   CustomTextField _phoneField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
@@ -32,6 +40,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
       errorColor: Colors.red,
       controller: _fullname,
       hint: "Full Name",
+    );
+
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _parentID,
+      hint: "Parent ID",
+    );
+
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _birthday,
+      hint: "Birthday",
+    );
+
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _school,
+      hint: "School",
+    );
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _address,
+      hint: "Address",
     );
     _phoneField = new CustomTextField(
       baseColor: Colors.grey,
@@ -92,6 +131,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
                       child: _nameField,
                     ),
+                      Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _parentField,
+                    ),
+                      Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _bithdayField,
+                    ),
+                      Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _schoolField,
+                    ),
+                      Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _addressField,
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
@@ -115,9 +174,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signin');
-                        },
+                        onPressed: () {},
                         splashColor: Colors.black12,
                         borderColor: Colors.blueAccent,
                         borderWidth: 0,
