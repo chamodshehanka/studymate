@@ -8,23 +8,22 @@ import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/CreateMedicalRecordUI.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
-import 'package:studymate/screens/RewardScreen/Admin/new_badge.dart';
 import 'package:studymate/screens/RewardScreen/Admin/badge_collection.dart';
-import 'package:studymate/screens/RewardScreen/s_reward.dart';
+import 'package:studymate/screens/RewardScreen/Admin/new_badge.dart';
 import 'package:studymate/screens/RewardScreen/rewards.dart';
-import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
+import 'package:studymate/screens/RewardScreen/s_reward.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
+import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
-import 'package:studymate/screens/StudentScreen/add.dart';
 import 'package:studymate/screens/StudentScreen/editProfileNonSchoolStudent.dart';
 import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
+import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
+import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/WelcomeScreen/signin.dart';
-import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
-import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -45,8 +44,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
-      case '/add': //WTF is 'add' Suranga?
-        return MaterialPageRoute(builder: (_) => AddScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
       case '/activity':
