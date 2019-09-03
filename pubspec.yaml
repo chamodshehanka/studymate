@@ -32,6 +32,7 @@ dependencies:
   googleapis: ^0.54.0
   device_calendar:  ^0.2.1+1
   intl:
+  image_picker:
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.2+1

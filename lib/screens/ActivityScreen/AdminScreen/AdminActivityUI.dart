@@ -109,6 +109,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   }
 
   void _createNewActivity(BuildContext context) async {
+    String activityType;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -153,6 +154,30 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                       },
                     ),
                   ),
+                  // Padding(
+                  //     padding: EdgeInsets.all(8.0),
+                  //     child: DropdownButton<String>(
+                  //       value: 'Activity type',
+                  //       onChanged: (String value) {
+                  //         setState(() {
+                  //           activityType = value;
+                  //         });
+                  //       },
+                  //       items: <DropdownMenuItem<String>>[
+                  //         DropdownMenuItem(
+                  //           value: 'Social',
+                  //           child: Text('Social'),
+                  //         ),
+                  //         DropdownMenuItem(
+                  //           value: 'Leisure',
+                  //           child: Text('Leisure'),
+                  //         ),
+                  //         DropdownMenuItem(
+                  //           value: 'Other',
+                  //           child: Text('Other'),
+                  //         ),
+                  //       ],
+                  //     )),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
