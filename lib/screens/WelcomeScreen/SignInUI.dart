@@ -11,85 +11,54 @@ class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
 }
 
-enum AuthStatus { NOT_DETERMINED, NOT_LOGGED_IN, LOGGED_IN }
-
 class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController _email = new TextEditingController();
-  final TextEditingController _password = new TextEditingController();
+  BaseAuthentication auth = Authentication();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
   CustomTextField _emailField;
   CustomTextField _passwordField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
-  //Auth
-  // AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
-  // String _userId;
-
   @override
   void initState() {
     super.initState();
-
-    // widget.auth.getCurrentUser().then((user) {
-    //   FirebaseUser user = FirebaseAuth.instance.currentUser() as FirebaseUser;
-    //   setState(() {
-    //     if (user != null) {
-    //       _userId = user?.uid;
-    //     }
-
-    //     authStatus =
-    //         user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
-    //   });
-    // });
 
     onBackPress = () {
       Navigator.of(context).pop();
     };
 
     _emailField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _email,
-      hint: "E-mail Adress",
-      inputType: TextInputType.emailAddress,
-    );
+        baseColor: Colors.grey,
+        borderColor: Colors.grey[400],
+        errorColor: Colors.red,
+        controller: _emailController,
+        hint: "E-mail Adress",
+        inputType: TextInputType.emailAddress,
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Please enter email address';
+          } else {
+            return null;
+          }
+        });
     _passwordField = CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _password,
+      controller: _passwordController,
       obscureText: true,
       hint: "Password",
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter password';
+        } else {
+          return null;
+        }
+      },
     );
   }
-
-  // void _onLoggedIn() {
-  //   widget.auth.getCurrentUser().then((user){
-  //     setState(() {
-  //      _userId = user.uid.toString();
-  //     });
-  //   });
-
-  //   setState(() {
-  //    authStatus = AuthStatus.LOGGED_IN;
-  //   });
-  // }
-
-  // void _onSignedOut() {
-  //   setState(() {
-  //    authStatus = AuthStatus.NOT_LOGGED_IN;
-  //    _userId = null;
-  //   });
-  // }
-
-  // Widget _buildWaitingScreen() {
-  //   return Scaffold(
-  //     body: Container(
-  //       alignment: Alignment.center,
-  //       child: CircularProgressIndicator(),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +107,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          _userLogin();
                         },
                         splashColor: Colors.black12,
                         borderColor: Colors.white,
@@ -224,6 +193,26 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ),
     );
+  }
+
+  Future _userLogin() async {
+    final formState = _formKey.currentState;
+    if (formState.validate()) {
+      formState.save();
+      Future<String> user =
+          auth.signIn(_emailController.text, _passwordController.text);
+
+      if (user != null) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        Navigator.pushNamed(context, '/dfdf');
+      }
+    } else {
+      Scaffold.of(context).showSnackBar(new SnackBar(
+        content: new Text('Login Failed!'),
+        backgroundColor: Colors.deepPurple,
+      ));
+    }
   }
 }
 
