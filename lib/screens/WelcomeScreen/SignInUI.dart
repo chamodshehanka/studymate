@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/widgets/StudymateFlatButton.dart';
 
 class SignInScreen extends StatefulWidget {
   final BaseAuthentication auth;
@@ -131,7 +132,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
+                      child: StudymateFlatButton(
                         title: "Log In",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -163,7 +164,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
+                      child: StudymateFlatButton(
                         title: "Admin Login",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -180,7 +181,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
+                      child: StudymateFlatButton(
                         title: "Doctor Login",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -220,60 +221,6 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomFlatButton extends StatelessWidget {
-  final String title;
-  final Color textColor;
-  final double fontSize;
-  final FontWeight fontWeight;
-  final VoidCallback onPressed;
-  final Color color;
-  final Color splashColor;
-  final Color borderColor;
-  final double borderWidth;
-
-  CustomFlatButton(
-      {this.title,
-      this.textColor,
-      this.fontSize,
-      this.fontWeight,
-      this.onPressed,
-      this.color,
-      this.splashColor,
-      this.borderColor,
-      this.borderWidth});
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: onPressed,
-      color: color,
-      splashColor: splashColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Text(
-          title,
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            decoration: TextDecoration.none,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            fontFamily: "OpenSans",
-          ),
-        ),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        side: BorderSide(
-          color: borderColor,
-          width: borderWidth,
         ),
       ),
     );

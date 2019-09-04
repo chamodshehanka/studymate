@@ -21,9 +21,9 @@ import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
+import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
-import 'package:studymate/screens/WelcomeScreen/signin.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
