@@ -109,7 +109,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   }
 
   void _createNewActivity(BuildContext context) async {
-    String activityType;
+    // String activityType;
     showDialog(
         context: context,
         builder: (BuildContext context) {
