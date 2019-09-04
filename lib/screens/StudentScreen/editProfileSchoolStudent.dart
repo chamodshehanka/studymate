@@ -174,11 +174,53 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context){
+                              return AlertDialog(
+                                title: Center(child: Text('Alert'),),
+                                backgroundColor: Colors.white,
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(
+                                        "Profile Create Successful",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: 
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        FlatButton(
+                                          child: Text('No'),
+                                          textColor: 
+                                            Colors.purple,
+                                          onPressed: (){},  
+                                        ),
+                                        FlatButton(
+                                          child: Text('Yes'),
+                                          textColor: 
+                                            Colors.purple,
+                                          onPressed: (){}  
+                                        )
+                                      ]   
+                                    )
+                                  ],),
+                              );
+                            }
+                          );
+                        },
                         splashColor: Colors.black12,
-                        borderColor: Colors.blueAccent,
+                        borderColor: Colors.purple,
                         borderWidth: 0,
-                        color: Colors.blueAccent,
+                        color: Colors.purple,
                       ),
                     ),
                   ],
