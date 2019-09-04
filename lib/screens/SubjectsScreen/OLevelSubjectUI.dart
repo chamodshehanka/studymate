@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class OLevelSubject extends StatefulWidget {
   OLevelSubject({Key key, this.title}) : super(key: key);
 
@@ -28,10 +27,9 @@ class _OLevelSubjectState extends State<OLevelSubject> {
             decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
             child: makeListTile(subject),
           ),
-  );
+        );
 
-
-  final makeBody = Container(
+    final makeBody = Container(
       // decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
       child: ListView.builder(
         scrollDirection: Axis.vertical,
@@ -55,42 +53,32 @@ class Subject {
   Subject(this.title);
 }
 
-
-
 List getSubjects() {
   return [
-  
-  Subject("Mathematics"),
-  Subject("Science"),
-  Subject("English"),
-  Subject("Sinhala"),
-  Subject("History"),
-  Subject("Religion"),
-  Subject("Civics"),
-  Subject("Geography"),
-  Subject("Art"),
-  Subject("Music"),
-  Subject("Drama"),
-  Subject("Dance"),
-  Subject("Tamil"),
-  Subject("Health"),
-  Subject("P.T.S."),
-];
-  
+    Subject("Mathematics"),
+    Subject("Science"),
+    Subject("English"),
+    Subject("Sinhala"),
+    Subject("History"),
+    Subject("Religion"),
+    Subject("Civics"),
+    Subject("Geography"),
+    Subject("Art"),
+    Subject("Music"),
+    Subject("Drama"),
+    Subject("Dance"),
+    Subject("Tamil"),
+    Subject("Health"),
+    Subject("P.T.S."),
+  ];
 }
 
-  ListTile makeListTile(Subject subject) => ListTile(
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        
-          title: Text(
-            subject.title,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          trailing:
-              Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
-          onTap: () {
-
-            
-          },
-        );
+ListTile makeListTile(Subject subject) => ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      title: Text(
+        subject.title,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
+      onTap: () {},
+    );
