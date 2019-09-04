@@ -1,12 +1,15 @@
 import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 
 class SignUpScreen extends StatefulWidget {
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  BaseAuthentication auth = Authentication();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _fullname = new TextEditingController();
   final TextEditingController _number = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
@@ -117,9 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {
-                          // Navigator.pushNamed(context, '/signin');
-                        },
+                        onPressed: () => {_signUpUser()},
                         splashColor: Colors.black12,
                         borderColor: Colors.blueAccent,
                         borderWidth: 0,
@@ -155,6 +156,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  _signUpUser() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      Future<String> user = auth.signUp(_email.text, _password.text);
+
+      if (user != null) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        // Have to change
+        Navigator.pushNamed(context, '/home');
+      }
+    }
   }
 }
 
