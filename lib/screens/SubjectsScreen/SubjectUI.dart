@@ -3,8 +3,6 @@ import 'Grade89SubjectUI.dart';
 import 'ALevelSubjectUI.dart';
 import 'OLevelSubjectUI.dart';
 
-
-
 class SubjectsScreen extends StatefulWidget {
   _SubjectsScreenState createState() => _SubjectsScreenState();
 }
@@ -32,8 +30,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                 Grade89Subject(),
                 OLevelSubject(),
                 ALevelSubject(),
-                
-                ],
+              ],
             )),
       ),
     );
@@ -72,7 +69,6 @@ class CustomListTile extends StatelessWidget {
         ));
   }
 }
-
 
 final List<String> subjects = <String>[
   'Mathematics',

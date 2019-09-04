@@ -8,19 +8,24 @@ class TestUIScreen extends StatefulWidget {
 class _TestUIScreenState extends State<TestUIScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white54,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 30),
+        child: Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         child: ListView(
           children: <Widget>[
             RaisedButton(
               child: Text('Admin Activity'),
+              color: Colors.deepPurpleAccent,
+              textColor: Colors.white,
+              focusColor: Colors.deepPurple,
               onPressed: () => {Navigator.pushNamed(context, '/adminActivity')},
             ),
           ],
         ),
       ),
-    );
+    ),);
     // return new StreamBuilder(
     //     stream: Firestore.instance
     //         .collection('activity')
