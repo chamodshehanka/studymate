@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Activity.dart';
 
 final CollectionReference activityCollection =
-    Firestore.instance.collection('activity');
+    Firestore.instance.collection('Activities');
 
 class ActivityService {
   // static final ActivityService _activityService = ActivityService();
@@ -32,7 +32,7 @@ class ActivityService {
   //Get Only Leisure Activities
   Stream<QuerySnapshot> getLeisureActivityList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
-        activityCollection.where('type', isEqualTo: 'leisure').snapshots();
+        activityCollection.where('type', isEqualTo: 'Leisure').snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -48,7 +48,7 @@ class ActivityService {
   //Get Only Social Activities
   Stream<QuerySnapshot> getSocialActivityList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
-        activityCollection.where('type', isEqualTo: 'social').snapshots();
+        activityCollection.where('type', isEqualTo: 'Social').snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);

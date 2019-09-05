@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/SuperService.dart';
 
-class StudentService implements SuperService<Student, String> {
+abstract class StudentService implements SuperService<Student, String> {
   @override
-  Future<Student> create(Student t) {
+  Future<Student> create(Student student) {
     return null;
   }
 
@@ -18,13 +18,12 @@ class StudentService implements SuperService<Student, String> {
     return null;
   }
 
-  @override
   Future delete(String id) {
     return null;
   }
 
   @override
-  Future update(Student t) {
+  Future update(Student student) {
     return null;
   }
   

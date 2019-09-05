@@ -60,14 +60,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           trailing: Icon(Icons.open_in_new, color: Colors.white, size: 30.0),
-          onTap: () => {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => ManageActivityScreen(activity: activity)
-            //   )
-            // )
-          },
+          onTap: () => {_viewMedicalReport(context)},
         );
 
     Card makeCard(MedicalRecord medicalRecord) => Card(
@@ -97,9 +90,42 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.deepPurple,
           child: Icon(Icons.add),
-          onPressed: () => _createNewMedicalRecord(context),
+          onPressed: () => Navigator.pushNamed(context, '/createMedicalRecord'),
         ));
   }
 
-  _createNewMedicalRecord(BuildContext context) {}
+  _viewMedicalReport(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'Medical Record',
+              textAlign: TextAlign.center,
+            ),
+            backgroundColor: Colors.deepPurple[50],
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network('_downloadUrl'),
+                ),
+                //Test Dispose button
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RaisedButton(
+                    color: Colors.redAccent,
+                    textColor: Colors.white,
+                    child: Text("Cancel"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
 }
