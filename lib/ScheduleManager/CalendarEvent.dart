@@ -1,27 +1,18 @@
-import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_calendar/device_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:studymate/ScheduleManager/DateTimePicker.dart';
-import 'package:studymate/ScheduleManager/DayOfTheWeek.dart';
 import 'package:studymate/ScheduleManager/EventReminders.dart';
 import 'package:studymate/ScheduleManager/Reminder.dart';
-import 'package:studymate/models/Activity.dart';
-import 'package:studymate/services/custom/ActivityService.dart';
+
 
 enum RecurrenceRuleEndType { MaxOccurrences, SpecifiedEndDate }
 
 class CalendarEventPage extends StatefulWidget {
   final Calendar _calendar;
   final Event _event;
-  List<Activity> activityTypes;
-  List<Activity> socialActivities;
-  List<Activity> leisureActivities;
-  List<Activity> subjects;
-  ActivityService activityService = new ActivityService();
-  StreamSubscription<QuerySnapshot> activitySubscription;
+  
 
   CalendarEventPage(this._calendar, [this._event]);
 
@@ -29,34 +20,8 @@ class CalendarEventPage extends StatefulWidget {
   @override
   _CalendarEventPageState createState() => _CalendarEventPageState(_calendar,_event);
 
-  @override
-  void initState(){
-    socialActivities = List();
-    leisureActivities = List();
+  
 
-    activitySubscription?.cancel();
-    activitySubscription = activityService
-        .getLeisureActivityList()
-        .listen((QuerySnapshot snapshot) {
-      final List<Activity> activities = snapshot.documents
-          .map((documentSnapshot) => Activity.fromMap(documentSnapshot.data))
-          .toList();
-
-          leisureActivities = activities;
-    } 
-    );
-
-    activitySubscription = activityService
-        .getSocialActivityList()
-        .listen((QuerySnapshot snapshot) {
-      final List<Activity> activities = snapshot.documents
-          .map((documentSnapshot) => Activity.fromMap(documentSnapshot.data))
-          .toList();
-
-          socialActivities = activities;
-    } 
-    );
-  }
 }
 
 class _CalendarEventPageState extends State<CalendarEventPage> {
@@ -77,11 +42,11 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
   bool _isRecurringEvent = true;
 
 
-  List<DayOfTheWeek> _daysOfTheWeek = List<DayOfTheWeek>();
-  List<int> _daysOfTheMonth = List<int>();
-  List<int> _monthsOfTheYear = List<int>();
-  List<int> _weeksOfTheYear = List<int>();
-  List<int> _setPositions = List<int>();
+  // List<DayOfTheWeek> _daysOfTheWeek = List<DayOfTheWeek>();
+  // List<int> _daysOfTheMonth = List<int>();
+  // List<int> _monthsOfTheYear = List<int>();
+  // List<int> _weeksOfTheYear = List<int>();
+  // List<int> _setPositions = List<int>();
   List<int> _validDaysOfTheMonth = List<int>();
   List<int> _validMonthsOfTheYear = List<int>();
   List<int> _validWeeksOfTheYear = List<int>();
@@ -166,6 +131,9 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
                         if(value==null){
                           return "Select Type";
                         }
+                        else{
+                          return null;
+                        }
                       },
                       hint: Text('Select Type'),
                         items: ["Study", "Leisure", "Social"]
@@ -191,6 +159,9 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
                       validator: (value){
                         if(value==null){
                           return "Select Activity/Subject";
+                        }
+                        else{
+                          return null;
                         }
                       },
                       hint: Text('Select Activity/Subject'),

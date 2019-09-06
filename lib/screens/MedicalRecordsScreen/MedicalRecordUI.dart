@@ -90,11 +90,9 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.deepPurple,
           child: Icon(Icons.add),
-          onPressed: () => _createNewMedicalRecord(context),
+          onPressed: () => Navigator.pushNamed(context, '/createMedicalRecord'),
         ));
   }
-
-  _createNewMedicalRecord(BuildContext context) {}
 
   _viewMedicalReport(BuildContext context) {
     showDialog(
@@ -111,8 +109,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.network(
-                      'https://flutter.dev/images/cookbook/network-image.png'),
+                  child: Image.network('_downloadUrl'),
                 ),
                 //Test Dispose button
                 Padding(

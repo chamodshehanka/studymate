@@ -6,7 +6,7 @@ import 'package:studymate/ScheduleManager/EventItem.dart';
 class CalendarEventsPage extends StatefulWidget {
   final Calendar _calendar;
   final String _d;
-  String day;
+  
 
   CalendarEventsPage(this._calendar, this._d);
 
@@ -22,7 +22,7 @@ class _CalendarEventsPageState extends State<CalendarEventsPage> {
 
   DeviceCalendarPlugin _deviceCalendarPlugin;
   List<Event> _calendarEvents;
-  List<Event> _calendarDayEvents;
+  //List<Event> _calendarDayEvents;
   bool _isLoading = true;
 
   _CalendarEventsPageState(this._calendar) {
@@ -37,6 +37,7 @@ class _CalendarEventsPageState extends State<CalendarEventsPage> {
 
   @override
   Widget build(BuildContext context) {
+    String day;
     return Scaffold(
       appBar: AppBar(title: Text('${widget._d} Events',textAlign:TextAlign.center),
       backgroundColor: Colors.amber,
@@ -49,28 +50,28 @@ class _CalendarEventsPageState extends State<CalendarEventsPage> {
                   itemCount: _calendarEvents?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
         if(widget._d=='Sunday'){
-          widget.day = '7';
+          day = '7';
         }
         else if(widget._d=='Monday'){
-          widget.day = '1';
+          day = '1';
         }
         else if(widget._d=='Tuesday'){
-          widget.day = '2';
+          day = '2';
         }
         else if(widget._d=='Wednesday'){
-          widget.day = '3';
+          day = '3';
         }
         else if(widget._d=='Thursday'){
-          widget.day = '4';
+          day = '4';
         }
         else if(widget._d=='Friday'){
-          widget.day = '5';
+          day = '5';
         }
         else if(widget._d=='Saturday'){
-          widget.day = '6';
+          day = '6';
         }
 
-          if(identical(_calendarEvents[index].start.weekday.toString(),widget.day)){
+          if(identical(_calendarEvents[index].start.weekday.toString(),day)){
               return EventItem(
                         _calendarEvents[index],
                         _deviceCalendarPlugin,
@@ -78,7 +79,11 @@ class _CalendarEventsPageState extends State<CalendarEventsPage> {
                         _onDeletedFinished,
                         _onTapped);
                   }
+            else{
+            return null;
+          }        
           }
+        
         
                     
                 ),

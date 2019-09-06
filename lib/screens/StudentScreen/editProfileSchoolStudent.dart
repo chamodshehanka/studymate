@@ -2,25 +2,27 @@ import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
-class SignUp1Screen extends StatefulWidget {
-  _SignUp1ScreenState createState() => _SignUp1ScreenState();
+class SchoolStudentScreen extends StatefulWidget {
+  _SchoolStudentScreenState createState() => _SchoolStudentScreenState();
 }
 
-class _SignUp1ScreenState extends State<SignUp1Screen> {
+class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
   final TextEditingController _fullname = new TextEditingController();
   final TextEditingController _parentID = new TextEditingController();
+  final TextEditingController _birthday = new TextEditingController();
+  final TextEditingController _school = new TextEditingController();
+  final TextEditingController _address = new TextEditingController();
+  final TextEditingController _number = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
-  final TextEditingController _number = new TextEditingController();
-  // final TextEditingController _address = new TextEditingController();
-  final TextEditingController _age = new TextEditingController();
   CustomTextField _nameField;
-  CustomTextField _parentIDField;
+  CustomTextField _parentField;
+  CustomTextField _bithdayField;
+  CustomTextField _schoolField;
+  CustomTextField _addressField;
+  CustomTextField _phoneField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
-  CustomTextField _phoneField;
-  // CustomTextField _addressField;
-  CustomTextField _ageField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
@@ -40,7 +42,7 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       hint: "Full Name",
     );
 
-    _parentIDField = new CustomTextField(
+    _nameField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
@@ -48,6 +50,36 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       hint: "Parent ID",
     );
 
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _birthday,
+      hint: "Birthday",
+    );
+
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _school,
+      hint: "School",
+    );
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _address,
+      hint: "Address",
+    );
+    _phoneField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _number,
+      hint: "Phone Number",
+      inputType: TextInputType.number,
+    );
     _emailField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
@@ -63,32 +95,6 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
       controller: _password,
       obscureText: true,
       hint: "Password",
-    );
-
-    _phoneField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _number,
-      hint: "Phone Number",
-      inputType: TextInputType.number,
-    );
-
-    // _addressField = new CustomTextField(
-    //   baseColor: Colors.grey,
-    //   borderColor: Colors.grey[400],
-    //   errorColor: Colors.red,
-    //   controller: _address,
-    //   hint: "Address",
-    // );
-
-    _ageField = CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _age,
-      hint: "Age",
-      inputType: TextInputType.number,
     );
   }
 
@@ -125,10 +131,30 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
                       child: _nameField,
                     ),
-                    Padding(
+                      Padding(
                       padding:
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-                      child: _parentIDField,
+                      child: _parentField,
+                    ),
+                      Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _bithdayField,
+                    ),
+                      Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _schoolField,
+                    ),
+                      Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _addressField,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                      child: _phoneField,
                     ),
                     Padding(
                       padding:
@@ -141,20 +167,6 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                       child: _passwordField,
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                      child: _phoneField,
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                      child: _ageField,
-                    ),
-                    Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 25.0, horizontal: 40.0),
                       child: CustomFlatButton(
@@ -162,11 +174,53 @@ class _SignUp1ScreenState extends State<SignUp1Screen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context){
+                              return AlertDialog(
+                                title: Center(child: Text('Alert'),),
+                                backgroundColor: Colors.white,
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(
+                                        "Profile Create Successful",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: 
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        FlatButton(
+                                          child: Text('No'),
+                                          textColor: 
+                                            Colors.purple,
+                                          onPressed: (){},  
+                                        ),
+                                        FlatButton(
+                                          child: Text('Yes'),
+                                          textColor: 
+                                            Colors.purple,
+                                          onPressed: (){}  
+                                        )
+                                      ]   
+                                    )
+                                  ],),
+                              );
+                            }
+                          );
+                        },
                         splashColor: Colors.black12,
-                        borderColor: Colors.blueAccent,
+                        borderColor: Colors.purple,
                         borderWidth: 0,
-                        color: Colors.blueAccent,
+                        color: Colors.purple,
                       ),
                     ),
                   ],
@@ -265,9 +319,6 @@ class CustomTextField extends StatefulWidget {
   final bool obscureText;
   final Function validator;
   final Function onChanged;
-  final Function value;
-  final List items;
-  final Function child;
 
   CustomTextField(
       {this.hint,
@@ -278,9 +329,6 @@ class CustomTextField extends StatefulWidget {
       this.errorColor,
       this.inputType = TextInputType.text,
       this.obscureText = false,
-      this.value,
-      this.items,
-      this.child,
       this.validator});
 
   _CustomTextFieldState createState() => _CustomTextFieldState();

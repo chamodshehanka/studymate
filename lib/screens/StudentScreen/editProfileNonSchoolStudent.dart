@@ -1,48 +1,50 @@
+import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
-import 'package:studymate/services/Authentication.dart';
 
-class SignInScreen extends StatefulWidget {
-  final BaseAuthentication auth;
-
-  const SignInScreen({Key key, this.auth}) : super(key: key);
-
-  _SignInScreenState createState() => _SignInScreenState();
+class NonSchoolStudentScreen extends StatefulWidget {
+  _NonSchoolStudentScreenState createState() => _NonSchoolStudentScreenState();
 }
 
-enum AuthStatus { NOT_DETERMINED, NOT_LOGGED_IN, LOGGED_IN }
-
-class _SignInScreenState extends State<SignInScreen> {
+class _NonSchoolStudentScreenState extends State<NonSchoolStudentScreen> {
+  final TextEditingController _fullname = new TextEditingController();
+  final TextEditingController _parentID = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
+  final TextEditingController _number = new TextEditingController();
+  final TextEditingController _address = new TextEditingController();
+  CustomTextField _nameField;
+  CustomTextField _parentIDField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
+  CustomTextField _phoneField;
+  CustomTextField _addressField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
-
-  //Auth
-  // AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
-  // String _userId;
 
   @override
   void initState() {
     super.initState();
 
-    // widget.auth.getCurrentUser().then((user) {
-    //   FirebaseUser user = FirebaseAuth.instance.currentUser() as FirebaseUser;
-    //   setState(() {
-    //     if (user != null) {
-    //       _userId = user?.uid;
-    //     }
-
-    //     authStatus =
-    //         user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
-    //   });
-    // });
-
     onBackPress = () {
       Navigator.of(context).pop();
     };
+
+    _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _fullname,
+      hint: "Full Name",
+    );
+
+    _parentIDField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _parentID,
+      hint: "Parent ID",
+    );
 
     _emailField = new CustomTextField(
       baseColor: Colors.grey,
@@ -60,35 +62,24 @@ class _SignInScreenState extends State<SignInScreen> {
       obscureText: true,
       hint: "Password",
     );
+
+    _phoneField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _number,
+      hint: "Phone Number",
+      inputType: TextInputType.number,
+    );
+
+    _addressField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _address,
+      hint: "Address",
+    );
   }
-
-  // void _onLoggedIn() {
-  //   widget.auth.getCurrentUser().then((user){
-  //     setState(() {
-  //      _userId = user.uid.toString();
-  //     });
-  //   });
-
-  //   setState(() {
-  //    authStatus = AuthStatus.LOGGED_IN;
-  //   });
-  // }
-
-  // void _onSignedOut() {
-  //   setState(() {
-  //    authStatus = AuthStatus.NOT_LOGGED_IN;
-  //    _userId = null;
-  //   });
-  // }
-
-  // Widget _buildWaitingScreen() {
-  //   return Scaffold(
-  //     body: Container(
-  //       alignment: Alignment.center,
-  //       child: CircularProgressIndicator(),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -106,11 +97,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       padding: const EdgeInsets.only(
                           top: 70.0, bottom: 10.0, left: 10.0, right: 10.0),
                       child: Text(
-                        "Sign In",
+                        "Create new account",
                         softWrap: true,
                         textAlign: TextAlign.left,
                         style: TextStyle(
-                          color: Colors.deepPurpleAccent,
+                          color: Colors.blueAccent,
                           decoration: TextDecoration.none,
                           fontSize: 24.0,
                           fontWeight: FontWeight.w700,
@@ -119,79 +110,91 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: 20.0, bottom: 10.0, left: 15.0, right: 15.0),
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _nameField,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _parentIDField,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
                       child: _emailField,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: 10.0, bottom: 20.0, left: 15.0, right: 15.0),
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
                       child: _passwordField,
                     ),
                     Padding(
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                      child: _phoneField,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                       child: _addressField,   
+                    ), 
+                    Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 14.0, horizontal: 40.0),
+                          vertical: 25.0, horizontal: 40.0),
                       child: CustomFlatButton(
-                        title: "Log In",
+                        title: "Sign Up",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context){
+                              return AlertDialog(
+                                title: Center(child: Text('Alert'),),
+                                backgroundColor: Colors.white,
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(
+                                      child: Text(
+                                        "Profile Create Succesful",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        FlatButton(
+                                          child: Text('No'),
+                                          textColor: 
+                                            Colors.purple,
+                                          onPressed: (){},  
+                                        ),
+                                        FlatButton(
+                                          child: Text('Yes'),
+                                          textColor: 
+                                              Colors.purple,
+                                           onPressed: (){},   
+                                        )
+                                      ],    
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                          );
                         },
                         splashColor: Colors.black12,
-                        borderColor: Colors.white,
+                        borderColor: Colors.blueAccent,
                         borderWidth: 0,
-                        color: Colors.deepPurpleAccent,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        "OR",
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          decoration: TextDecoration.none,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w300,
-                          fontFamily: "OpenSans",
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
-                        title: "Admin Login",
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/homeAdmin');
-                        },
-                        splashColor: Colors.black12,
-                        borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                        borderWidth: 0,
-                        color: Colors.deepPurple,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
-                        title: "Doctor Login",
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/homeDoctor');
-                        },
-                        splashColor: Colors.black12,
-                        borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                        borderWidth: 0,
-                        color: Color.fromRGBO(59, 89, 152, 1.0),
+                        color: Colors.blueAccent,
                       ),
                     ),
                   ],
@@ -290,6 +293,9 @@ class CustomTextField extends StatefulWidget {
   final bool obscureText;
   final Function validator;
   final Function onChanged;
+  final Function value;
+  final List items;
+  final Function child;
 
   CustomTextField(
       {this.hint,
@@ -300,6 +306,9 @@ class CustomTextField extends StatefulWidget {
       this.errorColor,
       this.inputType = TextInputType.text,
       this.obscureText = false,
+      this.value,
+      this.items,
+      this.child,
       this.validator});
 
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -339,7 +348,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               }
             });
           },
-          //keyboardType: widget.inputType,
+          keyboardType: widget.inputType,
           controller: widget.controller,
           decoration: InputDecoration(
             hintStyle: TextStyle(
