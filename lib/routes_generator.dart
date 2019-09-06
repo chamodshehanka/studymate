@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
@@ -57,6 +58,8 @@ class RouteGenerator {
       case '/manageActivity':
         return MaterialPageRoute(
             builder: (_) => ManageActivityScreen(activity: null));
+      case '/activityProgress':
+        return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
       case '/new_badge':
@@ -84,7 +87,7 @@ class RouteGenerator {
       case '/testUI':
         return MaterialPageRoute(builder: (_) => TestUIScreen());
       case '/profileUI':
-        return MaterialPageRoute(builder: (_) => ProfileUIScreen()); 
+        return MaterialPageRoute(builder: (_) => ProfileUIScreen());
       case '/udSubject':
         return MaterialPageRoute(builder: (_) => UDSubjectUI());
       default:
