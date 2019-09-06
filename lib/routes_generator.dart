@@ -86,7 +86,7 @@ class RouteGenerator {
       case '/profileUI':
         return MaterialPageRoute(builder: (_) => ProfileUIScreen()); 
       case '/udSubject':
-        return MaterialPageRoute(builder: (_) => SubjectsScreen());
+        return MaterialPageRoute(builder: (_) => UDSubjectUI());
       default:
         return _errorRoute();
     }
