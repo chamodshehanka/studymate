@@ -13,7 +13,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   BaseAuthentication auth = Authentication();
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   CustomTextField _emailField;
@@ -196,23 +196,24 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future _userLogin() async {
-    final formState = _formKey.currentState;
-    if (formState.validate()) {
-      formState.save();
-      Future<String> user =
-          auth.signIn(_emailController.text, _passwordController.text);
+    Navigator.pushNamed(context, '/home');
+    // final formState = _formKey.currentState;
+    // if (formState.validate()) {
+    //   formState.save();
+    //   Future<String> user =
+    //       auth.signIn(_emailController.text, _passwordController.text);
 
-      if (user != null) {
-        Navigator.pushNamed(context, '/home');
-      } else {
-        Navigator.pushNamed(context, '/dfdf');
-      }
-    } else {
-      Scaffold.of(context).showSnackBar(new SnackBar(
-        content: new Text('Login Failed!'),
-        backgroundColor: Colors.deepPurple,
-      ));
-    }
+    //   if (user != null) {
+    //     Navigator.pushNamed(context, '/home');
+    //   } else {
+    //     Navigator.pushNamed(context, '/dfdf');
+    //   }
+    // } else {
+    //   Scaffold.of(context).showSnackBar(new SnackBar(
+    //     content: new Text('Login Failed!'),
+    //     backgroundColor: Colors.deepPurple,
+    //   ));
+    // }
   }
 }
 
