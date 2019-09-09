@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class OLevelSubject extends StatefulWidget {
-  OLevelSubject({Key key, this.title}) : super(key: key);
+class UDSubjectUI extends StatefulWidget {
+  UDSubjectUI({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _OLevelSubjectState createState() => _OLevelSubjectState();
+  _UDSubjectUIState createState() => _UDSubjectUIState();
 }
 
-class _OLevelSubjectState extends State<OLevelSubject> {
+class _UDSubjectUIState extends State<UDSubjectUI> {
   List subjects;
 
   @override
@@ -51,6 +51,8 @@ class _OLevelSubjectState extends State<OLevelSubject> {
 class Subject {
   String title;
   Subject(this.title);
+  
+  
 }
 
 List getSubjects() {
@@ -64,21 +66,20 @@ List getSubjects() {
     Subject("Civics"),
     Subject("Geography"),
     Subject("Art"),
-    Subject("Music"),
-    Subject("Drama"),
-    Subject("Dance"),
-    Subject("Tamil"),
-    Subject("Health"),
-    Subject("P.T.S."),
+   
   ];
 }
 
 ListTile makeListTile(Subject subject) => ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      title: Text(
+      leading: Text(
         subject.title,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
-      onTap: () {},
+       
+      trailing: Icon(Icons.delete,color: Colors.white, size: 30.0),
+      title : Icon(Icons.edit, color: Colors.white, size: 30.0),
+     
+      onTap: () {}, 
+
     );

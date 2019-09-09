@@ -1,13 +1,21 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/widgets/StudymateFlatButton.dart';
 
 class SignInScreen extends StatefulWidget {
+  final BaseAuthentication auth;
+
+  const SignInScreen({Key key, this.auth}) : super(key: key);
+
   _SignInScreenState createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final TextEditingController _email = new TextEditingController();
-  final TextEditingController _password = new TextEditingController();
+  BaseAuthentication auth = Authentication();
+  // final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
   CustomTextField _emailField;
   CustomTextField _passwordField;
   bool _blackVisible = false;
@@ -22,20 +30,33 @@ class _SignInScreenState extends State<SignInScreen> {
     };
 
     _emailField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _email,
-      hint: "E-mail Adress",
-      inputType: TextInputType.emailAddress,
-    );
+        baseColor: Colors.grey,
+        borderColor: Colors.grey[400],
+        errorColor: Colors.red,
+        controller: _emailController,
+        hint: "E-mail Adress",
+        inputType: TextInputType.emailAddress,
+        validator: (value) {
+          if (value.isEmpty) {
+            return 'Please enter email address';
+          } else {
+            return null;
+          }
+        });
     _passwordField = CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _password,
+      controller: _passwordController,
       obscureText: true,
       hint: "Password",
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Please enter password';
+        } else {
+          return null;
+        }
+      },
     );
   }
 
@@ -80,13 +101,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
+                      child: StudymateFlatButton(
                         title: "Log In",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          Navigator.pushNamed(context, '/home');
+                          _userLogin();
                         },
                         splashColor: Colors.black12,
                         borderColor: Colors.white,
@@ -112,7 +133,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
+                      child: StudymateFlatButton(
                         title: "Admin Login",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -129,7 +150,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
+                      child: StudymateFlatButton(
                         title: "Doctor Login",
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
@@ -173,59 +194,26 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-}
 
-class CustomFlatButton extends StatelessWidget {
-  final String title;
-  final Color textColor;
-  final double fontSize;
-  final FontWeight fontWeight;
-  final VoidCallback onPressed;
-  final Color color;
-  final Color splashColor;
-  final Color borderColor;
-  final double borderWidth;
+  Future _userLogin() async {
+    Navigator.pushNamed(context, '/home');
+    // final formState = _formKey.currentState;
+    // if (formState.validate()) {
+    //   formState.save();
+    //   Future<String> user =
+    //       auth.signIn(_emailController.text, _passwordController.text);
 
-  CustomFlatButton(
-      {this.title,
-      this.textColor,
-      this.fontSize,
-      this.fontWeight,
-      this.onPressed,
-      this.color,
-      this.splashColor,
-      this.borderColor,
-      this.borderWidth});
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: onPressed,
-      color: color,
-      splashColor: splashColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Text(
-          title,
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            decoration: TextDecoration.none,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            fontFamily: "OpenSans",
-          ),
-        ),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
-        side: BorderSide(
-          color: borderColor,
-          width: borderWidth,
-        ),
-      ),
-    );
+    //   if (user != null) {
+    //     Navigator.pushNamed(context, '/home');
+    //   } else {
+    //     Navigator.pushNamed(context, '/dfdf');
+    //   }
+    // } else {
+    //   Scaffold.of(context).showSnackBar(new SnackBar(
+    //     content: new Text('Login Failed!'),
+    //     backgroundColor: Colors.deepPurple,
+    //   ));
+    // }
   }
 }
 

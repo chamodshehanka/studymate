@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/widgets/DurekshaFlatButton.dart';
+import 'package:studymate/widgets/StudymateFlatButton.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
@@ -48,7 +48,7 @@ class WelcomeScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: DurekshaFlatButton(
+            child: StudymateFlatButton(
               title: "Log In",
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -65,15 +65,12 @@ class WelcomeScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: DurekshaFlatButton(
+            child: StudymateFlatButton(
               title: "Sign Up",
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.black54,
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed('/signup', arguments: 'Hello from first page');
-              },
+              onPressed: () => Navigator.pushNamed(context, '/signUp'),
               splashColor: Colors.black12,
               borderColor: Colors.black12,
               borderWidth: 2,

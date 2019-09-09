@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
-class DoctorInputField extends StatefulWidget {
-  final Icon fieldIcon;
+class StudymateTextField extends StatefulWidget {
+  final Icon icon;
   final String hintText;
 
-  DoctorInputField(this.fieldIcon, this.hintText);
+  StudymateTextField(this.icon, this.hintText);
 
-  @override
-  _DoctorInputFieldState createState() => _DoctorInputFieldState();
+  _StudymateTextField createState() => _StudymateTextField();
 }
 
-class _DoctorInputFieldState extends State<DoctorInputField> {
+class _StudymateTextField extends State<StudymateTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +23,7 @@ class _DoctorInputFieldState extends State<DoctorInputField> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: widget.fieldIcon,
+                child: widget.icon,
               ),
               Container(
                 decoration: BoxDecoration(

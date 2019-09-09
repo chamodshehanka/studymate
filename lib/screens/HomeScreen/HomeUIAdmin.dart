@@ -12,7 +12,7 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepPurpleAccent,
         ),
         backgroundColor: Colors.white,
         drawer: Drawer(
@@ -47,8 +47,8 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
           children: <Widget>[
             HomeTile(Icons.verified_user, "User Manager", Colors.red, ""),
             HomeTile(Icons.calendar_today, "Appointments", Colors.amber, ""),
-            HomeTile(Icons.local_activity, "Activity Manager", Colors.cyan, ""),
-            HomeTile(Icons.book, "Subject Manager", Colors.lightBlue, ""),
+            HomeTile(Icons.local_activity, "Activity Manager", Colors.deepPurpleAccent, "/adminActivity"),
+            HomeTile(Icons.book, "Subject Manager", Colors.lightBlue, "/udSubject"),
             HomeTile(Icons.calendar_today, "Schedules", Colors.cyan, ""),
             HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
                 "/accounttype"),

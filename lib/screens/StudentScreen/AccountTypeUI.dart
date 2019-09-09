@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/widgets/KusuraFlatButton.dart';
+import 'package:studymate/widgets/StudymateFlatButton.dart';
 
 class AccountTypeScreen extends StatelessWidget {
   @override
@@ -33,13 +33,13 @@ class AccountTypeScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: KusuraFlatButton(
+            child: StudymateFlatButton(
               title: "I'm Going To A School",
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
               onPressed: () {
-                Navigator.of(context).pushNamed("/signup");
+                Navigator.of(context).pushNamed("/schoolStudentEditPage");
               },
               splashColor: Colors.black12,
               borderColor: Colors.white,
@@ -50,13 +50,13 @@ class AccountTypeScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: KusuraFlatButton(
+            child: StudymateFlatButton(
               title: "I'm Not Going To A School",
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.black54,
               onPressed: () {
-                Navigator.of(context).pushNamed("/signup1");
+                Navigator.of(context).pushNamed("/nonSchoolStudentEditPage");
               },
               splashColor: Colors.black12,
               borderColor: Colors.black12,

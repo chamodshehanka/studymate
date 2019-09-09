@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class KusuraFlatButton extends StatelessWidget {
+class StudymateFlatButton extends StatelessWidget {
   final String title;
   final Color textColor;
   final double fontSize;
@@ -11,7 +11,7 @@ class KusuraFlatButton extends StatelessWidget {
   final Color borderColor;
   final double borderWidth;
 
-  KusuraFlatButton(
+  StudymateFlatButton(
       {this.title,
       this.textColor,
       this.fontSize,
