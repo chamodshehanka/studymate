@@ -1,12 +1,15 @@
 import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 
 class SignUpScreen extends StatefulWidget {
   _SignUpScreenState createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  BaseAuthentication auth = Authentication();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _fullname = new TextEditingController();
   final TextEditingController _number = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
@@ -32,8 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
       controller: _fullname,
-       hint: "Full Name",
-      
+      hint: "Full Name",
     );
     _phoneField = new CustomTextField(
       baseColor: Colors.grey,
@@ -110,34 +112,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: _passwordField,
                     ),
                     const SizedBox(height: 20.0),
-                  TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.indigo,
-                          width: 1.5,
-                          style: BorderStyle.solid,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15.0),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.indigo,
-                          width: 1.5,
-                          style: BorderStyle.solid,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15.0),
-                        ),
-                      ),
-                      labelText: "Badge Name",
-                      labelStyle: TextStyle(
-                          color: Colors.indigo, fontWeight: FontWeight.bold),
-                    ),
-                  ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 25.0, horizontal: 40.0),
@@ -146,9 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         fontSize: 22,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signin');
-                        },
+                        onPressed: () => {_signUpUser()},
                         splashColor: Colors.black12,
                         borderColor: Colors.blueAccent,
                         borderWidth: 0,
@@ -184,6 +156,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  _signUpUser() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      Future<String> user = auth.signUp(_email.text, _password.text);
+
+      if (user != null) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        // Have to change
+        Navigator.pushNamed(context, '/home');
+      }
+    }
   }
 }
 

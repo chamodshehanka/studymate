@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class StudymateRaisedButton extends RaisedButton{
-  StudymateRaisedButton(String text){
+// class StudymateRaisedButton extends RaisedButton{
+//   StudymateRaisedButton(String text){
 
-  }
-}
+//   }
+// }
