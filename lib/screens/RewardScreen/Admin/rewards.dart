@@ -12,6 +12,7 @@ class _RewardsScreenState extends State<RewardsScreen> {
         title: Text(
           "Rewards Management",
           style: TextStyle(fontWeight: FontWeight.bold),
+          
         ),
         backgroundColor: Colors.deepPurple,
         elevation: 0.0,
@@ -32,15 +33,13 @@ class MainContent extends StatelessWidget {
           child: Container(
             child: Column(
               children: <Widget>[
+                
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: Container(
                         height: 400.0,
-                        child: FlatButton(
-                            onPressed: () => Navigator.pushNamed(
-                                context, '/badge_collection'),
-                            child: Column(
+                                                   child: Column(
                               children: <Widget>[
                                 Expanded(
                                   child: Padding(
@@ -52,6 +51,10 @@ class MainContent extends StatelessWidget {
                                             BorderRadius.circular(20.0),
                                         color: Color(0xFFFD7384),
                                       ),
+                                       child: FlatButton(
+                            onPressed: () =>
+                                Navigator.pushNamed(context, '/badge_collection'),
+
                                       child: Row(
                                         children: <Widget>[
                                           Padding(
@@ -72,7 +75,8 @@ class MainContent extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                    ),
+                                     ),
+                                      ),
                                   ),
                                 ),
                                 Expanded(
@@ -85,6 +89,10 @@ class MainContent extends StatelessWidget {
                                             BorderRadius.circular(20.0),
                                         color: Color(0XFF28D093),
                                       ),
+                                      child: FlatButton(
+                            onPressed: () =>
+                                Navigator.pushNamed(context, '/image_bank'),
+ 
                                       child: Row(
                                         children: <Widget>[
                                           Padding(
@@ -105,11 +113,11 @@ class MainContent extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                    ),
+                                     ), ),
                                   ),
                                 ),
                               ],
-                            )),
+                            ),
                       ),
                     ),
                   ],
