@@ -14,6 +14,12 @@ class NewBadgeScreen extends StatefulWidget {
 }
 
 class _NewBadgeScreenState extends State<NewBadgeScreen> {
+
+  //void initState(){
+    
+
+  //}
+  
 BadgeService badgeService = new BadgeService();
 String name,description;
 String milestone;
@@ -23,15 +29,16 @@ final milestoneController = new TextEditingController();
 final descriptionController = new TextEditingController();
 
 
-  getName(name){
-    this.name= name;
-  }
-  getMilestone(milestone){
-    this.milestone= milestone;
-  }
-  getDescription(description){
-    this.description= description;
-  }
+
+  // getName(name){
+  //   this.name= name;
+  // }
+  // getMilestone(milestone){
+  //   this.milestone= milestone;
+  // }
+  // getDescription(description){
+  //   this.description= description;
+  // }
 
   int _badgeType = 0;
   String badgeVal;
@@ -44,8 +51,7 @@ final descriptionController = new TextEditingController();
        case 1:
         badgeVal= 'Subject';
         break;
-
-        case 2:
+      case 2:
           badgeVal='Activity';
           break;
 
@@ -120,10 +126,11 @@ final descriptionController = new TextEditingController();
                           Radius.circular(20.0),
                         ),
                       ), 
-                       child:FlatButton(
+                       child:
+                       FlatButton(
                         onPressed:() => Navigator.pushNamed(context, '/image_bank'),//popup
-                        child: Icon(Icons.add,
-                            size: 160.0, color: Colors.grey.shade500 
+                        child: Icon(Icons.camera,
+                             color: Colors.grey.shade500 
                             ),
                           ),
                   ),
@@ -347,7 +354,7 @@ final descriptionController = new TextEditingController();
       ),
     );
   }
-  Future<Badge> createBadge(String name, String type,String description,String milestone) {
+  Future<Badge> createBadge(String name, String type,String milestone ,String description) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(badgeCollection.document());
 

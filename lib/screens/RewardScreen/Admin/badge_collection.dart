@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/screens/RewardScreen/Admin/subject_badges.dart';
+import 'package:studymate/screens/RewardScreen/Admin/activity_badges.dart';
 
 class BadgesScreen extends StatefulWidget {
   @override
@@ -14,7 +16,10 @@ class   _BadgesScreenState extends State<BadgesScreen> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 2,
+      child: Scaffold(
        appBar: AppBar(
         title: Text(
           "Badge Collection",
@@ -25,8 +30,22 @@ class   _BadgesScreenState extends State<BadgesScreen> {
         elevation: 0.0,
         iconTheme: IconThemeData(color: Color(0xFF18D191), size: 10.0),
 
+        bottom: TabBar(
+              tabs: <Widget>[
+                Tab(icon: Icon(Icons.book)),
+                Tab(icon: Icon(Icons.local_activity)),
+                
+              ],
+            ),
       ),
-      
+      body:
+      TabBarView(
+            children: <Widget>[
+               SubjectBadge (),
+                ActivityBadge(),
+            
+            ],
+          ),
       floatingActionButton: FloatingActionButton(
        
         child: Icon(Icons.add),
@@ -34,6 +53,8 @@ class   _BadgesScreenState extends State<BadgesScreen> {
          onPressed:() => Navigator.pushNamed(context, '/new_badge'),
         
       ),
-    );
+     )
+     )
+      );
   }
 }

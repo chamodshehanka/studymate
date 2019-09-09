@@ -14,19 +14,22 @@ class   _ImagesScreenState extends State<ImagesScreen> {
           "Image  Bank",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+         
       ),
+
    
    
-    body:Container(
-      child:CircleAvatar(
-        backgroundImage: AssetImage("assets/images/image1.jpg"),
-      )
+    
+       
+      // child:CircleAvatar(
+      //   backgroundImage: AssetImage("assets/images/image1.jpg"),
+      // )
       
-    )
-    
-    
-    
     );
+    
+    
+    
+    
     
     
 
