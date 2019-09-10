@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/RewardScreen/Admin/subject_badges.dart';
-import 'package:studymate/screens/RewardScreen/Admin/activity_badges.dart';
+//import 'package:studymate/screens/RewardScreen/Admin/subject_badges.dart';
+//import 'package:studymate/screens/RewardScreen/Admin/activity_badges.dart';
 import 'package:studymate/services/custom/BadgeService.dart';
 
 
@@ -45,8 +45,8 @@ class   _BadgesScreenState extends State<BadgesScreen> {
       body:
       TabBarView(
             children: <Widget>[
-               SubjectBadge (),
-                ActivityBadge(),
+             //  SubjectBadge (),
+               // ActivityBadge(),
             
             ],
           ),

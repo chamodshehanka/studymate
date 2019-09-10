@@ -1,13 +1,11 @@
-// import 'dart:async';
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Badge.dart';
-import 'package:studymate/services/BadgeService.dart';
+import 'package:studymate/services/custom/BadgeService.dart';
 
 
 class NewBadgeScreen extends StatefulWidget {
-
-  final BadgeService badgeService = BadgeService();
 
   @override
   _NewBadgeScreenState createState() => _NewBadgeScreenState();
@@ -15,63 +13,10 @@ class NewBadgeScreen extends StatefulWidget {
 
 class _NewBadgeScreenState extends State<NewBadgeScreen> {
 
-  //void initState(){
-    
+  List<Badge> badgeList;
+  BadgeService badgeService = BadgeService();
+  StreamSubscription<QuerySnapshot> badgeSubscription;
 
-  //}
-  
-BadgeService badgeService = new BadgeService();
-String name,description;
-String milestone;
-final nameController = new TextEditingController();
-final typeController = new TextEditingController();
-final milestoneController = new TextEditingController();
-final descriptionController = new TextEditingController();
-
-
-
-  // getName(name){
-  //   this.name= name;
-  // }
-  // getMilestone(milestone){
-  //   this.milestone= milestone;
-  // }
-  // getDescription(description){
-  //   this.description= description;
-  // }
-
-  int _badgeType = 0;
-  String badgeVal;
-
-  void _handleBadgeType(int value){
-    setState(() {
-     _badgeType=value;
-
-     switch(_badgeType){
-       case 1:
-        badgeVal= 'Subject';
-        break;
-      case 2:
-          badgeVal='Activity';
-          break;
-
-     }
-    });
-  }
-
-  // createData(){
-  //   DocumentReference db = Firestore.instance.collection('badges').document('badgename');
-  //   Map<String,dynamic> badges={
-  //     "badgename":name,
-  //     "badgetype":badgeVal,
-  //     "milestones":milestone,
-  //     "description":description,
-  //   };
-
-  //   db.setData(badges).whenComplete((){
-  //     print("Badge Created");
-  //   });
-  // }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -80,7 +25,29 @@ final descriptionController = new TextEditingController();
   final TextEditingController milestoneCtrl = TextEditingController();
   final TextEditingController descriptionCtrl = TextEditingController();
 
-  var type;
+   @override
+  void initState() {
+    super.initState();
+
+    badgeList = List();
+    badgeSubscription?.cancel();
+    badgeSubscription =
+        badgeService.getBadgeList().listen((QuerySnapshot snapshot) {
+      final List<Badge> badges = snapshot.documents
+          .map((documentSnapshot) => Badge.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.badgeList = badges;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    badgeSubscription?.cancel();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +95,7 @@ final descriptionController = new TextEditingController();
                       ), 
                        child:
                        FlatButton(
-                        onPressed:() => Navigator.pushNamed(context, '/image_bank'),//popup
+                        onPressed:() => Navigator.pushNamed(context, '/image_bank'),
                         child: Icon(Icons.camera,
                              color: Colors.grey.shade500 
                             ),
@@ -138,11 +105,8 @@ final descriptionController = new TextEditingController();
                   const SizedBox(height: 20.0),
                   TextFormField(
                     
-                  // onChanged:(String name){
-                  //        getName(name);
-                  //   },
                     keyboardType: TextInputType.text,
-                    controller:nameController,
+                    controller:badgeNameCtrl,
                     validator:(String value){
                     
                       if (value.isEmpty){
@@ -180,9 +144,61 @@ final descriptionController = new TextEditingController();
                      ),
                       
                   
-                     const SizedBox(height: 20.0),
-                     DropdownButtonFormField<String>(
-                       //controller:typeController,
+                    //  const SizedBox(height: 20.0),
+                    //  DropdownButtonFormField<String>(
+                    //    //controller:typeController,
+                    // decoration: InputDecoration(
+                    //   enabledBorder: OutlineInputBorder(
+                    //     borderSide: BorderSide(
+                    //       color: Colors.indigo,
+                    //       width: 1.5,
+                    //       style: BorderStyle.solid,
+                    //     ),
+                    //     borderRadius: BorderRadius.all(
+                    //       Radius.circular(15.0),
+                    //     ),
+                    //   ),
+                    //   focusedBorder: OutlineInputBorder(
+                    //     borderSide: BorderSide(
+                    //       color: Colors.indigo,
+                    //       width: 1.5,
+                    //       style: BorderStyle.solid,
+                    //     ),
+                    //     borderRadius: BorderRadius.all(
+                    //       Radius.circular(15.0),
+                    //     ),
+                    //   ),
+                    //   labelText: "Badge Type",
+                    //   labelStyle: TextStyle(
+                    //       color: Colors.indigo, fontWeight: FontWeight.bold),
+                    // ),
+                                        
+                    //                     value: type,
+                    //                     items: ["Subject", "Activity"]
+                    //                         .map((label) => DropdownMenuItem(
+                    //                               child: Text(label),
+                    //                               value: label,
+                    //                             ))
+                    //                         .toList(),
+                    //                     onChanged: (value) {
+                    //                       setState(() => type = value);
+                    //                     },
+                    //                   ),
+                   
+                  const SizedBox(height: 20.0),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: typeCtrl,
+                    validator:(String value){
+                    
+                      if (value.isEmpty){
+                        return 'Enter Badge Type';
+                      }
+                      return null;
+                        
+                      
+                    },
+                    
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -208,24 +224,12 @@ final descriptionController = new TextEditingController();
                       labelStyle: TextStyle(
                           color: Colors.indigo, fontWeight: FontWeight.bold),
                     ),
-                                        
-                                        value: type,
-                                        items: ["Subject", "Activity"]
-                                            .map((label) => DropdownMenuItem(
-                                                  child: Text(label),
-                                                  value: label,
-                                                ))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          setState(() => type = value);
-                                        },
-                                      ),
-                   
-                      
+                    
+                  ),
                   const SizedBox(height: 20.0),
                   TextFormField(
                     keyboardType: TextInputType.text,
-                    controller: milestoneController,
+                    controller: milestoneCtrl,
                     validator:(String value){
                     
                       if (value.isEmpty){
@@ -267,7 +271,7 @@ final descriptionController = new TextEditingController();
                   TextFormField(
                     maxLines: 4,
                     keyboardType: TextInputType.text,
-                    controller: descriptionController,
+                    controller: descriptionCtrl,
                     validator:( String value){
                     
                       if (value.isEmpty){
@@ -314,18 +318,32 @@ final descriptionController = new TextEditingController();
                   [
                     Expanded(
                       child:RaisedButton(
-                        
-                        
-                      
-                        child:Text('ADD'),
+                      color: Colors.deepPurple,
+                      textColor: Colors.white,
+                      child:Text('ADD'),
                         onPressed: () {
                           setState(() {
                             
                              if(_formKey.currentState.validate()){
-                              createBadge(nameController.text,"",milestoneController.text,descriptionController.text);
-                            }
+                                  _formKey.currentState.save();
+                                   Future<Badge> isAdded =
+                              badgeService.createBadge(badgeNameCtrl.text,typeCtrl.text,milestoneCtrl.text,descriptionCtrl.text);
+                              if (isAdded != null) {
+                                  Navigator.pop(context);
+                                  Scaffold.of(context).showSnackBar(new SnackBar(
+                                        content: new Text('Sucessfully Added!'),
+                                        backgroundColor: Colors.deepPurple,
+                            )); 
+                             }else {
+                            //Have to add error message
+                            Scaffold.of(context).showSnackBar(new SnackBar(
+                              content: new Text('Failed to Add!'),
+                              backgroundColor: Colors.deepPurple,
+                            ));
                           }
                           
+                              }
+                          }
                           );
                         }
                       ),
@@ -333,9 +351,11 @@ final descriptionController = new TextEditingController();
                     Container(width: 15.0,),
                       Expanded(
                       child:RaisedButton(
-                      child:Text('CLEAR'),
+                      color: Colors.redAccent,
+                      textColor: Colors.white,
+                        child:Text('CLEAR'),
                         onPressed: () {
-                          
+                          Navigator.pop(context);
                         },
                       )
                     )
