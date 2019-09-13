@@ -13,7 +13,8 @@ class _StudymateTextField extends State<StudymateTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 350,
+    
       child: Material(
           elevation: 5.0,
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -32,7 +33,7 @@ class _StudymateTextField extends State<StudymateTextField> {
                       topRight: Radius.circular(10.0),
                       bottomRight: Radius.circular(10.0)),
                 ),
-                width: 200,
+                width: 300,
                 height: 60,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

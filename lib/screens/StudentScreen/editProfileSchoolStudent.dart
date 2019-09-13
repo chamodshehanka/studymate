@@ -1,28 +1,33 @@
 import 'dart:core';
 import "package:flutter/material.dart";
-import 'package:flutter/services.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
-class SchoolStudentScreen extends StatefulWidget {
+/*class SchoolStudentScreen extends StatefulWidget {
   _SchoolStudentScreenState createState() => _SchoolStudentScreenState();
 }
 
 class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _id = new TextEditingController();
   final TextEditingController _fullname = new TextEditingController();
   final TextEditingController _parentID = new TextEditingController();
   final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _school = new TextEditingController();
-  final TextEditingController _address = new TextEditingController();
-  final TextEditingController _number = new TextEditingController();
+  final TextEditingController _grade = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
+  final TextEditingController _phone = new TextEditingController();
+  final TextEditingController _address = new TextEditingController();
+  CustomTextField _idField;
   CustomTextField _nameField;
-  CustomTextField _parentField;
+  CustomTextField _parentIDField;
   CustomTextField _bithdayField;
   CustomTextField _schoolField;
-  CustomTextField _addressField;
-  CustomTextField _phoneField;
+  CustomTextField _gradeField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
+  CustomTextField _phoneField;
+  CustomTextField _addressField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
@@ -34,6 +39,14 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
       Navigator.of(context).pop();
     };
 
+     _idField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _id,
+      hint: "ID",
+    );
+
     _nameField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
@@ -42,7 +55,7 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
       hint: "Full Name",
     );
 
-    _nameField = new CustomTextField(
+    _parentIDField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
@@ -65,21 +78,17 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
       controller: _school,
       hint: "School",
     );
-    _nameField = new CustomTextField(
+
+      _gradeField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _address,
-      hint: "Address",
+      controller: _grade,
+      hint: "Grade",
     );
-    _phoneField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _number,
-      hint: "Phone Number",
-      inputType: TextInputType.number,
-    );
+    
+   
+    
     _emailField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
@@ -96,14 +105,36 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
       obscureText: true,
       hint: "Password",
     );
+
+    _phoneField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _phone,
+      hint: "Phone Number",
+      inputType: TextInputType.number,
+    );
+
+     _nameField = new CustomTextField(
+      baseColor: Colors.grey,
+      borderColor: Colors.grey[400],
+      errorColor: Colors.red,
+      controller: _address,
+      hint: "Address",
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+
       onWillPop: onBackPress,
       child: Scaffold(
+
+          
+
         body: Stack(
+
           children: <Widget>[
             Stack(
               alignment: Alignment.topLeft,
@@ -129,12 +160,17 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
                     Padding(
                       padding:
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _idField,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
                       child: _nameField,
                     ),
                       Padding(
                       padding:
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-                      child: _parentField,
+                      child: _parentIDField,
                     ),
                       Padding(
                       padding:
@@ -146,16 +182,13 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
                       child: _schoolField,
                     ),
-                      Padding(
+
+                  Padding(
                       padding:
                           EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-                      child: _addressField,
+                      child: _gradeField,
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-                      child: _phoneField,
-                    ),
+                      
                     Padding(
                       padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
@@ -165,6 +198,17 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
                       padding:
                           EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
                       child: _passwordField,
+                    ),
+                    
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                      child: _phoneField,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
+                      child: _addressField,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -249,7 +293,8 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
               ),
             ),
           ],
-        ),
+        ), 
+      ),
       ),
     );
   }
@@ -383,4 +428,91 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
     );
   }
+}*/
+
+class SchoolStudentScreen extends StatefulWidget {
+  @override
+  SchoolStudentScreenState createState() => SchoolStudentScreenState();
 }
+
+class SchoolStudentScreenState extends State<SchoolStudentScreen> {
+  final _formKey = GlobalKey<FormState>();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: new AppBar(
+        title: new Text('Create Profile'),
+      ),
+    
+
+
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: Colors.blue,
+        
+        child: Center(
+          child: Container(
+            width: 400,
+            height: 600,
+            
+            child: Column(
+            
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ListView(
+                  children: <Widget>[
+                StudymateTextField(
+                    Icon(Icons.person, color: Colors.white), 'Full Name'),
+                StudymateTextField(
+                    Icon(Icons.data_usage, color: Colors.white), 'Birthday'),
+                 StudymateTextField(
+                    Icon(Icons.school, color: Colors.white), 'School'),
+                StudymateTextField( 
+                    Icon(Icons.grade, color: Colors.white), 'Grade'),
+                StudymateTextField(
+                    Icon(Icons.email, color: Colors.white), 'Email'),
+              /* StudymateTextField(
+                    Icon(Icons.lock, color: Colors.white), 'Password'),  
+                StudymateTextField(
+                    Icon(Icons.phone, color: Colors.white), 'Phone'),  
+                StudymateTextField(
+                    Icon(Icons.place, color: Colors.white), 'Address'),     */            
+                Container(
+                    width: 150,
+                    child: RaisedButton(
+                      onPressed: (){},
+                      
+                      color: Colors.deepPurple,
+                      textColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      child: Text(
+                        'Sing Up',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                  
+                    ),
+                  ]
+                ),
+            
+                  ]
+                )
+                  
+          
+            
+              
+                
+            ),
+            
+          ),
+          
+        ),
+      );
+    
+  }
+}
+
+
+

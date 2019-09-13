@@ -1,8 +1,9 @@
 import 'dart:core';
 import "package:flutter/material.dart";
-import 'package:flutter/services.dart';
+import 'package:googleapis/cloudsearch/v1.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
-class NonSchoolStudentScreen extends StatefulWidget {
+/*class NonSchoolStudentScreen extends StatefulWidget {
   _NonSchoolStudentScreenState createState() => _NonSchoolStudentScreenState();
 }
 
@@ -363,4 +364,112 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
     );
   }
+}*/
+class NonSchoolStudentScreen extends StatefulWidget {
+  @override
+  NonSchoolStudentScreenState createState() => NonSchoolStudentScreenState();
 }
+
+class NonSchoolStudentScreenState extends State<NonSchoolStudentScreen> {
+  final _formKey = GlobalKey<FormState>();
+  DateTime _dateTime;
+
+  /*Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked  = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: new DateTime(1995),
+      lastDate: new DateTime(2014)
+    );
+
+    if(picked != null && picked != _date){
+      print('Date selected: ${_date.toString()}');
+      setState((){
+        _date = picked;
+      });
+    }
+  }*/
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: new AppBar(
+        title: new Text('Create Profile'),
+      ),
+
+
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: Colors.blue,
+        
+        child: Center(
+          child: Container(
+            width: 400,
+            height: 600,
+            
+            child: Column(
+            
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+              
+                StudymateTextField(
+                    Icon(Icons.person, color: Colors.white), 'Full Name'),
+                StudymateTextField( 
+                    Icon(Icons.data_usage, color: Colors.white),_dateTime == null ? 'Nothing has been picked yet' :_dateTime.toString()),
+                    RaisedButton(
+                      child: Text('Pick a date'),
+                      onPressed: (){
+                          showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(1995),
+                            lastDate: DateTime(2014)
+                          ).then((date){
+                            setState((){
+                              _dateTime = date;
+                            });
+                          });
+                      },
+                    ),
+                    
+                StudymateTextField(
+                    Icon(Icons.email, color: Colors.white), 'Email'),
+                 StudymateTextField(
+                    Icon(Icons.lock, color: Colors.white), 'Password'),  
+                            
+                Container(
+                    width: 150,
+                    child: RaisedButton(
+                      onPressed: (){},
+                      
+                      color: Colors.deepPurple,
+                      textColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      child: Text(
+                        'Sing Up',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ),
+                  
+                    ),
+                  ]
+                ),
+            
+                  
+                )
+                  
+          
+            
+              
+                
+            ),
+            
+          ),
+          
+        );
+      
+    
+  }
+}
+

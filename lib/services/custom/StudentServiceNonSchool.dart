@@ -1,19 +1,17 @@
-import 'dart:core';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studymate/models/Student.dart';
+import 'package:studymate/models/StudentNonSchool.dart';
 
 final CollectionReference studentCollection =
-    Firestore.instance.collection('Students');
+    Firestore.instance.collection('Students-nonSchool');
 
-class StudentService {
+class StudentServiceNonSchool {
 
 
-  Future<Student> createStudent(String id,String fullname, String parentID, String birthday,String school, String grade, String email, String password, String phone, String address) {
+  Future<Student> createStudent(String id,String fullname, String parentID, String birthday,  String email, String password, String phone, String address) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(studentCollection.document());
 
-      final Student student = new Student(id,fullname, parentID, birthday,school, grade,email,password, phone,address);
+      final Student student = new Student(id,fullname, parentID, birthday,email,password, phone,address);
       final Map<String, dynamic> data = student.toMap();
 
       await tx.set(ds.reference, data);
