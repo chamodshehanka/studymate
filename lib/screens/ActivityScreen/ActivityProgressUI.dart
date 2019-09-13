@@ -8,7 +8,9 @@ class ActivityProgressScreen extends StatefulWidget {
 class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
   @override
   Widget build(BuildContext context) {
-    var activityProgressBody;
+    var activityProgressBody = Container(
+      
+    );
 
     return MaterialApp(
       title: 'Activity Progress UI',
@@ -17,7 +19,9 @@ class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
           title: Text('Activity Progress'),
           backgroundColor: Colors.deepPurple,
         ),
-        body: activityProgressBody,
+        body: SafeArea(
+          child: activityProgressBody,
+        ),
       ),
     );
   }

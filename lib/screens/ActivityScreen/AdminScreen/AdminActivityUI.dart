@@ -96,7 +96,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Manage Activities'),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepPurpleAccent,
         ),
         body: adminActivityBody,
         floatingActionButton: FloatingActionButton(
@@ -109,7 +109,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   }
 
   void _createNewActivity(BuildContext context) async {
-    // String activityType;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -119,7 +118,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
               textAlign: TextAlign.center,
             ),
             backgroundColor: Colors.deepPurple[50],
-            content: Form(
+            content:  Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -169,10 +168,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                                   nameController.text, typeController.text);
                           if (isAdded != null) {
                             Navigator.pop(context);
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text('Sucessfully Added!'),
-                              backgroundColor: Colors.deepPurple,
-                            ));
                           } else {
                             //Have to add error message
                             Scaffold.of(context).showSnackBar(new SnackBar(
