@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:studymate/ScheduleManager/DayOfTheWeek.dart';
 
