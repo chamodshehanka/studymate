@@ -7,11 +7,9 @@ class ManageActivityScreen extends StatelessWidget {
   final Activity activity;
   final ActivityService activityService = ActivityService();
   final _formKey = GlobalKey<FormState>();
-  var nameController;
+  final nameController;
 
-  ManageActivityScreen({Key key, @required this.activity}) {
-    this.nameController = TextEditingController(text: activity.name);
-  }
+  ManageActivityScreen({Key key, @required this.activity, this.nameController});
 
   @override
   Widget build(BuildContext context) {
