@@ -21,17 +21,24 @@ class   _ImagesScreenState extends State<ImagesScreen> {
    
     
        
-      // child:CircleAvatar(
-      //   backgroundImage: AssetImage("assets/images/image1.jpg"),
-      // )
+//          CircleAvatar(
+//          backgroundImage: AssetImage(
+//            "assets/images/image1.jpg"),
+                
+// ),
+
+
+       
       
-    );
+       
+       
     
     
     
     
     
-    
+     
+    ); 
 
     
   }

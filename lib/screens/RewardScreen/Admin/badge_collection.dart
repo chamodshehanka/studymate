@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/RewardScreen/Admin/subject_badges.dart';
-import 'package:studymate/screens/RewardScreen/Admin/activity_badges.dart';
+//import 'package:studymate/screens/RewardScreen/Admin/subject_badges.dart';
+//import 'package:studymate/screens/RewardScreen/Admin/activity_badges.dart';
+import 'package:studymate/services/custom/BadgeService.dart';
+
 
 class BadgesScreen extends StatefulWidget {
   @override
@@ -8,6 +10,8 @@ class BadgesScreen extends StatefulWidget {
 }
 
 class   _BadgesScreenState extends State<BadgesScreen> {
+  final BadgeService badgeService = BadgeService();
+
   
   void initState(){
           super.initState();
@@ -39,13 +43,13 @@ class   _BadgesScreenState extends State<BadgesScreen> {
             ),
       ),
       body:
-      TabBarView(
+       TabBarView(
             children: <Widget>[
-               SubjectBadge (),
-                ActivityBadge(),
+      //        // SubjectBadge (),
+      //          //ActivityBadge(),
             
-            ],
-          ),
+             ],
+        ),
       floatingActionButton: FloatingActionButton(
        
         child: Icon(Icons.add),
