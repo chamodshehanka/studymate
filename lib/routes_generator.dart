@@ -65,7 +65,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
-     case '/new_badge':
+      case '/new_badge':
         return MaterialPageRoute(builder: (_) => NewBadgeScreen());
       case '/badge_collection':
         return MaterialPageRoute(builder: (_) => BadgesScreen());
@@ -73,13 +73,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SBadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
-       case '/s_rewards':
+      case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
-        case '/image_bank':
+      case '/image_bank':
         return MaterialPageRoute(builder: (_) => ImagesScreen());
       case '/achievments':
         return MaterialPageRoute(builder: (_) => AchievmentsScreen());
-
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
