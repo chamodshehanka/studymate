@@ -43,13 +43,13 @@ class   _BadgesScreenState extends State<BadgesScreen> {
             ),
       ),
       body:
-      TabBarView(
+       TabBarView(
             children: <Widget>[
-             //  SubjectBadge (),
-               // ActivityBadge(),
+      //        // SubjectBadge (),
+      //          //ActivityBadge(),
             
-            ],
-          ),
+             ],
+        ),
       floatingActionButton: FloatingActionButton(
        
         child: Icon(Icons.add),
