@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:studymate/ScheduleManager/InputDropDown.dart';
+import 'package:studymate/widgets/StudymateDropDown.dart';
 
 class DateTimePicker extends StatelessWidget {
   const DateTimePicker(
@@ -42,7 +42,7 @@ class DateTimePicker extends StatelessWidget {
       children: [
         Expanded(
           flex: 4,
-          child: InputDropdown(
+          child: StudymateDropdown(
             labelText: labelText,
             valueText: selectedDate == null
                 ? ''
@@ -56,7 +56,7 @@ class DateTimePicker extends StatelessWidget {
         const SizedBox(width: 12.0),
         Expanded(
           flex: 3,
-          child: InputDropdown(
+          child: StudymateDropdown(
             valueText: selectedTime?.format(context) ?? '',
             valueStyle: valueStyle,
             onPressed: () {
