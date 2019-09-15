@@ -14,7 +14,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   BaseAuthentication auth = Authentication();
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   CustomTextField _emailField;
@@ -205,9 +205,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
     //If auth is enabled in remote
     if (isAuthEnabled == 'true') {
-      final formState = _formKey.currentState;
-      if (formState.validate()) {
-        formState.save();
+      // final formState = _formKey.currentState;
+      // if (formState.validate()) {
+      //   formState.save();
 
         print(_emailController.text);
         print(_passwordController.text);
@@ -215,14 +215,15 @@ class _SignInScreenState extends State<SignInScreen> {
             auth.signIn(_emailController.text, _passwordController.text);
         print(userId.toString());
 
+        //Have to impl correct logic
         if (userId != null) {
           Navigator.pushNamed(context, '/home');
         } else {
           print("User id is null");
         }
-      } else {
-        print("Form is not validated");
-      }
+      // } else {
+      //   print("Form is not validated");
+      // }
     } else {
       //If auth is disabled
       Navigator.pushNamed(context, '/home');
