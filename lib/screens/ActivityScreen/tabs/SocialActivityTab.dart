@@ -90,7 +90,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
       onTap: () {
         Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text("Sending Message"),
+          content: new Text('Adding to List'),
           backgroundColor: Colors.deepPurple,
         ));
       });
