@@ -209,18 +209,17 @@ class _SignInScreenState extends State<SignInScreen> {
       // if (formState.validate()) {
       //   formState.save();
 
-        print(_emailController.text);
-        print(_passwordController.text);
-        Future<String> userId =
-            auth.signIn(_emailController.text, _passwordController.text);
-        print(userId.toString());
+      print(_emailController.text);
+      print(_passwordController.text);
+      Future<String> userId =
+          auth.signIn(_emailController.text, _passwordController.text);
 
-        //Have to impl correct logic
-        if (userId != null) {
-          Navigator.pushNamed(context, '/home');
-        } else {
-          print("User id is null");
-        }
+      //Have to impl correct logic
+      if (userId.toString().length > 0 && userId != null) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        print("User id is null");
+      }
       // } else {
       //   print("Form is not validated");
       // }
