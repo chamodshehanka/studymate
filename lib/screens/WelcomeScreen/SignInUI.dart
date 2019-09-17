@@ -1,3 +1,4 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
@@ -196,24 +197,37 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future _userLogin() async {
-    Navigator.pushNamed(context, '/home');
-    // final formState = _formKey.currentState;
-    // if (formState.validate()) {
-    //   formState.save();
-    //   Future<String> user =
-    //       auth.signIn(_emailController.text, _passwordController.text);
+    //Firebase remote config
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    await remoteConfig.fetch(expiration: const Duration(hours: 5));
+    await remoteConfig.activateFetched();
+    String isAuthEnabled = remoteConfig.getString('auth_enabled');
 
-    //   if (user != null) {
-    //     Navigator.pushNamed(context, '/home');
-    //   } else {
-    //     Navigator.pushNamed(context, '/dfdf');
-    //   }
-    // } else {
-    //   Scaffold.of(context).showSnackBar(new SnackBar(
-    //     content: new Text('Login Failed!'),
-    //     backgroundColor: Colors.deepPurple,
-    //   ));
-    // }
+    //If auth is enabled in remote
+    if (isAuthEnabled == 'true') {
+      // final formState = _formKey.currentState;
+      // if (formState.validate()) {
+      //   formState.save();
+
+        print(_emailController.text);
+        print(_passwordController.text);
+        Future<String> userId =
+            auth.signIn(_emailController.text, _passwordController.text);
+        print(userId.toString());
+
+        //Have to impl correct logic
+        if (userId != null) {
+          Navigator.pushNamed(context, '/home');
+        } else {
+          print("User id is null");
+        }
+      // } else {
+      //   print("Form is not validated");
+      // }
+    } else {
+      //If auth is disabled
+      Navigator.pushNamed(context, '/home');
+    }
   }
 }
 

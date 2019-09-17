@@ -14,9 +14,32 @@ class   _ImagesScreenState extends State<ImagesScreen> {
           "Image  Bank",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+         
       ),
+
+   
+   
     
        
-    );
+//          CircleAvatar(
+//          backgroundImage: AssetImage(
+//            "assets/images/image1.jpg"),
+                
+// ),
+
+
+       
+      
+       
+       
+    
+    
+    
+    
+    
+     
+    ); 
+
+    
   }
 }

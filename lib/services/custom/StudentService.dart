@@ -26,5 +26,4 @@ abstract class StudentService implements SuperService<Student, String> {
   Future update(Student student) {
     return null;
   }
-  
 }

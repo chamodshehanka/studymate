@@ -1,4 +1,3 @@
-
 import 'package:device_calendar/device_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,22 +5,17 @@ import 'package:studymate/ScheduleManager/DateTimePicker.dart';
 import 'package:studymate/ScheduleManager/EventReminders.dart';
 import 'package:studymate/ScheduleManager/Reminder.dart';
 
-
 enum RecurrenceRuleEndType { MaxOccurrences, SpecifiedEndDate }
 
 class CalendarEventPage extends StatefulWidget {
   final Calendar _calendar;
   final Event _event;
-  
 
   CalendarEventPage(this._calendar, [this._event]);
 
-  
   @override
-  _CalendarEventPageState createState() => _CalendarEventPageState(_calendar,_event);
-
-  
-
+  _CalendarEventPageState createState() =>
+      _CalendarEventPageState(_calendar, _event);
 }
 
 class _CalendarEventPageState extends State<CalendarEventPage> {
@@ -41,7 +35,6 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
   bool _autovalidate = false;
   bool _isRecurringEvent = true;
 
-
   // List<DayOfTheWeek> _daysOfTheWeek = List<DayOfTheWeek>();
   // List<int> _daysOfTheMonth = List<int>();
   // List<int> _monthsOfTheYear = List<int>();
@@ -51,7 +44,6 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
   List<int> _validMonthsOfTheYear = List<int>();
   List<int> _validWeeksOfTheYear = List<int>();
   List<Reminder> _reminders = List<Reminder>();
-
 
   RecurrenceFrequency _recurrenceFrequency = RecurrenceFrequency.Daily;
 
@@ -72,24 +64,23 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
     for (var i = 1; i <= 53; i++) {
       _validWeeksOfTheYear.add(i);
     }
- 
+
     _reminders = List<Reminder>();
     if (this._event == null) {
       _startDate = DateTime.now();
       _endDate = DateTime.now().add(Duration(hours: 1));
       _event = Event(this._calendar.id, start: _startDate, end: _endDate);
-    
     } else {
       _startDate = _event.start;
       _endDate = _event.end;
       _isRecurringEvent = _event.recurrenceRule != null;
-  
+
       // if (_event.reminders.isNotEmpty) {
       //   _reminders.addAll(_event.reminders);
       // }
       // if (_isRecurringEvent) {
       //   _recurrenceFrequency = _event.recurrenceRule.recurrenceFrequency;
-        
+
       //   _daysOfTheWeek =
       //       _event.recurrenceRule.daysOfTheWeek ?? List<DayOfTheWeek>();
       //   _daysOfTheMonth = _event.recurrenceRule.daysOfTheMonth ?? List<int>();
@@ -101,7 +92,6 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
 
     _startTime = TimeOfDay(hour: _startDate.hour, minute: _startDate.minute);
     _endTime = TimeOfDay(hour: _endDate.hour, minute: _endDate.minute);
-    
   }
 
   @override
@@ -123,62 +113,54 @@ class _CalendarEventPageState extends State<CalendarEventPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child:
-                    DropdownButtonFormField(
-                      value: _event.description,
-                      validator: (value){
-                        if(value==null){
-                          return "Select Type";
-                        }
-                        else{
-                          return null;
-                        }
-                      },
-                      hint: Text('Select Type'),
-                        items: ["Study", "Leisure", "Social"]
-                                            .map((label) => DropdownMenuItem(
-                                                  child: Text(label),
-                                                  value: label,
-                                                ))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          setState(() => _event.description = value);
-                                        },
-                                        onSaved:(String value){
-                                          _event.description=value;
-                                        }
-
-                    )),
+                      padding: const EdgeInsets.all(10.0),
+                      child: DropdownButtonFormField(
+                          value: _event.description,
+                          validator: (value) {
+                            if (value == null) {
+                              return "Select Type";
+                            } else {
+                              return null;
+                            }
+                          },
+                          hint: Text('Select Type'),
+                          items: ["Study", "Leisure", "Social"]
+                              .map((label) => DropdownMenuItem(
+                                    child: Text(label),
+                                    value: label,
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() => _event.description = value);
+                          },
+                          onSaved: (String value) {
+                            _event.description = value;
+                          })),
                   Padding(
-                    padding:const EdgeInsets.all(10.0),
-                    child:
-                    DropdownButtonFormField(
-                      key: Key('titleField'),
-                      value: _event.title,
-                      validator: (value){
-                        if(value==null){
-                          return "Select Activity/Subject";
-                        }
-                        else{
-                          return null;
-                        }
-                      },
-                      hint: Text('Select Activity/Subject'),
-                        items: ["Maths", "Science", "History"]
-                                            .map((label) => DropdownMenuItem(
-                                                  child: Text(label),
-                                                  value: label,
-                                                ))
-                                            .toList(),
-                                        onChanged: (value) {
-                                          setState(() => _event.title = value);
-                                        },
-                                        onSaved:(String value){
-                                          _event.title=value;
-                                        }
-
-                    )),
+                      padding: const EdgeInsets.all(10.0),
+                      child: DropdownButtonFormField(
+                          key: Key('titleField'),
+                          value: _event.title,
+                          validator: (value) {
+                            if (value == null) {
+                              return "Select Activity/Subject";
+                            } else {
+                              return null;
+                            }
+                          },
+                          hint: Text('Select Activity/Subject'),
+                          items: ["Maths", "Science", "History"]
+                              .map((label) => DropdownMenuItem(
+                                    child: Text(label),
+                                    value: label,
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() => _event.title = value);
+                          },
+                          onSaved: (String value) {
+                            _event.title = value;
+                          })),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: DateTimePicker(
