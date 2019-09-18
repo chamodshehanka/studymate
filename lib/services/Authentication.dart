@@ -21,8 +21,9 @@ class Authentication implements BaseAuthentication {
     // FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(
     //     email: email, password: password);
     // return user.uid;
-    return _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password).toString();
+    return _firebaseAuth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .toString();
   }
 
   @override
