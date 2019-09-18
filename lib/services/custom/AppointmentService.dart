@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'AppointmentTask.dart';
+import 'package:studymate/models/Task.dart';
 
 final CollectionReference myCollection =
     Firestore.instance.collection('Appointment');
 
-class FirestoreService {
+class AppointmentService {
   Future<Task> createTODOTask(
       String taskappointmentID,
       String taskname,

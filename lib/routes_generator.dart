@@ -3,7 +3,7 @@ import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
-import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
+import 'package:studymate/screens/AppointmentScreen/Appointment.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';

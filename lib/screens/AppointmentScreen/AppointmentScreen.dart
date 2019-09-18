@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'AppointmentTask.dart';
-import 'firestoreservice.dart';
+import 'package:studymate/models/Task.dart';
+import 'package:studymate/services/custom/AppointmentService.dart';
 
 class TaskScreen extends StatefulWidget {
   final Task task;
@@ -11,7 +11,7 @@ class TaskScreen extends StatefulWidget {
 }
 
 class _TaskScreenState extends State<TaskScreen> {
-  FirestoreService fireServ = new FirestoreService();
+  AppointmentService fireServ = new AppointmentService();
 
   TextEditingController _taskappointmentIDController;
   TextEditingController _taskNameController;
