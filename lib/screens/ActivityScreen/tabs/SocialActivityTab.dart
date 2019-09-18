@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 
 class SocialActivityTab extends StatefulWidget {
@@ -18,6 +19,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
+  // BaseAuthentication _auth = Auth 
 
   @override
   void initState() {
@@ -93,5 +95,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
           content: new Text('Adding to List'),
           backgroundColor: Colors.deepPurple,
         ));
+
+
       });
 }
