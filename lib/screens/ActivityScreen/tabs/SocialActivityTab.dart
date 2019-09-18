@@ -19,7 +19,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
-  BaseAuthentication _auth = Authentication(); 
+  BaseAuthentication _auth = Authentication();
 
   @override
   void initState() {
@@ -99,7 +99,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         // To get current User
         String uid;
         Future<String> currentUser = _auth.getCurrentUser();
-        currentUser.then( (value){
+        currentUser.then((value) {
           uid = value;
         });
         print(uid);
