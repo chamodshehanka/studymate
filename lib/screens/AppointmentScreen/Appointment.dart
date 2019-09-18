@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'firestoreservice.dart';
+import 'package:studymate/models/Task.dart';
+import 'package:studymate/services/custom/AppointmentService.dart';
 import 'AppointmentScreen.dart';
-import 'AppointmentTask.dart';
 
 void main() => runApp(AppointmentScreen());
 
@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Task> items;
-  FirestoreService fireServ = new FirestoreService();
+  AppointmentService fireServ = new AppointmentService();
   StreamSubscription<QuerySnapshot> todoTasks;
 
   @override
