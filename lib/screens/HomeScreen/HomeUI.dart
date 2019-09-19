@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/DrawerTile.dart';
 import 'package:studymate/widgets/HomeTile.dart';
 
@@ -7,6 +8,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  BaseAuthentication _auth = Authentication();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,10 @@ class _HomeScreenState extends State<HomeScreen> {
               DrawerTile(Icons.note, 'Reminders', () => {}),
               DrawerTile(Icons.info, 'About Us', () => {}),
               DrawerTile(Icons.settings, 'Settings', () => {}),
-              DrawerTile(Icons.exit_to_app, 'Logout', () => {}),
+              DrawerTile(Icons.exit_to_app, 'Logout', () {
+                _auth.signOut();
+                Navigator.pushNamed(context, '/signin');
+              }),
             ],
           ),
         ),

@@ -34,3 +34,13 @@ exports.addNewRole = functions.https.onCall((data, context) => {
         return err;
     })
 });
+
+// Simple sum
+exports.activityProgress = functions.https.onCall((data, context) => {
+    var x = data.x;
+    var y = data.y;
+
+    var z = x + y;
+
+    return z;
+});

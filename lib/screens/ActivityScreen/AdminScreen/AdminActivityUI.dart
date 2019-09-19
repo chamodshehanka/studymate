@@ -15,6 +15,8 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   List<Activity> activityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> activitySubscription;
+  List<DropdownMenuItem<String>> _dropdownActivityTypes;
+  String _selectedActivity;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final typeController = TextEditingController();
@@ -34,12 +36,37 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
         this.activityList = activities;
       });
     });
+
+    // Dropdown Items load
+    _dropdownActivityTypes = buildDropdownMenuItems();
+    _selectedActivity = _dropdownActivityTypes[0].value;
+    print(_dropdownActivityTypes[0].value);//Remove this line
   }
 
   @override
   void dispose() {
     activitySubscription?.cancel();
     super.dispose();
+  }
+
+  List<DropdownMenuItem<String>> buildDropdownMenuItems() {
+    List<DropdownMenuItem<String>> items = List();
+    items.add(DropdownMenuItem(
+      value: 'Social',
+      child: Text('Social'),
+    ));
+
+    items.add(DropdownMenuItem(
+      value: 'Leisure',
+      child: Text('Leisure'),
+    ));
+
+    items.add(DropdownMenuItem(
+      value: 'Other',
+      child: Text('Other'),
+    ));
+
+    return items;
   }
 
   @override
@@ -118,7 +145,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
               textAlign: TextAlign.center,
             ),
             backgroundColor: Colors.deepPurple[50],
-            content:  Form(
+            content: Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -136,6 +163,15 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                           return null;
                         }
                       },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: DropdownButton(
+                      value: _selectedActivity,
+                      // items: _dropdownActivityTypes,
+                      // icon: Icon(Icons.line_style),
+                      onChanged: onChangeDropdownItem,
                     ),
                   ),
                   Padding(
@@ -196,5 +232,11 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
             ),
           );
         });
+  }
+  
+  onChangeDropdownItem(String selectedCompany){
+    setState(() {
+     _selectedActivity = selectedCompany; 
+    });
   }
 }
