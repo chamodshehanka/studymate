@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/SuperService.dart';
 
-final CollectionReference studentCollection =
+final CollectionReference studentsCollection =
     Firestore.instance.collection('students');
 
 class StudentService implements SuperService<Student, String> {
@@ -30,5 +30,8 @@ class StudentService implements SuperService<Student, String> {
     return null;
   }
 
-  
+  // get All students preffered Activities
+  // Stream<QuerySnapshot> getActivitiesList({int offset, int limit}){
+    
+  // }
 }

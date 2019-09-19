@@ -13,12 +13,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _auth.getCurrentUser().then((currentUser) => {
-      if(currentUser != null){
-        // Have to impl correct role based one
-        Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/home'))
-      }else {
-        Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/welcome'))
-      }
+      Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/welcome')),
+      // if(currentUser != null){
+      //   // Have to impl correct role based one
+      //   Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/home'))
+      // }else {
+      //   Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/welcome'))
+      // }
     });
     
   }
