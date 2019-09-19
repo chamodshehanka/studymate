@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 
 class LeisureActivityTab extends StatefulWidget {
   LeisureActivityTab({Key key, this.title});
@@ -16,8 +18,11 @@ class LeisureActivityTab extends StatefulWidget {
 
 class _LeisureActivityTabState extends State<LeisureActivityTab> {
   List<Activity> activityList;
+  List<Student> studentsList;
   ActivityService activityService = ActivityService();
+  StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> activitySubscription;
+  StreamSubscription<QuerySnapshot> studentSubscription;
 
   @override
   void initState() {
@@ -35,11 +40,26 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
         this.activityList = activities;
       });
     });
+
+    // Student List
+    studentsList = List();
+    studentSubscription?.cancel();
+    studentSubscription = studentService
+        .getAllPreferredActivities('JfaAiaJ4yAqhqUqey1mG')
+        .listen((QuerySnapshot snapshot) {
+      final List<Student> students = snapshot.documents
+          .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.studentsList = students;
+      });
+    });
   }
 
   @override
   void dispose() {
     activitySubscription?.cancel();
+    studentSubscription?.cancel();
     super.dispose();
   }
 
@@ -86,6 +106,10 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
         ),
         trailing:
             Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
-        onTap: () => {},
+        onTap: () {
+          studentsList.forEach((n){
+            print("Hey " + n.toString());
+          });
+        },
       );
 }
