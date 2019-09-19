@@ -19,7 +19,8 @@ class Authentication implements BaseAuthentication {
   @override
   Future<String> signIn(String email, String password) async {
     FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password)) as FirebaseUser;
+            email: email, password: password))
+        .user;
     return user.uid;
   }
 
@@ -31,7 +32,8 @@ class Authentication implements BaseAuthentication {
   @override
   Future<String> signUp(String email, String password) async {
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password)) as FirebaseUser;
+            email: email, password: password))
+        .user;
     return user.uid;
   }
 }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 
 class SocialActivityTab extends StatefulWidget {
@@ -18,6 +19,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
+  BaseAuthentication _auth = Authentication();
 
   @override
   void initState() {
@@ -90,8 +92,16 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
       onTap: () {
         Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text("Sending Message"),
+          content: new Text('Adding to List'),
           backgroundColor: Colors.deepPurple,
         ));
+
+        // To get current User
+        String uid;
+        Future<String> currentUser = _auth.getCurrentUser();
+        currentUser.then((value) {
+          uid = value;
+        });
+        print(uid);
       });
 }
