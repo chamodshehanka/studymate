@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:studymate/models/Student.dart';
 
 final CollectionReference studentCollection =
@@ -9,11 +10,11 @@ final CollectionReference studentCollection =
 class StudentService {
 
 
-  Future<Student> createStudent(String id,String fullname, String parentID, String birthday,String school, String grade, String email, String password, String phone, String address) {
+  Future<Student> createStudent(String fullName, String email, String password, String schoolName, String phoneNumber) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(studentCollection.document());
 
-      final Student student = new Student(id,fullname, parentID, birthday,school, grade,email,password, phone,address);
+      final Student student = new Student(ds.documentID,fullName, email,password, schoolName, phoneNumber);
       final Map<String, dynamic> data = student.toMap();
 
       await tx.set(ds.reference, data);

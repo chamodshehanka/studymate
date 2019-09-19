@@ -22,6 +22,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
               focusColor: Colors.deepPurple,
               onPressed: () => {Navigator.pushNamed(context, '/adminActivity')},
             ),
+            
           ],
         ),
       ),

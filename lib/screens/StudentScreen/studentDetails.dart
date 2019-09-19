@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Student.dart';
-import 'package:studymate/screens/StudentScreen/ManageStudentUI.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 
 class StudentDetailsScreen extends StatefulWidget {
@@ -15,7 +14,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
   List<Student> studentList;
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> studentSubscription;
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final idController = TextEditingController();
 
@@ -45,7 +44,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    buildTilesList(Student student) => ListTile(
+    /*buildTilesList(Student student) => ListTile(
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           leading: Container(
@@ -71,7 +70,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
                     builder: (context) =>
                         ManageStudentScreen(student: student)))
           },
-        );
+        );*/
 
     return MaterialApp(
       title: 'Manage Student UI',
