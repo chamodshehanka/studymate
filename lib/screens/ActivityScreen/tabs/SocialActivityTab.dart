@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 
 class SocialActivityTab extends StatefulWidget {
   SocialActivityTab({Key key, this.title});
@@ -18,6 +20,7 @@ class SocialActivityTab extends StatefulWidget {
 class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
   ActivityService activityService = ActivityService();
+  StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
   BaseAuthentication _auth = Authentication();
 
@@ -102,6 +105,20 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         currentUser.then((value) {
           uid = value;
         });
-        print(uid);
+
+        // Testing purpose
+        uid != null ? print('UID : ' + uid) : print('UID is null');
+
+        // Calling Student Service
+        Student student;
+        getStudentActivities('JfaAiaJ4yAqhqUqey1mG').then((value){
+          student = value;
+          print(value);
+        });
+        // student != null ? print('Student is not null ') : print('Student is null');
       });
+
+      Future<Student> getStudentActivities(String id) async {
+        return await studentService.getByID(id);
+      }
 }

@@ -9,7 +9,7 @@ class Student {
   String _email;
   int _phone;
   double _iQLevel;
-
+  
   Student(this._id, this._name, this._patientId, this._date, this._grade,
       this._address, this._email, this._phone, this._iQLevel);
 

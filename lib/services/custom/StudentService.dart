@@ -17,8 +17,15 @@ class StudentService implements SuperService<Student, String> {
   }
 
   @override
-  Student getByID(String id) {
-    return null;
+  Future<Student> getByID(String id) async {
+    Student student;
+    studentsCollection.document(id).get().then((doc) {
+      student = Student.fromMap(doc.data);
+      print(student.name);
+      return student;
+    });
+
+    return student;
   }
 
   Future delete(String id) {
@@ -30,8 +37,6 @@ class StudentService implements SuperService<Student, String> {
     return null;
   }
 
-  // get All students preffered Activities
-  // Stream<QuerySnapshot> getActivitiesList({int offset, int limit}){
-    
-  // }
+  //get All students preffered Activities
+  // Stream<QuerySnapshot> getActivitiesList({int offset, int limit}) {}
 }
