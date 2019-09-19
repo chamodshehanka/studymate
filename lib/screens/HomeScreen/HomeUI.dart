@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/DrawerTile.dart';
 import 'package:studymate/widgets/HomeTile.dart';
 
@@ -7,6 +8,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  BaseAuthentication _auth = Authentication();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 decoration: BoxDecoration(color: Colors.deepPurple),
               ),
-              DrawerTile(Icons.person, 'Profile', () => {Navigator.pushNamed(context, '/profileUI')}),
+              DrawerTile(Icons.person, 'Profile',
+                  () => {Navigator.pushNamed(context, '/profileUI')}),
               DrawerTile(Icons.note, 'Reminders', () => {}),
               DrawerTile(Icons.info, 'About Us', () => {}),
               DrawerTile(Icons.settings, 'Settings', () => {}),
-              DrawerTile(Icons.exit_to_app, 'Logout', () => {}),
+              DrawerTile(Icons.exit_to_app, 'Logout', () {
+                _auth.signOut();
+                Navigator.pushNamed(context, '/signin');
+              }),
             ],
           ),
         ),
@@ -43,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             HomeTile(Icons.calendar_today, "Daily Schedule", Colors.lightBlue,
                 "/daily"),
-            HomeTile(Icons.timeline, "Progress Tracking", Colors.cyan, "/medicalRecord"),
+            HomeTile(Icons.timeline, "Progress Tracking", Colors.cyan,
+                "/medicalRecord"),
             HomeTile(Icons.book, "Subject Manager", Colors.green, "/subject"),
             HomeTile(Icons.local_activity, "Activity Manager",
                 Colors.deepPurpleAccent, "/activity"),
@@ -54,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeTile(Icons.calendar_today, "Appointments", Colors.amber,
                 "/appointment"),
             HomeTile(Icons.stars, "Reward Manager", Colors.pink, "/s_rewards"),
+            HomeTile(Icons.chat, "Chat", Colors.blueAccent, "/chat"),
             HomeTile(Icons.build, 'Test UIs', Colors.black, '/testUI'),
           ],
         ));

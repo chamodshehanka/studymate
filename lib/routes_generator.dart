@@ -3,7 +3,8 @@ import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
-import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
+import 'package:studymate/screens/AppointmentScreen/Appointment.dart';
+import 'package:studymate/screens/ChatScreen/ChatUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
@@ -65,7 +66,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
-     case '/new_badge':
+      case '/new_badge':
         return MaterialPageRoute(builder: (_) => NewBadgeScreen());
       case '/badge_collection':
         return MaterialPageRoute(builder: (_) => BadgesScreen());
@@ -73,13 +74,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SBadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
-       case '/s_rewards':
+      case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
-        case '/image_bank':
+      case '/image_bank':
         return MaterialPageRoute(builder: (_) => ImagesScreen());
       case '/achievments':
         return MaterialPageRoute(builder: (_) => AchievmentsScreen());
-
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
@@ -92,6 +92,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
       case '/createdSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
+      case '/chat':
+        return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/subject':
         return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':

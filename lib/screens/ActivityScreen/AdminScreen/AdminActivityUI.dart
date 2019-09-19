@@ -15,6 +15,8 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   List<Activity> activityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> activitySubscription;
+  List<DropdownMenuItem<String>> _dropdownActivityTypes;
+  String _selectedActivity;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final typeController = TextEditingController();
@@ -34,12 +36,37 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
         this.activityList = activities;
       });
     });
+
+    // Dropdown Items load
+    _dropdownActivityTypes = buildDropdownMenuItems();
+    _selectedActivity = _dropdownActivityTypes[0].value;
+    print(_dropdownActivityTypes[0].value);//Remove this line
   }
 
   @override
   void dispose() {
     activitySubscription?.cancel();
     super.dispose();
+  }
+
+  List<DropdownMenuItem<String>> buildDropdownMenuItems() {
+    List<DropdownMenuItem<String>> items = List();
+    items.add(DropdownMenuItem(
+      value: 'Social',
+      child: Text('Social'),
+    ));
+
+    items.add(DropdownMenuItem(
+      value: 'Leisure',
+      child: Text('Leisure'),
+    ));
+
+    items.add(DropdownMenuItem(
+      value: 'Other',
+      child: Text('Other'),
+    ));
+
+    return items;
   }
 
   @override
@@ -96,7 +123,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Manage Activities'),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepPurpleAccent,
         ),
         body: adminActivityBody,
         floatingActionButton: FloatingActionButton(
@@ -109,7 +136,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   }
 
   void _createNewActivity(BuildContext context) async {
-    // String activityType;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -137,6 +163,15 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                           return null;
                         }
                       },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: DropdownButton(
+                      value: _selectedActivity,
+                      // items: _dropdownActivityTypes,
+                      // icon: Icon(Icons.line_style),
+                      onChanged: onChangeDropdownItem,
                     ),
                   ),
                   Padding(
@@ -169,10 +204,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                                   nameController.text, typeController.text);
                           if (isAdded != null) {
                             Navigator.pop(context);
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text('Sucessfully Added!'),
-                              backgroundColor: Colors.deepPurple,
-                            ));
                           } else {
                             //Have to add error message
                             Scaffold.of(context).showSnackBar(new SnackBar(
@@ -201,5 +232,11 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
             ),
           );
         });
+  }
+  
+  onChangeDropdownItem(String selectedCompany){
+    setState(() {
+     _selectedActivity = selectedCompany; 
+    });
   }
 }
