@@ -4,6 +4,7 @@ import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/screens/AppointmentScreen/Appointment.dart';
+import 'package:studymate/screens/ChatScreen/ChatUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
@@ -91,6 +92,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
       case '/createdSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
+      case '/chat':
+        return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/subject':
         return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':

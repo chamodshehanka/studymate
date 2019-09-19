@@ -2,7 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/SuperService.dart';
 
-abstract class StudentService implements SuperService<Student, String> {
+final CollectionReference studentCollection =
+    Firestore.instance.collection('students');
+
+class StudentService implements SuperService<Student, String> {
   @override
   Future<Student> create(Student student) {
     return null;
@@ -26,4 +29,6 @@ abstract class StudentService implements SuperService<Student, String> {
   Future update(Student student) {
     return null;
   }
+
+  
 }
