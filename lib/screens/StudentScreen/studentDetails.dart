@@ -26,7 +26,7 @@ class _StudentDetailsScreenState extends State<StudentDetailsScreen> {
     studentList = List();
     studentSubscription?.cancel();
     studentSubscription =
-        studentService.getstudentList().listen((QuerySnapshot snapshot) {
+        studentService.getStudentList().listen((QuerySnapshot snapshot) {
       final List<Student> students = snapshot.documents
           .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
           .toList();

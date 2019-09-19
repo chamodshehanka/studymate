@@ -1,49 +1,59 @@
 class Student {
   String _id;
-  String _fullName;
+  String _name;
   String _email;
   String _password;
+  bool _schooling;
   String _schoolName;
   String _phoneNumber;
+  List _preferedActivitiesList;
 
-  Student(this._id, this._fullName, this._email, this._password,
-      this._schoolName, this._phoneNumber);
+  Student(this._id, this._name, this._email, this._password, this._schooling,
+      this._schoolName, this._phoneNumber, this._preferedActivitiesList);
 
   Student.map(dynamic student) {
     this._id = student['id'];
-    this._fullName = student['name'];
+    this._name = student['name'];
     this._email = student['email'];
     this._password = student['password'];
-    this._schoolName = student['school name'];
-    this._phoneNumber = student['phone number'];
+    this._schooling = student['schooling'];
+    this._schoolName = student['schoolName'];
+    this._phoneNumber = student['phoneNumber'];
+    this._preferedActivitiesList = student['preferedActivities'];
   }
 
   String get id => _id;
-  String get name => _fullName;
+  String get name => _name;
   String get email => _email;
   String get password => _password;
+  bool get schooling => _schooling;
   String get schoolName => _schoolName;
+  List get preferedActivities => _preferedActivitiesList;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     if (_id != null) {
       map['id'] = _id;
     }
-    map['name'] = _fullName;
+    map['name'] = _name;
     map['email'] = _email;
     map['password'] = _password;
-    map['school name'] = _schoolName;
-    map['phone number'] = _phoneNumber;
+    map['schooling'] = _schooling;
+    map['schoolName'] = _schoolName;
+    map['phoneNumber'] = _phoneNumber;
+    map['preferedActivities'] = _preferedActivitiesList;
 
     return map;
   }
 
   Student.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
-    this._fullName = map['full name'];
+    this._name = map['name'];
     this._email = map['email'];
     this._password = map['password'];
-    this._schoolName = map['school name'];
-    this._phoneNumber = map['phone number'];
+    this._schooling = map['schooling'];
+    this._schoolName = map['schoolName'];
+    this._phoneNumber = map['phoneNumber'];
+    this._preferedActivitiesList = map['preferedActivities'];
   }
 }

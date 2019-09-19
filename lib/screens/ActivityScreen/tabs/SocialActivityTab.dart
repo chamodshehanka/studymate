@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,6 +22,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
   BaseAuthentication _auth = Authentication();
+  List<Student> studentsList;
 
   @override
   void initState() {
@@ -110,15 +110,36 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         uid != null ? print('UID : ' + uid) : print('UID is null');
 
         // Calling Student Service
-        Student student;
-        getStudentActivities('JfaAiaJ4yAqhqUqey1mG').then((value){
-          student = value;
-          print(value);
+        // Student student;
+        getStudentActivities('JfaAiaJ4yAqhqUqey1mG').then((value) {
+          // student = value;
+          // print(value);
         });
         // student != null ? print('Student is not null ') : print('Student is null');
       });
 
-      Future<Student> getStudentActivities(String id) async {
-        return await studentService.getByID(id);
-      }
+  Future<String> getStudentActivities(String id) async {
+    List<String> activityIDList = List<String>();
+
+    studentService
+        .getAllPreferredActivities(id)
+        .listen((QuerySnapshot snapshot) {
+      final List<Student> students = snapshot.documents
+          .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.studentsList = students;
+      });
+    });
+    print(studentsList != null);
+    studentsList.forEach((val) {
+      print("val :" + val.preferedActivities[0]);
+      val.preferedActivities.forEach((activity) {
+        activityIDList.add(activity);
+      });
+    });
+
+    print(activityIDList.length);
+    return null;
+  }
 }

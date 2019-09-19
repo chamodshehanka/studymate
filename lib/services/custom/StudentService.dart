@@ -1,7 +1,7 @@
 import 'dart:core';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Student.dart';
-import 'package:studymate/services/SuperService.dart';
 
 final CollectionReference studentsCollection =
     Firestore.instance.collection('Students');
@@ -12,8 +12,8 @@ class StudentService {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(studentsCollection.document());
 
-      final Student student = new Student(
-          ds.documentID, fullName, email, password, schoolName, phoneNumber);
+      final Student student = new Student(ds.documentID, fullName, email,
+          password, true, schoolName, phoneNumber, null);
       final Map<String, dynamic> data = student.toMap();
 
       await tx.set(ds.reference, data);
@@ -29,18 +29,11 @@ class StudentService {
     });
   }
 
-  Future<Student> getByID(String id) async {
-    Student student;
-    studentsCollection.document(id).get().then((doc) {
-      student = Student.fromMap(doc.data);
-      print(student.name);
-      return student;
-    });
-
-    return student;
+  Future<Student> getByID(String id) {
+    return null;
   }
 
-  Stream<QuerySnapshot> getstudentList({int offset, int limit}) {
+  Stream<QuerySnapshot> getStudentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = studentsCollection.snapshots();
 
     if (offset != null) {
@@ -87,5 +80,26 @@ class StudentService {
       print('error: $error');
       return false;
     });
+  }
+
+  Stream<QuerySnapshot> getAllPreferredActivities(String id) {
+    // List<String> activitiesList = List<String>();
+    /*studentsCollection.document(id).get().asStream().then((doc) {
+      Student student = Student.fromMap(doc.data);
+      print('Array: ' + student.preferedActivities.length.toString());
+
+      // for each for list
+      student.preferedActivities.forEach((value) {
+        activitiesList.add(value);
+        print("val : " + value);
+        print(activitiesList.isEmpty);
+      });
+    });*/
+    return studentsCollection
+        .document(id)
+        .collection('preferedActivities')
+        .snapshots();
+
+    // return studentsCollection.document(id).get().asStream();
   }
 }
