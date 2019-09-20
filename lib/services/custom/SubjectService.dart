@@ -22,12 +22,12 @@ class SubjectService extends SuperService<Subject, String> {
   }
 
   @override
-  Subject getByID(String id) {
+  Future update(Subject subject) {
     return null;
   }
 
   @override
-  Future update(Subject subject) {
+  Future<Subject> getByID(String id) {
     return null;
   }
 }
