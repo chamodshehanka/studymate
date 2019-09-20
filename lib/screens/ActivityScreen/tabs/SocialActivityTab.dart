@@ -19,10 +19,11 @@ class SocialActivityTab extends StatefulWidget {
 
 class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
-  List<ActivityProgress> activityProgressList;
+  List<ActivityProgress> studentActivitiesList;
   ActivityService activityService = ActivityService();
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
+  StreamSubscription<QuerySnapshot> studentActivitiesSubscription;
   BaseAuthentication _auth = Authentication();
 
   @override
@@ -43,12 +44,25 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     });
 
     // Student Preferred Activities List
-    activityProgressList = List();
+    studentActivitiesList = List();
+    studentActivitiesSubscription?.cancel();
+    studentActivitiesSubscription = studentService
+        .getAllPreferredActivities('JfaAiaJ4yAqhqUqey1mG')
+        .listen((QuerySnapshot snapshot) {
+      final List<ActivityProgress> activityProgress = snapshot.documents
+          .map((documentSnapshot) =>
+              ActivityProgress.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        studentActivitiesList = activityProgress;
+      });
+    });
   }
 
   @override
   void dispose() {
     socialActivitySubscription?.cancel();
+    studentActivitiesSubscription?.cancel();
     super.dispose();
   }
 
@@ -114,37 +128,15 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         uid != null ? print('UID : ' + uid) : print('UID is null');
 
         // Calling Student Service
-        getStudentActivities('JfaAiaJ4yAqhqUqey1mG');
+        getStudentActivities();
+
+        // Pass activity
+        print(socialActivity.toMap());
       });
 
   // Get All Activities of current student
-  void getStudentActivities(String id) async {
-    studentService
-        .getAllPreferredActivities(id)
-        .listen((QuerySnapshot snapshot) {
-      final List<ActivityProgress> activityProgress = snapshot.documents
-          .map((documentSnapshot) =>
-              ActivityProgress.fromMap(documentSnapshot.data))
-          .toList();
-      setState(() {
-        activityProgressList = activityProgress;
-      });
-    });
-
-    // Get PA
-    // studentService.getPA(id).then((value) {
-    //   final List<ActivityProgress> activityProgress = value.documents
-    //       .map((documentSnapshot) =>
-    //           ActivityProgress.fromMap(documentSnapshot.data))
-    //       .toList();
-
-    //   setState(() {
-    //     // activityProgressList = activityProgress;
-    //     print('PA : ' + activityProgress.length.toString());
-    //   });
-    // });
-
-    activityProgressList.forEach((n) {
+  void getStudentActivities() {
+    studentActivitiesList.forEach((n) {
       print(n.name);
     });
   }

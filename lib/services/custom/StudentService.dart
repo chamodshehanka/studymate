@@ -83,13 +83,6 @@ class StudentService {
     });
   }
 
-  // Future<QuerySnapshot> getPA(String id) async {
-  //   return studentsCollection
-  //       .document(id)
-  //       .collection('ActivityProgress')
-  //       .getDocuments();
-  // }
-
   Stream<QuerySnapshot> getAllPreferredActivities(String id,
       {int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = studentsCollection
