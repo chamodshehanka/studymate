@@ -117,6 +117,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         getStudentActivities('JfaAiaJ4yAqhqUqey1mG');
       });
 
+  // Get All Activities of current student
   void getStudentActivities(String id) async {
     studentService
         .getAllPreferredActivities(id)
@@ -127,9 +128,24 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
           .toList();
       setState(() {
         activityProgressList = activityProgress;
-        print(activityProgress);
       });
     });
-    print(activityProgressList);
+
+    // Get PA
+    // studentService.getPA(id).then((value) {
+    //   final List<ActivityProgress> activityProgress = value.documents
+    //       .map((documentSnapshot) =>
+    //           ActivityProgress.fromMap(documentSnapshot.data))
+    //       .toList();
+
+    //   setState(() {
+    //     // activityProgressList = activityProgress;
+    //     print('PA : ' + activityProgress.length.toString());
+    //   });
+    // });
+
+    activityProgressList.forEach((n) {
+      print(n.name);
+    });
   }
 }
