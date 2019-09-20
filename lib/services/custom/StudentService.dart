@@ -117,7 +117,6 @@ class StudentService {
         .document(id)
         .collection('ActivityProgress')
         .snapshots();
-    print(snapshots != null);
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);

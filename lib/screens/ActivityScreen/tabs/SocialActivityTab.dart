@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
-
-import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 
@@ -24,7 +22,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
   StreamSubscription<QuerySnapshot> studentActivitiesSubscription;
-  BaseAuthentication _auth = Authentication();
+  // BaseAuthentication _auth = Authentication();
 
   @override
   void initState() {
@@ -118,23 +116,29 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         ));
 
         // To get current User
-        String uid;
-        Future<String> currentUser = _auth.getCurrentUser();
-        currentUser.then((value) {
-          uid = value;
-        });
+        // String uid;
+        // Future<String> currentUser = _auth.getCurrentUser();
+        // currentUser.then((value) {
+        //   uid = value;
+        // });
 
         // Testing purpose
-        uid != null ? print('UID : ' + uid) : print('UID is null');
+        // uid != null ? print('UID : ' + uid) : print('UID is null');
 
         // Calling Student Service
-        printStudentActivities();
+        // printStudentActivities();
 
         // Pass activity
         ActivityProgress activityProgress =
             ActivityProgress(socialActivity.id, socialActivity.name, 0);
-        Future<ActivityProgress> isAdded = studentService
-            .addTActivityToProgress('JfaAiaJ4yAqhqUqey1mG', activityProgress);
+
+        Future<ActivityProgress> isAdded;
+        if (!isActivityAlreadyPreferred(socialActivity)) {
+          isAdded = studentService.addTActivityToProgress(
+              'JfaAiaJ4yAqhqUqey1mG', activityProgress);
+        }else{
+          print("Already added");
+        }
 
         if (isAdded != null) {
           Scaffold.of(context).showSnackBar(new SnackBar(
@@ -148,7 +152,8 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
           ));
         }
 
-        print(socialActivity.toMap());
+        print("Activity : " +
+            isActivityAlreadyPreferred(socialActivity).toString());
       });
 
   // Get All Activities of current student
@@ -156,5 +161,17 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     studentActivitiesList.forEach((n) {
       print(n.name);
     });
+  }
+
+  // To chech whether activity is already preferred
+  bool isActivityAlreadyPreferred(Activity activity) {
+    bool isActivityAlreadyPreferred = false;
+
+    studentActivitiesList.forEach((preferredActivity) {
+      if (activity.name == preferredActivity.name)
+        isActivityAlreadyPreferred = true;
+    });
+
+    return isActivityAlreadyPreferred;
   }
 }
