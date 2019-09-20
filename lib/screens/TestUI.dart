@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:studymate/widgets/FormTextField.dart';
+import 'package:studymate/widgets/StudymateDropdown.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class TestUIScreen extends StatefulWidget {
   _TestUIScreenState createState() => _TestUIScreenState();
@@ -11,6 +12,10 @@ class _TestUIScreenState extends State<TestUIScreen> {
   TextEditingController editingController;
   TextInputType textInputType = TextInputType.text;
   Color color = Colors.deepPurple;
+  TextStyle textStyle;
+  List<String> list = ["Maths","Science"];
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,8 +25,9 @@ class _TestUIScreenState extends State<TestUIScreen> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              FormTextField(
+              StudymateTextField(
                   "Test", editingController, "Test", color, textInputType),
+              StudymateDropdown("Select A Subject",list),
               RaisedButton(
                 child: Text('Admin Activity'),
                 color: Colors.deepPurpleAccent,
