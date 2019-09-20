@@ -117,7 +117,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         getStudentActivities('JfaAiaJ4yAqhqUqey1mG');
       });
 
-  Future<String> getStudentActivities(String id) async {
+  void getStudentActivities(String id) async {
     studentService
         .getAllPreferredActivities(id)
         .listen((QuerySnapshot snapshot) {
@@ -131,6 +131,5 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       });
     });
     print(activityProgressList);
-    return null;
   }
 }
