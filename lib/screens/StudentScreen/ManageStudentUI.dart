@@ -207,7 +207,7 @@ class ManageStudentScreen extends StatelessWidget {
                                   Navigator.of(context)
                                       .pop(ConfirmAction.ACCEPT);
                                   Future<dynamic> isDeleted = studentService
-                                      .deletestudent(student.id);
+                                      .deleteStudent(student.id);
                                   if (isDeleted != null) {
                                     Navigator.pop(context);
                                     Scaffold.of(context)

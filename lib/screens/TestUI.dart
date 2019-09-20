@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/widgets/FormTextField.dart';
 
 class TestUIScreen extends StatefulWidget {
   _TestUIScreenState createState() => _TestUIScreenState();
 }
 
 class _TestUIScreenState extends State<TestUIScreen> {
+  TextEditingController editingController;
+  TextInputType textInputType = TextInputType.text;
+  Color color = Colors.deepPurple;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,6 +19,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
       body: Container(
         child: ListView(
           children: <Widget>[
+            FormTextField("Test",editingController,"Test",color,textInputType),
             RaisedButton(
               child: Text('Admin Activity'),
               color: Colors.deepPurpleAccent,

@@ -1,11 +1,12 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 
 class SocialActivityTab extends StatefulWidget {
   SocialActivityTab({Key key, this.title});
@@ -18,8 +19,10 @@ class SocialActivityTab extends StatefulWidget {
 class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
   ActivityService activityService = ActivityService();
+  StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
   BaseAuthentication _auth = Authentication();
+  List<Student> studentsList;
 
   @override
   void initState() {
@@ -102,6 +105,41 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         currentUser.then((value) {
           uid = value;
         });
-        print(uid);
+
+        // Testing purpose
+        uid != null ? print('UID : ' + uid) : print('UID is null');
+
+        // Calling Student Service
+        // Student student;
+        getStudentActivities('JfaAiaJ4yAqhqUqey1mG').then((value) {
+          // student = value;
+          // print(value);
+        });
+        // student != null ? print('Student is not null ') : print('Student is null');
       });
+
+  Future<String> getStudentActivities(String id) async {
+    List<String> activityIDList = List<String>();
+
+    studentService
+        .getAllPreferredActivities(id)
+        .listen((QuerySnapshot snapshot) {
+      final List<Student> students = snapshot.documents
+          .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.studentsList = students;
+      });
+    });
+    print(studentsList != null);
+    studentsList.forEach((val) {
+      print("val :" + val.preferedActivities[0]);
+      val.preferedActivities.forEach((activity) {
+        activityIDList.add(activity);
+      });
+    });
+
+    print(activityIDList.length);
+    return null;
+  }
 }

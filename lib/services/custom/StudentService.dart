@@ -1,20 +1,19 @@
 import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:studymate/models/Student.dart';
 
-final CollectionReference studentCollection =
+final CollectionReference studentsCollection =
     Firestore.instance.collection('Students');
 
 class StudentService {
-
-
-  Future<Student> createStudent(String fullName, String email, String password, String schoolName, String phoneNumber) {
+  Future<Student> createStudent(String fullName, String email, String password,
+      String schoolName, String phoneNumber) {
     final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(studentCollection.document());
+      final DocumentSnapshot ds = await tx.get(studentsCollection.document());
 
-      final Student student = new Student(ds.documentID,fullName, email,password, schoolName, phoneNumber);
+      final Student student = new Student(ds.documentID, fullName, email,
+          password, true, schoolName, phoneNumber, null);
       final Map<String, dynamic> data = student.toMap();
 
       await tx.set(ds.reference, data);
@@ -30,10 +29,12 @@ class StudentService {
     });
   }
 
- 
-  
-  Stream<QuerySnapshot> getstudentList({int offset, int limit}) {
-    Stream<QuerySnapshot> snapshots = studentCollection.snapshots();
+  Future<Student> getByID(String id) {
+    return null;
+  }
+
+  Stream<QuerySnapshot> getStudentList({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots = studentsCollection.snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -49,7 +50,7 @@ class StudentService {
   Future<dynamic> updateStudent(Student student) async {
     final TransactionHandler updateTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
-          await tx.get(studentCollection.document(student.id));
+          await tx.get(studentsCollection.document(student.id));
 
       await tx.update(ds.reference, student.toMap());
       return {'updated': true};
@@ -64,9 +65,9 @@ class StudentService {
     });
   }
 
-  Future<dynamic> deletestudent(String id) async {
+  Future<dynamic> deleteStudent(String id) async {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(studentCollection.document(id));
+      final DocumentSnapshot ds = await tx.get(studentsCollection.document(id));
 
       await tx.delete(ds.reference);
       return {'deleted': true};
@@ -79,5 +80,26 @@ class StudentService {
       print('error: $error');
       return false;
     });
+  }
+
+  Stream<QuerySnapshot> getAllPreferredActivities(String id) {
+    // List<String> activitiesList = List<String>();
+    /*studentsCollection.document(id).get().asStream().then((doc) {
+      Student student = Student.fromMap(doc.data);
+      print('Array: ' + student.preferedActivities.length.toString());
+
+      // for each for list
+      student.preferedActivities.forEach((value) {
+        activitiesList.add(value);
+        print("val : " + value);
+        print(activitiesList.isEmpty);
+      });
+    });*/
+    return studentsCollection
+        .document(id)
+        .collection('preferedActivities')
+        .snapshots();
+
+    // return studentsCollection.document(id).get().asStream();
   }
 }
