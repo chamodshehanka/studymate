@@ -9,10 +9,9 @@ class StudymateDropdown extends StatefulWidget {
   _StudymateDropdownState createState() => _StudymateDropdownState();
 }
 
-
-  getVal() {}
 class _StudymateDropdownState extends State<StudymateDropdown> {
   String selectedValue;
+
   @override
   Widget build(BuildContext context) {
     return Container(
