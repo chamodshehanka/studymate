@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
-
-import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 
@@ -19,15 +17,18 @@ class SocialActivityTab extends StatefulWidget {
 
 class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
-  List<ActivityProgress> activityProgressList;
+  List<ActivityProgress> studentActivitiesList;
   ActivityService activityService = ActivityService();
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
-  BaseAuthentication _auth = Authentication();
+  StreamSubscription<QuerySnapshot> studentActivitiesSubscription;
+  String studentId;
 
   @override
   void initState() {
     super.initState();
+
+    studentId = 'JfaAiaJ4yAqhqUqey1mG';
 
     socialActivityList = List();
     socialActivitySubscription?.cancel();
@@ -43,12 +44,25 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     });
 
     // Student Preferred Activities List
-    activityProgressList = List();
+    studentActivitiesList = List();
+    studentActivitiesSubscription?.cancel();
+    studentActivitiesSubscription = studentService
+        .getAllPreferredActivities(studentId)
+        .listen((QuerySnapshot snapshot) {
+      final List<ActivityProgress> activityProgress = snapshot.documents
+          .map((documentSnapshot) =>
+              ActivityProgress.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        studentActivitiesList = activityProgress;
+      });
+    });
   }
 
   @override
   void dispose() {
     socialActivitySubscription?.cancel();
+    studentActivitiesSubscription?.cancel();
     super.dispose();
   }
 
@@ -96,56 +110,76 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         socialActivity.name,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
+      trailing:
+          Icon(getTileIcon(socialActivity), color: Colors.white, size: 30.0),
       onTap: () {
+        bool isActivityPreferred = isActivityAlreadyPreferred(socialActivity);
+
+        String snackBarMessage = 'Adding to List';
+        if (isActivityPreferred) snackBarMessage = 'Removing from prefer';
+
         Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text('Adding to List'),
+          content: new Text(snackBarMessage),
           backgroundColor: Colors.deepPurple,
         ));
 
-        // To get current User
-        String uid;
-        Future<String> currentUser = _auth.getCurrentUser();
-        currentUser.then((value) {
-          uid = value;
-        });
+        // Pass activity
+        ActivityProgress activityProgress =
+            ActivityProgress(socialActivity.id, socialActivity.name, 0);
 
-        // Testing purpose
-        uid != null ? print('UID : ' + uid) : print('UID is null');
+        if (!isActivityPreferred) {
+          // Activity Adding
+          Future<ActivityProgress> isAdded = studentService
+              .addTActivityToProgress(studentId, activityProgress);
 
-        // Calling Student Service
-        getStudentActivities('JfaAiaJ4yAqhqUqey1mG');
+          // Preferred Activity Adding SnackBar
+          if (isAdded != null) {
+            Scaffold.of(context).showSnackBar(new SnackBar(
+              content: new Text('Added to preferred List'),
+              backgroundColor: Colors.green,
+            ));
+          } else {
+            Scaffold.of(context).showSnackBar(new SnackBar(
+              content: new Text('Adding failed!'),
+              backgroundColor: Colors.redAccent,
+            ));
+          }
+        } else {
+          // Preferred Activity removing
+          Future<dynamic> isDeleted = studentService.deleteActivityProgress(
+              studentId, activityProgress.id);
+
+          if (isDeleted != null) {
+            Scaffold.of(context).showSnackBar(new SnackBar(
+              content: new Text('Successfully Removed'),
+              backgroundColor: Colors.green,
+            ));
+          } else {
+            Scaffold.of(context).showSnackBar(new SnackBar(
+              content: new Text('Adding failed!'),
+              backgroundColor: Colors.redAccent,
+            ));
+          }
+        }
       });
 
-  // Get All Activities of current student
-  void getStudentActivities(String id) async {
-    studentService
-        .getAllPreferredActivities(id)
-        .listen((QuerySnapshot snapshot) {
-      final List<ActivityProgress> activityProgress = snapshot.documents
-          .map((documentSnapshot) =>
-              ActivityProgress.fromMap(documentSnapshot.data))
-          .toList();
-      setState(() {
-        activityProgressList = activityProgress;
-      });
+  // To chech whether activity is already preferred
+  bool isActivityAlreadyPreferred(Activity activity) {
+    bool isActivityAlreadyPreferred = false;
+
+    studentActivitiesList.forEach((preferredActivity) {
+      if (activity.name == preferredActivity.name)
+        isActivityAlreadyPreferred = true;
     });
 
-    // Get PA
-    // studentService.getPA(id).then((value) {
-    //   final List<ActivityProgress> activityProgress = value.documents
-    //       .map((documentSnapshot) =>
-    //           ActivityProgress.fromMap(documentSnapshot.data))
-    //       .toList();
+    return isActivityAlreadyPreferred;
+  }
 
-    //   setState(() {
-    //     // activityProgressList = activityProgress;
-    //     print('PA : ' + activityProgress.length.toString());
-    //   });
-    // });
-
-    activityProgressList.forEach((n) {
-      print(n.name);
-    });
+  // Gets Icons to Tiles
+  IconData getTileIcon(Activity activity) {
+    IconData iconData = Icons.add_circle_outline;
+    if (isActivityAlreadyPreferred(activity))
+      iconData = Icons.remove_circle_outline;
+    return iconData;
   }
 }
