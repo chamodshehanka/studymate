@@ -5,6 +5,7 @@ class CommonConstants extends InheritedWidget {
       context.inheritFromWidgetOfExactType(CommonConstants);
 
   static final String activityCollectionName = 'Activities';
+  static final String activityProgressCollectionName = 'ActivityProgress';
   static final String studentsCollectionName = 'students';
 
   @override
