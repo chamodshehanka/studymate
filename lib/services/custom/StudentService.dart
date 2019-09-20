@@ -97,7 +97,7 @@ class StudentService {
     });*/
     return studentsCollection
         .document(id)
-        .collection('preferedActivities')
+        .collection('ActivityProgress')
         .snapshots();
 
     // return studentsCollection.document(id).get().asStream();

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/models/ActivityProgress.dart';
 import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
@@ -22,7 +23,6 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
   BaseAuthentication _auth = Authentication();
-  List<Student> studentsList;
 
   @override
   void initState() {
@@ -119,27 +119,40 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       });
 
   Future<String> getStudentActivities(String id) async {
-    List<String> activityIDList = List<String>();
+    // List<String> activityIDList = List<String>();
 
+    // studentService
+    //     .getAllPreferredActivities(id)
+    //     .listen((QuerySnapshot snapshot) {
+    //   final List<Student> students = snapshot.documents
+    //       .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
+    //       .toList();
+    //   setState(() {
+    //     this.studentsList = students;
+    //   });
+    // });
+    // print(studentsList != null);
+    // studentsList.forEach((val) {
+    //   print("val :" + val.preferedActivities[0]);
+    //   val.preferedActivities.forEach((activity) {
+    //     activityIDList.add(activity);
+    //   });
+    // });
+
+    // print(activityIDList.length);
+    List<ActivityProgress> activityProgressList = List();
     studentService
         .getAllPreferredActivities(id)
         .listen((QuerySnapshot snapshot) {
-      final List<Student> students = snapshot.documents
-          .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
+      final List<ActivityProgress> activityProgress = snapshot.documents
+          .map((documentSnapshot) =>
+              ActivityProgress.fromMap(documentSnapshot.data))
           .toList();
       setState(() {
-        this.studentsList = students;
+        activityProgressList = activityProgress;
       });
     });
-    print(studentsList != null);
-    studentsList.forEach((val) {
-      print("val :" + val.preferedActivities[0]);
-      val.preferedActivities.forEach((activity) {
-        activityIDList.add(activity);
-      });
-    });
-
-    print(activityIDList.length);
+    print(activityProgressList[0]);
     return null;
   }
 }
