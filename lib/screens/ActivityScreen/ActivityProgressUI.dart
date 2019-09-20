@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/utils/CommonConstants.dart';
 
 class ActivityProgressScreen extends StatefulWidget {
   _ActivityProgressScreenState createState() => _ActivityProgressScreenState();
@@ -8,7 +9,7 @@ class ActivityProgressScreen extends StatefulWidget {
 
 class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
   final HttpsCallable callable = CloudFunctions.instance
-      .getHttpsCallable(functionName: 'activityProgress');
+      .getHttpsCallable(functionName: CommonConstants.activityProgressFunction);
   var textVal = "Cat";
 
   initState() {
