@@ -1,7 +1,9 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+// import 'package:studymate/models/Activity.dart';
 import 'package:studymate/utils/CommonConstants.dart';
+// import 'package:charts_flutter/flutter.dart' as charts;
 
 class ActivityProgressScreen extends StatefulWidget {
   _ActivityProgressScreenState createState() => _ActivityProgressScreenState();
@@ -10,10 +12,13 @@ class ActivityProgressScreen extends StatefulWidget {
 class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
   final HttpsCallable callable = CloudFunctions.instance
       .getHttpsCallable(functionName: CommonConstants.activityProgressFunction);
+  // List<charts.Series<Activity, String>> _seriesData;
   var textVal = "Cat";
 
   initState() {
     super.initState();
+
+    // loading cloud funtion
     sum(5, 2).then((value) {
       print("hey look : " + value.toString());
       textVal = value.toString();
@@ -21,6 +26,8 @@ class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
         textVal = value.toString();
       });
     });
+
+    //
   }
 
   Future<int> sum(int x, int y) async {
@@ -31,9 +38,7 @@ class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var activityProgressBody = Container(
-      child: Text('5 + 2 : ' + textVal),
-    );
+    var activityProgressBody = Container();
 
     return MaterialApp(
       title: 'Activity Progress UI',
