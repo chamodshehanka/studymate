@@ -146,18 +146,19 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
             // Preferred Activity removing
             Future<dynamic> isDeleted = studentService.deleteActivityProgress(
                 studentId, activityProgress.id);
-
-            if (isDeleted != null) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: new Text('Successfully Removed'),
-                backgroundColor: Colors.green,
-              ));
-            } else {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: new Text('Adding failed!'),
-                backgroundColor: Colors.redAccent,
-              ));
-            }
+            isDeleted.then((result) {
+              if (result) {
+                Scaffold.of(context).showSnackBar(new SnackBar(
+                  content: new Text('Successfully Removed'),
+                  backgroundColor: Colors.green,
+                ));
+              } else {
+                Scaffold.of(context).showSnackBar(new SnackBar(
+                  content: new Text('Adding failed!'),
+                  backgroundColor: Colors.redAccent,
+                ));
+              }
+            });
           }
         },
       );
