@@ -108,14 +108,15 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         socialActivity.name,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
+      trailing:
+          Icon(getTileIcon(socialActivity), color: Colors.white, size: 30.0),
       onTap: () {
         Scaffold.of(context).showSnackBar(new SnackBar(
           content: new Text('Adding to List'),
           backgroundColor: Colors.deepPurple,
         ));
 
-        // To get current User
+        // To get current User Icons.add_circle_outline
         // String uid;
         // Future<String> currentUser = _auth.getCurrentUser();
         // currentUser.then((value) {
@@ -125,9 +126,6 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         // Testing purpose
         // uid != null ? print('UID : ' + uid) : print('UID is null');
 
-        // Calling Student Service
-        // printStudentActivities();
-
         // Pass activity
         ActivityProgress activityProgress =
             ActivityProgress(socialActivity.id, socialActivity.name, 0);
@@ -136,7 +134,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         if (!isActivityAlreadyPreferred(socialActivity)) {
           isAdded = studentService.addTActivityToProgress(
               'JfaAiaJ4yAqhqUqey1mG', activityProgress);
-        }else{
+        } else {
           print("Already added");
         }
 
@@ -151,17 +149,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
             backgroundColor: Colors.redAccent,
           ));
         }
-
-        print("Activity : " +
-            isActivityAlreadyPreferred(socialActivity).toString());
       });
-
-  // Get All Activities of current student
-  void printStudentActivities() {
-    studentActivitiesList.forEach((n) {
-      print(n.name);
-    });
-  }
 
   // To chech whether activity is already preferred
   bool isActivityAlreadyPreferred(Activity activity) {
@@ -173,5 +161,13 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     });
 
     return isActivityAlreadyPreferred;
+  }
+
+  // Gets Icons to Tiles
+  IconData getTileIcon(Activity activity) {
+    IconData iconData = Icons.add_circle_outline;
+    if (isActivityAlreadyPreferred(activity))
+      iconData = Icons.remove_circle_outline;
+      return iconData;
   }
 }
