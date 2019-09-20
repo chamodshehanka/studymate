@@ -4,9 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ActivityProgress.dart';
 
 import 'package:studymate/models/Student.dart';
+import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference studentsCollection =
-    Firestore.instance.collection('students');
+    Firestore.instance.collection(CommonConstants.studentsCollectionName);
 
 class StudentService {
   Future<Student> createStudent(String fullName, String email, String password,
