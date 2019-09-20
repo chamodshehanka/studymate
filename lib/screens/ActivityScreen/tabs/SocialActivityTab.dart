@@ -128,14 +128,31 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         uid != null ? print('UID : ' + uid) : print('UID is null');
 
         // Calling Student Service
-        getStudentActivities();
+        printStudentActivities();
 
         // Pass activity
+        ActivityProgress activityProgress =
+            ActivityProgress(socialActivity.id, socialActivity.name, 0);
+        Future<ActivityProgress> isAdded = studentService
+            .addTActivityToProgress('JfaAiaJ4yAqhqUqey1mG', activityProgress);
+
+        if (isAdded != null) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Added to preferred List'),
+            backgroundColor: Colors.deepPurple,
+          ));
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Adding failed!'),
+            backgroundColor: Colors.redAccent,
+          ));
+        }
+
         print(socialActivity.toMap());
       });
 
   // Get All Activities of current student
-  void getStudentActivities() {
+  void printStudentActivities() {
     studentActivitiesList.forEach((n) {
       print(n.name);
     });

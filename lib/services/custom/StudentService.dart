@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studymate/models/ActivityProgress.dart';
 
 import 'package:studymate/models/Student.dart';
 
@@ -14,7 +15,7 @@ class StudentService {
       final DocumentSnapshot ds = await tx.get(studentsCollection.document());
 
       final Student student = new Student(ds.documentID, fullName, email,
-          password, true, schoolName, phoneNumber, null);
+          password, true, schoolName, phoneNumber);
       final Map<String, dynamic> data = student.toMap();
 
       await tx.set(ds.reference, data);
@@ -80,6 +81,32 @@ class StudentService {
         .catchError((error) {
       print('error: $error');
       return false;
+    });
+  }
+
+  Future<ActivityProgress> addTActivityToProgress(
+      String studentId, ActivityProgress activityProgress) {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(Firestore.instance
+          .collection('students')
+          .document(studentId)
+          .collection('ActivityProgress')
+          .document());
+
+      final ActivityProgress progress = new ActivityProgress(
+          ds.documentID, activityProgress.name, activityProgress.progress);
+      final Map<String, dynamic> data = progress.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return ActivityProgress.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
     });
   }
 
