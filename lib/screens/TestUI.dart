@@ -32,8 +32,10 @@ class _TestUIScreenState extends State<TestUIScreen> {
               ),
               StreamBuilder(
                   stream: Firestore.instance
-                      .collection('students')
+                      .collection('students/ActivityProgress')
                       .document('JfaAiaJ4yAqhqUqey1mG')
+                      .collection('ActivityProgress')
+                      .document('QqxPb5GbnnikluuBYbML')
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {

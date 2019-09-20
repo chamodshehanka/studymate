@@ -1,10 +1,11 @@
 import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:studymate/models/Student.dart';
 
 final CollectionReference studentsCollection =
-    Firestore.instance.collection('Students');
+    Firestore.instance.collection('students');
 
 class StudentService {
   Future<Student> createStudent(String fullName, String email, String password,
@@ -82,24 +83,21 @@ class StudentService {
     });
   }
 
-  Stream<QuerySnapshot> getAllPreferredActivities(String id) {
-    // List<String> activitiesList = List<String>();
-    /*studentsCollection.document(id).get().asStream().then((doc) {
-      Student student = Student.fromMap(doc.data);
-      print('Array: ' + student.preferedActivities.length.toString());
-
-      // for each for list
-      student.preferedActivities.forEach((value) {
-        activitiesList.add(value);
-        print("val : " + value);
-        print(activitiesList.isEmpty);
-      });
-    });*/
-    return studentsCollection
+  Stream<QuerySnapshot> getAllPreferredActivities(String id,
+      {int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots = studentsCollection
         .document(id)
         .collection('ActivityProgress')
         .snapshots();
+    print(snapshots != null);
 
-    // return studentsCollection.document(id).get().asStream();
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+    return snapshots;
   }
 }

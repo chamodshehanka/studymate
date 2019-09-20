@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
-import 'package:studymate/models/Student.dart';
+
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
@@ -19,6 +19,7 @@ class SocialActivityTab extends StatefulWidget {
 
 class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
+  List<ActivityProgress> activityProgressList;
   ActivityService activityService = ActivityService();
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
@@ -40,6 +41,9 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         this.socialActivityList = activities;
       });
     });
+
+    // Student Preferred Activities List
+    activityProgressList = List();
   }
 
   @override
@@ -110,37 +114,10 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         uid != null ? print('UID : ' + uid) : print('UID is null');
 
         // Calling Student Service
-        // Student student;
-        getStudentActivities('JfaAiaJ4yAqhqUqey1mG').then((value) {
-          // student = value;
-          // print(value);
-        });
-        // student != null ? print('Student is not null ') : print('Student is null');
+        getStudentActivities('JfaAiaJ4yAqhqUqey1mG');
       });
 
   Future<String> getStudentActivities(String id) async {
-    // List<String> activityIDList = List<String>();
-
-    // studentService
-    //     .getAllPreferredActivities(id)
-    //     .listen((QuerySnapshot snapshot) {
-    //   final List<Student> students = snapshot.documents
-    //       .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
-    //       .toList();
-    //   setState(() {
-    //     this.studentsList = students;
-    //   });
-    // });
-    // print(studentsList != null);
-    // studentsList.forEach((val) {
-    //   print("val :" + val.preferedActivities[0]);
-    //   val.preferedActivities.forEach((activity) {
-    //     activityIDList.add(activity);
-    //   });
-    // });
-
-    // print(activityIDList.length);
-    List<ActivityProgress> activityProgressList = List();
     studentService
         .getAllPreferredActivities(id)
         .listen((QuerySnapshot snapshot) {
@@ -150,9 +127,10 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
           .toList();
       setState(() {
         activityProgressList = activityProgress;
+        print(activityProgress);
       });
     });
-    print(activityProgressList[0]);
+    print(activityProgressList);
     return null;
   }
 }
