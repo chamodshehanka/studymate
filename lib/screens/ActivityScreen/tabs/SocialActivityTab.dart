@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
-import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/models/ActivityProgress.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 
 class SocialActivityTab extends StatefulWidget {
   SocialActivityTab({Key key, this.title});
@@ -17,9 +17,12 @@ class SocialActivityTab extends StatefulWidget {
 
 class _SocialActivityTabState extends State<SocialActivityTab> {
   List<Activity> socialActivityList;
+  List<ActivityProgress> studentActivitiesList;
   ActivityService activityService = ActivityService();
+  StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
-  BaseAuthentication _auth = Authentication();
+  StreamSubscription<QuerySnapshot> studentActivitiesSubscription;
+  // BaseAuthentication _auth = Authentication();
 
   @override
   void initState() {
@@ -37,11 +40,27 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         this.socialActivityList = activities;
       });
     });
+
+    // Student Preferred Activities List
+    studentActivitiesList = List();
+    studentActivitiesSubscription?.cancel();
+    studentActivitiesSubscription = studentService
+        .getAllPreferredActivities('JfaAiaJ4yAqhqUqey1mG')
+        .listen((QuerySnapshot snapshot) {
+      final List<ActivityProgress> activityProgress = snapshot.documents
+          .map((documentSnapshot) =>
+              ActivityProgress.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        studentActivitiesList = activityProgress;
+      });
+    });
   }
 
   @override
   void dispose() {
     socialActivitySubscription?.cancel();
+    studentActivitiesSubscription?.cancel();
     super.dispose();
   }
 
@@ -89,19 +108,66 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         socialActivity.name,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      trailing: Icon(Icons.add_circle_outline, color: Colors.white, size: 30.0),
+      trailing:
+          Icon(getTileIcon(socialActivity), color: Colors.white, size: 30.0),
       onTap: () {
         Scaffold.of(context).showSnackBar(new SnackBar(
           content: new Text('Adding to List'),
           backgroundColor: Colors.deepPurple,
         ));
 
-        // To get current User
-        String uid;
-        Future<String> currentUser = _auth.getCurrentUser();
-        currentUser.then((value) {
-          uid = value;
-        });
-        print(uid);
+        // To get current User Icons.add_circle_outline
+        // String uid;
+        // Future<String> currentUser = _auth.getCurrentUser();
+        // currentUser.then((value) {
+        //   uid = value;
+        // });
+
+        // Testing purpose
+        // uid != null ? print('UID : ' + uid) : print('UID is null');
+
+        // Pass activity
+        ActivityProgress activityProgress =
+            ActivityProgress(socialActivity.id, socialActivity.name, 0);
+
+        Future<ActivityProgress> isAdded;
+        if (!isActivityAlreadyPreferred(socialActivity)) {
+          isAdded = studentService.addTActivityToProgress(
+              'JfaAiaJ4yAqhqUqey1mG', activityProgress);
+        } else {
+          print("Already added");
+        }
+
+        if (isAdded != null) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Added to preferred List'),
+            backgroundColor: Colors.deepPurple,
+          ));
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Adding failed!'),
+            backgroundColor: Colors.redAccent,
+          ));
+        }
       });
+
+  // To chech whether activity is already preferred
+  bool isActivityAlreadyPreferred(Activity activity) {
+    bool isActivityAlreadyPreferred = false;
+
+    studentActivitiesList.forEach((preferredActivity) {
+      if (activity.name == preferredActivity.name)
+        isActivityAlreadyPreferred = true;
+    });
+
+    return isActivityAlreadyPreferred;
+  }
+
+  // Gets Icons to Tiles
+  IconData getTileIcon(Activity activity) {
+    IconData iconData = Icons.add_circle_outline;
+    if (isActivityAlreadyPreferred(activity))
+      iconData = Icons.remove_circle_outline;
+      return iconData;
+  }
 }
