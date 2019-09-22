@@ -12,7 +12,6 @@ class _ActivityMenuScreenState extends State<ActivityMenuScreen> {
     return Scaffold(
         backgroundColor: Colors.purple[50],
         body: Align(
-            alignment: Alignment.bottomRight, child: MultiOptionButton())
-            );
+            alignment: Alignment.bottomRight, child: MultiOptionButton()));
   }
 }
