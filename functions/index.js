@@ -49,5 +49,12 @@ exports.newActivityNotification = functions.firestore
             }
         }
 
-        // admin.firestore.ref('fcm-token').once('value').then();
+        // admin.firestore.document('').once('value').then(allToken => {
+        //     if (allToken.val()) {
+        //         const token = Object.keys(allToken.val());
+        //         admin.messaging().sendToDevice(token, playload);
+        //     } else {
+
+        //     }
+        // });
     });

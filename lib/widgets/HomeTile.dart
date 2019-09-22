@@ -101,7 +101,6 @@ class HomeTile extends StatelessWidget {
               ),
             ),
           ),
-          ),
         );
   }
 }

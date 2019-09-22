@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivityMenuUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
@@ -55,6 +56,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
+      case '/activityMenu':
+        return MaterialPageRoute(builder: (_) => ActivityMenuScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
       case '/adminActivity':
