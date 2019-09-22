@@ -68,6 +68,7 @@ flutter:
     - assets/images/image5.jpg
     - assets/images/image6.jpg
     - assets/images/image7.jpg
+    - assets/images/minion.png
     - assets/animations/MultiOptionButton.flr
     - assets/animations/tiger.flr
 
