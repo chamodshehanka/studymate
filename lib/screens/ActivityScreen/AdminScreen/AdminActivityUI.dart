@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
-import 'package:studymate/widgets/StudymateDropDown.dart';
+import 'package:studymate/widgets/StudymateDropdown.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
