@@ -83,10 +83,11 @@ class _MultiOptionButton extends State<MultiOptionButton> {
               isOpen = !isOpen;
             }
           },
-          child: FlareActor('assets/animations/MultiOptionButton.flr',
-              animation: _getAnimationName(_animationToPlay),
-              controller: animationControls,
-              ),
+          child: FlareActor(
+            'assets/animations/MultiOptionButton.flr',
+            animation: _getAnimationName(_animationToPlay),
+            controller: animationControls,
+          ),
         ));
   }
 }
