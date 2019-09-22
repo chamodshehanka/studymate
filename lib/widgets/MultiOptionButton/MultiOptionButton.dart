@@ -87,6 +87,7 @@ class _MultiOptionButton extends State<MultiOptionButton> {
             'assets/animations/MultiOptionButton.flr',
             animation: _getAnimationName(_animationToPlay),
             controller: animationControls,
+            alignment: Alignment.center,
           ),
         ));
   }
