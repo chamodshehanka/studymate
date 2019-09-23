@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 class StudymateTextField extends StatefulWidget {
-  final Icon icon;
-  final String hintText;
+  final String labelText;
+  final TextEditingController textEditingController;
+  final String validation;
+  final Color color;
+  final TextInputType keyboardType;
 
-  StudymateTextField(this.icon, this.hintText);
+  StudymateTextField(this.labelText, this.textEditingController,
+      this.validation, this.color, this.keyboardType);
 
   _StudymateTextField createState() => _StudymateTextField();
 }
@@ -13,42 +17,31 @@ class _StudymateTextField extends State<StudymateTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
-    
-      child: Material(
-          elevation: 5.0,
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          color: Colors.deepOrange,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: widget.icon,
+        width: 350,
+        child: Padding(
+          padding:
+              EdgeInsets.only(bottom: 10.0, left: 20.0, top: 10.0, right: 20.0),
+          child: TextFormField(
+            decoration: new InputDecoration(
+              labelText: widget.labelText,
+              fillColor: Colors.white,
+              border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(25.0),
+                borderSide: new BorderSide(),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0)),
-                ),
-                width: 300,
-                height: 60,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: widget.hintText,
-                        fillColor: Colors.white,
-                        filled: true),
-                    style: TextStyle(fontSize: 20.0, color: Colors.black),
-                  ),
-                ),
-              ),
-            ],
-          )),
-    );
+            ),
+            validator: (val) {
+              if (val.length == 0) {
+                return widget.validation;
+              } else {
+                return null;
+              }
+            },
+            keyboardType: widget.keyboardType,
+            style: new TextStyle(
+              fontFamily: "Poppins",
+            ),
+          ),
+        ));
   }
 }
