@@ -89,9 +89,9 @@ class StudentService {
       String studentId, ActivityProgress activityProgress) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(Firestore.instance
-          .collection('students')
+          .collection(CommonConstants.studentsCollectionName)
           .document(studentId)
-          .collection('ActivityProgress')
+          .collection(CommonConstants.activityProgressCollectionName)
           .document());
 
       final ActivityProgress progress = new ActivityProgress(
@@ -115,7 +115,7 @@ class StudentService {
       {int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = studentsCollection
         .document(id)
-        .collection('ActivityProgress')
+        .collection(CommonConstants.activityProgressCollectionName)
         .snapshots();
 
     if (offset != null) {
@@ -126,5 +126,26 @@ class StudentService {
       snapshots = snapshots.take(limit);
     }
     return snapshots;
+  }
+
+  Future<dynamic> deleteActivityProgress(String studentId, String activityId) {
+    final TransactionHandler deleteTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(Firestore.instance
+          .collection(CommonConstants.studentsCollectionName)
+          .document(studentId)
+          .collection(CommonConstants.activityProgressCollectionName)
+          .document(activityId));
+
+      await tx.delete(ds.reference);
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 }

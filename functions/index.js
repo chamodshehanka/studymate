@@ -12,13 +12,6 @@ admin.initializeApp();
 //  response.send("Hello from Firebase!");
 // });
 
-//New Activity Push Notification
-// exports.newActivityNotification = functions.firestore
-//     .document('Activities/{id}')
-//     .onCreate((change, context) => {
-
-//     });
-
 // New SignUp
 exports.addNewRole = functions.https.onCall((data, context) => {
     // Get user and add custom claim (admin)
@@ -44,3 +37,17 @@ exports.activityProgress = functions.https.onCall((data, context) => {
 
     return z;
 });
+
+//New Activity Push Notification
+exports.newActivityNotification = functions.firestore
+    .document('Activities/{activityId}').onCreate((snap, context) => {
+        const playload = {
+            notification: {
+                title: 'New Activity Added',
+                body: 'This is body',
+                icon: '1'
+            }
+        }
+
+        // admin.firestore.ref('fcm-token').once('value').then();
+    });
