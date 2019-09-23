@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-
 class HomeTile extends StatelessWidget {
-
   final IconData icon;
-  final String  title;
+  final String title;
   final Color background;
   final String path;
 
-  HomeTile(this.icon,this.title,this.background,this.path);
+  HomeTile(this.icon, this.title, this.background, this.path);
 
   Widget _buildCardContent() {
     return Align(
@@ -40,21 +38,20 @@ class HomeTile extends StatelessWidget {
   }
 
   List<Widget> _buildDecorations() {
-    return[
+    return [
       Positioned(
         bottom: -200 * 0.050,
         right: -200 * 0.034,
         child: Icon(
-         this.icon,
+          this.icon,
           size: 150,
           color: Colors.white.withOpacity(0.14),
         ),
       ),
-       Positioned(
+      Positioned(
         bottom: 8,
         right: 12,
-        child: Hero(
-          tag: this.icon,
+        child: Container(
           child: Image.asset(
             "assets/images/minion.png",
             fit: BoxFit.contain,
@@ -69,38 +66,36 @@ class HomeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-        return Container(
-          height: 150,
-          width: 200,
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.white,
-                blurRadius: 15,
-                offset: Offset(0, 8),
-              ),
-            ],
+    return Container(
+      height: 150,
+      width: 200,
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white,
+            blurRadius: 15,
+            offset: Offset(0, 8),
           ),
-          child:Card(
-            child: Material(
-              color: this.background,
-              child: InkWell(
-                onTap:()=> Navigator.pushNamed(context, path),
-                splashColor: Colors.white10,
-                highlightColor: Colors.white10,
-                child: Stack(
-                  children: [
-                    _buildCardContent(),
-                    ..._buildDecorations(),
-                  ],
-                ),
-              ),
+        ],
+      ),
+      child: Card(
+        child: Material(
+          color: this.background,
+          child: InkWell(
+            onTap: () => Navigator.pushNamed(context, path),
+            splashColor: Colors.white10,
+            highlightColor: Colors.white10,
+            child: Stack(
+              children: [
+                _buildCardContent(),
+                ..._buildDecorations(),
+              ],
             ),
           ),
-        );
+        ),
+      ),
+    );
   }
 }
