@@ -1,23 +1,22 @@
-/*import 'dart:core';
+import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ActivityProgress.dart';
+
 import 'package:studymate/models/Student.dart';
-
-
 import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference studentsCollection =
     Firestore.instance.collection(CommonConstants.studentsCollectionName);
 
 class StudentService {
-  Future<User> createUser(String firstName, String lastName, String email, String password,
-    ) {
+  Future<Student> createStudent(String fullName, String email, String password,
+      String schoolName, String phoneNumber) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(studentsCollection.document());
 
-      final Student student = new Student(ds.documentID, firstName, lastName, email,
-          password);
+      final Student student = new Student(ds.documentID, fullName, email,
+          password, true, schoolName, phoneNumber);
       final Map<String, dynamic> data = student.toMap();
 
       await tx.set(ds.reference, data);
@@ -149,4 +148,4 @@ class StudentService {
       return false;
     });
   }
-}*/
+}

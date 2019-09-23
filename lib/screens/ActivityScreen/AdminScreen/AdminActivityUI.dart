@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
-//import 'package:studymate/widgets/StudymateDropdown.dart';
+import 'package:studymate/widgets/StudymateDropdown.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -143,11 +143,11 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                       },
                     ),
                   ),
-                  /*Padding(
+                  Padding(
                     padding: EdgeInsets.all(8.0),
                     child: StudymateDropdown(
                         'Select activity type', activityTypeList),
-                  ),*/
+                  ),
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),
