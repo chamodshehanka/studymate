@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 User userFromJson(String str) {
   final jsonData = json.decode(str);

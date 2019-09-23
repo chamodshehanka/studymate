@@ -1,22 +1,24 @@
-import 'dart:core';
+/*import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studymate/models/User.dart';
+import 'package:studymate/models/ActivityProgress.dart';
+import 'package:studymate/models/Student.dart';
 
 
+import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference studentsCollection =
-    Firestore.instance.collection('Students');
+    Firestore.instance.collection(CommonConstants.studentsCollectionName);
 
 class StudentService {
-  Future<User> createStudent(String firstName, String lastName, String email, String password,
-  ) {
+  Future<User> createUser(String firstName, String lastName, String email, String password,
+    ) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(studentsCollection.document());
 
-      final User user = new User(ds.documentID, firstName, lastName, email,
+      final Student student = new Student(ds.documentID, firstName, lastName, email,
           password);
-      final Map<String, dynamic> data = user.toMap();
+      final Map<String, dynamic> data = student.toMap();
 
       await tx.set(ds.reference, data);
 
@@ -24,14 +26,14 @@ class StudentService {
     };
 
     return Firestore.instance.runTransaction(createTransaction).then((mapData) {
-      return User.fromMap(mapData);
+      return Student.fromMap(mapData);
     }).catchError((error) {
       print('error: $error');
       return null;
     });
   }
 
-  Future<User> getByID(String userId) {
+  Future<Student> getByID(String id) {
     return null;
   }
 
@@ -49,12 +51,12 @@ class StudentService {
     return snapshots;
   }
 
-  Future<dynamic> updateUser(User user) async {
+  Future<dynamic> updateStudent(Student student) async {
     final TransactionHandler updateTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
-          await tx.get(studentsCollection.document());
+          await tx.get(studentsCollection.document(student.id));
 
-      await tx.update(ds.reference, user.toMap());
+      await tx.update(ds.reference, student.toMap());
       return {'updated': true};
     };
 
@@ -67,9 +69,9 @@ class StudentService {
     });
   }
 
-  Future<dynamic> deleteStudent(String userId) async {
+  Future<dynamic> deleteStudent(String id) async {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(studentsCollection.document(userId));
+      final DocumentSnapshot ds = await tx.get(studentsCollection.document(id));
 
       await tx.delete(ds.reference);
       return {'deleted': true};
@@ -84,24 +86,67 @@ class StudentService {
     });
   }
 
-  Stream<QuerySnapshot> getAllPreferredActivities(String id) {
-     List<String> activitiesList = List<String>();
-    /*studentsCollection.document(id).get().asStream().then((doc) {
-      Student student = Student.fromMap(doc.data);
-      print('Array: ' + student.preferedActivities.length.toString());
+  Future<ActivityProgress> addTActivityToProgress(
+      String studentId, ActivityProgress activityProgress) {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(Firestore.instance
+          .collection(CommonConstants.studentsCollectionName)
+          .document(studentId)
+          .collection(CommonConstants.activityProgressCollectionName)
+          .document());
 
-      // for each for list
-      student.preferedActivities.forEach((value) {
-        activitiesList.add(value);
-        print("val : " + value);
-        print(activitiesList.isEmpty);
-      });
+      final ActivityProgress progress = new ActivityProgress(
+          ds.documentID, activityProgress.name, activityProgress.progress);
+      final Map<String, dynamic> data = progress.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return ActivityProgress.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
     });
-    return studentsCollection
+  }
+
+  Stream<QuerySnapshot> getAllPreferredActivities(String id,
+      {int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots = studentsCollection
         .document(id)
-        .collection('preferedActivities')
+        .collection(CommonConstants.activityProgressCollectionName)
         .snapshots();
 
-    // return studentsCollection.document(id).get().asStream();
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+    return snapshots;
   }
-}
+
+  Future<dynamic> deleteActivityProgress(String studentId, String activityId) {
+    final TransactionHandler deleteTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(Firestore.instance
+          .collection(CommonConstants.studentsCollectionName)
+          .document(studentId)
+          .collection(CommonConstants.activityProgressCollectionName)
+          .document(activityId));
+
+      await tx.delete(ds.reference);
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
+  }
+}*/
