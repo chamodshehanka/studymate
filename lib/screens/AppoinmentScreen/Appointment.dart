@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Task.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 import 'AppointmentScreen.dart';
+import 'package:flutter/cupertino.dart';
+
 
 void main() => runApp(AppointmentScreen());
 
@@ -16,7 +18,7 @@ class AppointmentScreen extends StatelessWidget {
       title: 'Appointment Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xff543B7A),
+        primaryColor: Color(0xFF4A148C),
       ),
       home: MyHomePage(),
     );
@@ -71,13 +73,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: EdgeInsets.only(left: 10.0, right: 10.0),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 160.0,
+                          height: 150.0,
                           child: Padding(
-                            padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+                            padding: EdgeInsets.only(top: 5.0, bottom: 8.0),
                             child: Material(
-                              color: Colors.white,
-                              elevation: 16.0,
-                              shadowColor: Color(0xFFAB47BC),
+                              color: Colors.yellow[300],
+                              elevation: 20.0,
+                              shadowColor: Colors.deepPurple,
                               child: Center(
                                 child: Padding(
                                   padding: EdgeInsets.all(15.0),
@@ -85,12 +87,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
+                                      
                                       Text(
                                         '${items[index].taskappointmentID}',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 20.0),
                                       ),
+                                       
                                       Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -101,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 color: Colors.black,
                                                 fontSize: 20.0),
                                           ),
+                                         
                                           Text(
                                             '${items[index].taskSpecialDescription}',
                                             style: TextStyle(
@@ -126,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 color: Colors.black,
                                                 fontSize: 16.0),
                                           ),
+                                          
                                         ],
                                       )
                                     ],
@@ -143,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFFAB47BC),
+         backgroundColor: Colors.deepPurple,
         child: Icon(
           Icons.add,
           color: Color(0xFFFAFAFA),
@@ -168,13 +174,10 @@ class _MyHomePageState extends State<MyHomePage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
             colors: [
-              const Color(0xFF4A148C),
-              const Color(0xFFAB47BC),
+              const Color(0xFF6A1B9A),
+              const Color(0xFF6A1B9A),
             ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),
+            ),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 16.0),
@@ -195,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     }),
               ),
             ),
+           
             Expanded(
               flex: 5,
               child: Container(

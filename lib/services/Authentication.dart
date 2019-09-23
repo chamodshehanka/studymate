@@ -18,7 +18,7 @@ class Authentication implements BaseAuthentication {
 
   @override
   Future<String> signIn(String email, String password) async {
-    FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
+  FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
             email: email, password: password))
         .user;
     return user.uid;
@@ -37,5 +37,3 @@ class Authentication implements BaseAuthentication {
     return user.uid;
   }
 }
-
-// https://medium.com/flutterpub/flutter-how-to-do-user-login-with-firebase-a6af760b14d5

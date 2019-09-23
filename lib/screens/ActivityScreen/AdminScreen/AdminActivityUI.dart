@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/widgets/StudymateDropdown.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -15,8 +16,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   List<Activity> activityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> activitySubscription;
-  List<DropdownMenuItem<String>> _dropdownActivityTypes;
-  String _selectedActivity;
+  List<String> activityTypeList;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final typeController = TextEditingController();
@@ -38,35 +38,13 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
     });
 
     // Dropdown Items load
-    _dropdownActivityTypes = buildDropdownMenuItems();
-    _selectedActivity = _dropdownActivityTypes[0].value;
-    print(_dropdownActivityTypes[0].value);//Remove this line
+    activityTypeList = ['Social', 'Leisure'];
   }
 
   @override
   void dispose() {
     activitySubscription?.cancel();
     super.dispose();
-  }
-
-  List<DropdownMenuItem<String>> buildDropdownMenuItems() {
-    List<DropdownMenuItem<String>> items = List();
-    items.add(DropdownMenuItem(
-      value: 'Social',
-      child: Text('Social'),
-    ));
-
-    items.add(DropdownMenuItem(
-      value: 'Leisure',
-      child: Text('Leisure'),
-    ));
-
-    items.add(DropdownMenuItem(
-      value: 'Other',
-      child: Text('Other'),
-    ));
-
-    return items;
   }
 
   @override
@@ -167,28 +145,10 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: DropdownButton(
-                      value: _selectedActivity,
-                      // items: _dropdownActivityTypes,
-                      // icon: Icon(Icons.line_style),
-                      onChanged: onChangeDropdownItem,
-                    ),
+                    child: StudymateDropdown(
+                        'Select activity type', activityTypeList),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Enter activity type'),
-                      controller: typeController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter activity type';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
+
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
@@ -232,11 +192,5 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
             ),
           );
         });
-  }
-  
-  onChangeDropdownItem(String selectedCompany){
-    setState(() {
-     _selectedActivity = selectedCompany; 
-    });
   }
 }

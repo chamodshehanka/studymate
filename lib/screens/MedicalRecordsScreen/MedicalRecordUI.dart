@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/MedicalRecord.dart';
 import 'package:studymate/services/custom/MedicalRecordService.dart';
+import 'package:studymate/widgets/MultiOptionButton/MultiOptionButton.dart';
 
 class MedicalRecordUIScreen extends StatefulWidget {
   _MedicalRecordScreenState createState() => _MedicalRecordScreenState();
@@ -87,11 +88,13 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
           backgroundColor: Colors.deepPurple,
         ),
         body: medicalRecordBody,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.deepPurple,
-          child: Icon(Icons.add),
-          onPressed: () => Navigator.pushNamed(context, '/createMedicalRecord'),
-        ));
+        floatingActionButton: Align(
+            alignment: Alignment.bottomRight, child: MultiOptionButton()));
+    // FloatingActionButton(
+    //   backgroundColor: Colors.deepPurple,
+    //   child: Icon(Icons.add),
+    //   onPressed: () => Navigator.pushNamed(context, '/createMedicalRecord'),
+    // ));
   }
 
   _viewMedicalReport(BuildContext context) {
