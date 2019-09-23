@@ -11,7 +11,7 @@ class AppointmentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Appointment Management',
-      debugShowCheckedModeBanner: false,
+       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xFF4A148C),
       ),
@@ -80,10 +80,7 @@ class _CreatToDoState extends State<CreatToDo> {
               const Color(0xFFFA7397),
               const Color(0xFFFDDE42),
             ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),
+           ),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 14.0),

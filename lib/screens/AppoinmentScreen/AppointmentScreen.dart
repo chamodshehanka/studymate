@@ -198,13 +198,10 @@ class _TaskScreenState extends State<TaskScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
             colors: [
-              const Color(0xFF4A148C),
-              const Color(0xFFAB47BC),
+              const Color(0xFF6A1B9A),
+              const Color(0xFF6A1B9A),
             ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),
+          ),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 10.0),
@@ -229,10 +226,10 @@ class _TaskScreenState extends State<TaskScreen> {
               flex: 5,
               child: Container(
                 child: Text(
-                  'Add New Appointment',
+                  ' Add New Appointment',
                   style: TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      
                       fontSize: 20.0),
                 ),
               ),
