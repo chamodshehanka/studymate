@@ -12,16 +12,16 @@ void main() => runApp(DoctorAppointmentScreen());
 class DoctorAppointmentScreen extends StatelessWidget {
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     return MaterialApp(
-      
       title: 'Appointment Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-      primaryColor: Color(0xFF4A148C),
+        backgroundColor: Colors.deepPurple,
+     
       ),
       home: MyHomePage(),
-      );
+    );
   }
 }
 
@@ -133,54 +133,41 @@ class _MyHomePageState extends State<MyHomePage> {
                                           padding: const EdgeInsets.only(top: 0.0, bottom: 2.0),
                                           child: Row(
                                           children: <Widget>[
-                                            Padding(
-                                      padding:const EdgeInsets.only() ,
-                                      child: Column(
+                                            Icon(Icons.check_circle,color:Colors.green,size: 35),
+                                          Padding(
+                                          padding:const EdgeInsets.only() ,
+                                          child: Column(
                                           children: <Widget>[
-                                            Text(  
-                                              " Approved  ",
-                                              style: TextStyle(
-                                                color: Colors.green,
-                                                fontSize: 16.0),
-                                            
+                                          Text( " Approved  ",
+                                             style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 17.0,
+                                              ),
                                             )
                                           ],
                                       ),
                                     ),
-                                      Align(
-                                        child: Container(
-                                          child: Icon(
-                                        FontAwesomeIcons.checkCircle,
-                                        color:Colors.green,
-                                        size: 35,
-                                      ),)
-                                    ),
-                                    Padding(
-                                      padding:const EdgeInsets.only() ,
-                                      child: Column(
+                                     Icon(Icons.cancel,color:Colors.red,size: 35),
+                                          Padding(
+                                          padding:const EdgeInsets.only() ,
+                                          child: Column(
                                           children: <Widget>[
-                                            Text(  
-                                              "   Not Approved  ",
-                                              style: TextStyle(
-                                                color: Colors.red,
-                                                fontSize: 16.0),
-                                            
+                                          Text( " UnApproved  ",
+                                             style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.bold,
+                                              ),
                                             )
                                           ],
                                       ),
                                     ),
-                                     Align(
-                                      child: Container(
-                                      child: Icon(
-                                      FontAwesomeIcons.timesCircle,
-                                        color:Colors.red,
-                                         size: 35,
-                                          ),)
-                                          ),],
+                                         ],
                                         ),
-                                          ),
-                                        ],
-                                      )
+                                       ),
+                                      ],
+                                    )
                                       
                                     ],
                                   ),
@@ -225,6 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const Color(0xFF6A1B9A),
               const Color(0xFF6A1B9A),
             ],
+          
            ),
       ),
       child: Padding(
