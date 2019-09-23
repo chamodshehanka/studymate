@@ -53,8 +53,7 @@ class HomeTile extends StatelessWidget {
        Positioned(
         bottom: 8,
         right: 12,
-        child: Hero(
-          tag: this.icon,
+        child: Container(
           child: Image.asset(
             "assets/images/minion.png",
             fit: BoxFit.contain,
