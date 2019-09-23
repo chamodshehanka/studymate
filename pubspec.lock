@@ -50,6 +50,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
+  charts_common:
+    dependency: transitive
+    description:
+      name: charts_common
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
+  charts_flutter:
+    dependency: "direct main"
+    description:
+      name: charts_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
   cloud_firestore:
     dependency: "direct main"
     description:
@@ -127,6 +141,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.6"
+<<<<<<< HEAD
   flushbar:
     dependency: "direct main"
     description:
@@ -134,6 +149,22 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.0"
+=======
+  flare_dart:
+    dependency: transitive
+    description:
+      name: flare_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.6"
+  flare_flutter:
+    dependency: "direct main"
+    description:
+      name: flare_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.8"
+>>>>>>> 115cf8a25e54f32aadd231fd5ee42c9dc64c7d1d
   flutter:
     dependency: "direct main"
     description: flutter
@@ -213,7 +244,14 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.0"
+    version: "0.15.8"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.11.3+2"
   matcher:
     dependency: transitive
     description:
@@ -256,6 +294,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
+<<<<<<< HEAD
   shared_preferences:
     dependency: "direct main"
     description:
@@ -263,6 +302,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.3+4"
+=======
+>>>>>>> 115cf8a25e54f32aadd231fd5ee42c9dc64c7d1d
   sky_engine:
     dependency: transitive
     description: flutter
@@ -340,4 +381,4 @@ packages:
     version: "2.1.16"
 sdks:
   dart: ">=2.4.0 <3.0.0"
-  flutter: ">=1.5.0 <2.0.0"
+  flutter: ">=1.7.8+hotfix.3 <2.0.0"

@@ -18,7 +18,7 @@ class User {
   String lastName;
   String email;
 
-  User(String documentID, String firstName, String lastName, {
+  User({
     this.userId,
     this.firstName,
     this.lastName,
