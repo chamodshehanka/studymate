@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Task.dart';
 import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentScreen.dart';
-
 import 'package:studymate/services/custom/AppointmentService.dart';
 import 'AppointmentScreen.dart';
 
