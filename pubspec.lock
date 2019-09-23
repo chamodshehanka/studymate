@@ -141,6 +141,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.6"
+<<<<<<< HEAD
+  flushbar:
+    dependency: "direct main"
+    description:
+      name: flushbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.0"
+=======
   flare_dart:
     dependency: transitive
     description:
@@ -155,6 +164,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.8"
+>>>>>>> 115cf8a25e54f32aadd231fd5ee42c9dc64c7d1d
   flutter:
     dependency: "direct main"
     description: flutter
@@ -283,7 +293,21 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
+    version: "2.0.5"
+<<<<<<< HEAD
+  shared_preferences:
+    dependency: "direct main"
+    description:
+      name: shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.3+4"
+=======
+>>>>>>> 115cf8a25e54f32aadd231fd5ee42c9dc64c7d1d
+=======
     version: "2.0.3"
+>>>>>>> bec584d856e31519fb66dcffdb0bcde5a45dd917
   sky_engine:
     dependency: transitive
     description: flutter
