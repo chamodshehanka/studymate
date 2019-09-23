@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Task.dart';
 import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentScreen.dart';
-import 'package:studymate/screens/HomeScreen/HomeUI.dart';
+
 import 'package:studymate/services/custom/AppointmentService.dart';
 import 'AppointmentScreen.dart';
 
@@ -134,18 +134,43 @@ class _MyHomePageState extends State<MyHomePage> {
                                           padding: const EdgeInsets.only(top: 0.0, bottom: 2.0),
                                           child: Row(
                                           children: <Widget>[
+                                            Padding(
+                                      padding:const EdgeInsets.only() ,
+                                      child: Column(
+                                          children: <Widget>[
+                                            Text(  
+                                              " Approved  ",
+                                              style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 16.0),
+                                            
+                                            )
+                                          ],
+                                      ),
+                                    ),
                                       Align(
-                                          alignment: Alignment.center,
-                                          child: Container(
+                                        child: Container(
                                           child: Icon(
                                         FontAwesomeIcons.checkCircle,
                                         color:Colors.green,
                                         size: 35,
                                       ),)
                                     ),
-                                    
+                                    Padding(
+                                      padding:const EdgeInsets.only() ,
+                                      child: Column(
+                                          children: <Widget>[
+                                            Text(  
+                                              "   Not Approved  ",
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 16.0),
+                                            
+                                            )
+                                          ],
+                                      ),
+                                    ),
                                      Align(
-                                      alignment: Alignment.bottomLeft,
                                       child: Container(
                                       child: Icon(
                                       FontAwesomeIcons.timesCircle,
