@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 
 
 
-void main() => runApp(new NonSchoolStudentScreen());
+/*void main() => runApp(new NonSchoolStudentScreen());
 
 class NonSchoolStudentScreen extends StatefulWidget {
   NonSchoolStudentScreen({Key key}) : super(key: key);
@@ -147,5 +147,5 @@ class NonSchoolStudentScreenState extends State<NonSchoolStudentScreen> {
     }
   }
   
-}
+}*/
 

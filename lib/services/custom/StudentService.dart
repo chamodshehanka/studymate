@@ -3,18 +3,21 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Student.dart';
 
+
+
+
 final CollectionReference studentsCollection =
     Firestore.instance.collection('Students');
 
 class StudentService {
-  Future<Student> createStudent(String fullName, String email, String password,
-      String schoolName, String phoneNumber) {
+  Future<User> createUser(String firstName, String lastName, String email, String password,
+  ) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(studentsCollection.document());
 
-      final Student student = new Student(ds.documentID, fullName, email,
-          password, true, schoolName, phoneNumber, null);
-      final Map<String, dynamic> data = student.toMap();
+      final User user = new User(ds.documentID, firstName, lastName, email, password );
+          
+      final Map<String, dynamic> data = user.toMap();
 
       await tx.set(ds.reference, data);
 
@@ -22,14 +25,14 @@ class StudentService {
     };
 
     return Firestore.instance.runTransaction(createTransaction).then((mapData) {
-      return Student.fromMap(mapData);
+      return User.fromMap(mapData);
     }).catchError((error) {
       print('error: $error');
       return null;
     });
   }
 
-  Future<Student> getByID(String id) {
+  Future<User> getByID(String userId) {
     return null;
   }
 
@@ -47,12 +50,12 @@ class StudentService {
     return snapshots;
   }
 
-  Future<dynamic> updateStudent(Student student) async {
+  Future<dynamic> updateUser(User user) async {
     final TransactionHandler updateTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
-          await tx.get(studentsCollection.document(student.id));
+          await tx.get(studentsCollection.document());
 
-      await tx.update(ds.reference, student.toMap());
+      await tx.update(ds.reference, user.toMap());
       return {'updated': true};
     };
 
@@ -65,9 +68,9 @@ class StudentService {
     });
   }
 
-  Future<dynamic> deleteStudent(String id) async {
+  Future<dynamic> deleteStudent(String userId) async {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(studentsCollection.document(id));
+      final DocumentSnapshot ds = await tx.get(studentsCollection.document(userId));
 
       await tx.delete(ds.reference);
       return {'deleted': true};
@@ -83,8 +86,8 @@ class StudentService {
   }
 
   Stream<QuerySnapshot> getAllPreferredActivities(String id) {
-    // List<String> activitiesList = List<String>();
-    /*studentsCollection.document(id).get().asStream().then((doc) {
+     List<String> activitiesList = List<String>();
+    studentsCollection.document(id).get().asStream().then((doc) {
       Student student = Student.fromMap(doc.data);
       print('Array: ' + student.preferedActivities.length.toString());
 
@@ -94,7 +97,7 @@ class StudentService {
         print("val : " + value);
         print(activitiesList.isEmpty);
       });
-    });*/
+    });
     return studentsCollection
         .document(id)
         .collection('preferedActivities')
