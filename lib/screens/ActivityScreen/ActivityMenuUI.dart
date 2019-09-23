@@ -8,12 +8,43 @@ class ActivityMenuScreen extends StatefulWidget {
 class _ActivityMenuScreenState extends State<ActivityMenuScreen> {
   @override
   Widget build(BuildContext context) {
-    final activityMenuBody = Container();
-
     return MaterialApp(
       home: Scaffold(
-        body: activityMenuBody,
+        body: buildBody(context),
       ),
+    );
+  }
+
+  // Activity Menu Body
+  Widget buildBody(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Flexible(
+          flex: 2,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                color: Colors.deepPurpleAccent,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
+                    bottomRight: Radius.circular(40))),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+
+                ],
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 3,
+          child: Container(),
+        )
+      ],
     );
   }
 }
