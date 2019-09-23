@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateDropdown.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
@@ -13,8 +13,11 @@ class _TestUIScreenState extends State<TestUIScreen> {
   TextInputType textInputType = TextInputType.text;
   Color color = Colors.deepPurple;
   TextStyle textStyle;
-  List<String> list = ["Maths","Science"];
+  List<String> list = ["Maths", "Science"];
 
+  void display() {
+    print('Display');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
             children: <Widget>[
               StudymateTextField(
                   "Test", editingController, "Test", color, textInputType),
-              StudymateDropdown("Select A Subject",list),
+              StudymateDropdown("Select A Subject", list),
               RaisedButton(
                 child: Text('Admin Activity'),
                 color: Colors.deepPurpleAccent,
@@ -36,20 +39,30 @@ class _TestUIScreenState extends State<TestUIScreen> {
                 onPressed: () =>
                     {Navigator.pushNamed(context, '/adminActivity')},
               ),
-              StreamBuilder(
-                  stream: Firestore.instance
-                      .collection('students/ActivityProgress')
-                      .document('JfaAiaJ4yAqhqUqey1mG')
-                      .collection('ActivityProgress')
-                      .document('QqxPb5GbnnikluuBYbML')
-                      .snapshots(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return new Text("Loading");
-                    }
-                    var userDocument = snapshot.data;
-                    return new Text(userDocument["name"]);
-                  }),
+              RaisedButton(
+                child: Text('Activity Menu'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/activityMenu')},
+              ),
+              RaisedButton(
+                child: Text('Open Dialog Box'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) => StudymateDialogBox(
+                          title: 'Are you sure?',
+                          description: 'Activity will be deleted!',
+                          buttonText: 'No',
+                          tigerAnimationType: 'fail',
+                          confirmation: true,
+                          confirmationAction: display,
+                        )),
+              ),
             ],
           ),
         ),
