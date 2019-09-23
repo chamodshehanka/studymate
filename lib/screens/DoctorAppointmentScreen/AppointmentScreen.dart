@@ -130,6 +130,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                   ? 'Time can\'t be empty'
                                   : null),
                         ),
+                         
                         Padding(
                           padding: EdgeInsets.only(left: 14.0, right: 14.0),
                           child: TextFormField(
@@ -197,14 +198,11 @@ class _TaskScreenState extends State<TaskScreen> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            colors: [
-              const Color(0xFF4A148C),
-              const Color(0xFFAB47BC),
+           colors: [
+              const Color(0xFF6A1B9A),
+              const Color(0xFF6A1B9A),
             ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),
+           ),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 10.0),
@@ -225,6 +223,7 @@ class _TaskScreenState extends State<TaskScreen> {
                     }),
               ),
             ),
+            
             Expanded(
               flex: 5,
               child: Container(
