@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateDropdown.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
-import 'package:studymate/widgets/TigerWidget.dart';
 
 class TestUIScreen extends StatefulWidget {
   _TestUIScreenState createState() => _TestUIScreenState();
@@ -14,6 +14,10 @@ class _TestUIScreenState extends State<TestUIScreen> {
   Color color = Colors.deepPurple;
   TextStyle textStyle;
   List<String> list = ["Maths", "Science"];
+
+  void display() {
+    print('Display');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +47,22 @@ class _TestUIScreenState extends State<TestUIScreen> {
                 onPressed: () =>
                     {Navigator.pushNamed(context, '/activityMenu')},
               ),
-              Container(
-                child: TigerWidget(
-                  animation: 'test',
-                ),
-              )
+              RaisedButton(
+                child: Text('Open Dialog Box'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) => StudymateDialogBox(
+                          title: 'Are you sure?',
+                          description: 'Activity will be deleted!',
+                          buttonText: 'No',
+                          tigerAnimationType: 'fail',
+                          confirmation: true,
+                          confirmationAction: display,
+                        )),
+              ),
             ],
           ),
         ),
