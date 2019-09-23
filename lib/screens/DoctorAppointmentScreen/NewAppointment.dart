@@ -76,7 +76,7 @@ class _NewTaskState extends State<NewTask> {
             height: MediaQuery.of(context).size.height - 100,
             child: ListView(
               children: <Widget>[
-                Padding(
+                 Padding(
                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
                   child: TextField(
                     // controller: _taskNameController,
@@ -137,9 +137,7 @@ class _NewTaskState extends State<NewTask> {
                     },
                   ),
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
+               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -179,12 +177,12 @@ class _NewTaskState extends State<NewTask> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
             colors: [
-              const Color(0xFF4A148C),
-              const Color(0xFF4A148C),
+              const Color(0xFF6A1B9A),
+              const Color(0xFF6A1B9A),
             ],
             begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
-            stops: [0.0, 1.0],
+            end: const FractionalOffset(0.0, 0.0),
+            stops: [0.0, 0.0],
             tileMode: TileMode.clamp),
       ),
       child: Padding(
@@ -194,9 +192,8 @@ class _NewTaskState extends State<NewTask> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Expanded(
-              flex: 1,
-              child: Container(
-                child: IconButton(
+              
+               child: IconButton(
                     icon: Icon(
                       FontAwesomeIcons.arrowLeft,
                       color: Colors.white,
@@ -205,20 +202,7 @@ class _NewTaskState extends State<NewTask> {
                       Navigator.pop(context);
                     }),
               ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                child: Text(
-                  'New Tasks',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ),
-              ),
-            ),
-          ],
+            ],
         )),
       ),
     );

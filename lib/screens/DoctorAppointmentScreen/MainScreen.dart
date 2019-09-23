@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'NewAppointment.dart';
 
-void main() => runApp(AppointmentScreen());
+void main() => runApp(DoctorAppointmentScreen());
 
-class AppointmentScreen extends StatelessWidget {
+class DoctorAppointmentScreen extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class AppointmentScreen extends StatelessWidget {
       title: 'Appointment Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xFF4A148C),
+         primaryColor: Color(0xFF4A148C),
       ),
       home: CreatToDo(),
     );
@@ -53,7 +53,7 @@ class _CreatToDoState extends State<CreatToDo> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF4A148C),
+        backgroundColor: Color(0xFF6A1B9A),
         child: Icon(
           Icons.add,
           color: Color(0xFFFAFAFA),
@@ -76,14 +76,11 @@ class _CreatToDoState extends State<CreatToDo> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            colors: [
-              const Color(0xFFFA7397),
-              const Color(0xFFFDDE42),
+           colors: [
+              const Color(0xFF6A1B9A),
+              const Color(0xFF6A1B9A),
             ],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(1.0, 0.0),
-            stops: [0.0, 1.0],
-            tileMode: TileMode.clamp),
+            ),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 14.0),
@@ -100,8 +97,8 @@ class _CreatToDoState extends State<CreatToDo> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      //
-                    }),
+                      Navigator.pop(context);
+                     }),
               ),
             ),
             Expanded(
