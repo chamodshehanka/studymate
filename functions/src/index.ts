@@ -10,6 +10,7 @@ import * as admin from 'firebase-admin';
 
 admin.initializeApp();
 
+// Add New Admin Function
 exports.addAdmin = functions.https.onCall((data, context) => {
     if (context.auth.token.doctor !== true) {
         return {
