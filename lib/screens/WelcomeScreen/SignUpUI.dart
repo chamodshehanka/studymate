@@ -2,6 +2,7 @@ import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/services/CloudFunctionsService.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController badgeNameCtrlController = TextEditingController();
+  CloudFunctionService _cloudFunctionService = CloudFunctionService();
   StudymateTextField _nameField;
   CustomTextField _phoneField;
   CustomTextField _emailField;
@@ -175,14 +177,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Future<String> user =
-          auth.signUp(_emailController.text, _passwordController.text);
+      // Future<String> user =
+      //     auth.signUp(_emailController.text, _passwordController.text);
+
+      Future<String> user = _cloudFunctionService.addAdmin(
+          _emailController.text, _passwordController.text);
 
       if (user != null) {
-        Navigator.pushNamed(context, '/home');
+        // Navigator.pushNamed(context, '/home');
       } else {
         // Have to change
-        Navigator.pushNamed(context, '/home');
+        // Navigator.pushNamed(context, '/home');
       }
     }
   }
