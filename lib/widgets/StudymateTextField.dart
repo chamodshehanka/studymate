@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/utils/validator.dart';
 
 class StudymateTextField extends StatefulWidget {
   final String labelText;
   final TextEditingController textEditingController;
-  final String validation;
   final Color color;
   final TextInputType keyboardType;
+  final String validation;
+  final Icon icon;
 
   StudymateTextField(this.labelText, this.textEditingController,
-      this.validation, this.color, this.keyboardType);
+      this.validation, this.color, this.keyboardType,this.icon);
 
   _StudymateTextField createState() => _StudymateTextField();
 }
@@ -22,21 +24,25 @@ class _StudymateTextField extends State<StudymateTextField> {
           padding:
               EdgeInsets.only(bottom: 10.0, left: 20.0, top: 10.0, right: 20.0),
           child: TextFormField(
-            decoration: new InputDecoration(
+            decoration: InputDecoration(
+              prefixIcon: Padding(
+                padding: EdgeInsets.only(left: 5.0),
+                child: widget.icon,
+              ),
+              contentPadding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
               labelText: widget.labelText,
               fillColor: Colors.white,
-              border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(25.0),
-                borderSide: new BorderSide(),
+              border: OutlineInputBorder(
+                borderRadius:  BorderRadius.circular(25.0),
+                borderSide:  BorderSide(),
               ),
             ),
-            validator: (val) {
-              if (val.length == 0) {
-                return widget.validation;
-              } else {
-                return null;
-              }
+            controller: widget.textEditingController,
+            autofocus: false,
+            validator: (value){
+              return Validator.validate(widget.validation,value);
             },
+           
             keyboardType: widget.keyboardType,
             style: new TextStyle(
               fontFamily: "Poppins",

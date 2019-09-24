@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/StudymateFlatButton.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class SignInScreen extends StatefulWidget {
   final BaseAuthentication auth;
@@ -14,11 +15,11 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   BaseAuthentication auth = Authentication();
-  // final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = new TextEditingController();
-  final TextEditingController _passwordController = new TextEditingController();
-  CustomTextField _emailField;
-  CustomTextField _passwordField;
+  final _formKey = GlobalKey<FormState>();
+  final  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  StudymateTextField _emailField;
+  StudymateTextField _passwordField;
   bool _blackVisible = false;
   VoidCallback onBackPress;
 
@@ -30,35 +31,10 @@ class _SignInScreenState extends State<SignInScreen> {
       Navigator.of(context).pop();
     };
 
-    _emailField = new CustomTextField(
-        baseColor: Colors.grey,
-        borderColor: Colors.grey[400],
-        errorColor: Colors.red,
-        controller: _emailController,
-        hint: "E-mail Adress",
-        inputType: TextInputType.emailAddress,
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Please enter email address';
-          } else {
-            return null;
-          }
-        });
-    _passwordField = CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _passwordController,
-      obscureText: true,
-      hint: "Password",
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Please enter password';
-        } else {
-          return null;
-        }
-      },
-    );
+    _emailField = StudymateTextField("Email Address", emailController, 
+     "email", Colors.grey, TextInputType.emailAddress,Icon(Icons.email,color: Colors.grey,));
+    _passwordField = StudymateTextField("Password", passwordController, 
+   "password", Colors.grey, TextInputType.text,Icon(Icons.lock,color: Colors.grey,));
   }
 
   @override
@@ -66,7 +42,9 @@ class _SignInScreenState extends State<SignInScreen> {
     return WillPopScope(
       onWillPop: onBackPress,
       child: Scaffold(
-        body: Stack(
+        body: Form(
+          key: _formKey,
+          child: Stack(
           children: <Widget>[
             Stack(
               alignment: Alignment.topLeft,
@@ -193,6 +171,7 @@ class _SignInScreenState extends State<SignInScreen> {
           ],
         ),
       ),
+      ),
     );
   }
 
@@ -204,15 +183,13 @@ class _SignInScreenState extends State<SignInScreen> {
     String isAuthEnabled = remoteConfig.getString('auth_enabled');
 
     //If auth is enabled in remote
+    if(_formKey.currentState.validate()){
+      print(isAuthEnabled);
+      _formKey.currentState.save();
     if (isAuthEnabled == 'true') {
-      // final formState = _formKey.currentState;
-      // if (formState.validate()) {
-      //   formState.save();
 
-      print(_emailController.text);
-      print(_passwordController.text);
       Future<String> userId =
-          auth.signIn(_emailController.text, _passwordController.text);
+          auth.signIn(emailController.text, passwordController.text);
 
       userId.then((user) {
         if (user.length > 0 && user != null) {
@@ -224,82 +201,8 @@ class _SignInScreenState extends State<SignInScreen> {
     } else {
       //If auth is disabled
       Navigator.pushNamed(context, '/home');
-    }
+     }
   }
 }
 
-class CustomTextField extends StatefulWidget {
-  final String hint;
-  final TextEditingController controller;
-  final Color baseColor;
-  final Color borderColor;
-  final Color errorColor;
-  final TextInputType inputType;
-  final bool obscureText;
-  final Function validator;
-  final Function onChanged;
-
-  CustomTextField(
-      {this.hint,
-      this.controller,
-      this.onChanged,
-      this.baseColor,
-      this.borderColor,
-      this.errorColor,
-      this.inputType = TextInputType.text,
-      this.obscureText = false,
-      this.validator});
-
-  _CustomTextFieldState createState() => _CustomTextFieldState();
-}
-
-class _CustomTextFieldState extends State<CustomTextField> {
-  Color currentColor;
-
-  @override
-  void initState() {
-    super.initState();
-    currentColor = widget.borderColor;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 0.0,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: currentColor, width: 2.0),
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
-        child: TextField(
-          obscureText: widget.obscureText,
-          onChanged: (text) {
-            if (widget.onChanged != null) {
-              widget.onChanged(text);
-            }
-            setState(() {
-              if (!widget.validator(text) || text.length == 0) {
-                currentColor = widget.errorColor;
-              } else {
-                currentColor = widget.baseColor;
-              }
-            });
-          },
-          //keyboardType: widget.inputType,
-          controller: widget.controller,
-          decoration: InputDecoration(
-            hintStyle: TextStyle(
-              color: widget.baseColor,
-              fontFamily: "OpenSans",
-              fontWeight: FontWeight.w300,
-            ),
-            border: InputBorder.none,
-            hintText: widget.hint,
-          ),
-        ),
-      ),
-    );
-  }
 }

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studymate/auth.dart';
 import 'package:studymate/models/Student.dart';
-import 'package:studymate/screens/StudentScreen/validator.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
 
@@ -42,101 +43,28 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
           )),
     );
 
-    final firstName = TextFormField(
-      autofocus: false,
-      textCapitalization: TextCapitalization.words,
-      controller: _firstName,
-      validator: Validator.validateName,
-      decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: EdgeInsets.only(left: 5.0),
-          child: Icon(
-            Icons.person,
-            color: Colors.grey,
-          ),
-        ), 
-        hintText: 'First Name',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-    );
+    final firstName = StudymateTextField("First Name", _firstName,
+     "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
 
-    final lastName = TextFormField(
-      autofocus: false,
-      textCapitalization: TextCapitalization.words,
-      controller: _lastName,
-      validator: Validator.validateName,
-      decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: EdgeInsets.only(left: 5.0),
-          child: Icon(
-            Icons.person,
-            color: Colors.grey,
-          ), 
-        ), 
-        hintText: 'Last Name',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-    );
+    final lastName = StudymateTextField("Last Name", _lastName,
+     "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
 
-    final email = TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      autofocus: false,
-      controller: _email,
-      validator: Validator.validateEmail,
-      decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: EdgeInsets.only(left: 5.0),
-          child: Icon(
-            Icons.email,
-            color: Colors.grey,
-          ), // icon is 48px widget.
-        ), // icon is 48px widget.
-        hintText: 'Email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-    );
+    final email = StudymateTextField("Email", _email,
+     "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
 
-    final password = TextFormField(
-      autofocus: false,
-      obscureText: true,
-      controller: _password,
-      validator: Validator.validatePassword,
-      decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: EdgeInsets.only(left: 5.0),
-          child: Icon(
-            Icons.lock,
-            color: Colors.grey,
-          ), 
-        ), 
-        hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-    );
+    final password = StudymateTextField("Password", _password,
+     "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+  
 
-    final signUpButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        onPressed: () {
-          _emailSignUp(
+    final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
+       _emailSignUp(
               firstName: _firstName.text,
               lastName: _lastName.text,
               email: _email.text,
               password: _password.text,
-              context: context);
-        },
-        padding: EdgeInsets.all(12),
-        color: Theme.of(context).primaryColor,
-        child: Text('SIGN UP', style: TextStyle(color: Colors.white)),
-      ),
-    );
+              context: context)
+    }, Colors.deepPurple);
+    
 
     final signInLabel = FlatButton(
       child: Text(
@@ -144,7 +72,7 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
         style: TextStyle(color: Colors.black54),
       ),
       onPressed: () {
-        Navigator.pushNamed(context, '/sign_in');
+        Navigator.pushNamed(context, '/signin');
       },
     );
 

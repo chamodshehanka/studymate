@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/services.dart';
 import 'package:studymate/auth.dart';
-import 'package:studymate/screens/StudentScreen/validator.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
 
@@ -38,39 +39,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           )),
     );
 
-    final email = TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      autofocus: false,
-      controller: _email,
-      validator: Validator.validateEmail,
-      decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: EdgeInsets.only(left: 5.0),
-          child: Icon(
-            Icons.email,
-            color: Colors.grey,
-          ), 
-        ), 
-        hintText: 'Email',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-      ),
-    );
+    final email = StudymateTextField("Email", _email,
+     "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
 
-    final forgotPasswordButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        onPressed: () {
-          _forgotPassword(email: _email.text, context: context);
-        },
-        padding: EdgeInsets.all(12),
-        color: Theme.of(context).primaryColor,
-        child: Text('FORGOT PASSWORD', style: TextStyle(color: Colors.white)),
-      ),
-    );
+
+    final forgotPasswordButton = StudymateRaisedButton("Forgot Password", ()=>{
+      _forgotPassword(email: _email.text, context: context)
+    }, Colors.deepPurple);
+    
 
     final signInLabel = FlatButton(
       child: Text(

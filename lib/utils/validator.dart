@@ -1,5 +1,22 @@
 class Validator {
-  static String validateEmail(String value) {
+
+static String validate(String op,value){
+    switch(op){
+      case 'email':  return validateEmail(value);
+          break;
+      case 'password':  return validatePassword(value);
+          break;
+      case 'name' : return validateName(value);
+          break;
+      case 'phone' : return validateNumber(value);
+          break;
+      default: return null;            
+  }
+  
+
+  }
+
+  static String validateEmail(value) {
     Pattern pattern = r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
@@ -8,7 +25,7 @@ class Validator {
       return null;
   }
 
-  static String validatePassword(String value) {
+  static String validatePassword(value) {
     Pattern pattern = r'^.{6,}$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
@@ -17,7 +34,7 @@ class Validator {
       return null;
   }
 
-  static String validateName(String value) {
+  static String validateName(value) {
     Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
@@ -26,7 +43,7 @@ class Validator {
       return null;
   }
 
-  static String validateNumber(String value) {
+  static String validateNumber(value) {
     Pattern pattern = r'^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
