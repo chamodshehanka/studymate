@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Padding(
                             padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
                             child: Material(
-                              color: Colors.yellow[300],
+                              color: Colors.white,
                               elevation: 16.0,
                               shadowColor: Color(0xFFAB47BC),
                               child: Center(
