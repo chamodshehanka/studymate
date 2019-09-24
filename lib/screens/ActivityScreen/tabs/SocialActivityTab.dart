@@ -76,11 +76,16 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
             child: Container(
                 decoration: BoxDecoration(color: Colors.deepPurpleAccent),
                 child: buildTilesList(socialActivity)),
-            actionPane: SlidableBehindActionPane(),
-            actions: <Widget>[
+            actionPane: SlidableDrawerActionPane(),
+            secondaryActions: <Widget>[
               IconSlideAction(
-                
-              )
+                caption: 'Delete',
+                color: Colors.redAccent,
+                icon: Icons.delete,
+                onTap: () {
+                  print('Delete pressed!');
+                },
+              ),
             ],
           ),
         );
