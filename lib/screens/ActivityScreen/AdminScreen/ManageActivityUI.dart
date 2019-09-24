@@ -37,7 +37,6 @@ class ManageActivityScreen extends StatelessWidget {
                 description:
                     activity.name + ' activity will be permanently deleted!',
                 confirmation: true,
-                buttonText: 'No',
                 confirmationAction: activityDeleteAction,
                 tigerAnimationType: 'fail',
               );
