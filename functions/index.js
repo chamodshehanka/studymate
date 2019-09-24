@@ -13,20 +13,12 @@ admin.initializeApp();
 // });
 
 // New SignUp
-exports.addNewRole = functions.https.onCall((data, context) => {
+exports.addNewRole = functions.https.onCall((data, context) => {4
     // Get user and add custom claim (admin)
-    return admin.auth().getUserByEmail(data.email).then(user => {
-        return admin.auth().setCustomUserClaims(user.uid, {
-            admin: true
-        });
-    }).then(() => {
-        return {
-            message: `Admin added Success! ${data.email}`
-        }
-    }).catch(err => {
-        return err;
-    })
+    
 });
+
+async function grantModeratorRole(email: var)
 
 // Simple sum
 exports.activityProgress = functions.https.onCall((data, context) => {
