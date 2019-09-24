@@ -83,6 +83,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
                 color: Colors.redAccent,
                 icon: Icons.delete,
                 onTap: () {
+                  // Have to call
                   print('Delete pressed!');
                 },
               ),
@@ -160,19 +161,20 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         } else {
           // Preferred Activity removing
           Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-              studentId, activityProgress.id);
-
-          if (isDeleted != null) {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Successfully Removed'),
-              backgroundColor: Colors.green,
-            ));
-          } else {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Adding failed!'),
-              backgroundColor: Colors.redAccent,
-            ));
-          }
+              studentId, getActivityProgressId(socialActivity));
+          isDeleted.then((result) {
+            if (result) {
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text('Successfully Removed'),
+                backgroundColor: Colors.green,
+              ));
+            } else {
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text('Adding failed!'),
+                backgroundColor: Colors.redAccent,
+              ));
+            }
+          });
         }
       });
 
@@ -194,5 +196,13 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     if (isActivityAlreadyPreferred(activity))
       iconData = Icons.remove_circle_outline;
     return iconData;
+  }
+
+  String getActivityProgressId(Activity activity) {
+    String id;
+    studentActivitiesList.forEach((studentActivity) {
+      if (activity.name == studentActivity.name) id = studentActivity.id;
+    });
+    return id;
   }
 }

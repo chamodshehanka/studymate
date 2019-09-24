@@ -145,7 +145,7 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
           } else {
             // Preferred Activity removing
             Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-                studentId, activityProgress.id);
+                studentId, getActivityProgressId(leisureActivity));
             isDeleted.then((result) {
               if (result) {
                 Scaffold.of(context).showSnackBar(new SnackBar(
@@ -181,5 +181,13 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
     if (isActivityAlreadyPreferred(activity))
       iconData = Icons.remove_circle_outline;
     return iconData;
+  }
+
+  String getActivityProgressId(Activity activity) {
+    String id;
+    studentActivitiesList.forEach((studentActivity) {
+      if (activity.name == studentActivity.name) id = studentActivity.id;
+    });
+    return id;
   }
 }
