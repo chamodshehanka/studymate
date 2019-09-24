@@ -6,7 +6,7 @@ import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dar
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
 import 'package:studymate/screens/ChatScreen/ChatUI.dart';
-import 'package:studymate/screens/DoctorAppointmentScreen/doctorAppointment.dart';
+import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentWelcome.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
@@ -74,7 +74,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
-      case '/doctorAppointment':
+      case '/AppointmentWelcome':
         return MaterialPageRoute(builder: (_) => DoctorAppointmentScreen());
       case '/new_badge':
         return MaterialPageRoute(builder: (_) => NewBadgeScreen());
