@@ -10,7 +10,7 @@ class StudymateTextField extends StatefulWidget {
   final Icon icon;
 
   StudymateTextField(this.labelText, this.textEditingController,
-      this.validation, this.color, this.keyboardType,this.icon);
+      this.validation, this.color, this.keyboardType, this.icon);
 
   _StudymateTextField createState() => _StudymateTextField();
 }
@@ -29,20 +29,20 @@ class _StudymateTextField extends State<StudymateTextField> {
                 padding: EdgeInsets.only(left: 5.0),
                 child: widget.icon,
               ),
-              contentPadding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+              contentPadding:
+                  EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
               labelText: widget.labelText,
               fillColor: Colors.white,
               border: OutlineInputBorder(
-                borderRadius:  BorderRadius.circular(25.0),
-                borderSide:  BorderSide(),
+                borderRadius: BorderRadius.circular(25.0),
+                borderSide: BorderSide(),
               ),
             ),
             controller: widget.textEditingController,
             autofocus: false,
-            validator: (value){
-              return Validator.validate(widget.validation,value);
+            validator: (value) {
+              return Validator.validate(widget.validation, value);
             },
-           
             keyboardType: widget.keyboardType,
             style: new TextStyle(
               fontFamily: "Poppins",

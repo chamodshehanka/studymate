@@ -1,19 +1,24 @@
 class Validator {
-
-static String validate(String op,value){
-    switch(op){
-      case 'email':  return validateEmail(value);
-          break;
-      case 'password':  return validatePassword(value);
-          break;
-      case 'name' : return validateName(value);
-          break;
-      case 'phone' : return validateNumber(value);
-          break;
-      default: return null;            
-  }
-  
-
+  static String validate(String op, value) {
+    switch (op) {
+      case 'email':
+        return validateEmail(value);
+        break;
+      case 'password':
+        return validatePassword(value);
+        break;
+      case 'name':
+        return validateName(value);
+        break;
+      case 'phone':
+        return validateNumber(value);
+        break;
+      case 'text':
+        return validateText(value);
+        break;
+      default:
+        return null;
+    }
   }
 
   static String validateEmail(value) {
@@ -50,5 +55,9 @@ static String validate(String op,value){
       return 'Please enter a number.';
     else
       return null;
+  }
+
+  static String validateText(value) {
+    return null;
   }
 }
