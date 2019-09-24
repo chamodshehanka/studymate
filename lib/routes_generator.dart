@@ -23,8 +23,8 @@ import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
-import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
-import 'package:studymate/screens/StudentScreen/forgot_password.dart';
+// import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
+// import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
@@ -47,14 +47,14 @@ class RouteGenerator {
       //   return MaterialPageRoute(builder: (_) => SignInScreen());
       case '/signUp':
         return MaterialPageRoute(builder: (_) => SignUpScreen());
-      case '/schoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
+      // case '/schoolStudentEditPage':
+      //   return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case '/signin':
           return MaterialPageRoute(builder: (_) => SignInScreen());
-      case '/forgotPassword':
-        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
+      // case '/forgotPassword':
+      //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       /*case '/nonSchoolStudentEditPage':
         return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());*/
       case '/accounttype':

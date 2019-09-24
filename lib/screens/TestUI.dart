@@ -58,7 +58,6 @@ class _TestUIScreenState extends State<TestUIScreen> {
                     builder: (BuildContext context) => StudymateDialogBox(
                           title: 'Are you sure?',
                           description: 'Activity will be deleted!',
-                          buttonText: 'No',
                           tigerAnimationType: 'fail',
                           confirmation: true,
                           confirmationAction: display,
@@ -70,7 +69,6 @@ class _TestUIScreenState extends State<TestUIScreen> {
                     builder: (BuildContext context) => StudymateDialogBox(
                           title: 'Are you sure?',
                           description: 'Activity will be deleted!',
-                          buttonText: 'No',
                           tigerAnimationType: 'fail',
                           confirmation: true,
                           confirmationAction: display,

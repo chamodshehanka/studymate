@@ -1,4 +1,5 @@
-/*import 'dart:async';
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -76,11 +77,13 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
             child: Container(
                 decoration: BoxDecoration(color: Colors.deepPurpleAccent),
                 child: buildTilesList(socialActivity)),
-            actionPane: SlidableBehindActionPane(),
-            actions: <Widget>[
+            actionPane: SlidableDrawerActionPane(),
+            secondaryActions: <Widget>[
               IconSlideAction(
-                
-              )
+                  caption: 'Delete',
+                  color: Colors.redAccent,
+                  icon: Icons.delete,
+                  onTap: () => deleteActivityProgress(socialActivity)),
             ],
           ),
         );
@@ -153,21 +156,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
             ));
           }
         } else {
-          // Preferred Activity removing
-          Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-              studentId, activityProgress.id);
-
-          if (isDeleted != null) {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Successfully Removed'),
-              backgroundColor: Colors.green,
-            ));
-          } else {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Adding failed!'),
-              backgroundColor: Colors.redAccent,
-            ));
-          }
+          deleteActivityProgress(socialActivity);
         }
       });
 
@@ -190,4 +179,31 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       iconData = Icons.remove_circle_outline;
     return iconData;
   }
-}*/
+
+  String getActivityProgressId(Activity activity) {
+    String id;
+    studentActivitiesList.forEach((studentActivity) {
+      if (activity.name == studentActivity.name) id = studentActivity.id;
+    });
+    return id;
+  }
+
+  void deleteActivityProgress(Activity activity) {
+    // Preferred Activity removing
+    Future<dynamic> isDeleted = studentService.deleteActivityProgress(
+        studentId, getActivityProgressId(activity));
+    isDeleted.then((result) {
+      if (result) {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text('Successfully Removed'),
+          backgroundColor: Colors.green,
+        ));
+      } else {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text('Adding failed!'),
+          backgroundColor: Colors.redAccent,
+        ));
+      }
+    });
+  }
+}

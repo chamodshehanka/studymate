@@ -1,4 +1,4 @@
-/*import 'dart:async';
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
       });
     });
 
-    Student Preferred Activities List
+    // Student Preferred Activities List
     studentActivitiesList = List();
     studentActivitiesSubscription?.cancel();
     studentActivitiesSubscription = studentService
@@ -145,7 +145,7 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
           } else {
             // Preferred Activity removing
             Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-                studentId, activityProgress.id);
+                studentId, getActivityProgressId(leisureActivity));
             isDeleted.then((result) {
               if (result) {
                 Scaffold.of(context).showSnackBar(new SnackBar(
@@ -182,4 +182,12 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
       iconData = Icons.remove_circle_outline;
     return iconData;
   }
-}*/
+
+  String getActivityProgressId(Activity activity) {
+    String id;
+    studentActivitiesList.forEach((studentActivity) {
+      if (activity.name == studentActivity.name) id = studentActivity.id;
+    });
+    return id;
+  }
+}

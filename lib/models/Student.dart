@@ -1,45 +1,54 @@
-import 'dart:convert';
+class Student {
+  String _id;
+  String _name;
+  String _email;
+  String _password;
+  bool _schooling;
+  String _schoolName;
+  String _phoneNumber;
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+  Student(this._id, this._name, this._email, this._password, this._schooling,
+      this._schoolName, this._phoneNumber);
 
-User userFromJson(String str) {
-  final jsonData = json.decode(str);
-  return User.fromJson(jsonData);
-}
+  Student.map(dynamic student) {
+    this._id = student['id'];
+    this._name = student['name'];
+    this._email = student['email'];
+    this._password = student['password'];
+    this._schooling = student['schooling'];
+    this._schoolName = student['schoolName'];
+    this._phoneNumber = student['phoneNumber'];
+  }
 
-String userToJson(User data) {
-  final dyn = data.toJson();
-  return json.encode(dyn);
-}
+  String get id => _id;
+  String get name => _name;
+  String get email => _email;
+  String get password => _password;
+  bool get schooling => _schooling;
+  String get schoolName => _schoolName;
 
-class User {
-  String userId;
-  String firstName;
-  String lastName;
-  String email;
+  Map<String, dynamic> toMap() {
+    var map = new Map<String, dynamic>();
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    map['name'] = _name;
+    map['email'] = _email;
+    map['password'] = _password;
+    map['schooling'] = _schooling;
+    map['schoolName'] = _schoolName;
+    map['phoneNumber'] = _phoneNumber;
 
-  User({
-    this.userId,
-    this.firstName,
-    this.lastName,
-    this.email,
-  });
+    return map;
+  }
 
-  factory User.fromJson(Map<String, dynamic> json) => new User(
-        userId: json["userId"],
-        firstName: json["firstName"],
-        lastName: json["lastName"],
-        email: json["email"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "userId": userId,
-        "firstName": firstName,
-        "lastName": lastName,
-        "email": email,
-      };
-
-  factory User.fromDocument(DocumentSnapshot doc) {
-    return User.fromJson(doc.data);
+  Student.fromMap(Map<String, dynamic> map) {
+    this._id = map['id'];
+    this._name = map['name'];
+    this._email = map['email'];
+    this._password = map['password'];
+    this._schooling = map['schooling'];
+    this._schoolName = map['schoolName'];
+    this._phoneNumber = map['phoneNumber'];
   }
 }
