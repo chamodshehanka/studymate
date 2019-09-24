@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class BaseAuthentication {
-  Future<String> signIn(String email, String password);
+  Future<FirebaseUser> signIn(String email, String password);
   Future<String> signUp(String email, String password);
   Future<String> getCurrentUser();
   Future<void> signOut();
@@ -17,11 +17,11 @@ class Authentication implements BaseAuthentication {
   }
 
   @override
-  Future<String> signIn(String email, String password) async {
-  FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
+  Future<FirebaseUser> signIn(String email, String password) async {
+    FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
             email: email, password: password))
         .user;
-    return user.uid;
+    return user;
   }
 
   @override
