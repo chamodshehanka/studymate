@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
@@ -71,9 +72,16 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     Card makeCard(Activity socialActivity) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Container(
-            decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-            child: buildTilesList(socialActivity),
+          child: Slidable(
+            child: Container(
+                decoration: BoxDecoration(color: Colors.deepPurpleAccent),
+                child: buildTilesList(socialActivity)),
+            actionPane: SlidableBehindActionPane(),
+            actions: <Widget>[
+              IconSlideAction(
+                
+              )
+            ],
           ),
         );
 
