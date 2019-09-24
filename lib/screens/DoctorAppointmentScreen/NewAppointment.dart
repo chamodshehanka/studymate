@@ -76,7 +76,8 @@ class _NewTaskState extends State<NewTask> {
             height: MediaQuery.of(context).size.height - 100,
             child: ListView(
               children: <Widget>[
-                 Padding(
+                
+                Padding(
                   padding: EdgeInsets.only(left: 14.0, right: 14.0),
                   child: TextField(
                     // controller: _taskNameController,
@@ -137,7 +138,9 @@ class _NewTaskState extends State<NewTask> {
                     },
                   ),
                 ),
-               
+                SizedBox(
+                  height: 10.0,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -192,8 +195,9 @@ class _NewTaskState extends State<NewTask> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Expanded(
-              
-               child: IconButton(
+              flex: 1,
+              child: Container(
+                child: IconButton(
                     icon: Icon(
                       FontAwesomeIcons.arrowLeft,
                       color: Colors.white,
@@ -202,7 +206,20 @@ class _NewTaskState extends State<NewTask> {
                       Navigator.pop(context);
                     }),
               ),
-            ],
+            ),
+            Expanded(
+              flex: 5,
+              child: Container(
+                child: Text(
+                  'New Tasks',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0),
+                ),
+              ),
+            ),
+          ],
         )),
       ),
     );
