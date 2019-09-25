@@ -132,13 +132,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Padding(
                                           padding: const EdgeInsets.only(top: 0.0, bottom: 2.0),
                                           child: Row(
+                                            mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[
-                                            Icon(Icons.check_circle,color:Colors.green,size: 35),
+                                            IconButton(
+                                            icon:Icon(Icons.check_circle,color:Colors.green,size: 35), 
+                                            onPressed: () {},
+                                            ),
                                           Padding(
                                           padding:const EdgeInsets.only() ,
                                           child: Column(
                                           children: <Widget>[
-                                          Text( " Approved  ",
+                                          Text( " Approved ",
                                              style: TextStyle(
                                               color: Colors.green,
                                               fontWeight: FontWeight.bold,
@@ -148,12 +152,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                           ],
                                       ),
                                     ),
-                                     Icon(Icons.cancel,color:Colors.red,size: 35),
+                                     IconButton(
+                                            icon:Icon(Icons.cancel,color:Colors.red,size: 35), 
+                                            onPressed: () {},
+                                            ),
                                           Padding(
                                           padding:const EdgeInsets.only() ,
                                           child: Column(
                                           children: <Widget>[
-                                          Text( " UnApproved  ",
+                                          Text( "UnApproved",
                                              style: TextStyle(
                                               color: Colors.red,
                                               fontSize: 17.0,
