@@ -1,24 +1,20 @@
-
-// import 'package:flushbar/flushbar.dart';
+    
 // import 'package:flutter/material.dart';
+// import 'package:flushbar/flushbar.dart';
 // import 'package:flutter/services.dart';
 // import 'package:studymate/auth.dart';
-// import 'package:studymate/models/Student.dart';
 // import 'package:studymate/widgets/StudymateRaisedButton.dart';
 // import 'package:studymate/widgets/StudymateTextField.dart';
 // import 'package:studymate/widgets/loading.dart';
 
 
-// class SchoolStudentScreen extends StatefulWidget {
-//   _SchoolStudentScreenState createState() => _SchoolStudentScreenState();
+// class ForgotPasswordScreen extends StatefulWidget {
+//   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 // }
 
-// class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
+// class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 //   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-//   final TextEditingController _firstName = new TextEditingController();
-//   final TextEditingController _lastName = new TextEditingController();
 //   final TextEditingController _email = new TextEditingController();
-//   final TextEditingController _password = new TextEditingController();
 
 //   bool _autoValidate = false;
 //   bool _loadingVisible = false;
@@ -43,36 +39,22 @@
 //           )),
 //     );
 
-//     final firstName = StudymateTextField("First Name", _firstName,
-//      "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
-
-//     final lastName = StudymateTextField("Last Name", _lastName,
-//      "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
-
 //     final email = StudymateTextField("Email", _email,
 //      "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
 
-//     final password = StudymateTextField("Password", _password,
-//      "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
-  
 
-//     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
-//        _emailSignUp(
-//               firstName: _firstName.text,
-//               lastName: _lastName.text,
-//               email: _email.text,
-//               password: _password.text,
-//               context: context)
+//     final forgotPasswordButton = StudymateRaisedButton("Forgot Password", ()=>{
+//       _forgotPassword(email: _email.text, context: context)
 //     }, Colors.deepPurple);
     
 
 //     final signInLabel = FlatButton(
 //       child: Text(
-//         'Have an Account? Sign In.',
+//         'Sign In',
 //         style: TextStyle(color: Colors.black54),
 //       ),
 //       onPressed: () {
-//         Navigator.pushNamed(context, '/signin');
+//         Navigator.pushNamed(context, '/sign_in');
 //       },
 //     );
 
@@ -92,15 +74,9 @@
 //                     children: <Widget>[
 //                       logo,
 //                       SizedBox(height: 48.0),
-//                       firstName,
-//                       SizedBox(height: 24.0),
-//                       lastName,
-//                       SizedBox(height: 24.0),
 //                       email,
-//                       SizedBox(height: 24.0),
-//                       password,
 //                       SizedBox(height: 12.0),
-//                       signUpButton,
+//                       forgotPasswordButton,
 //                       signInLabel
 //                     ],
 //                   ),
@@ -118,41 +94,31 @@
 //     });
 //   }
 
-//   void _emailSignUp(
-//       {String firstName,
-//       String lastName,
-//       String email,
-//       String password,
-//       BuildContext context}) async {
+//   void _forgotPassword({String email, BuildContext context}) async {
+//     SystemChannels.textInput.invokeMethod('TextInput.hide');
 //     if (_formKey.currentState.validate()) {
 //       try {
-//         SystemChannels.textInput.invokeMethod('TextInput.hide');
 //         await _changeLoadingVisible();
- 
-//         await Auth.signUp(email, password).then((uID) {
-//           Auth.addUserSettingsDB(new User(
-//             userId: uID,
-//             email: email,
-//             firstName: firstName,
-//             lastName: lastName,
-//           ));
-//         });
-      
-//         await Navigator.pushNamed(context, '/sign_in');
+//         await Auth.forgotPasswordEmail(email);
+//         await _changeLoadingVisible();
+//         Flushbar(
+//           title: "Password Reset Email Sent",
+//           message: 
+//               'Check your email and follow the instructions to reset your password.',
+//           duration: Duration(seconds: 20)
+//         )..show(context);
 //       } catch (e) {
 //         _changeLoadingVisible();
-//         print("Sign Up Error: $e");
+//         print("Forgot Password Error: $e");
 //         String exception = Auth.getExceptionText(e);
 //         Flushbar(
-//           title: "Sign Up Error",
+//           title: "Forgot Password Error",
 //           message: exception,
-//           duration: Duration(seconds: 5),
+//           duration: Duration(seconds: 10),
 //         )..show(context);
 //       }
 //     } else {
 //       setState(() => _autoValidate = true);
 //     }
 //   }
-   
 // }
-

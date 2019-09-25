@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateDropdown.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
 class TestUIScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
           child: ListView(
             children: <Widget>[
               StudymateTextField(
-                  "Test", editingController, "Test", color, textInputType),
+                  "Test", editingController, "Test", color, textInputType,Icon(Icons.email,color: Colors.grey)),
               StudymateDropdown("Select A Subject", list),
               RaisedButton(
                 child: Text('Admin Activity'),
@@ -57,12 +58,21 @@ class _TestUIScreenState extends State<TestUIScreen> {
                     builder: (BuildContext context) => StudymateDialogBox(
                           title: 'Are you sure?',
                           description: 'Activity will be deleted!',
-                          buttonText: 'No',
                           tigerAnimationType: 'fail',
                           confirmation: true,
                           confirmationAction: display,
                         )),
               ),
+              StudymateRaisedButton("Test Button",()=>{print("Clicked")} , color),
+              StudymateRaisedButton("Delete",()=>{showDialog(
+                    context: context,
+                    builder: (BuildContext context) => StudymateDialogBox(
+                          title: 'Are you sure?',
+                          description: 'Activity will be deleted!',
+                          tigerAnimationType: 'fail',
+                          confirmation: true,
+                          confirmationAction: display,
+                        )),} , Colors.red)
             ],
           ),
         ),
