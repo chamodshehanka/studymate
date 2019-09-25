@@ -174,14 +174,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   _signUpUser() {
+    Future<String> user = _cloudFunctionService.addAdmin(
+        _emailController.text, _passwordController.text);
+
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
       // Future<String> user =
       //     auth.signUp(_emailController.text, _passwordController.text);
-
-      Future<String> user = _cloudFunctionService.addAdmin(
-          _emailController.text, _passwordController.text);
 
       if (user != null) {
         // Navigator.pushNamed(context, '/home');
@@ -324,3 +324,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 }
+
+// https://github.com/AseemWangoo/flutter_programs/blob/master/Cloud%20Firestore.zip
+
