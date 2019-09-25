@@ -69,7 +69,7 @@ class _WelcomeState extends State<DoctorAppointmentScreen> {
                   child: Text(
                     'Get Started'.toUpperCase(),
                   ),
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.deepPurple,
                   textColor: Colors.white,
                 ),
                 Padding(
