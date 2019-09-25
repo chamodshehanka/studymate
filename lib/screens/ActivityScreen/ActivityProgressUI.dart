@@ -1,8 +1,7 @@
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 // import 'package:studymate/models/Activity.dart';
-import 'package:studymate/utils/CommonConstants.dart';
 // import 'package:charts_flutter/flutter.dart' as charts;
 
 class ActivityProgressScreen extends StatefulWidget {
@@ -10,8 +9,8 @@ class ActivityProgressScreen extends StatefulWidget {
 }
 
 class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
-  final HttpsCallable callable = CloudFunctions.instance
-      .getHttpsCallable(functionName: CommonConstants.activityProgressFunction);
+  // final HttpsCallable callable = CloudFunctions.instance
+  //     .getHttpsCallable(functionName: CommonConstants.activityProgressFunction);
   // List<charts.Series<Activity, String>> _seriesData;
   var textVal = "Cat";
 
@@ -19,22 +18,22 @@ class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
     super.initState();
 
     // loading cloud funtion
-    sum(5, 2).then((value) {
-      print("hey look : " + value.toString());
-      textVal = value.toString();
-      setState(() {
-        textVal = value.toString();
-      });
-    });
+    // sum(5, 2).then((value) {
+    //   print("hey look : " + value.toString());
+    //   textVal = value.toString();
+    //   setState(() {
+    //     textVal = value.toString();
+    //   });
+    // });
 
     //
   }
 
-  Future<int> sum(int x, int y) async {
-    HttpsCallableResult response =
-        await callable.call(<int, dynamic>{x: x, y: y});
-    return response.data;
-  }
+  // Future<int> sum(int x, int y) async {
+  //   HttpsCallableResult response =
+  //       await callable.call(<int, dynamic>{x: x, y: y});
+  //   return response.data;
+  // }
 
   @override
   Widget build(BuildContext context) {

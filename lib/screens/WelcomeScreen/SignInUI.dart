@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateFlatButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
@@ -46,7 +48,7 @@ class _SignInScreenState extends State<SignInScreen> {
         passwordController,
         "password",
         Colors.grey,
-        TextInputType.text,
+        TextInputType.visiblePassword,
         Icon(
           Icons.lock,
           color: Colors.grey,
@@ -199,14 +201,34 @@ class _SignInScreenState extends State<SignInScreen> {
       print(isAuthEnabled);
       _formKey.currentState.save();
       if (isAuthEnabled == 'true') {
-        Future<String> userId =
+        Future<FirebaseUser> firebaseUser =
             auth.signIn(emailController.text, passwordController.text);
 
-        userId.then((user) {
-          if (user.length > 0 && user != null) {
+        firebaseUser.then((user) {
+          print('Verified' + user.isEmailVerified.toString());
+          // Claim
+          user.getIdToken().then((result) {
+            // result
+            bool isAdmin = result.claims.containsValue('moderator');
+            print('Is Admin' + isAdmin.toString());
+          });
+
+          if (user.uid.length > 0 && user.uid != null) {
             Navigator.pushNamed(context, '/home');
+            print('Sign in okay!');
           } else {
             print("User id is null");
+
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StudymateDialogBox(
+                    title: 'Sign In Failed',
+                    description: 'null',
+                    confirmation: false,
+                    tigerAnimationType: 'fail',
+                  );
+                });
           }
         });
       } else {
