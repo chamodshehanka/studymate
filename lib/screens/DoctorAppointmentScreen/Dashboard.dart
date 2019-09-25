@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:studymate/screens/DoctorAppointmentScreen/DoctorAppointment.dart';
 
 class Dashboard extends StatefulWidget {
@@ -73,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
                   padding: EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: Colors.deepPurpleAccent,
+                    color: Colors.deepPurple,
                   ),
                   child: Image.asset(
                     'assets/images/how-to-roll-up-calendars-in-sharepoint-icons-png-22.png',
@@ -86,7 +85,7 @@ class _DashboardState extends State<Dashboard> {
                 Text(
                   '125',
                   style: TextStyle(
-                    color: Colors.deepPurpleAccent,
+                    color: Colors.deepPurple,
                     fontSize: 80,
                     fontFamily: 'Bebas',
                     fontWeight: FontWeight.bold,
@@ -123,7 +122,7 @@ class _DashboardState extends State<Dashboard> {
                         linearStrokeCap: LinearStrokeCap.roundAll,
                         backgroundColor:
                             Theme.of(context).accentColor.withAlpha(30),
-                        progressColor:Colors.deepPurpleAccent
+                        progressColor:Colors.deepPurple
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 30),
@@ -166,7 +165,7 @@ class _DashboardState extends State<Dashboard> {
                                     text: '259',
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.deepPurpleAccent,
+                                      color: Colors.deepPurple,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -195,7 +194,7 @@ class _DashboardState extends State<Dashboard> {
                                     text: '102',
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.deepPurpleAccent,
+                                      color: Colors.deepPurple,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -272,66 +271,7 @@ class StatCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(5),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                title.toUpperCase(),
-                style: TextStyle(
-                  color: Theme.of(context).accentColor.withAlpha(100),
-                  fontSize: 14,
-                ),
-              ),
-              achieved < total
-                  ? Image.asset(
-                      'assets/images/down_orange.png',
-                      width: 20,
-                    )
-                  : Image.asset(
-                      'assets/images/up_red.png',
-                      width: 20,
-                    ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 25),
-          ),
-          CircularPercentIndicator(
-            radius: 80.0,
-            lineWidth: 8.0,
-            percent: achieved / (total < achieved ? achieved : total),
-            circularStrokeCap: CircularStrokeCap.round,
-            center: image,
-            progressColor: color,
-            backgroundColor: Theme.of(context).accentColor.withAlpha(30),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 25),
-          ),
-          RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                text: achieved.toString(),
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Theme.of(context).accentColor,
-                ),
-              ),
-              TextSpan(
-                text: ' / $total',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-            ]),
-          )
-        ],
-      ),
+      
     );
   }
 }
