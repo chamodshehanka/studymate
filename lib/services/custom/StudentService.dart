@@ -125,7 +125,7 @@ class StudentService {
     if (limit != null) {
       snapshots = snapshots.take(limit);
     }
-    return snapshots;
+    return snapshots; 
   }
 
   Future<dynamic> deleteActivityProgress(String studentId, String activityId) {
