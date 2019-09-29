@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ActivityMenuScreen extends StatefulWidget {
-  _ActivityMenuScreenState createState() => _ActivityMenuScreenState();
+class ActivityDashboardScreen extends StatefulWidget {
+  _ActivityDashboardScreenState createState() =>
+      _ActivityDashboardScreenState();
 }
 
-class _ActivityMenuScreenState extends State<ActivityMenuScreen> {
+class _ActivityDashboardScreenState extends State<ActivityDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,7 +16,7 @@ class _ActivityMenuScreenState extends State<ActivityMenuScreen> {
     );
   }
 
-  // Activity Menu Body
+  // Activity Dashboard Body
   Widget buildBody(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,9 +34,7 @@ class _ActivityMenuScreenState extends State<ActivityMenuScreen> {
               padding: EdgeInsets.fromLTRB(20, 0, 20, 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-                ],
+                children: <Widget>[],
               ),
             ),
           ),
