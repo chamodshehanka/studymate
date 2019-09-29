@@ -6,7 +6,13 @@ class CloudFunctionService {
     final HttpsCallable callable = CloudFunctions.instance
         .getHttpsCallable(functionName: CommonConstants.addAdminFunction);
 
-    HttpsCallableResult result = await callable.call(email);
+    Map<String, Object> data = new Map();
+    data['email'] = email;
+    data['password'] = password;
+
+    print(data);
+
+    HttpsCallableResult result = await callable.call(data);
 
     print('Result data auth : ' + result.data);
     return result.data;

@@ -12,11 +12,11 @@ admin.initializeApp();
 
 // Add New Admin Function
 exports.addAdmin = functions.https.onCall((data, context) => {
-    if (context.auth.token.moderator !== true) {
-        return {
-            error: "Request not authrized. User must be a Moderator to fulfil the request."
-        };
-    }
+    // if (context.auth.token.moderator !== true) {
+    //     return {
+    //         error: "Request not authrized. User must be a Moderator to fulfil the request."
+    //     };
+    // }
 
     const email = data.email;
     return grantModeratorRole(email).then(() => {
@@ -28,9 +28,9 @@ exports.addAdmin = functions.https.onCall((data, context) => {
 
 async function grantModeratorRole(email: string): Promise<void> {
     const user = await admin.auth().getUserByEmail(email);
-    if (user.customClaims && (user.customClaims as any).moderator === true) {
-        return;
-    }
+    // if (user.customClaims && (user.customClaims as any).moderator === true) {
+    //     return;
+    // }
 
     return admin.auth().setCustomUserClaims(user.uid, {
         moderator: true,

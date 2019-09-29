@@ -177,19 +177,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Future<String> user = _cloudFunctionService.addAdmin(
         _emailController.text, _passwordController.text);
 
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    // if (_formKey.currentState.validate()) {
+    //   _formKey.currentState.save();
 
-      // Future<String> user =
-      //     auth.signUp(_emailController.text, _passwordController.text);
+    //   // Future<String> user =
+    //   //     auth.signUp(_emailController.text, _passwordController.text);
 
-      if (user != null) {
-        // Navigator.pushNamed(context, '/home');
-      } else {
-        // Have to change
-        // Navigator.pushNamed(context, '/home');
-      }
-    }
+    //   if (user != null) {
+    //     // Navigator.pushNamed(context, '/home');
+    //   } else {
+    //     // Have to change
+    //     // Navigator.pushNamed(context, '/home');
+    //   }
+    // }
   }
 }
 
