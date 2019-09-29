@@ -8,6 +8,7 @@ class CommonConstants extends InheritedWidget {
   static final String activityCollectionName = 'Activities';
   static final String activityProgressCollectionName = 'ActivityProgress';
   static final String studentsCollectionName = 'students';
+  static final String medicalRecordCollection = 'medicalRecord';
 
   // Cloud Functions Names
   static final String addAdminFunction = 'addAdmin';
