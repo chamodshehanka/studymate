@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
@@ -125,40 +125,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14.0, horizontal: 40.0),
-                    child: StudymateFlatButton(
-                      title: "Admin Login",
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/homeAdmin');
-                      },
-                      splashColor: Colors.black12,
-                      borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                      borderWidth: 0,
-                      color: Colors.deepPurple,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 14.0, horizontal: 40.0),
-                    child: StudymateFlatButton(
-                      title: "Doctor Login",
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/homeDoctor');
-                      },
-                      splashColor: Colors.black12,
-                      borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                      borderWidth: 0,
-                      color: Color.fromRGBO(59, 89, 152, 1.0),
-                    ),
-                  ),
                 ],
               ),
               SafeArea(
@@ -206,16 +172,12 @@ class _SignInScreenState extends State<SignInScreen> {
         firebaseUser.then((user) {
           // Claim Check
           user.getIdToken().then((result) {
-            bool isAdmin = false;
-            bool isDoctor = false;
-            bool isStudent = false;
+            bool isAdmin = result.claims['moderator'] ?? false;
+            bool isDoctor = result.claims['doctor'] ?? false;
+            bool isStudent = result.claims['student'] ?? false;
 
-            isAdmin = result.claims['moderator'];
-            isDoctor = result.claims['doctor'];
-            isStudent = result.claims['student'];
-
-            // print('Is Admin' + isAdmin.toString());
-            // print(result.claims);
+            print('Is Admin' + isAdmin.toString());
+            print('Claim result : ' + result.claims.toString());
 
             if (isAdmin) {
               Navigator.pushNamed(context, '/homeAdmin');
@@ -236,18 +198,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   });
             }
           }).catchError((e) {
-            print(e);
+            // print(e);
 
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return StudymateDialogBox(
-                    title: 'Sign In Failed',
-                    description: 'User not valid',
-                    confirmation: false,
-                    tigerAnimationType: 'fail',
-                  );
-                });
+            // showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) {
+            //       return StudymateDialogBox(
+            //         title: 'Sign In Failed',
+            //         description: 'User not valid',
+            //         confirmation: false,
+            //         tigerAnimationType: 'fail',
+            //       );
+            //     });
           });
         });
       } else {

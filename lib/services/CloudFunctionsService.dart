@@ -9,11 +9,8 @@ class CloudFunctionService {
     Map<String, dynamic> data = new Map();
     data['email'] = email;
 
-    print(data);
-
     HttpsCallableResult result = await callable.call(data);
 
-    print('Result data auth : ' + result.data);
     return result.data;
   }
 
@@ -21,6 +18,17 @@ class CloudFunctionService {
     final HttpsCallable callable = CloudFunctions.instance
         .getHttpsCallable(functionName: CommonConstants.addDoctorFunction);
     Map<String, dynamic> data = new Map();
+    data['email'] = email;
+
+    HttpsCallableResult result = await callable.call(data);
+    return result.data;
+  }
+
+  Future<String> addStudent(String email) async {
+    final HttpsCallable callable = CloudFunctions.instance.getHttpsCallable(functionName: 
+    CommonConstants.addStudentFunction);
+
+    Map<String, dynamic> data = new Map();   
     data['email'] = email;
 
     HttpsCallableResult result = await callable.call(data);

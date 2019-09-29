@@ -174,15 +174,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   _signUpUser() {
-
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    _authentication.signUp(email, password);
-
-    // Future<String> user = _cloudFunctionService.addAdmin(
-    //     _emailController.text, _passwordController.text);
-
+    _authentication.signUp(email, password, 'student');
 
     // if (_formKey.currentState.validate()) {
     //   _formKey.currentState.save();
@@ -333,4 +328,3 @@ class _CustomTextFieldState extends State<CustomTextField> {
 }
 
 // https://github.com/AseemWangoo/flutter_programs/blob/master/Cloud%20Firestore.zip
-

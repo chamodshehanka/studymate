@@ -3,7 +3,7 @@ import 'package:studymate/services/CloudFunctionsService.dart';
 
 abstract class BaseAuthentication {
   Future<FirebaseUser> signIn(String email, String password);
-  Future<String> signUp(String email, String password);
+  Future<String> signUp(String email, String password, String userType);
   Future<String> getCurrentUser();
   Future<void> signOut();
 }
@@ -32,14 +32,36 @@ class Authentication implements BaseAuthentication {
   }
 
   @override
-  Future<String> signUp(String email, String password) async {
+  Future<String> signUp(String email, String password, String userType) async {
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
             email: email, password: password))
         .user;
-    Future<String> customClaimResult = _cloudFunctionService.addAdmin(email);
-    customClaimResult.then((result){
-      print("Claim result : "+ result);
-    });
+
+    switch (userType) {
+      case 'admin':
+        Future<String> customClaimResult =
+            _cloudFunctionService.addAdmin(email);
+        customClaimResult.then((result) {
+          print("Claim result : " + result);
+        });
+        break;
+      case 'doctor':
+        Future<String> customClaimResult =
+            _cloudFunctionService.addDoctor(email);
+        customClaimResult.then((result) {
+          print("Claim result : " + result);
+        });
+        break;
+      case 'student':
+        Future<String> customClaimResult =
+            _cloudFunctionService.addStudent(email);
+        customClaimResult.then((result) {
+          print("Claim result : " + result);
+        });
+        break;
+      default:
+        print('Invalid user type!!');
+    }
 
     return user.uid;
   }
