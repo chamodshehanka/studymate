@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
-import 'package:studymate/widgets/StudymateFlatButton.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -96,19 +96,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 14.0, horizontal: 40.0),
-                    child: StudymateFlatButton(
-                      title: "Log In",
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        _userLogin();
-                      },
-                      splashColor: Colors.black12,
-                      borderColor: Colors.white,
-                      borderWidth: 0,
-                      color: Colors.deepPurpleAccent,
-                    ),
+                    child: StudymateRaisedButton(
+                        'Sign in', _userLogin, Colors.deepPurpleAccent),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
