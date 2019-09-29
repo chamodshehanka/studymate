@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:studymate/services/CloudFunctionsService.dart';
 
 abstract class BaseAuthentication {
   Future<FirebaseUser> signIn(String email, String password);
@@ -9,6 +10,7 @@ abstract class BaseAuthentication {
 
 class Authentication implements BaseAuthentication {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  CloudFunctionService _cloudFunctionService = CloudFunctionService();
 
   @override
   Future<String> getCurrentUser() async {
@@ -34,6 +36,11 @@ class Authentication implements BaseAuthentication {
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
             email: email, password: password))
         .user;
+    Future<String> customClaimResult = _cloudFunctionService.addAdmin(email);
+    customClaimResult.then((result){
+      print("Claim result : "+ result);
+    });
+
     return user.uid;
   }
 }

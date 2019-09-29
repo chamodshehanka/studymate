@@ -198,38 +198,57 @@ class _SignInScreenState extends State<SignInScreen> {
 
     //If auth is enabled in remote
     if (_formKey.currentState.validate()) {
-      print(isAuthEnabled);
       _formKey.currentState.save();
       if (isAuthEnabled == 'true') {
         Future<FirebaseUser> firebaseUser =
             auth.signIn(emailController.text, passwordController.text);
 
         firebaseUser.then((user) {
-          print('Verified' + user.isEmailVerified.toString());
-          // Claim
+          // Claim Check
           user.getIdToken().then((result) {
-            // result
-            bool isAdmin = result.claims.containsValue('moderator');
-            print('Is Admin' + isAdmin.toString());
-          });
+            bool isAdmin = false;
+            bool isDoctor = false;
+            bool isStudent = false;
 
-          if (user.uid.length > 0 && user.uid != null) {
-            Navigator.pushNamed(context, '/home');
-            print('Sign in okay!');
-          } else {
-            print("User id is null");
+            isAdmin = result.claims['moderator'];
+            isDoctor = result.claims['doctor'];
+            isStudent = result.claims['student'];
+
+            // print('Is Admin' + isAdmin.toString());
+            // print(result.claims);
+
+            if (isAdmin) {
+              Navigator.pushNamed(context, '/homeAdmin');
+            } else if (isDoctor) {
+              Navigator.pushNamed(context, '/homeDoctor');
+            } else if (isStudent) {
+              Navigator.pushNamed(context, '/home');
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return StudymateDialogBox(
+                      title: 'Sign In Failed',
+                      description: 'You are not authorized!!!!',
+                      confirmation: false,
+                      tigerAnimationType: 'fail',
+                    );
+                  });
+            }
+          }).catchError((e) {
+            print(e);
 
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return StudymateDialogBox(
                     title: 'Sign In Failed',
-                    description: 'null',
+                    description: 'User not valid',
                     confirmation: false,
                     tigerAnimationType: 'fail',
                   );
                 });
-          }
+          });
         });
       } else {
         //If auth is disabled
