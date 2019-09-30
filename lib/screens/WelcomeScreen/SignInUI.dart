@@ -48,7 +48,7 @@ class _SignInScreenState extends State<SignInScreen> {
         passwordController,
         "password",
         Colors.grey,
-        TextInputType.visiblePassword,
+        TextInputType.text,
         Icon(
           Icons.lock,
           color: Colors.grey,

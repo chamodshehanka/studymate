@@ -27,8 +27,8 @@ class _ActivityScreenState extends State<ActivityScreen> {
           ),
           body: TabBarView(
             children: <Widget>[
-              //SocialActivityTab(),
-              //LeisureActivityTab(),
+              // SocialActivityTab(),
+              // LeisureActivityTab(),
               OtherActivityTab()
             ],
           ),
