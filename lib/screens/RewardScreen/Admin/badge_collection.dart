@@ -27,7 +27,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
           .map((documentSnapshot) =>
               Badge.fromMap(documentSnapshot.data))
           .toList();
-      setState(() {
+      setState(() { 
         this.badgeList = badgeCollection;
       });
     });
@@ -72,6 +72,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
                     //   //  badge.Image,
                     //   //  fit:BoxFit.fill
                     //  ),
+                    
                    ),
                    SizedBox(height: 10.0,),
                    Text(
