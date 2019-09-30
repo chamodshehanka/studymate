@@ -95,3 +95,14 @@ async function grantStudentRole(email: string): Promise<void> {
         student: true
     });
 }
+
+// exports.sendPushNotification = functions.firestore.document('Activities').onCreate(event => {
+//     var request = event.data;
+//     var playload = {
+//        data: {
+//            username: 'Random',
+//            email: 'studymate@gmail.com'
+//        } 
+//     }
+//     admin.messaging().sendToDevice(playload);
+// });
