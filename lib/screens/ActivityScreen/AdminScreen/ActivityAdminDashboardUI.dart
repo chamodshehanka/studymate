@@ -51,7 +51,7 @@ class _ActivityAdminDashboardScreenState
                 height: media.height * .25,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xffff1e39), Color(0xffff4125)],
+                    colors: [Color(0xff5f27cd), Color(0xff341f97)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
@@ -129,7 +129,7 @@ class _ActivityAdminDashboardScreenState
                     width: 70,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: ExactAssetImage('assets/images/minion.png'),
+                          image: ExactAssetImage('assets/images/kids.png'),
                           fit: BoxFit.contain),
                     ),
                   ),
@@ -175,8 +175,24 @@ class _ActivityAdminDashboardScreenState
               ),
             ),
           ),
-          VerticalDivider(
-            // color: ,
+          VerticalDivider(color: Colors.grey, width: 1),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 75,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: ExactAssetImage('assets/images/minion.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
