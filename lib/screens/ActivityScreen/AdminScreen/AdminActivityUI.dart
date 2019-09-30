@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+//import 'package:studymate/widgets/StudymateDropdown.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -15,6 +16,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   List<Activity> activityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> activitySubscription;
+  List<String> activityTypeList;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final typeController = TextEditingController();
@@ -34,6 +36,9 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
         this.activityList = activities;
       });
     });
+
+    // Dropdown Items load
+    activityTypeList = ['Social', 'Leisure'];
   }
 
   @override
@@ -118,7 +123,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
               textAlign: TextAlign.center,
             ),
             backgroundColor: Colors.deepPurple[50],
-            content:  Form(
+            content: Form(
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -138,21 +143,12 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                       },
                     ),
                   ),
-                  Padding(
+                  /*Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Enter activity type'),
-                      controller: typeController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter activity type';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
+                    child: StudymateDropdown(
+                        'Select activity type', activityTypeList),
+                  ),*/
+
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(

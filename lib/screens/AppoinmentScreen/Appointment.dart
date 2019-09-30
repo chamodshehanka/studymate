@@ -1,141 +1,233 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studymate/models/Task.dart';
+import 'package:studymate/services/custom/AppointmentService.dart';
+import 'AppointmentScreen.dart';
+import 'package:flutter/cupertino.dart';
 
-class AppointmentScreen extends StatefulWidget {
+
+void main() => runApp(AppointmentScreen());
+
+class AppointmentScreen extends StatelessWidget {
+  // This widget is the root of your application.
   @override
-  _AppointmentScreenState createState() => _AppointmentScreenState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Appointment Management',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        backgroundColor: Colors.deepPurple,
+     
+      ),
+      home: MyHomePage(),
+    );
+  }
 }
 
-class _AppointmentScreenState extends State<AppointmentScreen> {
-  final _formKey = GlobalKey<FormState>();
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List<Task> items;
+  AppointmentService fireServ = new AppointmentService();
+  StreamSubscription<QuerySnapshot> todoTasks;
+
+  @override
+  void initState() {
+    super.initState();
+
+    items = new List();
+
+    todoTasks?.cancel();
+    todoTasks = fireServ.getTaskList().listen((QuerySnapshot snapshot) {
+      final List<Task> tasks = snapshot.documents
+          .map((documentSnapshot) => Task.fromMap(documentSnapshot.data))
+          .toList();
+
+      setState(() {
+        this.items = tasks;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    var floatingActionButton2 = FloatingActionButton(
-      onPressed: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                content: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Patient ID',
-                              labelStyle:
-                                  TextStyle(color: Colors.grey, fontSize: 14.0),
-                            ),
-                          )),
-                      Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Special Description',
-                              labelStyle:
-                                  TextStyle(color: Colors.grey, fontSize: 14.0),
-                            ),
-                          )),
-                      Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Date',
-                              labelStyle:
-                                  TextStyle(color: Colors.grey, fontSize: 14.0),
-                            ),
-                          )),
-                      Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Time',
-                              labelStyle:
-                                  TextStyle(color: Colors.grey, fontSize: 14.0),
-                            ),
-                          )),
-                      Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Place',
-                              labelStyle:
-                                  TextStyle(color: Colors.grey, fontSize: 14.0),
-                            ),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: RaisedButton(
-                          color: Colors.purple,
-                          textColor: Colors.white,
-                          elevation: 4.0,
-                          splashColor: Colors.amberAccent,
-                          child: Text("Request"),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Center(child: Text('Alert')),
-                                    backgroundColor: Colors.white,
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Container(
-                                          child: Text(
-                                            "Successful Added",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              FlatButton(
-                                                  child: Text('Yes'),
-                                                  textColor:
-                                                      Colors.purpleAccent,
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  }),
-                                              FlatButton(
-                                                  child: Text('No'),
-                                                  textColor:
-                                                      Colors.purpleAccent,
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  })
-                                            ])
-                                      ],
-                                    ),
-                                  );
-                                });
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            });
-      },
-      child: Icon(Icons.add),
-    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Appointment Management"),
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: <Widget>[
+          _myAppBar(context),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 80,
+            child: ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  return Stack(children: <Widget>[
+                    // The containers in the background
+                    Column(children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 150.0,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 5.0, bottom: 8.0),
+                            child: Material(
+                              color: Colors.deepPurple,
+                              elevation: 8.0,
+                              shadowColor: Colors.deepPurple,
+                              child: Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      
+                                      Text(
+                                        '${items[index].taskappointmentID}',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0),
+                                      ),
+                                       
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(
+                                            '${items[index].taskname}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20.0),
+                                          ),
+                                         
+                                          Text(
+                                            '${items[index].taskSpecialDescription}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16.0),
+                                          ),
+                                          Text(
+                                            '${items[index].taskdate}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            '${items[index].tasktime}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16.0),
+                                          ),
+                                          Text(
+                                            '${items[index].taskplace}',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16.0),
+                                          ),
+                                          
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ]);
+                }),
+          ),
+        ],
       ),
-      body: getNoteListView(),
-      floatingActionButton: floatingActionButton2,
+      floatingActionButton: FloatingActionButton(
+         backgroundColor: Colors.deepPurple,
+        child: Icon(
+          Icons.add,
+          color: Color(0xFFFAFAFA),
+        ),
+        onPressed: () {
+          //Navigator.push(context,MaterialPageRoute(builder: (context) => TaskScreen()),
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TaskScreen(Task('', '', '', '', '', '')),
+                fullscreenDialog: true),
+          );
+        },
+      ),
     );
   }
 
-  getNoteListView() {}
+  Widget _myAppBar(context) {
+    return Container(
+      height: 80.0,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            colors: [
+              const Color(0xFF6A1B9A),
+              const Color(0xFF6A1B9A),
+            ],
+            ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                child: IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.arrowLeft,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      //
+                    }),
+              ),
+            ),
+           
+            Expanded(
+              flex: 5,
+              child: Container(
+                child: Text(
+                  'Appointment Management',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                child: IconButton(
+                    icon: Icon(
+                      FontAwesomeIcons.search,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      //
+                    }),
+              ),
+            ),
+          ],
+        )),
+      ),
+    );
+  }
 }

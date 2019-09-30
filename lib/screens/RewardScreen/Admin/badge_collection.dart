@@ -153,6 +153,9 @@ class _BadgesScreenState extends State<BadgesScreen> {
           backgroundColor: Colors.deepPurple,
           child: Icon(Icons.add),
           onPressed: () => Navigator.pushNamed(context, '/new_badge'),
-        ));
+        )
+        );
   }
 }
+
+

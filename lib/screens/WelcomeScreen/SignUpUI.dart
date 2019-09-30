@@ -2,6 +2,8 @@ import 'dart:core';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/services/CloudFunctionsService.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class SignUpScreen extends StatefulWidget {
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -10,12 +12,14 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   BaseAuthentication auth = Authentication();
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _fullname = new TextEditingController();
-  final TextEditingController _number = new TextEditingController();
-  final TextEditingController _email = new TextEditingController();
-  final TextEditingController _password = new TextEditingController();
-  final TextEditingController badgeNameCtrl = TextEditingController();
-  CustomTextField _nameField;
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _phoneNumberController =
+      new TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController badgeNameCtrlController = TextEditingController();
+  CloudFunctionService _cloudFunctionService = CloudFunctionService();
+  StudymateTextField _nameField;
   CustomTextField _phoneField;
   CustomTextField _emailField;
   CustomTextField _passwordField;
@@ -30,18 +34,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
       Navigator.of(context).pop();
     };
 
-    _nameField = new CustomTextField(
-      baseColor: Colors.grey,
-      borderColor: Colors.grey[400],
-      errorColor: Colors.red,
-      controller: _fullname,
-      hint: "Full Name",
-    );
+    _nameField = new StudymateTextField(
+        'Name',
+        _nameController,
+        null,
+        Colors.grey,
+        TextInputType.text,
+        Icon(Icons.text_fields, color: Colors.grey));
+
+    // _nameField = new StudymateTextField(
+    //   'Name',
+
+    //   //
+    //   baseColor: Colors.grey,
+    //   borderColor: Colors.grey[400],
+    //   errorColor: Colors.red,
+    //   controller: _fullname,
+    //   hint: "Full Name",
+    // );
     _phoneField = new CustomTextField(
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _number,
+      controller: _phoneNumberController,
       hint: "Phone Number",
       inputType: TextInputType.number,
     );
@@ -49,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _email,
+      controller: _emailController,
       hint: "E-mail Adress",
       inputType: TextInputType.emailAddress,
     );
@@ -57,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       baseColor: Colors.grey,
       borderColor: Colors.grey[400],
       errorColor: Colors.red,
-      controller: _password,
+      controller: _passwordController,
       obscureText: true,
       hint: "Password",
     );
@@ -159,16 +174,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   _signUpUser() {
+    Future<String> user = _cloudFunctionService.addAdmin(
+        _emailController.text, _passwordController.text);
+
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
-      Future<String> user = auth.signUp(_email.text, _password.text);
+      // Future<String> user =
+      //     auth.signUp(_emailController.text, _passwordController.text);
 
       if (user != null) {
-        Navigator.pushNamed(context, '/home');
+        // Navigator.pushNamed(context, '/home');
       } else {
         // Have to change
-        Navigator.pushNamed(context, '/home');
+        // Navigator.pushNamed(context, '/home');
       }
     }
   }
@@ -305,3 +324,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 }
+
+// https://github.com/AseemWangoo/flutter_programs/blob/master/Cloud%20Firestore.zip
+

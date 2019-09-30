@@ -2,19 +2,51 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 
 class ManageActivityScreen extends StatelessWidget {
   final Activity activity;
   final ActivityService activityService = ActivityService();
   final _formKey = GlobalKey<FormState>();
-  var nameController;
+  final nameController;
 
-  ManageActivityScreen({Key key, @required this.activity}) {
-    this.nameController = TextEditingController(text: activity.name);
-  }
+  ManageActivityScreen({Key key, @required this.activity, this.nameController});
 
   @override
   Widget build(BuildContext context) {
+    // Activity Delete Action
+    void activityDeleteAction() {
+      Future<dynamic> isDeleted = activityService.deleteActivity(activity.id);
+      if (isDeleted != null) {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text("Successfully Deleted!"),
+          backgroundColor: Colors.deepPurple,
+        ));
+        Navigator.pop(context);
+      } else {}
+    }
+
+    void showDeleteConfirmationDialog() {
+      if (activity.id != null) {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return StudymateDialogBox(
+                title: 'Are you sure?',
+                description:
+                    activity.name + ' activity will be permanently deleted!',
+                confirmation: true,
+                confirmationAction: activityDeleteAction,
+                tigerAnimationType: 'fail',
+              );
+            });
+      } else {
+        // showDialog<void>(
+        //     context: context, child: Text('Something went wrong'));
+      }
+    }
+
     final manageActivityBody = Container(
       padding: EdgeInsets.all(20.0),
       child: Form(
@@ -79,47 +111,7 @@ class ManageActivityScreen extends StatelessWidget {
                   color: Colors.redAccent,
                   textColor: Colors.white,
                   child: Text('Remove'),
-                  onPressed: () {
-                    if (activity.id != null) {
-                      showDialog<ConfirmAction>(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Are you sure?'),
-                              actions: <Widget>[
-                                RaisedButton(
-                                    child: Text('Cancel'),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(ConfirmAction.CANCEL);
-                                    }),
-                                RaisedButton(
-                                    child: Text('Accept'),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(ConfirmAction.ACCEPT);
-                                      Future<dynamic> isDeleted =
-                                          activityService
-                                              .deleteActivity(activity.id);
-                                      if (isDeleted != null) {
-                                        Scaffold.of(context)
-                                            .showSnackBar(new SnackBar(
-                                          content:
-                                              new Text("Successfully Deleted!"),
-                                          backgroundColor: Colors.deepPurple,
-                                        ));
-                                        Navigator.pop(context);
-                                      } else {}
-                                    }),
-                              ],
-                            );
-                          });
-                    } else {
-                      // showDialog<void>(
-                      //     context: context, child: Text('Something went wrong'));
-                    }
-                  },
+                  onPressed: showDeleteConfirmationDialog,
                 ),
               ),
             ],
@@ -137,5 +129,3 @@ class ManageActivityScreen extends StatelessWidget {
     );
   }
 }
-
-enum ConfirmAction { CANCEL, ACCEPT }
