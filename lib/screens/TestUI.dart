@@ -12,7 +12,7 @@ class TestUIScreen extends StatefulWidget {
 class _TestUIScreenState extends State<TestUIScreen> {
   TextEditingController editingController;
   TextInputType textInputType = TextInputType.text;
-  Color color = Colors.deepPurple;
+  Color color = Colors.deepPurpleAccent;
   TextStyle textStyle;
   List<String> list = ["Maths", "Science"];
 
@@ -29,8 +29,8 @@ class _TestUIScreenState extends State<TestUIScreen> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              StudymateTextField(
-                  "Test", editingController, "Test", color, textInputType,Icon(Icons.email,color: Colors.grey)),
+              StudymateTextField("Test", editingController, "Test", color,
+                  textInputType, Icon(Icons.email, color: Colors.grey)),
               StudymateDropdown("Select A Subject", list),
               RaisedButton(
                 child: Text('Admin Activity'),
@@ -63,16 +63,23 @@ class _TestUIScreenState extends State<TestUIScreen> {
                           confirmationAction: display,
                         )),
               ),
-              StudymateRaisedButton("Test Button",()=>{print("Clicked")} , color),
-              StudymateRaisedButton("Delete",()=>{showDialog(
-                    context: context,
-                    builder: (BuildContext context) => StudymateDialogBox(
-                          title: 'Are you sure?',
-                          description: 'Activity will be deleted!',
-                          tigerAnimationType: 'fail',
-                          confirmation: true,
-                          confirmationAction: display,
-                        )),} , Colors.red)
+              StudymateRaisedButton("Sign Up",
+                  () => {Navigator.pushNamed(context, '/signUp')}, color),
+              StudymateRaisedButton(
+                  "Delete",
+                  () => {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                StudymateDialogBox(
+                                  title: 'Are you sure?',
+                                  description: 'Activity will be deleted!',
+                                  tigerAnimationType: 'fail',
+                                  confirmation: true,
+                                  confirmationAction: display,
+                                )),
+                      },
+                  Colors.red)
             ],
           ),
         ),
