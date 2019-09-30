@@ -1,8 +1,8 @@
 import 'dart:core';
+
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:studymate/services/Authentication.dart';
-import 'package:studymate/services/CloudFunctionsService.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -11,14 +11,14 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   BaseAuthentication auth = Authentication();
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _phoneNumberController =
       new TextEditingController();
   final TextEditingController _emailController = new TextEditingController();
   final TextEditingController _passwordController = new TextEditingController();
   final TextEditingController badgeNameCtrlController = TextEditingController();
-  CloudFunctionService _cloudFunctionService = CloudFunctionService();
+  BaseAuthentication _authentication = Authentication();
   StudymateTextField _nameField;
   CustomTextField _phoneField;
   CustomTextField _emailField;
@@ -174,22 +174,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   _signUpUser() {
-    Future<String> user = _cloudFunctionService.addAdmin(
-        _emailController.text, _passwordController.text);
+    String email = _emailController.text;
+    String password = _passwordController.text;
 
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    _authentication.signUp(email, password, 'student');
 
-      // Future<String> user =
-      //     auth.signUp(_emailController.text, _passwordController.text);
+    // if (_formKey.currentState.validate()) {
+    //   _formKey.currentState.save();
 
-      if (user != null) {
-        // Navigator.pushNamed(context, '/home');
-      } else {
-        // Have to change
-        // Navigator.pushNamed(context, '/home');
-      }
-    }
+    //   // Future<String> user =
+    //   //     auth.signUp(_emailController.text, _passwordController.text);
+
+    //   if (user != null) {
+    //     // Navigator.pushNamed(context, '/home');
+    //   } else {
+    //     // Have to change
+    //     // Navigator.pushNamed(context, '/home');
+    //   }
+    // }
   }
 }
 
@@ -326,4 +328,3 @@ class _CustomTextFieldState extends State<CustomTextField> {
 }
 
 // https://github.com/AseemWangoo/flutter_programs/blob/master/Cloud%20Firestore.zip
-
