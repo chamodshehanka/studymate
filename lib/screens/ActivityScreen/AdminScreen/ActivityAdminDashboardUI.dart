@@ -10,28 +10,36 @@ class ActivityAdminDashboardScreen extends StatefulWidget {
 class _ActivityAdminDashboardScreenState
     extends State<ActivityAdminDashboardScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _heightAnimation;
-  Animation<double> _iconSizeAnimation;
+  int noOfAllActivities = 10;
+  int noOfLeisureActivities = 20;
+  int noOfSocialActivities = 30;
+  int noOfOtherActivities = 0;
+  // AnimationController _controller;
+  // Animation<double> _heightAnimation;
+  // Animation<double> _iconSizeAnimation;
 
   @override
   void initState() {
     super.initState();
+
+    _getActivitiesCount();
     // Theme block
-    _controller = new AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
+    // _controller = new AnimationController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 300),
+    // );
 
-    _heightAnimation = new Tween<double>(begin: 0.0, end: 220.0).animate(
-        new CurvedAnimation(curve: Curves.decelerate, parent: _controller));
+    // _heightAnimation = new Tween<double>(begin: 0.0, end: 220.0).animate(
+    //     new CurvedAnimation(curve: Curves.decelerate, parent: _controller));
 
-    _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
-        new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
+    // _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
+    //     new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
 
-    _controller.addListener(() {
-      setState(() {});
-    });
+    // _controller.addListener(() {
+    //   setState(() {});
+    // });
+
+    // _heightAnimation.toString();
   }
 
   @override
@@ -59,12 +67,12 @@ class _ActivityAdminDashboardScreenState
               ),
             ),
             Positioned(
-              top: 40,
+              top: 50,
               width: media.width,
               child: Container(
                 alignment: Alignment.center,
                 child: Text(
-                  'Good Morning Admin Chamod!',
+                  'Activities Dashboard',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
@@ -102,19 +110,21 @@ class _ActivityAdminDashboardScreenState
                 ),
               ),
             ),
+            //Add Another position
+            // https://www.youtube.com/watch?v=L6UKUfLmrNg
           ],
         ),
       ),
     );
   }
 
-  Widget _buildRoomItem(BoxConstraints constraints, Size media) {
-    return Container();
-  }
+  // Widget _buildRoomItem(BoxConstraints constraints, Size media) {
+  //   return Container();
+  // }
 
-  Widget _buildRoutinesItem(Size media) {
-    return Container();
-  }
+  // Widget _buildRoutinesItem(Size media) {
+  //   return Container();
+  // }
 
   Widget buildDashboardRow1() {
     return Expanded(
@@ -140,34 +150,34 @@ class _ActivityAdminDashboardScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Front Door',
+                          'No of all activities',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'Locked',
+                          noOfAllActivities.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 15),
                         ),
-                        Container(
-                          width: 30,
-                          height: 12,
-                          padding: const EdgeInsets.all(1.5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(2),
-                            border: Border.all(color: Colors.grey, width: 0.5),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.only(right: 7),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xff0ed02d),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Container(
+                        //   width: 30,
+                        //   height: 12,
+                        //   padding: const EdgeInsets.all(1.5),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(2),
+                        //     border: Border.all(color: Colors.grey, width: 0.5),
+                        //   ),
+                        //   child: Container(
+                        //     padding: const EdgeInsets.only(right: 7),
+                        //     child: Container(
+                        //       decoration: BoxDecoration(
+                        //         color: Color(0xff0ed02d),
+                        //         borderRadius: BorderRadius.circular(2),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -185,9 +195,29 @@ class _ActivityAdminDashboardScreenState
                     width: 75,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/minion.png'),
+                        image: ExactAssetImage('assets/images/kids.png'),
                         fit: BoxFit.cover,
                       ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Leisure Activities',
+                          style: TextStyle(
+                              color: Colors.purple,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          noOfLeisureActivities.toString(),
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w500),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -200,6 +230,91 @@ class _ActivityAdminDashboardScreenState
   }
 
   Widget buildDashboardRow2() {
-    return Container();
+    return Expanded(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 70,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: ExactAssetImage('assets/images/kids.png'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Social Activities',
+                            style: TextStyle(
+                                color: Colors.purple,
+                                fontWeight: FontWeight.bold)),
+                        Text(noOfSocialActivities.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 15)),
+                        // Text('Done 9.30', style: TextStyle(fontSize: 13.5)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          VerticalDivider(
+            color: Colors.grey,
+            width: 1,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 75,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: ExactAssetImage('assets/images/kids.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Other Activities',
+                            style: TextStyle(
+                                color: Colors.purple,
+                                fontWeight: FontWeight.bold)),
+                        Text(noOfOtherActivities.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 15)),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
+
+  void _getActivitiesCount() {}
 }
