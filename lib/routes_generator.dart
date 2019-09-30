@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivityMenuUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
+import 'package:studymate/screens/ChatScreen/ChatUI.dart';
+import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentWelcome.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
@@ -20,8 +23,8 @@ import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
-import 'package:studymate/screens/StudentScreen/editProfileNonSchoolStudent.dart';
-import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
+// import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
+// import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
@@ -40,20 +43,26 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/welcome':
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
-      case '/signin':
-        return MaterialPageRoute(builder: (_) => SignInScreen());
+      // case '/signin':
+      //   return MaterialPageRoute(builder: (_) => SignInScreen());
       case '/signUp':
         return MaterialPageRoute(builder: (_) => SignUpScreen());
-      case '/schoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
+      // case '/schoolStudentEditPage':
+      //   return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case '/nonSchoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());
+      case '/signin':
+          return MaterialPageRoute(builder: (_) => SignInScreen());
+      // case '/forgotPassword':
+      //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
+      /*case '/nonSchoolStudentEditPage':
+        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());*/
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
+      case '/activityMenu':
+        return MaterialPageRoute(builder: (_) => ActivityMenuScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
       case '/adminActivity':
@@ -65,7 +74,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
-     case '/new_badge':
+      case '/AppointmentWelcome':
+        return MaterialPageRoute(builder: (_) => DoctorAppointmentScreen());
+      case '/new_badge':
         return MaterialPageRoute(builder: (_) => NewBadgeScreen());
       case '/badge_collection':
         return MaterialPageRoute(builder: (_) => BadgesScreen());
@@ -73,13 +84,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SBadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
-       case '/s_rewards':
+      case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
-        case '/image_bank':
+      case '/image_bank':
         return MaterialPageRoute(builder: (_) => ImagesScreen());
       case '/achievments':
         return MaterialPageRoute(builder: (_) => AchievmentsScreen());
-
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
@@ -92,6 +102,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
       case '/createdSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
+      case '/chat':
+        return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/subject':
         return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':

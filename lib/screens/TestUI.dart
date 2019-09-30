@@ -1,42 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
+import 'package:studymate/widgets/StudymateDropdown.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class TestUIScreen extends StatefulWidget {
   _TestUIScreenState createState() => _TestUIScreenState();
 }
 
 class _TestUIScreenState extends State<TestUIScreen> {
+  TextEditingController editingController;
+  TextInputType textInputType = TextInputType.text;
+  Color color = Colors.deepPurple;
+  TextStyle textStyle;
+  List<String> list = ["Maths", "Science"];
+
+  void display() {
+    print('Display');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 30),
-        child: Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        child: ListView(
-          children: <Widget>[
-            RaisedButton(
-              child: Text('Admin Activity'),
-              color: Colors.deepPurpleAccent,
-              textColor: Colors.white,
-              focusColor: Colors.deepPurple,
-              onPressed: () => {Navigator.pushNamed(context, '/adminActivity')},
-            ),
-          ],
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Container(
+          child: ListView(
+            children: <Widget>[
+              StudymateTextField("Test", editingController, "Test", color,
+                  textInputType, Icon(Icons.email, color: Colors.grey)),
+              StudymateDropdown("Select A Subject", list),
+              RaisedButton(
+                child: Text('Admin Activity'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/adminActivity')},
+              ),
+              RaisedButton(
+                child: Text('Activity Menu'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/activityMenu')},
+              ),
+              RaisedButton(
+                child: Text('Open Dialog Box'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) => StudymateDialogBox(
+                          title: 'Are you sure?',
+                          description: 'Activity will be deleted!',
+                          tigerAnimationType: 'fail',
+                          confirmation: true,
+                          confirmationAction: display,
+                        )),
+              ),
+              StudymateRaisedButton("Sign Up",
+                  () => {Navigator.pushNamed(context, '/signUp')}, color),
+              StudymateRaisedButton(
+                  "Delete",
+                  () => {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                StudymateDialogBox(
+                                  title: 'Are you sure?',
+                                  description: 'Activity will be deleted!',
+                                  tigerAnimationType: 'fail',
+                                  confirmation: true,
+                                  confirmationAction: display,
+                                )),
+                      },
+                  Colors.red)
+            ],
+          ),
         ),
       ),
-    ),);
-    // return new StreamBuilder(
-    //     stream: Firestore.instance
-    //         .collection('activity')
-    //         .document('jB1nxpHZEy5TR61H26cs')
-    //         .snapshots(),
-    //     builder: (context, snapshot) {
-    //       if (!snapshot.hasData) {
-    //         return new Text("Loading");
-    //       }
-    //       var userDocument = snapshot.data;
-    //       return new Text(userDocument["name"]);
-    //     });
+    );
   }
 }
