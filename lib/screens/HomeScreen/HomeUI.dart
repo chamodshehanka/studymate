@@ -42,7 +42,46 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        body: ListView(
+        body:
+        // SingleChildScrollView(
+        //   child: Column(
+        //     children: <Widget>[
+        //       TopBar(),
+        //     RadialProgress(),
+        //     Container(
+        //   margin: EdgeInsets.symmetric(vertical: 20.0),
+        //   height: 200.0,
+        //   child: ListView(
+        //     scrollDirection: Axis.horizontal,
+        //     children: <Widget>[
+        //       Container(
+        //         width: 160.0,
+        //         color: Colors.red,
+        //       ),
+        //       Container(
+        //         width: 160.0,
+        //         color: Colors.blue,
+        //       ),
+        //       Container(
+        //         width: 160.0,
+        //         color: Colors.green,
+        //       ),
+        //       Container(
+        //         width: 160.0,
+        //         color: Colors.yellow,
+        //       ),
+        //       Container(
+        //         width: 160.0,
+        //         color: Colors.orange,
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        //     ],
+        //   ),
+        // ), 
+        
+        ListView(
           primary: false,
           padding: const EdgeInsets.all(20.0),
           children: <Widget>[
@@ -107,6 +146,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ],
-        ));
+        )
+
+    //      bottomNavigationBar: BottomNavigationBar(
+    //    currentIndex: 0, // this will be set when a new tab is tapped
+    //    items: [
+    //      BottomNavigationBarItem(
+    //        icon: new Icon(Icons.home),
+    //        title: new Text('Home'),
+    //      ),
+    //      BottomNavigationBarItem(
+    //        icon: new Icon(Icons.mail),
+    //        title: new Text('Messages'),
+    //      ),
+    //      BottomNavigationBarItem(
+    //        icon: Icon(Icons.person),
+    //        title: Text('Profile')
+    //      )
+    //    ],
+    //  ),
+        );
   }
 }
