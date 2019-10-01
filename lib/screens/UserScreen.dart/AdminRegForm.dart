@@ -1,25 +1,24 @@
 
-//import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:googleapis/servicecontrol/v1.dart';
-//import 'package:studymate/auth.dart';
-//import 'package:studymate/models/Student.dart';
+import 'package:flutter/widgets.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
-
-class SchoolStudentScreen extends StatefulWidget {
-  _SchoolStudentScreenState createState() => _SchoolStudentScreenState();
+class AdminRegScreen extends StatefulWidget {
+  _AdminRegScreenState createState() => _AdminRegScreenState();
 }
 
-class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
+
+class _AdminRegScreenState extends State<AdminRegScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
+  final TextEditingController _nicNumber = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
-  final TextEditingController _password = new TextEditingController();
+  final TextEditingController _phoneNumber = new TextEditingController();
+  
 
   bool _autoValidate = false;
   bool _loadingVisible = false;
@@ -50,19 +49,24 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
     final lastName = StudymateTextField("Last Name", _lastName,
      "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
 
+     final nicNumber = StudymateTextField("NIC number", _nicNumber,
+     "NIC number", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+
     final email = StudymateTextField("Email", _email,
      "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
 
-    final password = StudymateTextField("Password", _password,
-     "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+    final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
+     "Phone number", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
   
 
     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
        _emailSignUp(
               firstName: _firstName.text,
               lastName: _lastName.text,
+              nicNumber: _nicNumber.text,
               email: _email.text,
-              password: _password.text,
+              phoneNumber: _phoneNumber.text,
+              
               context: context)
     }, Colors.deepPurple);
     
@@ -97,10 +101,12 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
                       SizedBox(height: 24.0),
                       lastName,
                       SizedBox(height: 24.0),
+                      nicNumber,
+                      SizedBox(height: 24.0,),
                       email,
                       SizedBox(height: 24.0),
-                      password,
-                      SizedBox(height: 12.0),
+                      phoneNumber,
+                      SizedBox(height: 24.0),
                       signUpButton,
                       signInLabel
                     ],
@@ -122,8 +128,9 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
   void _emailSignUp(
       {String firstName,
       String lastName,
+      String nicNumber,
       String email,
-      String password,
+      String phoneNumber,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {
       try {
@@ -156,4 +163,3 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
   }
    
 }
-
