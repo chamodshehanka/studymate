@@ -18,7 +18,8 @@ class AppointmentScreen extends StatelessWidget {
       title: 'Appointment Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xFF4A148C),
+        backgroundColor: Colors.deepPurple,
+     
       ),
       home: MyHomePage(),
     );
@@ -74,15 +75,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     // The containers in the background
                     Column(children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                        padding: EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: 150.0,
                           child: Padding(
                             padding: EdgeInsets.only(top: 5.0, bottom: 8.0),
                             child: Material(
-                              color: Colors.yellow[300],
-                              elevation: 20.0,
+                              color: Colors.deepPurple,
+                              elevation: 8.0,
                               shadowColor: Colors.deepPurple,
                               child: Center(
                                 child: Padding(
