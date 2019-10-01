@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 
 class ActivityAdminDashboardScreen extends StatefulWidget {
@@ -316,5 +318,10 @@ class _ActivityAdminDashboardScreenState
     );
   }
 
-  void _getActivitiesCount() {}
+  void _getActivitiesCount() {
+    Stream<QuerySnapshot> activityList = ActivityService().getActivityList();
+    activityList.forEach((activity){
+      print(activity.documents);
+    });
+  }
 }

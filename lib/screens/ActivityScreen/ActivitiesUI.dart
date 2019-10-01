@@ -29,7 +29,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
             children: <Widget>[
               SocialActivityTab(),
               LeisureActivityTab(),
-              OtherActivityTab()
+              OtherActivityTab(),
             ],
           ),
           floatingActionButton: FloatingActionButton(

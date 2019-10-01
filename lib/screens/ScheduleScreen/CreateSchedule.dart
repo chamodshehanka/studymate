@@ -1,8 +1,8 @@
 import 'package:device_calendar/device_calendar.dart';
 import 'package:flutter/material.dart';
 import "package:carousel_slider/carousel_slider.dart";
-import 'package:flutter/services.dart';
 import 'package:studymate/ScheduleManager/CalendarEvents.dart';
+import 'package:studymate/services/custom/ScheduleServices.dart';
 
 //import 'CalendarEvents.dart';
 
@@ -16,9 +16,11 @@ class CreateSchedule extends StatefulWidget {
 }
 
 class _CreateScheduleState extends State<CreateSchedule> {
-  DeviceCalendarPlugin _deviceCalendarPlugin = new DeviceCalendarPlugin();
-  List<Calendar> _calendars;
+  ScheduleService scheduleService =  new ScheduleService();
+  Future<Calendar> futureCalendar;
+  Calendar calendar;
   int counter = 0;
+
   void incrementCounter() {
     setState(() {
       counter++;
@@ -37,9 +39,15 @@ class _CreateScheduleState extends State<CreateSchedule> {
     days.add("Thursday");
     days.add("Friday");
     days.add("Saturday");
-    _retrieveCalendars();
-    _selectCalendar();
     
+    futureCalendar = scheduleService.selectCalendar();
+    
+    futureCalendar.then((value){
+      calendar = value;
+      setState(() {
+        calendar = value;
+      });
+    });
   }
 
 
@@ -58,7 +66,7 @@ class _CreateScheduleState extends State<CreateSchedule> {
                 Text(d),
               
       
-        CalendarEventsPage(_calendars[4],d),
+        CalendarEventsPage(calendar,d),
         
               ],
             ));
@@ -74,44 +82,6 @@ class _CreateScheduleState extends State<CreateSchedule> {
         ),
         backgroundColor: Colors.white,
         body: instance);
-  }
-
-
-  void _retrieveCalendars() async {
-    try {
-      var permissionsGranted = await _deviceCalendarPlugin.hasPermissions();
-      if (permissionsGranted.isSuccess && !permissionsGranted.data) {
-        permissionsGranted = await _deviceCalendarPlugin.requestPermissions();
-        if (!permissionsGranted.isSuccess || !permissionsGranted.data) {
-          return;
-        }
-      }
-
-      final calendarsResult = await _deviceCalendarPlugin.retrieveCalendars();
-      setState(() {
-        _calendars = calendarsResult?.data;
-      });
-    } on PlatformException catch (e) {
-      print(e);
-    }
-  }
-
-
-  void _selectCalendar() async {
-    try {
-      var permissionsGranted = await _deviceCalendarPlugin.hasPermissions();
-      if (permissionsGranted.isSuccess && !permissionsGranted.data) {
-        permissionsGranted = await _deviceCalendarPlugin.requestPermissions();
-        if (!permissionsGranted.isSuccess || !permissionsGranted.data) {
-          return;
-        }
-      }
-      setState(() {
-        //_myCalendar = _calendars[4];
-      });
-    } on PlatformException catch (e) {
-      print(e);
-    }
   }
 }
 
