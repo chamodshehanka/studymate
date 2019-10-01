@@ -16,9 +16,9 @@ class _ActivityAdminDashboardScreenState
   int noOfLeisureActivities = 20;
   int noOfSocialActivities = 30;
   int noOfOtherActivities = 0;
-  // AnimationController _controller;
-  // Animation<double> _heightAnimation;
-  // Animation<double> _iconSizeAnimation;
+  AnimationController _controller;
+  Animation<double> _heightAnimation;
+  Animation<double> _iconSizeAnimation;
 
   @override
   void initState() {
@@ -26,22 +26,22 @@ class _ActivityAdminDashboardScreenState
 
     _getActivitiesCount();
     // Theme block
-    // _controller = new AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(milliseconds: 300),
-    // );
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
 
-    // _heightAnimation = new Tween<double>(begin: 0.0, end: 220.0).animate(
-    //     new CurvedAnimation(curve: Curves.decelerate, parent: _controller));
+    _heightAnimation = new Tween<double>(begin: 0.0, end: 220.0).animate(
+        new CurvedAnimation(curve: Curves.decelerate, parent: _controller));
 
-    // _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
-    //     new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
+    _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
+        new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
 
-    // _controller.addListener(() {
-    //   setState(() {});
-    // });
+    _controller.addListener(() {
+      setState(() {});
+    });
 
-    // _heightAnimation.toString();
+    _heightAnimation.toString();
   }
 
   @override
@@ -112,10 +112,139 @@ class _ActivityAdminDashboardScreenState
                 ),
               ),
             ),
-            //Add Another position
-            // https://www.youtube.com/watch?v=L6UKUfLmrNg
+            // Second position Layer
+            Positioned(
+              top: media.height * .38,
+              height: (media.height * .66) - 100,
+              width: media.width,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Activity',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Expanded(
+                      child: Container(
+                        child: _buildActivitiesChart(media),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'text',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Expanded(
+                      child: Container(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Floating Menu Overlay
+            Positioned(
+              top: 0,
+              child: FadeTransition(
+                opacity: _controller,
+                child: GestureDetector(
+                  onTap: () {
+                    _controller.reverse();
+                  },
+                  child: Container(
+                    width: _heightAnimation.value > 5 ? media.width : 0,
+                    height: _heightAnimation.value > 5 ? media.height : 0,
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              width: 56, // width of floating button
+              height: _heightAnimation.value,
+              bottom: 28, // middle of floating button
+              left: (media.width /2) + 134,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.deepPurpleAccent,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(5),
+                    bottomRight: Radius.circular(5),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5, bottom: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Visibility(
+                        visible: _heightAnimation.value > 210,
+                        child: Icon(
+                          Icons.history,
+                          color: Colors.white,
+                          size: _iconSizeAnimation.value,
+                        ),
+                      ),
+                      Visibility(
+                        visible: _heightAnimation.value > 160,
+                        child: Icon(
+                          Icons.history,
+                          color: Colors.white,
+                          size: _iconSizeAnimation.value,
+                        ),
+                      ),
+                      Visibility(
+                        visible: _heightAnimation.value > 90,
+                        child: Icon(
+                          Icons.history,
+                          color: Colors.white,
+                          size: _iconSizeAnimation.value,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        heroTag: null,
+        backgroundColor: Colors.deepPurpleAccent,
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget child) {
+            return Transform(
+              transform:
+                  new Matrix4.rotationZ(_controller.value * 0.5 * 22 / 7.0),
+              alignment: FractionalOffset.center,
+              child: Icon(_controller.isDismissed ? Icons.add : Icons.close),
+            );
+          },
+        ),
+        onPressed: () {
+          if(_controller.isDismissed){
+            _controller.forward();
+          } else {
+            _controller.reverse();
+          }
+        },
       ),
     );
   }
@@ -124,9 +253,9 @@ class _ActivityAdminDashboardScreenState
   //   return Container();
   // }
 
-  // Widget _buildRoutinesItem(Size media) {
-  //   return Container();
-  // }
+  Widget _buildActivitiesChart(Size media) {
+    return Container();
+  }
 
   Widget buildDashboardRow1() {
     return Expanded(
