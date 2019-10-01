@@ -42,6 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
     items = new List();
 
     todoTasks?.cancel();
+
+
+
+
     todoTasks = fireServ.getTaskList().listen((QuerySnapshot snapshot) {
       final List<Task> tasks = snapshot.documents
           .map((documentSnapshot) => Task.fromMap(documentSnapshot.data))

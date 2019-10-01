@@ -1,5 +1,4 @@
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:flare_flutter/flare_controls.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:studymate/widgets/MultiOptionButton/AnimationToPlay.dart';
 

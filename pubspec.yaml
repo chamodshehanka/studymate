@@ -37,7 +37,7 @@ dependencies:
   device_calendar:  ^0.2.1+1
   intl:
   image_picker:
-  flare_flutter: ^1.5.8 
+  flare_flutter: ^1.5.8
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.2+1
@@ -70,13 +70,9 @@ flutter:
     - assets/images/image5.jpg
     - assets/images/image6.jpg
     - assets/images/image7.jpg
-<<<<<<< HEAD
-  
-=======
     - assets/images/minion.png
     - assets/animations/MultiOptionButton.flr
     - assets/animations/tiger.flr
->>>>>>> 115cf8a25e54f32aadd231fd5ee42c9dc64c7d1d
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
