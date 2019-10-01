@@ -174,7 +174,7 @@ class _ActivityAdminDashboardScreenState
               width: 56, // width of floating button
               height: _heightAnimation.value,
               bottom: 28, // middle of floating button
-              left: (media.width /2) + 134,
+              left: (media.width / 2) + 134,
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.deepPurpleAccent,
@@ -193,26 +193,44 @@ class _ActivityAdminDashboardScreenState
                     children: <Widget>[
                       Visibility(
                         visible: _heightAnimation.value > 210,
-                        child: Icon(
-                          Icons.history,
-                          color: Colors.white,
-                          size: _iconSizeAnimation.value,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.list,
+                            color: Colors.white,
+                            size: _iconSizeAnimation.value,
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/adminActivityList');
+                            _controller.reverse();
+                          },
                         ),
                       ),
                       Visibility(
                         visible: _heightAnimation.value > 160,
-                        child: Icon(
-                          Icons.history,
-                          color: Colors.white,
-                          size: _iconSizeAnimation.value,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.history,
+                            color: Colors.white,
+                            size: _iconSizeAnimation.value,
+                          ),
+                          onPressed: () {
+                            // impl
+                            _controller.reverse();
+                          },
                         ),
                       ),
                       Visibility(
                         visible: _heightAnimation.value > 90,
-                        child: Icon(
-                          Icons.history,
-                          color: Colors.white,
-                          size: _iconSizeAnimation.value,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.insert_drive_file,
+                            color: Colors.white,
+                            size: _iconSizeAnimation.value,
+                          ),
+                          onPressed: () {
+                            // have to impl
+                            _controller.reverse();
+                          },
                         ),
                       ),
                     ],
@@ -234,12 +252,12 @@ class _ActivityAdminDashboardScreenState
               transform:
                   new Matrix4.rotationZ(_controller.value * 0.5 * 22 / 7.0),
               alignment: FractionalOffset.center,
-              child: Icon(_controller.isDismissed ? Icons.add : Icons.close),
+              child: Icon(_controller.isDismissed ? Icons.menu : Icons.close),
             );
           },
         ),
         onPressed: () {
-          if(_controller.isDismissed){
+          if (_controller.isDismissed) {
             _controller.forward();
           } else {
             _controller.reverse();
@@ -253,6 +271,7 @@ class _ActivityAdminDashboardScreenState
   //   return Container();
   // }
 
+  // Have to impl
   Widget _buildActivitiesChart(Size media) {
     return Container();
   }
@@ -291,24 +310,6 @@ class _ActivityAdminDashboardScreenState
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 15),
                         ),
-                        // Container(
-                        //   width: 30,
-                        //   height: 12,
-                        //   padding: const EdgeInsets.all(1.5),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(2),
-                        //     border: Border.all(color: Colors.grey, width: 0.5),
-                        //   ),
-                        //   child: Container(
-                        //     padding: const EdgeInsets.only(right: 7),
-                        //     child: Container(
-                        //       decoration: BoxDecoration(
-                        //         color: Color(0xff0ed02d),
-                        //         borderRadius: BorderRadius.circular(2),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -393,7 +394,6 @@ class _ActivityAdminDashboardScreenState
                         Text(noOfSocialActivities.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 15)),
-                        // Text('Done 9.30', style: TextStyle(fontSize: 13.5)),
                       ],
                     ),
                   ),
@@ -432,9 +432,6 @@ class _ActivityAdminDashboardScreenState
                         Text(noOfOtherActivities.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 15)),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
                       ],
                     ),
                   ),
