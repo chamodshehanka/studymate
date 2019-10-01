@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 
@@ -12,9 +13,9 @@ class ActivityAdminDashboardScreen extends StatefulWidget {
 class _ActivityAdminDashboardScreenState
     extends State<ActivityAdminDashboardScreen>
     with SingleTickerProviderStateMixin {
-  int noOfAllActivities = 10;
-  int noOfLeisureActivities = 20;
-  int noOfSocialActivities = 30;
+  int noOfAllActivities = 0;
+  int noOfLeisureActivities = 0;
+  int noOfSocialActivities = 0;
   int noOfOtherActivities = 0;
   AnimationController _controller;
   Animation<double> _heightAnimation;
@@ -24,7 +25,9 @@ class _ActivityAdminDashboardScreenState
   void initState() {
     super.initState();
 
+    // To get activities count
     _getActivitiesCount();
+
     // Theme block
     _controller = new AnimationController(
       vsync: this,
@@ -215,6 +218,7 @@ class _ActivityAdminDashboardScreenState
                           ),
                           onPressed: () {
                             // impl
+                            // _getActivitiesCount();
                             _controller.reverse();
                           },
                         ),
@@ -444,10 +448,21 @@ class _ActivityAdminDashboardScreenState
     );
   }
 
+  // Get Activities count from Activity Collection
   void _getActivitiesCount() {
     Stream<QuerySnapshot> activityList = ActivityService().getActivityList();
     activityList.forEach((activity) {
-      print(activity.documents);
+      setState(() {
+        noOfAllActivities = activity.documents.length;
+        activity.documents.forEach((doc) {
+          Activity activity = Activity.fromMap(doc.data);
+          if (activity.type == 'Social') {
+            noOfSocialActivities++;
+          } else if (activity.type == 'Leisure') {
+            noOfLeisureActivities++;
+          }
+        });
+      });
     });
   }
 }
