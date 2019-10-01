@@ -197,7 +197,7 @@ class _ActivityAdminDashboardScreenState
                     width: 75,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/leisure.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -244,7 +244,7 @@ class _ActivityAdminDashboardScreenState
                     width: 70,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/speaking.jpg'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -285,7 +285,7 @@ class _ActivityAdminDashboardScreenState
                     width: 75,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/swimming.jpg'),
                         fit: BoxFit.cover,
                       ),
                     ),
