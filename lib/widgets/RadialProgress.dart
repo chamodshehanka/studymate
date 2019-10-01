@@ -58,7 +58,7 @@ class RadialPainter extends CustomPainter{
       ..shader = LinearGradient(colors:[Colors.purple,Colors.deepPurple]).createShader(Rect.fromCircle(center: center,radius: size.width/2))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10.0;
+      ..strokeWidth = 15.0;
 
     canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/2),math.radians(-90),math.radians(250) ,false, ppaint);
 
@@ -66,15 +66,15 @@ class RadialPainter extends CustomPainter{
       ..color = Colors.black12
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10.0;
+      ..strokeWidth = 15.0;
     canvas.drawCircle(center,size.width/2.5 ,cpaint2);
 
     Paint ppaint2 = Paint()
       ..color = Colors.blue
-      ..shader = LinearGradient(colors:[Colors.purple,Colors.deepPurple]).createShader(Rect.fromCircle(center: center,radius: size.width/2))
+      ..shader = LinearGradient(colors:[Colors.lightBlue[200],Colors.blue]).createShader(Rect.fromCircle(center: center,radius: size.width/2))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10.0;
+      ..strokeWidth = 15.0;
 
     canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/2.5),math.radians(-90),math.radians(250) ,false, ppaint2);
 
@@ -83,15 +83,15 @@ class RadialPainter extends CustomPainter{
       ..color = Colors.black12
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10.0;
+      ..strokeWidth = 15.0;
     canvas.drawCircle(center,size.width/3.5 ,cpaint3);
 
     Paint ppaint3 = Paint()
       ..color = Colors.blue
-      ..shader = LinearGradient(colors:[Colors.purple,Colors.deepPurple]).createShader(Rect.fromCircle(center: center,radius: size.width/2))
+      ..shader = LinearGradient(colors:[Colors.amber,Colors.deepOrange]).createShader(Rect.fromCircle(center: center,radius: size.width/2))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10.0;
+      ..strokeWidth = 15.0;
 
     canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/3.5),math.radians(-90),math.radians(250) ,false, ppaint3);
   }
