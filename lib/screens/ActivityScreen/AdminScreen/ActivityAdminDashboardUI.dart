@@ -320,7 +320,7 @@ class _ActivityAdminDashboardScreenState
 
   void _getActivitiesCount() {
     Stream<QuerySnapshot> activityList = ActivityService().getActivityList();
-    activityList.forEach((activity){
+    activityList.forEach((activity) {
       print(activity.documents);
     });
   }
