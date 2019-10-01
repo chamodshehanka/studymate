@@ -177,8 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    _authentication.signUp(email, password, 'student');
-
+    _authentication.signUp(email, password, 'student', null);
   }
 }
 
