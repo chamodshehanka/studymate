@@ -12,11 +12,11 @@ admin.initializeApp();
 
 // Add New Admin Function
 exports.addAdmin = functions.https.onCall((data, context) => {
-    if (context.auth.token.moderator !== true) {
-        return {
-            error: "Request not authrized. User must be a Moderator to fulfil the request."
-        };
-    }
+    // if (context.auth.token.moderator !== true) {
+    //     return {
+    //         error: "Request not authrized. User must be a Moderator to fulfil the request."
+    //     };
+    // }
 
     const email = data.email;
     return grantModeratorRole(email).then(() => {
@@ -28,9 +28,9 @@ exports.addAdmin = functions.https.onCall((data, context) => {
 
 async function grantModeratorRole(email: string): Promise<void> {
     const user = await admin.auth().getUserByEmail(email);
-    if (user.customClaims && (user.customClaims as any).moderator === true) {
-        return;
-    }
+    // if (user.customClaims && (user.customClaims as any).moderator === true) {
+    //     return;
+    // }
 
     return admin.auth().setCustomUserClaims(user.uid, {
         moderator: true,
@@ -42,11 +42,11 @@ async function grantModeratorRole(email: string): Promise<void> {
 
 // Add Doctor
 exports.addDoctor = functions.https.onCall((data, context) => {
-    if (context.auth.token.doctor !== true) {
-        return {
-            error: "Request not authrized. User must be a Doctor to fulfil the request."
-        }
-    }
+    // if (context.auth.token.doctor !== true) {
+    //     return {
+    //         error: "Request not authrized. User must be a Doctor to fulfil the request."
+    //     }
+    // }
 
     const email = data.email;
     return grantDoctorRole(email).then(() => {
@@ -58,9 +58,9 @@ exports.addDoctor = functions.https.onCall((data, context) => {
 
 async function grantDoctorRole(email: string): Promise<void> {
     const user = await admin.auth().getUserByEmail(email);
-    if (user.customClaims && (user.customClaims as any).doctor === true) {
-        return;
-    }
+    // if (user.customClaims && (user.customClaims as any).doctor === true) {
+    //     return;
+    // }
 
     return admin.auth().setCustomUserClaims(user.uid, {
         doctor: true,
@@ -71,11 +71,11 @@ async function grantDoctorRole(email: string): Promise<void> {
 
 // Add Student
 exports.addStudent = functions.https.onCall((data, context) => {
-    if (context.auth.token.student !== true) {
-        return {
-            error: "Request not authrized. User must be a Moderator to fulfil the request."
-        };
-    }
+    // if (context.auth.token.student !== true) {
+    //     return {
+    //         error: "Request not authrized. User must be a Moderator to fulfil the request."
+    //     };
+    // }
 
     const email = data.email;
     return grantStudentRole(email).then(() => {
@@ -87,11 +87,22 @@ exports.addStudent = functions.https.onCall((data, context) => {
 
 async function grantStudentRole(email: string): Promise<void> {
     const user = await admin.auth().getUserByEmail(email);
-    if (user.customClaims && (user.customClaims as any).student === true) {
-        return;
-    }
+    // if (user.customClaims && (user.customClaims as any).student === true) {
+    //     return;
+    // }
 
     return admin.auth().setCustomUserClaims(user.uid, {
         student: true
     });
 }
+
+// exports.sendPushNotification = functions.firestore.document('Activities').onCreate(event => {
+//     var request = event.data;
+//     var playload = {
+//        data: {
+//            username: 'Random',
+//            email: 'studymate@gmail.com'
+//        } 
+//     }
+//     admin.messaging().sendToDevice(playload);
+// });

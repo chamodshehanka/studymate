@@ -7,7 +7,6 @@ final CollectionReference activityCollection =
 
 class ActivityService {
   // static final ActivityService _activityService = ActivityService();
-
   // factory ActivityService() => _activityService;
 
   Future<Activity> createActivity(String name, String type) {

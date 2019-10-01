@@ -12,7 +12,7 @@ class TestUIScreen extends StatefulWidget {
 class _TestUIScreenState extends State<TestUIScreen> {
   TextEditingController editingController;
   TextInputType textInputType = TextInputType.text;
-  Color color = Colors.deepPurple;
+  Color color = Colors.deepPurpleAccent;
   TextStyle textStyle;
   List<String> list = ["Maths", "Science"];
 

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/MedicalRecord.dart';
 import 'package:studymate/services/SuperService.dart';
+import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference medicalRecordCollection =
-    Firestore.instance.collection('medicalRecord');
+    Firestore.instance.collection(CommonConstants.medicalRecordCollection);
 
 class MedicalRecordService extends SuperService<MedicalRecord, String> {
   @override
