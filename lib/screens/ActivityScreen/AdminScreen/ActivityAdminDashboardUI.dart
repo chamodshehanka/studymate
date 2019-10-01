@@ -39,12 +39,6 @@ class _ActivityAdminDashboardScreenState
 
     _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
         new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-
-    _heightAnimation.toString();
   }
 
   @override
@@ -126,9 +120,10 @@ class _ActivityAdminDashboardScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Activity',
+                      'Activities Usage',
                       textAlign: TextAlign.left,
                       style: TextStyle(
+                        color: Colors.deepPurple,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -218,7 +213,6 @@ class _ActivityAdminDashboardScreenState
                           ),
                           onPressed: () {
                             // impl
-                            // _getActivitiesCount();
                             _controller.reverse();
                           },
                         ),
