@@ -241,8 +241,6 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
         //     lastName: lastName,
         //   ));
         // });
-
-        await Navigator.pushNamed(context, '/sign_in');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");

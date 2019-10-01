@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/models/Admin.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
@@ -15,7 +17,11 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
   final TextEditingController _lastName = new TextEditingController();
   final TextEditingController _nicNumber = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
+  final TextEditingController _workingPlaceController =
+      new TextEditingController();
+  BaseAuthentication _authentication = Authentication();
 
   bool _autoValidate = false;
   bool _loadingVisible = false;
@@ -95,6 +101,25 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
           color: Colors.grey,
         ));
 
+    final password = StudymateTextField(
+        'password',
+        _passwordController,
+        'text',
+        Colors.grey,
+        TextInputType.visiblePassword,
+        Icon(
+          Icons.lock,
+          color: Colors.grey,
+        ));
+
+    final workingPlace = StudymateTextField(
+        'Working Place',
+        _workingPlaceController,
+        'text',
+        Colors.grey,
+        TextInputType.text,
+        Icon(Icons.place, color: Colors.grey));
+
     final signUpButton = StudymateRaisedButton(
         "Sign Up",
         () => {
@@ -133,19 +158,23 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       logo,
-                      SizedBox(height: 48.0),
+                      SizedBox(height: 1.0),
                       firstName,
-                      SizedBox(height: 24.0),
+                      SizedBox(height: 1.0),
                       lastName,
-                      SizedBox(height: 24.0),
+                      SizedBox(height: 1.0),
                       nicNumber,
                       SizedBox(
-                        height: 24.0,
+                        height: 1.0,
                       ),
                       email,
-                      SizedBox(height: 24.0),
+                      SizedBox(height: 1.0),
+                      password,
+                      SizedBox(height: 1.0),
                       phoneNumber,
-                      SizedBox(height: 24.0),
+                      SizedBox(height: 1.0),
+                      workingPlace,
+                      SizedBox(height: 1.0),
                       signUpButton,
                       signInLabel
                     ],
@@ -169,23 +198,19 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
       String lastName,
       String nicNumber,
       String email,
+      String password,
       String phoneNumber,
+      String workingPlace,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {
       try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
 
-        // await Auth.signUp(email, password).then((uID) {
-        //   Auth.addUserSettingsDB(new User(
-        //     userId: uID,
-        //     email: email,
-        //     firstName: firstName,
-        //     lastName: lastName,
-        //   ));
-        // });
+        Admin admin =
+            Admin('_id', firstName, lastName, email, phoneNumber, workingPlace);
 
-        await Navigator.pushNamed(context, '/sign_in');
+        _authentication.signUp(email, password, 'admin', admin);
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
