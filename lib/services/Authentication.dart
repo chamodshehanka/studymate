@@ -71,6 +71,7 @@ class Authentication implements BaseAuthentication {
         customClaimResult.then((result) {
           print("Claim result : " + result);
         });
+        // student creation in collection
         _studentService.createStudent(userObject, user.uid);
         break;
       default:
