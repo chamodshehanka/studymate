@@ -7,7 +7,7 @@ abstract class SuperService<T, ID> {
 
   Future<dynamic> delete(ID id);
 
-  T getByID(ID id);
+  Future<T> getByID(ID id);
 
   Stream<QuerySnapshot> getAll({int offset, int limit});
 }

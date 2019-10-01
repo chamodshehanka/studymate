@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+//import 'package:studymate/widgets/StudymateDropdown.dart';
 
 class AdminActivityScreen extends StatefulWidget {
   _AdminActivityScreenState createState() => _AdminActivityScreenState();
@@ -15,6 +16,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   List<Activity> activityList;
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> activitySubscription;
+  List<String> activityTypeList;
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final typeController = TextEditingController();
@@ -34,6 +36,9 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
         this.activityList = activities;
       });
     });
+
+    // Dropdown Items load
+    activityTypeList = ['Social', 'Leisure'];
   }
 
   @override
@@ -96,7 +101,7 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Manage Activities'),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.deepPurpleAccent,
         ),
         body: adminActivityBody,
         floatingActionButton: FloatingActionButton(
@@ -109,7 +114,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
   }
 
   void _createNewActivity(BuildContext context) async {
-    // String activityType;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -139,45 +143,12 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                       },
                     ),
                   ),
-                  Padding(
+                  /*Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Enter activity type'),
-                      controller: typeController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter activity type';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                  // Padding(
-                  //     padding: EdgeInsets.all(8.0),
-                  //     child: DropdownButton<String>(
-                  //       value: 'Activity type',
-                  //       onChanged: (String value) {
-                  //         setState(() {
-                  //           activityType = value;
-                  //         });
-                  //       },
-                  //       items: <DropdownMenuItem<String>>[
-                  //         DropdownMenuItem(
-                  //           value: 'Social',
-                  //           child: Text('Social'),
-                  //         ),
-                  //         DropdownMenuItem(
-                  //           value: 'Leisure',
-                  //           child: Text('Leisure'),
-                  //         ),
-                  //         DropdownMenuItem(
-                  //           value: 'Other',
-                  //           child: Text('Other'),
-                  //         ),
-                  //       ],
-                  //     )),
+                    child: StudymateDropdown(
+                        'Select activity type', activityTypeList),
+                  ),*/
+
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(
@@ -193,10 +164,6 @@ class _AdminActivityScreenState extends State<AdminActivityScreen> {
                                   nameController.text, typeController.text);
                           if (isAdded != null) {
                             Navigator.pop(context);
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text('Sucessfully Added!'),
-                              backgroundColor: Colors.deepPurple,
-                            ));
                           } else {
                             //Have to add error message
                             Scaffold.of(context).showSnackBar(new SnackBar(

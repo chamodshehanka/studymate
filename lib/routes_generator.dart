@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivityDashboardUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
+import 'package:studymate/screens/ActivityScreen/AdminScreen/ActivityAdminDashboardUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
+import 'package:studymate/screens/ChatScreen/ChatUI.dart';
+import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentWelcome.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/CreateMedicalRecordUI.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
-import 'package:studymate/screens/RewardScreen/Admin/badge_collection.dart';
 import 'package:studymate/screens/RewardScreen/Admin/new_badge.dart';
-import 'package:studymate/screens/RewardScreen/rewards.dart';
+import 'package:studymate/screens/RewardScreen/badges.dart';
+import 'package:studymate/screens/RewardScreen/Admin/badge_collection.dart';
 import 'package:studymate/screens/RewardScreen/s_reward.dart';
+import 'package:studymate/screens/RewardScreen/Admin/rewards.dart';
+import 'package:studymate/screens/RewardScreen/Admin/image_bank.dart';
+import 'package:studymate/screens/RewardScreen/achievments.dart';
+import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
-import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
-import 'package:studymate/screens/StudentScreen/editProfileNonSchoolStudent.dart';
-import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
@@ -36,20 +42,25 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/welcome':
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
-      case '/signin':
-        return MaterialPageRoute(builder: (_) => SignInScreen());
       case '/signUp':
         return MaterialPageRoute(builder: (_) => SignUpScreen());
-      case '/schoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
       case '/home':
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case '/nonSchoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());
+      case '/signin':
+        return MaterialPageRoute(builder: (_) => SignInScreen());
+      // case '/forgotPassword':
+      //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
+      /*case '/nonSchoolStudentEditPage':
+        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());*/
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
+      case '/activityDashboard':
+        return MaterialPageRoute(builder: (_) => ActivityDashboardScreen());
+      case '/adminActivityDashboard':
+        return MaterialPageRoute(
+            builder: (_) => ActivityAdminDashboardScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
       case '/adminActivity':
@@ -57,16 +68,26 @@ class RouteGenerator {
       case '/manageActivity':
         return MaterialPageRoute(
             builder: (_) => ManageActivityScreen(activity: null));
+      case '/activityProgress':
+        return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/appointment':
         return MaterialPageRoute(builder: (_) => AppointmentScreen());
+      case '/AppointmentWelcome':
+        return MaterialPageRoute(builder: (_) => DoctorAppointmentScreen());
       case '/new_badge':
         return MaterialPageRoute(builder: (_) => NewBadgeScreen());
       case '/badge_collection':
         return MaterialPageRoute(builder: (_) => BadgesScreen());
+      case '/badges':
+        return MaterialPageRoute(builder: (_) => SBadgesScreen());
       case '/rewards':
         return MaterialPageRoute(builder: (_) => RewardsScreen());
       case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
+      case '/image_bank':
+        return MaterialPageRoute(builder: (_) => ImagesScreen());
+      case '/achievments':
+        return MaterialPageRoute(builder: (_) => AchievmentsScreen());
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
@@ -79,14 +100,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
       case '/createdSchedule':
         return MaterialPageRoute(builder: (_) => CreateSchedule());
+      case '/chat':
+        return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/subject':
         return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':
         return MaterialPageRoute(builder: (_) => TestUIScreen());
       case '/profileUI':
-        return MaterialPageRoute(builder: (_) => ProfileUIScreen()); 
+        return MaterialPageRoute(builder: (_) => ProfileUIScreen());
       case '/udSubject':
-        return MaterialPageRoute(builder: (_) => SubjectsScreen());
+        return MaterialPageRoute(builder: (_) => UDSubjectUI());
       default:
         return _errorRoute();
     }

@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference activityCollection =
-    Firestore.instance.collection('Activities');
+    Firestore.instance.collection(CommonConstants.activityCollectionName);
 
 class ActivityService {
   // static final ActivityService _activityService = ActivityService();
-
   // factory ActivityService() => _activityService;
 
   Future<Activity> createActivity(String name, String type) {

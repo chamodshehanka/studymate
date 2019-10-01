@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/MedicalRecord.dart';
 import 'package:studymate/services/SuperService.dart';
+import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference medicalRecordCollection =
-    Firestore.instance.collection('medicalRecord');
+    Firestore.instance.collection(CommonConstants.medicalRecordCollection);
 
 class MedicalRecordService extends SuperService<MedicalRecord, String> {
   @override
@@ -45,12 +46,6 @@ class MedicalRecordService extends SuperService<MedicalRecord, String> {
   }
 
   @override
-  MedicalRecord getByID(String id) {
-    // return medicalRecordCollection.document(id).snapshots().;
-    return null;
-  }
-
-  @override
   Future delete(String id) {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
@@ -86,5 +81,10 @@ class MedicalRecordService extends SuperService<MedicalRecord, String> {
       print('error: $error');
       return false;
     });
+  }
+
+  @override
+  Future<MedicalRecord> getByID(String id) {
+    return null;
   }
 }
