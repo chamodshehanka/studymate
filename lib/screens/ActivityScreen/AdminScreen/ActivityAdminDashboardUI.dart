@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 
 class ActivityAdminDashboardScreen extends StatefulWidget {
@@ -195,7 +197,7 @@ class _ActivityAdminDashboardScreenState
                     width: 75,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/leisure.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -242,7 +244,7 @@ class _ActivityAdminDashboardScreenState
                     width: 70,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/speaking.jpg'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -283,7 +285,7 @@ class _ActivityAdminDashboardScreenState
                     width: 75,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/swimming.jpg'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -316,5 +318,10 @@ class _ActivityAdminDashboardScreenState
     );
   }
 
-  void _getActivitiesCount() {}
+  void _getActivitiesCount() {
+    Stream<QuerySnapshot> activityList = ActivityService().getActivityList();
+    activityList.forEach((activity){
+      print(activity.documents);
+    });
+  }
 }

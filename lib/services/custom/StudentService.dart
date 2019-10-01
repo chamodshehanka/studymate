@@ -10,14 +10,18 @@ final CollectionReference studentsCollection =
     Firestore.instance.collection(CommonConstants.studentsCollectionName);
 
 class StudentService {
-  Future<Student> createStudent(String fullName, String email, String password,
-      String schoolName, String phoneNumber) {
+  Future<Student> createStudent(Student student, String authId) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(studentsCollection.document());
 
-      final Student student = new Student(ds.documentID, fullName, email,
-          password, true, schoolName, phoneNumber);
-      final Map<String, dynamic> data = student.toMap();
+      final Student studentModel = new Student(
+          authId,
+          student.name,
+          student.email,
+          student.schooling,
+          student.schoolName,
+          student.phoneNumber);
+      final Map<String, dynamic> data = studentModel.toMap();
 
       await tx.set(ds.reference, data);
 
@@ -125,7 +129,7 @@ class StudentService {
     if (limit != null) {
       snapshots = snapshots.take(limit);
     }
-    return snapshots; 
+    return snapshots;
   }
 
   Future<dynamic> deleteActivityProgress(String studentId, String activityId) {
