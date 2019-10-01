@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
 
-
 Settings settingsFromJson(String str) {
   final jsonData = json.decode(str);
   return Settings.fromJson(jsonData);

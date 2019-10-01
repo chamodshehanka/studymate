@@ -49,59 +49,63 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               children: <Widget>[
                 Expanded(
-                  child: HomeTile(Icons.calendar_today, "Daily Schedule", Colors.lightBlue,
-                "/daily"),
+                  child: HomeTile(Icons.calendar_today, "Daily Schedule",
+                      Colors.lightBlue, "/daily"),
                 ),
                 Expanded(
-                  child:  HomeTile(Icons.timeline, "Progress Tracking", Colors.cyan,
-                "/medicalRecord"),
+                  child: HomeTile(Icons.timeline, "Progress Tracking",
+                      Colors.cyan, "/medicalRecord"),
                 )
               ],
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                  child: HomeTile(Icons.book, "Subject Manager", Colors.green, "/subject"),
+                  child: HomeTile(
+                      Icons.book, "Subject Manager", Colors.green, "/subject"),
                 ),
                 Expanded(
-                  child:  HomeTile(Icons.local_activity, "Activity Manager",
-                Colors.deepPurpleAccent, "/activity"),
+                  child: HomeTile(Icons.local_activity, "Activity Manager",
+                      Colors.deepPurpleAccent, "/activity"),
                 )
               ],
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                  child:  HomeTile(Icons.calendar_today, "Schedule Manager", Colors.cyan,
-                "/scheduleManager"),
+                  child: HomeTile(Icons.calendar_today, "Schedule Manager",
+                      Colors.cyan, "/scheduleManager"),
                 ),
                 Expanded(
-                  child: HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
-                "/accounttype"),
+                  child: HomeTile(Icons.supervised_user_circle, "Profile",
+                      Colors.red, "/accounttype"),
                 )
               ],
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                  child:  HomeTile(Icons.calendar_today, "Appointments", Colors.amber,
-                "/appointment"),
+                  child: HomeTile(Icons.calendar_today, "Appointments",
+                      Colors.amber, "/appointment"),
                 ),
                 Expanded(
-                  child:  HomeTile(Icons.stars, "Reward Manager", Colors.pink, "/s_rewards"),
+                  child: HomeTile(
+                      Icons.stars, "Reward Manager", Colors.pink, "/s_rewards"),
                 )
               ],
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                  child: HomeTile(Icons.chat, "Chat", Colors.blueAccent, "/chat"),
+                  child:
+                      HomeTile(Icons.chat, "Chat", Colors.blueAccent, "/chat"),
                 ),
                 Expanded(
-                  child: HomeTile(Icons.build, 'Test UIs', Colors.black, '/testUI'),
+                  child: HomeTile(
+                      Icons.build, 'Test UIs', Colors.black, '/testUI'),
                 )
               ],
-            ),    
+            ),
           ],
         ));
   }

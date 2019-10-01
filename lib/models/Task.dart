@@ -20,10 +20,8 @@ class Task {
   String get taskappointmentID => _taskappointmentID;
   String get taskname => _taskname;
   String get taskSpecialDescription => _taskSpecialDescription;
-
   String get taskdate => _taskdate;
   String get tasktime => _tasktime;
-
   String get taskplace => _taskplace;
 
   Map<String, dynamic> toMap() {

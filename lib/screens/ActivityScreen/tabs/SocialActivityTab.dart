@@ -1,7 +1,9 @@
-/*import 'dart:async';
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
@@ -71,9 +73,18 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     Card makeCard(Activity socialActivity) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Container(
-            decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-            child: buildTilesList(socialActivity),
+          child: Slidable(
+            child: Container(
+                decoration: BoxDecoration(color: Colors.deepPurpleAccent),
+                child: buildTilesList(socialActivity)),
+            actionPane: SlidableDrawerActionPane(),
+            secondaryActions: <Widget>[
+              IconSlideAction(
+                  caption: 'Delete',
+                  color: Colors.redAccent,
+                  icon: Icons.delete,
+                  onTap: () => deleteActivityProgress(socialActivity)),
+            ],
           ),
         );
 
@@ -145,21 +156,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
             ));
           }
         } else {
-          // Preferred Activity removing
-          Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-              studentId, activityProgress.id);
-
-          if (isDeleted != null) {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Successfully Removed'),
-              backgroundColor: Colors.green,
-            ));
-          } else {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Adding failed!'),
-              backgroundColor: Colors.redAccent,
-            ));
-          }
+          deleteActivityProgress(socialActivity);
         }
       });
 
@@ -182,4 +179,31 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       iconData = Icons.remove_circle_outline;
     return iconData;
   }
-}*/
+
+  String getActivityProgressId(Activity activity) {
+    String id;
+    studentActivitiesList.forEach((studentActivity) {
+      if (activity.name == studentActivity.name) id = studentActivity.id;
+    });
+    return id;
+  }
+
+  void deleteActivityProgress(Activity activity) {
+    // Preferred Activity removing
+    Future<dynamic> isDeleted = studentService.deleteActivityProgress(
+        studentId, getActivityProgressId(activity));
+    isDeleted.then((result) {
+      if (result) {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text('Successfully Removed'),
+          backgroundColor: Colors.green,
+        ));
+      } else {
+        Scaffold.of(context).showSnackBar(new SnackBar(
+          content: new Text('Adding failed!'),
+          backgroundColor: Colors.redAccent,
+        ));
+      }
+    });
+  }
+}

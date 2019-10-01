@@ -1,9 +1,5 @@
 import 'dart:core';
 
-
-
-
-
 /*void main() => runApp(new NonSchoolStudentScreen());
 
 class NonSchoolStudentScreen extends StatefulWidget {
@@ -148,4 +144,3 @@ class NonSchoolStudentScreenState extends State<NonSchoolStudentScreen> {
   }
   
 }*/
-

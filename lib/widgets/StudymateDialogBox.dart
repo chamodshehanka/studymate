@@ -5,7 +5,6 @@ import 'package:studymate/widgets/TigerWidget.dart';
 class StudymateDialogBox extends StatelessWidget {
   final String title;
   final String description;
-  final String buttonText;
   final String tigerAnimationType;
   final bool confirmation;
   final VoidCallback confirmationAction;
@@ -14,7 +13,6 @@ class StudymateDialogBox extends StatelessWidget {
       {Key key,
       @required this.title,
       @required this.description,
-      @required this.buttonText,
       @required this.tigerAnimationType,
       @required this.confirmation,
       this.confirmationAction});
@@ -89,7 +87,7 @@ class StudymateDialogBox extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop(); // To close the dialog
                     },
-                    child: Text(buttonText),
+                    child: Text('No'),
                   ),
                 ],
               ),
