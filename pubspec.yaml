@@ -75,6 +75,7 @@ flutter:
     - assets/images/image7.jpg
     - assets/images/minion.png
     - assets/images/kids.png
+    - assets/images/user.png
     - assets/animations/MultiOptionButton.flr
     - assets/animations/tiger.flr
     - assets/images/Kevin_minions.png

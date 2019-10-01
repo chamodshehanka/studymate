@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:studymate/services/CloudFunctionsService.dart';
+import 'package:studymate/services/custom/AdminServices.dart';
+import 'package:studymate/services/custom/DoctorService.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 
 abstract class BaseAuthentication {
   Future<FirebaseUser> signIn(String email, String password);
-  Future<String> signUp(String email, String password, String userType);
+  Future<String> signUp(
+      String email, String password, String userType, Object userObject);
   Future<String> getCurrentUser();
   Future<void> signOut();
 }
@@ -12,6 +16,9 @@ abstract class BaseAuthentication {
 class Authentication implements BaseAuthentication {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   CloudFunctionService _cloudFunctionService = CloudFunctionService();
+  AdminService _adminService = AdminService();
+  DoctorService _doctorService = DoctorService();
+  StudentService _studentService = StudentService();
 
   @override
   Future<String> getCurrentUser() async {
@@ -33,7 +40,8 @@ class Authentication implements BaseAuthentication {
   }
 
   @override
-  Future<String> signUp(String email, String password, String userType) async {
+  Future<String> signUp(
+      String email, String password, String userType, Object userObject) async {
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
             email: email, password: password))
         .user;
@@ -45,6 +53,8 @@ class Authentication implements BaseAuthentication {
         customClaimResult.then((result) {
           print("Claim result : " + result);
         });
+        // Admin creation in collection
+        _adminService.create(userObject, user.uid);
         break;
       case 'doctor':
         Future<String> customClaimResult =
@@ -52,6 +62,8 @@ class Authentication implements BaseAuthentication {
         customClaimResult.then((result) {
           print("Claim result : " + result);
         });
+        // Doctor creation in collection
+        _doctorService.create(userObject, user.uid);
         break;
       case 'student':
         Future<String> customClaimResult =
@@ -59,6 +71,8 @@ class Authentication implements BaseAuthentication {
         customClaimResult.then((result) {
           print("Claim result : " + result);
         });
+        // student creation in collection
+        _studentService.createStudent(userObject, user.uid);
         break;
       default:
         print('Invalid user type!!');

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +9,6 @@ class AdminRegScreen extends StatefulWidget {
   _AdminRegScreenState createState() => _AdminRegScreenState();
 }
 
-
 class _AdminRegScreenState extends State<AdminRegScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
@@ -18,7 +16,6 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
   final TextEditingController _nicNumber = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
-  
 
   bool _autoValidate = false;
   bool _loadingVisible = false;
@@ -43,33 +40,73 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
           )),
     );
 
-    final firstName = StudymateTextField("First Name", _firstName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
+    final firstName = StudymateTextField(
+        "First Name",
+        _firstName,
+        "name",
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.text_fields,
+          color: Colors.grey,
+        ));
 
-    final lastName = StudymateTextField("Last Name", _lastName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
+    final lastName = StudymateTextField(
+        "Last Name",
+        _lastName,
+        "name",
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.text_fields,
+          color: Colors.grey,
+        ));
 
-     final nicNumber = StudymateTextField("NIC number", _nicNumber,
-     "NIC number", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+    final nicNumber = StudymateTextField(
+        "NIC number",
+        _nicNumber,
+        "NIC number",
+        Colors.grey,
+        TextInputType.emailAddress,
+        Icon(
+          Icons.email,
+          color: Colors.grey,
+        ));
 
-    final email = StudymateTextField("Email", _email,
-     "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+    final email = StudymateTextField(
+        "Email",
+        _email,
+        "email",
+        Colors.grey,
+        TextInputType.emailAddress,
+        Icon(
+          Icons.email,
+          color: Colors.grey,
+        ));
 
-    final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
-     "Phone number", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
-  
+    final phoneNumber = StudymateTextField(
+        "Phone Number",
+        _phoneNumber,
+        "Phone number",
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.lock,
+          color: Colors.grey,
+        ));
 
-    final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
-       _emailSignUp(
-              firstName: _firstName.text,
-              lastName: _lastName.text,
-              nicNumber: _nicNumber.text,
-              email: _email.text,
-              phoneNumber: _phoneNumber.text,
-              
-              context: context)
-    }, Colors.deepPurple);
-    
+    final signUpButton = StudymateRaisedButton(
+        "Sign Up",
+        () => {
+              _emailSignUp(
+                  firstName: _firstName.text,
+                  lastName: _lastName.text,
+                  nicNumber: _nicNumber.text,
+                  email: _email.text,
+                  phoneNumber: _phoneNumber.text,
+                  context: context)
+            },
+        Colors.deepPurple);
 
     final signInLabel = FlatButton(
       child: Text(
@@ -102,7 +139,9 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
                       lastName,
                       SizedBox(height: 24.0),
                       nicNumber,
-                      SizedBox(height: 24.0,),
+                      SizedBox(
+                        height: 24.0,
+                      ),
                       email,
                       SizedBox(height: 24.0),
                       phoneNumber,
@@ -136,7 +175,7 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
       try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
- 
+
         // await Auth.signUp(email, password).then((uID) {
         //   Auth.addUserSettingsDB(new User(
         //     userId: uID,
@@ -145,7 +184,7 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
         //     lastName: lastName,
         //   ));
         // });
-      
+
         await Navigator.pushNamed(context, '/sign_in');
       } catch (e) {
         _changeLoadingVisible();
@@ -161,5 +200,4 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
       setState(() => _autoValidate = true);
     }
   }
-   
 }
