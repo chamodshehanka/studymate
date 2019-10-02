@@ -55,6 +55,7 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
             HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
                 "/accounttype"),
             HomeTile(Icons.stars, "Rewards", Colors.pink, "/rewards"),
+            HomeTile(Icons.settings, "Admin Test", Colors.black, "/medicalRecord"),
           ],
         ));
   }

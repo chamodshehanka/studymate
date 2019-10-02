@@ -49,10 +49,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
-      // case '/forgotPassword':
-      //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
-      /*case '/nonSchoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());*/
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
