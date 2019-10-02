@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
+import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 
 class ActivityAdminDashboardScreen extends StatefulWidget {
@@ -296,6 +297,7 @@ class _ActivityAdminDashboardScreenState
         },
         child: Graph(
           animationController: _graphAnimationController,
+          values: dayData
         ),
       ),
     );

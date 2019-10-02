@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
 
 class Graph extends StatelessWidget {
   final AnimationController animationController;
+  final List<GraphData> values;
   final double height;
 
-  Graph({this.animationController, this.height = 120});
+  Graph({this.animationController, this.height = 120, this.values});
 
   @override
   Widget build(BuildContext context) {
@@ -14,28 +16,56 @@ class Graph extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          GraphBar(height: height, percentage: 0.5),
-          GraphBar(height: height, percentage: 0.8),
-          GraphBar(height: height, percentage: 0.7),
-          GraphBar(height: height, percentage: 0.1),
-        ],
+        children: _buildBars(values),
       ),
     );
+  }
+
+  _buildBars(List<GraphData> values) {
+    List<GraphBar> _bars = List();
+    GraphData _maxGraphData = values.reduce(
+        (current, next) => (next.compareTo(current) >= 1 ? next : current));
+
+    values.forEach((graphData) {
+      double percentage = graphData.value / _maxGraphData.value;
+      _bars.add(GraphBar(
+        height: height,
+        percentage: percentage,
+        graphBarAnimationController: animationController,
+      ));
+    });
+
+    return _bars;
   }
 }
 
 class GraphBar extends StatefulWidget {
   final double height;
   final double percentage;
+  final AnimationController graphBarAnimationController;
 
-  GraphBar({this.height, this.percentage});
+  GraphBar({this.height, this.percentage, this.graphBarAnimationController});
 
   @override
   _GraphBarState createState() => _GraphBarState();
 }
 
 class _GraphBarState extends State<GraphBar> {
+  Animation<double> _percentageAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _percentageAnimation = Tween(begin: 0, end: widget.percentage)
+        .animate(widget.graphBarAnimationController);
+
+        _percentageAnimation.addListener((){
+          setState(() {
+            
+          });
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
@@ -62,10 +92,11 @@ class BarPainter extends CustomPainter {
       ..strokeWidth = 5.0;
 
     Offset topPoint = Offset(0, 0);
-    Offset bottomPoint = Offset(0, size.height);
-    Offset centerPoint = Offset(0, size.height / 2);
+    Offset bottomPoint = Offset(0, (size.height + 20));
+    Offset centerPoint = Offset(0, (size.height + 20) / 2);
 
     canvas.drawLine(topPoint, bottomPoint, greyPaint);
+
     Paint filledPaint = Paint()
       ..shader = LinearGradient(
         colors: [Colors.pink.shade500, Colors.blue.shade500],
