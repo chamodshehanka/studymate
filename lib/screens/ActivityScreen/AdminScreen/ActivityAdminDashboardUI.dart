@@ -296,9 +296,7 @@ class _ActivityAdminDashboardScreenState
           _graphAnimationController.forward();
         },
         child: Graph(
-          animationController: _graphAnimationController,
-          values: dayData
-        ),
+            animationController: _graphAnimationController, values: monthData),
       ),
     );
   }

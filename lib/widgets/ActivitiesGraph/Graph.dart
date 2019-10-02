@@ -14,7 +14,6 @@ class Graph extends StatelessWidget {
       height: height,
       padding: EdgeInsets.symmetric(horizontal: 32),
       child: Row(
-        // mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: _buildBars(values),
       ),
@@ -67,7 +66,8 @@ class _GraphBarState extends State<GraphBar> {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: BarPainter(_percentageAnimation.value),
+      // painter: BarPainter(_percentageAnimation.value),
+      painter: BarPainter(widget.percentage),
       child: Container(
         height: widget.height,
         color: Colors.deepPurpleAccent,
@@ -84,7 +84,7 @@ class BarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint greyPaint = Paint()
-      ..color = Colors.grey
+      ..color = Colors.white70
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
 
@@ -96,9 +96,9 @@ class BarPainter extends CustomPainter {
 
     Paint filledPaint = Paint()
       ..shader = LinearGradient(
-        colors: [Colors.pink.shade500, Colors.blue.shade500],
-        begin: Alignment.topCenter
-      ).createShader(Rect.fromPoints(topPoint, bottomPoint))
+              colors: [Colors.pink.shade500, Colors.blue.shade500],
+              begin: Alignment.topCenter)
+          .createShader(Rect.fromPoints(topPoint, bottomPoint))
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
 
