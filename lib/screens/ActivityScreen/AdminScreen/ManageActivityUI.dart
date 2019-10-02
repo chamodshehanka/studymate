@@ -75,44 +75,55 @@ class ManageActivityScreen extends StatelessWidget {
                   initialValue: activity.type,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  color: Colors.deepPurpleAccent,
-                  textColor: Colors.white,
-                  child: Text('Save'),
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      elevation: 10,
+                      color: Colors.deepPurpleAccent,
+                      textColor: Colors.white,
+                      child: Text('Save'),
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
 
-                      if (activity.id != null) {
-                        Activity updatedActivity = Activity(
-                            activity.id, nameController.text, activity.type);
-                        print(activity.id);
-                        print(nameController.text);
-                        Future isUpdated =
-                            activityService.updateActivity(updatedActivity);
-                        if (isUpdated != null) {
-                          Navigator.pop(context);
+                          if (activity.id != null) {
+                            Activity updatedActivity = Activity(activity.id,
+                                nameController.text, activity.type);
+                            print(activity.id);
+                            print(nameController.text);
+                            Future isUpdated =
+                                activityService.updateActivity(updatedActivity);
+                            if (isUpdated != null) {
+                              Navigator.pop(context);
+                            }
+                          } else {
+                            Scaffold.of(context).showSnackBar(new SnackBar(
+                              content: new Text('Activity ID is not valid!'),
+                              backgroundColor: Colors.deepPurple,
+                            ));
+                          }
                         }
-                      } else {
-                        Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text('Activity ID is not valid!'),
-                          backgroundColor: Colors.deepPurple,
-                        ));
-                      }
-                    }
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  color: Colors.redAccent,
-                  textColor: Colors.white,
-                  child: Text('Remove'),
-                  onPressed: showDeleteConfirmationDialog,
-                ),
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                          elevation: 10,
+                      color: Colors.redAccent,
+                      textColor: Colors.white,
+                      child: Text('Remove'),
+                      onPressed: showDeleteConfirmationDialog,
+                    ),
+                  ),
+                ],
               ),
             ],
           )),
