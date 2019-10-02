@@ -24,10 +24,13 @@ import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
+import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
-import 'package:studymate/screens/UserScreen.dart/DoctorRegForm.dart';
+import 'package:studymate/screens/UserScreen.dart/AdminAddForm.dart';
+import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
+import 'package:studymate/screens/UserScreen.dart/StudentAddForm.dart';
 import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
@@ -51,8 +54,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignInScreen());
       // case '/forgotPassword':
       //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
-      /*case '/nonSchoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());*/
+      case '/SchoolStudentEditPage':
+        return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
@@ -110,9 +113,13 @@ class RouteGenerator {
       case '/profileUI':
         return MaterialPageRoute(builder: (_) => ProfileUIScreen());
       case '/udSubject':
-        return MaterialPageRoute(builder: (_) => UDSubjectUI());
-      case '/doctorReg':
-        return MaterialPageRoute(builder: (_) => DoctorRegScreen());
+        return MaterialPageRoute(builder: (_) => UDSubjectUI());  
+      case '/doctorAdd':
+        return MaterialPageRoute(builder: (_) => DoctorAddScreen());
+      case '/studentAdd':
+        return MaterialPageRoute(builder: (_) => StudentAddScreen()); 
+      case '/adminAdd':
+        return MaterialPageRoute(builder: (_) => AdminAddScreen());    
       default:
         return _errorRoute();
     }
