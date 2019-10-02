@@ -73,11 +73,13 @@ class BarPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
 
-      double filledHeight = percentage * size.height;
-      double filledHalfHeight = filledHeight / 2;
+    double filledHeight = percentage * size.height;
+    double filledHalfHeight = filledHeight / 2;
 
-      canvas.drawLine(centerPoint, Offset(0, filledHalfHeight), filledPaint);
-      canvas.drawLine(centerPoint, Offset(0, size.height - filledHalfHeight), filledPaint);
+    canvas.drawLine(
+        centerPoint, Offset(0, centerPoint.dy - filledHalfHeight), filledPaint);
+    canvas.drawLine(
+        centerPoint, Offset(0, centerPoint.dy + filledHalfHeight), filledPaint);
   }
 
   @override

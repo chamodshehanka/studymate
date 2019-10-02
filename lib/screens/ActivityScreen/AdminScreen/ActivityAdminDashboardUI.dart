@@ -12,8 +12,7 @@ class ActivityAdminDashboardScreen extends StatefulWidget {
 }
 
 class _ActivityAdminDashboardScreenState
-    extends State<ActivityAdminDashboardScreen>
-    with SingleTickerProviderStateMixin {
+    extends State<ActivityAdminDashboardScreen> with TickerProviderStateMixin {
   int noOfAllActivities = 0;
   int noOfLeisureActivities = 0;
   int noOfSocialActivities = 0;
