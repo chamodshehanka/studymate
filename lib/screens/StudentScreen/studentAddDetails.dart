@@ -10,17 +10,16 @@ import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
 
-class NonSchoolStudentScreen extends StatefulWidget {
-  _NonSchoolStudentScreenState createState() => _NonSchoolStudentScreenState();
+class StudentAddDetailsScreen extends StatefulWidget {
+  _StudentAddDetailsScreenState createState() => _StudentAddDetailsScreenState();
 }
 
-class _NonSchoolStudentScreenState extends State<NonSchoolStudentScreen> {
+class _StudentAddDetailsScreenState extends State<StudentAddDetailsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
-
 
   bool _autoValidate = false;
   bool _loadingVisible = false;
@@ -28,8 +27,6 @@ class _NonSchoolStudentScreenState extends State<NonSchoolStudentScreen> {
   void initState() {
     super.initState();
   }
-
-    
 
   Widget build(BuildContext context) {
     final logo = Hero(

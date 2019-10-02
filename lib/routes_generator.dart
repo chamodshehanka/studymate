@@ -24,7 +24,7 @@ import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
-import 'package:studymate/screens/StudentScreen/editProfileSchoolStudent.dart';
+import 'package:studymate/screens/StudentScreen/studentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
@@ -52,10 +52,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
-      // case '/forgotPassword':
-      //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
-      case '/SchoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => SchoolStudentScreen());
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
@@ -67,8 +63,8 @@ class RouteGenerator {
             builder: (_) => ActivityAdminDashboardScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
-      case '/adminActivity':
-        return MaterialPageRoute(builder: (_) => AdminActivityScreen());
+      case '/adminActivityList':
+        return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
         return MaterialPageRoute(
             builder: (_) => ManageActivityScreen(activity: null));
@@ -106,6 +102,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => CreateSchedule());
       case '/chat':
         return MaterialPageRoute(builder: (_) => ChatScreen());
+      case '/studentAddDetails':
+        return MaterialPageRoute(builder: (_) => StudentAddDetailsScreen());  
       case '/subject':
         return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':
