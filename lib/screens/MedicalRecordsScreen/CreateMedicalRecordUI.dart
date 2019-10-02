@@ -84,17 +84,23 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
             child: Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: StudymateTextField(
-                      'Student Name',
-                      _studentNameController,
-                      'text',
-                      Colors.grey,
-                      TextInputType.text,
-                      Icon(Icons.search, color: Colors.grey)),
+                  padding: EdgeInsets.all(1.0),
+                  child: Container(
+                    width: 255,
+                    child: StudymateTextField(
+                        'Student Name',
+                        _studentNameController,
+                        'text',
+                        Colors.grey,
+                        TextInputType.text,
+                        Icon(Icons.search, color: Colors.grey)),
+                  ),
                 ),
-                StudymateRaisedButton(
-                    'Search', searchStudent, Colors.purpleAccent),
+                Container(
+                  width: 150,
+                  child: StudymateRaisedButton(
+                      'Search', searchStudent, Colors.deepPurpleAccent),
+                ),
               ],
             ),
           ),
@@ -157,5 +163,7 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
             body: createMedicalRecordBody));
   }
 
-  void searchStudent() {}
+  void searchStudent() {
+    print('Search student' + _studentNameController.text);
+  }
 }

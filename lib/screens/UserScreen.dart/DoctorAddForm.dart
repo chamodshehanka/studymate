@@ -7,11 +7,11 @@ import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
-class DoctorRegScreen extends StatefulWidget {
-  _DoctorRegScreenState createState() => _DoctorRegScreenState();
+class DoctorAddScreen extends StatefulWidget {
+  _DoctorAddScreenState createState() => _DoctorAddScreenState();
 }
 
-class _DoctorRegScreenState extends State<DoctorRegScreen> {
+class _DoctorAddScreenState extends State<DoctorAddScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
@@ -20,7 +20,8 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
   final TextEditingController _email = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _workingPlace = new TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
   BaseAuthentication _authentication = Authentication();
 
   bool _autoValidate = false;
@@ -37,13 +38,13 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
           backgroundColor: Colors.transparent,
           radius: 40.0,
           child: ClipOval(
-            child: Image.asset(
-              'assets/images/user.png',
-              fit: BoxFit.cover,
-              width: 80.0,
-              height: 80.0,
-            ),
-          )),
+              // child: Image.asset(
+              //   'assets/images/user.png',
+              //   fit: BoxFit.cover,
+              //   width: 80.0,
+              //   height: 80.0,
+              // ),
+              )),
     );
 
     final firstName = StudymateTextField(
@@ -53,7 +54,7 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
         Colors.grey,
         TextInputType.text,
         Icon(
-          Icons.text_fields,
+          Icons.person,
           color: Colors.grey,
         ));
 
@@ -64,7 +65,7 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
         Colors.grey,
         TextInputType.text,
         Icon(
-          Icons.text_fields,
+          Icons.person,
           color: Colors.grey,
         ));
 
@@ -73,9 +74,9 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
         _nicNumber,
         "NIC number",
         Colors.grey,
-        TextInputType.emailAddress,
+        TextInputType.text,
         Icon(
-          Icons.email,
+          Icons.credit_card,
           color: Colors.grey,
         ));
 
@@ -84,9 +85,9 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
         _slmcRegNumber,
         "SLMC reg number",
         Colors.grey,
-        TextInputType.emailAddress,
+        TextInputType.text,
         Icon(
-          Icons.email,
+          Icons.credit_card,
           color: Colors.grey,
         ));
 
@@ -103,8 +104,19 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
 
     final password = StudymateTextField(
         'Password',
-        _passwordController,
-        'text',
+        _password,
+        'password',
+        Colors.grey,
+        TextInputType.visiblePassword,
+        Icon(
+          Icons.lock,
+          color: Colors.grey,
+        ));
+
+    final confirmPassword = StudymateTextField(
+        'Confirm password',
+        _confirmPassword,
+        'password',
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -119,7 +131,7 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
         Colors.grey,
         TextInputType.text,
         Icon(
-          Icons.lock,
+          Icons.phone,
           color: Colors.grey,
         ));
 
@@ -128,14 +140,14 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
         _workingPlace,
         "working place",
         Colors.grey,
-        TextInputType.emailAddress,
+        TextInputType.text,
         Icon(
-          Icons.email,
+          Icons.place,
           color: Colors.grey,
         ));
 
     final signUpButton = StudymateRaisedButton(
-        "Sign Up",
+        "Create Account",
         () => {
               _emailSignUp(
                   firstName: _firstName.text,
@@ -143,22 +155,13 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
                   nicNumber: _nicNumber.text,
                   slmcRegNumber: _slmcRegNumber.text,
                   email: _email.text,
-                  password: _passwordController.text,
+                  password: _password.text,
+                  confirmPassword: _confirmPassword.text,
                   phoneNumber: _phoneNumber.text,
                   workingPlace: _workingPlace.text,
                   context: context)
             },
         Colors.deepPurple);
-
-    final signInLabel = FlatButton(
-      child: Text(
-        'Have an Account? Sign In.',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {
-        Navigator.pushNamed(context, '/signin');
-      },
-    );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -192,12 +195,13 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
                       SizedBox(height: 1.0),
                       password,
                       SizedBox(height: 1.0),
+                      confirmPassword,
+                      SizedBox(height: 1.0),
                       phoneNumber,
                       SizedBox(height: 1.0),
                       workingPlace,
                       SizedBox(height: 1.0),
                       signUpButton,
-                      signInLabel
                     ],
                   ),
                 ),
@@ -221,6 +225,7 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
       String slmcRegNumber,
       String email,
       String password,
+      String confirmPassword,
       String phoneNumber,
       String workingPlace,
       BuildContext context}) async {
@@ -233,23 +238,9 @@ class _DoctorRegScreenState extends State<DoctorRegScreen> {
             'id', firstName, lastName, slmcRegNumber, nicNumber, workingPlace);
 
         _authentication.signUp(email, password, 'doctor', doctor);
-        // await Auth.signUp(email, password).then((uID) {
-        //   Auth.addUserSettingsDB(new User(
-        //     userId: uID,
-        //     email: email,
-        //     firstName: firstName,
-        //     lastName: lastName,
-        //   ));
-        // });
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
-        //String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Sign Up Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);

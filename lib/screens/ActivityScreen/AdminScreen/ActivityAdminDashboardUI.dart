@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
+import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
+import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 
 class ActivityAdminDashboardScreen extends StatefulWidget {
@@ -11,8 +13,7 @@ class ActivityAdminDashboardScreen extends StatefulWidget {
 }
 
 class _ActivityAdminDashboardScreenState
-    extends State<ActivityAdminDashboardScreen>
-    with SingleTickerProviderStateMixin {
+    extends State<ActivityAdminDashboardScreen> with TickerProviderStateMixin {
   int noOfAllActivities = 0;
   int noOfLeisureActivities = 0;
   int noOfSocialActivities = 0;
@@ -20,6 +21,7 @@ class _ActivityAdminDashboardScreenState
   AnimationController _controller;
   Animation<double> _heightAnimation;
   Animation<double> _iconSizeAnimation;
+  AnimationController _graphAnimationController;
 
   @override
   void initState() {
@@ -44,6 +46,16 @@ class _ActivityAdminDashboardScreenState
     _controller.addListener(() {
       setState(() {});
     });
+
+    // Graph Animations
+    _graphAnimationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 2));
+  }
+
+  @override
+  void dispose() {
+    _graphAnimationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -276,7 +288,22 @@ class _ActivityAdminDashboardScreenState
 
   // Have to impl
   Widget _buildActivitiesChart(Size media) {
-    return Container();
+    return Column(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          height: 100,
+          child: InkWell(
+            onTap: () {
+              _graphAnimationController.forward();
+            },
+            child: Graph(
+                animationController: _graphAnimationController,
+                values: monthData),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget buildDashboardRow1() {
