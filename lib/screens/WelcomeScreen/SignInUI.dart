@@ -165,7 +165,7 @@ class _SignInScreenState extends State<SignInScreen> {
             bool isStudent = result.claims['student'] ?? false;
 
             // print('Is Admin' + isAdmin.toString());
-            print('Claim result : ' + result.claims.toString());
+            // print('Claim result : ' + result.claims.toString());
 
             if (isAdmin) {
               Navigator.pushNamed(context, '/homeAdmin');
