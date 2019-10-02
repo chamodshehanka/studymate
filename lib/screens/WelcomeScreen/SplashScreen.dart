@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/services/Authentication.dart';
 
@@ -10,20 +12,46 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   BaseAuthentication _auth = Authentication();
+  Future<FirebaseUser> firebaseUser = FirebaseAuth.instance.currentUser();
+  
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/welcome'));
+    
     _auth.getCurrentUser().then((currentUser) => {
-          if (currentUser != null)
-            {
-              // Have to impl correct role based one
-              Timer(Duration(seconds: 5),
-                  () => Navigator.pushNamed(context, '/home'))
+          if (currentUser != null){
+           
+               firebaseUser.then((user){
+              user.getIdToken().then((result) {
+            bool isAdmin = result.claims['moderator'] ?? false;
+            bool isDoctor = result.claims['doctor'] ?? false;
+            bool isStudent = result.claims['student'] ?? false;
+
+          log("ADMIN "+isAdmin.toString());
+           log("DOCTOR "+isDoctor.toString());
+            log("STUDENT "+isStudent.toString());
+
+            if (isAdmin) {
+              Navigator.pushNamed(context, '/homeAdmin');
+          
+            } else if (isDoctor) {
+               
+              Navigator.pushNamed(context, '/homeDoctor');
+              
+            } else if (isStudent) {
+               
+              Navigator.pushNamed(context, '/studentMain');
+              
+              
             }
+            });
+               })
+               
+          }
           else
             {
-              Timer(Duration(seconds: 5),
-                  () => Navigator.pushNamed(context, '/welcome'))
+              
+                 Navigator.pushNamed(context, '/welcome'),
+                
             }
         });
   }
