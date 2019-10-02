@@ -39,6 +39,11 @@ class _ActivityAdminDashboardScreenState
 
     _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
         new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
+
+    // Adding listner to animation controller
+    _controller.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
