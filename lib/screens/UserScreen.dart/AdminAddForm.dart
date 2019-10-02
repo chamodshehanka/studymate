@@ -7,17 +7,18 @@ import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
-class AdminRegScreen extends StatefulWidget {
-  _AdminRegScreenState createState() => _AdminRegScreenState();
+class AdminAddScreen extends StatefulWidget {
+  _AdminAddScreenState createState() => _AdminAddScreenState();
 }
 
-class _AdminRegScreenState extends State<AdminRegScreen> {
+class _AdminAddScreenState extends State<AdminAddScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
   final TextEditingController _nicNumber = new TextEditingController();
   final TextEditingController _email = new TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _workingPlaceController =
       new TextEditingController();
@@ -53,7 +54,7 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
         Colors.grey,
         TextInputType.text,
         Icon(
-          Icons.text_fields,
+          Icons.person,
           color: Colors.grey,
         ));
 
@@ -64,7 +65,7 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
         Colors.grey,
         TextInputType.text,
         Icon(
-          Icons.text_fields,
+          Icons.person,
           color: Colors.grey,
         ));
 
@@ -73,9 +74,9 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
         _nicNumber,
         "NIC number",
         Colors.grey,
-        TextInputType.emailAddress,
+        TextInputType.text,
         Icon(
-          Icons.email,
+          Icons.credit_card,
           color: Colors.grey,
         ));
 
@@ -97,13 +98,13 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
         Colors.grey,
         TextInputType.text,
         Icon(
-          Icons.lock,
+          Icons.phone,
           color: Colors.grey,
         ));
 
     final password = StudymateTextField(
-        'password',
-        _passwordController,
+        'Password',
+        _password,
         'text',
         Colors.grey,
         TextInputType.visiblePassword,
@@ -111,6 +112,17 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
           Icons.lock,
           color: Colors.grey,
         ));
+
+     final confirmPassword = StudymateTextField(
+        'Confirm password',
+        _confirmPassword,
+        'text',
+        Colors.grey,
+        TextInputType.visiblePassword,
+        Icon(
+          Icons.lock,
+          color: Colors.grey,
+        ));   
 
     final workingPlace = StudymateTextField(
         'Working Place',
@@ -121,27 +133,21 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
         Icon(Icons.place, color: Colors.grey));
 
     final signUpButton = StudymateRaisedButton(
-        "Sign Up",
+        "Create Account",
         () => {
               _emailSignUp(
                   firstName: _firstName.text,
                   lastName: _lastName.text,
                   nicNumber: _nicNumber.text,
                   email: _email.text,
+                  password: _password.text,
+                  confirmPassword: _confirmPassword.text,
                   phoneNumber: _phoneNumber.text,
                   context: context)
             },
         Colors.deepPurple);
 
-    final signInLabel = FlatButton(
-      child: Text(
-        'Have an Account? Sign In.',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {
-        Navigator.pushNamed(context, '/signin');
-      },
-    );
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -171,12 +177,14 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
                       SizedBox(height: 1.0),
                       password,
                       SizedBox(height: 1.0),
+                      confirmPassword,
+                      SizedBox(height: 1.0),
                       phoneNumber,
                       SizedBox(height: 1.0),
                       workingPlace,
                       SizedBox(height: 1.0),
                       signUpButton,
-                      signInLabel
+                      
                     ],
                   ),
                 ),
@@ -199,6 +207,7 @@ class _AdminRegScreenState extends State<AdminRegScreen> {
       String nicNumber,
       String email,
       String password,
+      String confirmPassword,
       String phoneNumber,
       String workingPlace,
       BuildContext context}) async {

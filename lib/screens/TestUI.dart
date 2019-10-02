@@ -51,6 +51,22 @@ class _TestUIScreenState extends State<TestUIScreen> {
                     {Navigator.pushNamed(context, '/doctorReg')},
               ),
               RaisedButton(
+                child: Text('Doctor Reg'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/studentAdd')},
+              ),
+              RaisedButton(
+                child: Text('Doctor Reg'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/SchoolStudentEditPage')},
+              ),
+              RaisedButton(
                   child: Text('Admin Activity Dashboard'),
                   color: Colors.deepPurpleAccent,
                   textColor: Colors.white,
