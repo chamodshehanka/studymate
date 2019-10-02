@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/models/Activity.dart';
+import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 
 class ActivityAdminDashboardScreen extends StatefulWidget {
@@ -10,36 +13,37 @@ class ActivityAdminDashboardScreen extends StatefulWidget {
 class _ActivityAdminDashboardScreenState
     extends State<ActivityAdminDashboardScreen>
     with SingleTickerProviderStateMixin {
-  int noOfAllActivities = 10;
-  int noOfLeisureActivities = 20;
-  int noOfSocialActivities = 30;
+  int noOfAllActivities = 0;
+  int noOfLeisureActivities = 0;
+  int noOfSocialActivities = 0;
   int noOfOtherActivities = 0;
-  // AnimationController _controller;
-  // Animation<double> _heightAnimation;
-  // Animation<double> _iconSizeAnimation;
+  AnimationController _controller;
+  Animation<double> _heightAnimation;
+  Animation<double> _iconSizeAnimation;
 
   @override
   void initState() {
     super.initState();
 
+    // To get activities count
     _getActivitiesCount();
+
     // Theme block
-    // _controller = new AnimationController(
-    //   vsync: this,
-    //   duration: const Duration(milliseconds: 300),
-    // );
+    _controller = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
 
-    // _heightAnimation = new Tween<double>(begin: 0.0, end: 220.0).animate(
-    //     new CurvedAnimation(curve: Curves.decelerate, parent: _controller));
+    _heightAnimation = new Tween<double>(begin: 0.0, end: 220.0).animate(
+        new CurvedAnimation(curve: Curves.decelerate, parent: _controller));
 
-    // _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
-    //     new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
+    _iconSizeAnimation = new Tween<double>(begin: 10, end: 35.0).animate(
+        new CurvedAnimation(curve: Curves.easeOut, parent: _controller));
 
-    // _controller.addListener(() {
-    //   setState(() {});
-    // });
-
-    // _heightAnimation.toString();
+    // Adding listner to animation controller
+    _controller.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -110,10 +114,158 @@ class _ActivityAdminDashboardScreenState
                 ),
               ),
             ),
-            //Add Another position
-            // https://www.youtube.com/watch?v=L6UKUfLmrNg
+            // Second position Layer
+            Positioned(
+              top: media.height * .38,
+              height: (media.height * .66) - 100,
+              width: media.width,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Activities Usage',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Colors.deepPurple,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Expanded(
+                      child: Container(
+                        child: _buildActivitiesChart(media),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'text',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Expanded(
+                      child: Container(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Floating Menu Overlay
+            Positioned(
+              top: 0,
+              child: FadeTransition(
+                opacity: _controller,
+                child: GestureDetector(
+                  onTap: () {
+                    _controller.reverse();
+                  },
+                  child: Container(
+                    width: _heightAnimation.value > 5 ? media.width : 0,
+                    height: _heightAnimation.value > 5 ? media.height : 0,
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              width: 56, // width of floating button
+              height: _heightAnimation.value,
+              bottom: 28, // middle of floating button
+              left: (media.width / 2) + 134,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.deepPurpleAccent,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(5),
+                    bottomRight: Radius.circular(5),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5, bottom: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Visibility(
+                        visible: _heightAnimation.value > 210,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.list,
+                            color: Colors.white,
+                            size: _iconSizeAnimation.value,
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/adminActivityList');
+                            _controller.reverse();
+                          },
+                        ),
+                      ),
+                      Visibility(
+                        visible: _heightAnimation.value > 160,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.history,
+                            color: Colors.white,
+                            size: _iconSizeAnimation.value,
+                          ),
+                          onPressed: () {
+                            // impl
+                            _controller.reverse();
+                          },
+                        ),
+                      ),
+                      Visibility(
+                        visible: _heightAnimation.value > 90,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.insert_drive_file,
+                            color: Colors.white,
+                            size: _iconSizeAnimation.value,
+                          ),
+                          onPressed: () {
+                            // have to impl
+                            _controller.reverse();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        heroTag: null,
+        backgroundColor: Colors.deepPurpleAccent,
+        child: AnimatedBuilder(
+          animation: _controller,
+          builder: (BuildContext context, Widget child) {
+            return Transform(
+              transform:
+                  new Matrix4.rotationZ(_controller.value * 0.5 * 22 / 7.0),
+              alignment: FractionalOffset.center,
+              child: Icon(_controller.isDismissed ? Icons.menu : Icons.close),
+            );
+          },
+        ),
+        onPressed: () {
+          if (_controller.isDismissed) {
+            _controller.forward();
+          } else {
+            _controller.reverse();
+          }
+        },
       ),
     );
   }
@@ -122,9 +274,10 @@ class _ActivityAdminDashboardScreenState
   //   return Container();
   // }
 
-  // Widget _buildRoutinesItem(Size media) {
-  //   return Container();
-  // }
+  // Have to impl
+  Widget _buildActivitiesChart(Size media) {
+    return Container();
+  }
 
   Widget buildDashboardRow1() {
     return Expanded(
@@ -160,24 +313,6 @@ class _ActivityAdminDashboardScreenState
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 15),
                         ),
-                        // Container(
-                        //   width: 30,
-                        //   height: 12,
-                        //   padding: const EdgeInsets.all(1.5),
-                        //   decoration: BoxDecoration(
-                        //     borderRadius: BorderRadius.circular(2),
-                        //     border: Border.all(color: Colors.grey, width: 0.5),
-                        //   ),
-                        //   child: Container(
-                        //     padding: const EdgeInsets.only(right: 7),
-                        //     child: Container(
-                        //       decoration: BoxDecoration(
-                        //         color: Color(0xff0ed02d),
-                        //         borderRadius: BorderRadius.circular(2),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),
@@ -195,7 +330,7 @@ class _ActivityAdminDashboardScreenState
                     width: 75,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/leisure.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -242,7 +377,7 @@ class _ActivityAdminDashboardScreenState
                     width: 70,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/speaking.jpg'),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -262,7 +397,6 @@ class _ActivityAdminDashboardScreenState
                         Text(noOfSocialActivities.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 15)),
-                        // Text('Done 9.30', style: TextStyle(fontSize: 13.5)),
                       ],
                     ),
                   ),
@@ -283,7 +417,7 @@ class _ActivityAdminDashboardScreenState
                     width: 75,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: ExactAssetImage('assets/images/kids.png'),
+                        image: ExactAssetImage('assets/images/swimming.jpg'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -301,9 +435,6 @@ class _ActivityAdminDashboardScreenState
                         Text(noOfOtherActivities.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 15)),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
                       ],
                     ),
                   ),
@@ -316,5 +447,21 @@ class _ActivityAdminDashboardScreenState
     );
   }
 
-  void _getActivitiesCount() {}
+  // Get Activities count from Activity Collection
+  void _getActivitiesCount() {
+    Stream<QuerySnapshot> activityList = ActivityService().getActivityList();
+    activityList.forEach((activity) {
+      setState(() {
+        noOfAllActivities = activity.documents.length;
+        activity.documents.forEach((doc) {
+          Activity activity = Activity.fromMap(doc.data);
+          if (activity.type == 'Social') {
+            noOfSocialActivities++;
+          } else if (activity.type == 'Leisure') {
+            noOfLeisureActivities++;
+          }
+        });
+      });
+    });
+  }
 }

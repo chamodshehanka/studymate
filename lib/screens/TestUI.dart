@@ -43,12 +43,12 @@ class _TestUIScreenState extends State<TestUIScreen> {
                     {Navigator.pushNamed(context, '/adminActivity')},
               ),
               RaisedButton(
-                child: Text('Activity Menu'),
+                child: Text('Doctor Reg'),
                 color: Colors.deepPurpleAccent,
                 textColor: Colors.white,
                 focusColor: Colors.deepPurple,
                 onPressed: () =>
-                    {Navigator.pushNamed(context, '/activityMenu')},
+                    {Navigator.pushNamed(context, '/doctorReg')},
               ),
               RaisedButton(
                   child: Text('Admin Activity Dashboard'),

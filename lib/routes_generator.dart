@@ -27,6 +27,7 @@ import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
+import 'package:studymate/screens/UserScreen.dart/DoctorRegForm.dart';
 import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
@@ -48,10 +49,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
-      // case '/forgotPassword':
-      //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
-      /*case '/nonSchoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());*/
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
@@ -63,8 +60,8 @@ class RouteGenerator {
             builder: (_) => ActivityAdminDashboardScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
-      case '/adminActivity':
-        return MaterialPageRoute(builder: (_) => AdminActivityScreen());
+      case '/adminActivityList':
+        return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
         return MaterialPageRoute(
             builder: (_) => ManageActivityScreen(activity: null));
@@ -110,6 +107,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ProfileUIScreen());
       case '/udSubject':
         return MaterialPageRoute(builder: (_) => UDSubjectUI());
+      case '/doctorReg':
+        return MaterialPageRoute(builder: (_) => DoctorRegScreen());
       default:
         return _errorRoute();
     }
