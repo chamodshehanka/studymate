@@ -38,13 +38,13 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
           backgroundColor: Colors.transparent,
           radius: 40.0,
           child: ClipOval(
-            // child: Image.asset(
-            //   'assets/images/user.png',
-            //   fit: BoxFit.cover,
-            //   width: 80.0,
-            //   height: 80.0,
-            // ),
-          )),
+              // child: Image.asset(
+              //   'assets/images/user.png',
+              //   fit: BoxFit.cover,
+              //   width: 80.0,
+              //   height: 80.0,
+              // ),
+              )),
     );
 
     final firstName = StudymateTextField(
@@ -113,7 +113,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
           color: Colors.grey,
         ));
 
-      final confirmPassword = StudymateTextField(
+    final confirmPassword = StudymateTextField(
         'Confirm password',
         _confirmPassword,
         'password',
@@ -122,7 +122,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         Icon(
           Icons.lock,
           color: Colors.grey,
-        ));    
+        ));
 
     final phoneNumber = StudymateTextField(
         "Phone Number",
@@ -202,7 +202,6 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
                       workingPlace,
                       SizedBox(height: 1.0),
                       signUpButton,
-                      
                     ],
                   ),
                 ),
@@ -239,23 +238,9 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
             'id', firstName, lastName, slmcRegNumber, nicNumber, workingPlace);
 
         _authentication.signUp(email, password, 'doctor', doctor);
-        // await Auth.signUp(email, password).then((uID) {
-        //   Auth.addUserSettingsDB(new User(
-        //     userId: uID,
-        //     email: email,
-        //     firstName: firstName,
-        //     lastName: lastName,
-        //   ));
-        // });
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
-        //String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Sign Up Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);
