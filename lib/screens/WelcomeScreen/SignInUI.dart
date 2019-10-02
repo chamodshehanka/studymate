@@ -200,16 +200,16 @@ class _SignInScreenState extends State<SignInScreen> {
           }).catchError((e) {
             print(e);
 
-            // showDialog(
-            //     context: context,
-            //     builder: (BuildContext context) {
-            //       return StudymateDialogBox(
-            //         title: 'Sign In Failed',
-            //         description: 'User not valid',
-            //         confirmation: false,
-            //         tigerAnimationType: 'fail',
-            //       );
-            //     });
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StudymateDialogBox(
+                    title: 'Sign In Failed',
+                    description: 'User not valid',
+                    confirmation: false,
+                    tigerAnimationType: 'fail',
+                  );
+                });
           });
         });
       } else {
