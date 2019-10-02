@@ -288,16 +288,21 @@ class _ActivityAdminDashboardScreenState
 
   // Have to impl
   Widget _buildActivitiesChart(Size media) {
-    return Container(
-      alignment: Alignment.center,
-      height: 100,
-      child: InkWell(
-        onTap: () {
-          _graphAnimationController.forward();
-        },
-        child: Graph(
-            animationController: _graphAnimationController, values: monthData),
-      ),
+    return Column(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          height: 100,
+          child: InkWell(
+            onTap: () {
+              _graphAnimationController.forward();
+            },
+            child: Graph(
+                animationController: _graphAnimationController,
+                values: monthData),
+          ),
+        ),
+      ],
     );
   }
 
