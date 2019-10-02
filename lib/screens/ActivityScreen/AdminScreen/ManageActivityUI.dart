@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class ManageActivityScreen extends StatelessWidget {
   final Activity activity;
@@ -18,12 +19,11 @@ class ManageActivityScreen extends StatelessWidget {
     void activityDeleteAction() {
       Future<dynamic> isDeleted = activityService.deleteActivity(activity.id);
       if (isDeleted != null) {
-        Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text("Successfully Deleted!"),
-          backgroundColor: Colors.deepPurple,
-        ));
+        print('Deleted!!');
         Navigator.pop(context);
-      } else {}
+      } else {
+        print('Activity Delete Failed');
+      }
     }
 
     void showDeleteConfirmationDialog() {
@@ -57,17 +57,13 @@ class ManageActivityScreen extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: "Activity Name"),
-                  controller: nameController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter activity name';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
+                child: StudymateTextField(
+                    'Activity Name',
+                    nameController,
+                    'text',
+                    Colors.grey,
+                    TextInputType.text,
+                    Icon(Icons.local_activity, color: Colors.grey)),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
@@ -102,10 +98,7 @@ class ManageActivityScreen extends StatelessWidget {
                               Navigator.pop(context);
                             }
                           } else {
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text('Activity ID is not valid!'),
-                              backgroundColor: Colors.deepPurple,
-                            ));
+                            print('Activity id is not valid');
                           }
                         }
                       },
@@ -116,7 +109,7 @@ class ManageActivityScreen extends StatelessWidget {
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30)),
-                          elevation: 10,
+                      elevation: 10,
                       color: Colors.redAccent,
                       textColor: Colors.white,
                       child: Text('Remove'),
