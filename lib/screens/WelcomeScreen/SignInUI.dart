@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
@@ -26,6 +29,7 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _blackVisible = false;
   VoidCallback onBackPress;
   String mascotAnimationType;
+  StudentService studentService = StudentService();
 
   @override
   void initState() {
@@ -161,14 +165,26 @@ class _SignInScreenState extends State<SignInScreen> {
             bool isStudent = result.claims['student'] ?? false;
 
             // print('Is Admin' + isAdmin.toString());
-            // print('Claim result : ' + result.claims.toString());
+            print('Claim result : ' + result.claims.toString());
 
             if (isAdmin) {
               Navigator.pushNamed(context, '/homeAdmin');
             } else if (isDoctor) {
               Navigator.pushNamed(context, '/homeDoctor');
             } else if (isStudent) {
-              Navigator.pushNamed(context, '/home');
+              Future<QuerySnapshot> data = studentService.getByID(user.uid);
+
+              data.then((value) {
+                Student student = Student.map(value.documents.first.data);
+
+                if (student.name != null && student.phoneNumber != null) {
+                  // Already regiesterd student
+                  Navigator.pushNamed(context, '/home');
+                } else {
+                  // For first time login student
+                  Navigator.pushNamed(context, '/changePassword');
+                }
+              });
             } else {
               showDialog(
                   context: context,
@@ -184,16 +200,16 @@ class _SignInScreenState extends State<SignInScreen> {
           }).catchError((e) {
             print(e);
 
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return StudymateDialogBox(
-                    title: 'Sign In Failed',
-                    description: 'User not valid',
-                    confirmation: false,
-                    tigerAnimationType: 'fail',
-                  );
-                });
+            // showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) {
+            //       return StudymateDialogBox(
+            //         title: 'Sign In Failed',
+            //         description: 'User not valid',
+            //         confirmation: false,
+            //         tigerAnimationType: 'fail',
+            //       );
+            //     });
           });
         });
       } else {

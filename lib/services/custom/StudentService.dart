@@ -36,8 +36,19 @@ class StudentService {
     });
   }
 
-  Future<Student> getByID(String id) {
-    return null;
+  Future<QuerySnapshot> getByID(String uid) {
+    // Future<QuerySnapshot> snapshot = studentsCollection.where('id', isEqualTo: uid).limit(1).getDocuments();
+    // Student student;
+    // snapshot.then((value){
+    //   print(value.documents.first.data);
+    //   student = Student.map(value.documents.first.data);
+    //   print(student.email);
+    // });
+
+    return studentsCollection
+        .where('id', isEqualTo: uid)
+        .limit(1)
+        .getDocuments();
   }
 
   Stream<QuerySnapshot> getStudentList({int offset, int limit}) {
