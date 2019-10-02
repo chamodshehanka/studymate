@@ -49,10 +49,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
-      // case '/forgotPassword':
-      //   return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
-      /*case '/nonSchoolStudentEditPage':
-        return MaterialPageRoute(builder: (_) => NonSchoolStudentScreen());*/
       case '/accounttype':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
@@ -64,8 +60,8 @@ class RouteGenerator {
             builder: (_) => ActivityAdminDashboardScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
-      case '/adminActivity':
-        return MaterialPageRoute(builder: (_) => AdminActivityScreen());
+      case '/adminActivityList':
+        return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
         return MaterialPageRoute(
             builder: (_) => ManageActivityScreen(activity: null));

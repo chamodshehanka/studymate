@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class CreateMedicalRecordScreen extends StatefulWidget {
   _CreateMedicalRecordScreenState createState() =>
@@ -10,6 +12,7 @@ class CreateMedicalRecordScreen extends StatefulWidget {
 }
 
 class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
+  final TextEditingController _studentNameController = TextEditingController();
   File image;
   bool _isUploaded;
   String _downloadUrl;
@@ -25,13 +28,13 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
 
     setState(() {
       image = pickImage;
+      print('Pick image : ' + pickImage);
     });
   }
 
   Future<dynamic> uploadImage() async {
     final StorageUploadTask task = reference.putFile(image);
     /* StorageTaskSnapshot snapshot = */ await task.onComplete;
-    //
 
     setState(() {
       _isUploaded = true;
@@ -72,10 +75,31 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
   @override
   Widget build(BuildContext context) {
     var createMedicalRecordBody = Container(
+      alignment: Alignment.topCenter,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          SafeArea(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: StudymateTextField(
+                      'Student Name',
+                      _studentNameController,
+                      'text',
+                      Colors.grey,
+                      TextInputType.text,
+                      Icon(Icons.search, color: Colors.grey)),
+                ),
+                StudymateRaisedButton(
+                    'Search', searchStudent, Colors.purpleAccent),
+              ],
+            ),
+          ),
+
+          // Image widgets
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: image == null ? Text('Select an image') : enableUpload(),
@@ -87,22 +111,27 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
                 : Image.network(
                     'https://hacktoberfest.digitalocean.com/pretty_logo.png'),
           ),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: Colors.deepPurpleAccent,
-                textColor: Colors.white,
-                child: Text('Add Image'),
-                onPressed: () => {getImage(false)},
-              )),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: Colors.deepPurpleAccent,
-                textColor: Colors.white,
-                child: Text('Take a photo'),
-                onPressed: () => {getImage(true)},
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RaisedButton(
+                    color: Colors.deepPurpleAccent,
+                    textColor: Colors.white,
+                    child: Text('Select from gallery'),
+                    onPressed: () => {getImage(false)},
+                  )),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RaisedButton(
+                    color: Colors.deepPurpleAccent,
+                    textColor: Colors.white,
+                    child: Text('Take a photo'),
+                    onPressed: () => {getImage(true)},
+                  )),
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: RaisedButton(
@@ -111,6 +140,7 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
               child: Text('Cancel'),
               onPressed: () {
                 Navigator.pop(context);
+                // print('image : ' + image.toString());
               },
             ),
           ),
@@ -126,4 +156,6 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
             ),
             body: createMedicalRecordBody));
   }
+
+  void searchStudent() {}
 }
