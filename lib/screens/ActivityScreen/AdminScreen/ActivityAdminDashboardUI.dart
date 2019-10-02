@@ -243,7 +243,8 @@ class _ActivityAdminDashboardScreenState
                             size: _iconSizeAnimation.value,
                           ),
                           onPressed: () {
-                            // have to impl
+                            // Report generating UI
+                            Navigator.pushNamed(context, '/activityReports');
                             _controller.reverse();
                           },
                         ),
