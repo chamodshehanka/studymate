@@ -64,8 +64,8 @@ class RouteGenerator {
             builder: (_) => ActivityAdminDashboardScreen());
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
-      case '/adminActivity':
-        return MaterialPageRoute(builder: (_) => AdminActivityScreen());
+      case '/adminActivityList':
+        return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
         return MaterialPageRoute(
             builder: (_) => ManageActivityScreen(activity: null));
