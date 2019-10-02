@@ -46,7 +46,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
 
     final changePasswordButton = StudymateRaisedButton("Change Password", ()=>{
-      _forgotPassword(email: _newPassword.text, context: context)
+     Navigator.of(context).pushNamed("/accountType")
     }, Colors.deepPurple);
     
 
@@ -82,37 +82,37 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
-  Future<void> _changeLoadingVisible() async {
-    setState(() {
-      _loadingVisible = !_loadingVisible;
-    });
-  }
+  // Future<void> _changeLoadingVisible() async {
+  //   setState(() {
+  //     _loadingVisible = !_loadingVisible;
+  //   });
+  // }
 
-  void _forgotPassword({String email, BuildContext context}) async {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    if (_formKey.currentState.validate()) {
-      try {
-        await _changeLoadingVisible();
-        // await Auth.forgotPasswordEmail(email);
-        // await _changeLoadingVisible();
-        // Flushbar(
-        //   title: "Password Reset Email Sent",
-        //   message: 
-        //       'Check your email and follow the instructions to reset your password.',
-        //   duration: Duration(seconds: 20)
-        // )..show(context);
-      } catch (e) {
-        _changeLoadingVisible();
-        print("Forgot Password Error: $e");
-        // String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Forgot Password Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 10),
-        // )..show(context);
-      }
-    } else {
-      setState(() => _autoValidate = true);
-    }
-  }
+  // // void _forgotPassword({String email, BuildContext context}) async {
+  // //   SystemChannels.textInput.invokeMethod('TextInput.hide');
+  // //   if (_formKey.currentState.validate()) {
+  // //     try {
+  // //       await _changeLoadingVisible();
+  // //       // await Auth.forgotPasswordEmail(email);
+  // //       // await _changeLoadingVisible();
+  // //       // Flushbar(
+  // //       //   title: "Password Reset Email Sent",
+  // //       //   message: 
+  // //       //       'Check your email and follow the instructions to reset your password.',
+  // //       //   duration: Duration(seconds: 20)
+  // //       // )..show(context);
+  // //     } catch (e) {
+  //       _changeLoadingVisible();
+  //       print("Forgot Password Error: $e");
+  //       // String exception = Auth.getExceptionText(e);
+  //       // Flushbar(
+  //       //   title: "Forgot Password Error",
+  //       //   message: exception,
+  //       //   duration: Duration(seconds: 10),
+  //       // )..show(context);
+    //   }
+    // } else {
+    //   setState(() => _autoValidate = true);
+    // }
+ // }
 }
