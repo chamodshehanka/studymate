@@ -24,6 +24,8 @@ import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
+import 'package:studymate/screens/StudentScreen/changePassword.dart';
+import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/studentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
@@ -92,6 +94,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
         return MaterialPageRoute(builder: (_) => HomeScreenAdmin());
+      case '/forgotPassword':
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());  
       case '/medicalRecord':
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       case '/createMedicalRecord':
@@ -117,7 +121,9 @@ class RouteGenerator {
       case '/studentAdd':
         return MaterialPageRoute(builder: (_) => StudentAddScreen()); 
       case '/adminAdd':
-        return MaterialPageRoute(builder: (_) => AdminAddScreen());    
+        return MaterialPageRoute(builder: (_) => AdminAddScreen()); 
+      case '/changePassword':
+        return MaterialPageRoute(builder: (_) => ChangePasswordScreen());      
       default:
         return _errorRoute();
     }

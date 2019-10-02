@@ -51,6 +51,14 @@ class _TestUIScreenState extends State<TestUIScreen> {
                     {Navigator.pushNamed(context, '/doctorReg')},
               ),
               RaisedButton(
+                child: Text('forgot password'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/forgotPassword')},
+              ),
+              RaisedButton(
                 child: Text('Doctor Reg'),
                 color: Colors.deepPurpleAccent,
                 textColor: Colors.white,

@@ -1,4 +1,3 @@
-    
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
@@ -6,13 +5,14 @@ import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
 
-class ForgotPasswordScreen extends StatefulWidget {
-  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+class ChangePasswordScreen extends StatefulWidget {
+  _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _email = new TextEditingController();
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _newPassword = new TextEditingController();
+  final TextEditingController _confirmNewPassword = new TextEditingController();
 
   bool _autoValidate = false;
   bool _loadingVisible = false;
@@ -37,24 +37,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           )),
     );
 
-    final email = StudymateTextField("Email", _email,
-     "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+    final newPassword = StudymateTextField("New Password", _newPassword,
+     "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+
+    final confirmNewPassword = StudymateTextField("Confirm New Password", _confirmNewPassword,
+     "confirm password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+ 
 
 
-    final forgotPasswordButton = StudymateRaisedButton("Forgot Password", ()=>{
-      _forgotPassword(email: _email.text, context: context)
+    final changePasswordButton = StudymateRaisedButton("Change Password", ()=>{
+      _forgotPassword(email: _newPassword.text, context: context)
     }, Colors.deepPurple);
     
 
-    final signInLabel = FlatButton(
-      child: Text(
-        'Sign In',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {
-        Navigator.pushNamed(context, '/sign_in');
-      },
-    );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -72,10 +67,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     children: <Widget>[
                       logo,
                       SizedBox(height: 48.0),
-                      email,
+                      newPassword,
                       SizedBox(height: 12.0),
-                      forgotPasswordButton,
-                      signInLabel
+                      confirmNewPassword,
+                      SizedBox(height: 12.0),
+                      changePasswordButton,
                     ],
                   ),
                 ),
