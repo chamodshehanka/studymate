@@ -23,7 +23,7 @@ List<GraphData> dayData = [
 ];
 
 List<GraphData> weekData = [
-  GraphData('Sunday', 2000),
+  GraphData('Sunday', 9000),
   GraphData('Monday', 1800),
   GraphData('Tuesday', 1900),
   GraphData('WednesDay', 1300),

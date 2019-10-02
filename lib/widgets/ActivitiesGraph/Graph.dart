@@ -14,7 +14,7 @@ class Graph extends StatelessWidget {
       height: height,
       padding: EdgeInsets.symmetric(horizontal: 32),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
+        // mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: _buildBars(values),
       ),
@@ -56,31 +56,28 @@ class _GraphBarState extends State<GraphBar> {
   @override
   void initState() {
     super.initState();
-    _percentageAnimation = Tween(begin: 0, end: widget.percentage)
+    _percentageAnimation = Tween<double>(begin: 0, end: widget.percentage)
         .animate(widget.graphBarAnimationController);
 
-        _percentageAnimation.addListener((){
-          setState(() {
-            
-          });
-        });
+    _percentageAnimation.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: BarPainter(widget.percentage),
+      painter: BarPainter(_percentageAnimation.value),
       child: Container(
         height: widget.height,
         color: Colors.deepPurpleAccent,
-        // child:
       ),
     );
   }
 }
 
 class BarPainter extends CustomPainter {
-  double percentage;
+  final double percentage;
 
   BarPainter(this.percentage);
 
@@ -100,6 +97,7 @@ class BarPainter extends CustomPainter {
     Paint filledPaint = Paint()
       ..shader = LinearGradient(
         colors: [Colors.pink.shade500, Colors.blue.shade500],
+        begin: Alignment.topCenter
       ).createShader(Rect.fromPoints(topPoint, bottomPoint))
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
