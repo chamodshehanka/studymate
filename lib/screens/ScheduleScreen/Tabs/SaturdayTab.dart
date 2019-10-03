@@ -21,16 +21,7 @@ class _SaturdayTabState extends State<SaturdayTab> {
   @override
   void initState() {
     super.initState();
-
-
-   futureCalendar = scheduleService.selectCalendar();
     
-    futureCalendar.then((value){
-      calendar = value;
-      setState(() {
-        calendar = value;
-      });
-    });
   }
 
   @override

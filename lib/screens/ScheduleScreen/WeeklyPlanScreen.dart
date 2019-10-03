@@ -7,7 +7,7 @@ import 'package:studymate/screens/ScheduleScreen/Tabs/ThursdayTab.dart';
 import 'package:studymate/screens/ScheduleScreen/Tabs/TuesdayTab.dart';
 import 'package:studymate/screens/ScheduleScreen/Tabs/WednesdayTab.dart';
 import 'package:studymate/services/custom/ScheduleServices.dart';
-import 'package:device_calendar/device_calendar.dart';
+
 
 class WeeklyPlanScreen extends StatefulWidget {
   _WeeklyPlanScreenState createState() => _WeeklyPlanScreenState();
@@ -18,21 +18,11 @@ class WeeklyPlanScreen extends StatefulWidget {
 
 class _WeeklyPlanScreenState extends State<WeeklyPlanScreen> {
     ScheduleService scheduleService =  new ScheduleService();
-  Future<Calendar> futureCalendar;
-  Calendar calendar;
+ 
   @override
   void initState() {
     super.initState();
 
-
-   futureCalendar = scheduleService.selectCalendar();
-    
-    futureCalendar.then((value){
-      calendar = value;
-      setState(() {
-        calendar = value;
-      });
-    });
   }
   @override
   Widget build(BuildContext context) {

@@ -22,15 +22,6 @@ class _FridayTabState extends State<FridayTab> {
   void initState() {
     super.initState();
 
-
-   futureCalendar = scheduleService.selectCalendar();
-    
-    futureCalendar.then((value){
-      calendar = value;
-      setState(() {
-        calendar = value;
-      });
-    });
   }
 
   @override
