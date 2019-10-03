@@ -165,18 +165,16 @@ class _SignInScreenState extends State<SignInScreen> {
             bool isStudent = result.claims['student'] ?? false;
 
             // print('Is Admin' + isAdmin.toString());
-            print('Claim result : ' + result.claims.toString());
+            // print('Claim result : ' + result.claims.toString());
 
             if (isAdmin) {
               Navigator.pushNamed(context, '/homeAdmin');
             } else if (isDoctor) {
               Navigator.pushNamed(context, '/homeDoctor');
             } else if (isStudent) {
-              Future<QuerySnapshot> data = studentService.getByID(user.uid);
-
+              Future<DocumentSnapshot> data = studentService.getByID(user.uid);
               data.then((value) {
-                Student student = Student.map(value.documents.first.data);
-
+                Student student = Student.map(value.data);
                 if (student.name != null && student.phoneNumber != null) {
                   // Already regiesterd student
                   Navigator.pushNamed(context, '/home');
