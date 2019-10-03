@@ -51,6 +51,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "First Name",
         _firstName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -62,6 +63,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Last Name",
         _lastName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -73,6 +75,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "NIC number",
         _nicNumber,
         "NIC number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -84,6 +87,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "SLMC reg number",
         _slmcRegNumber,
         "SLMC reg number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -95,6 +99,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Email",
         _email,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -106,6 +111,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         'Password',
         _password,
         'password',
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -117,6 +123,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         'Confirm password',
         _confirmPassword,
         'password',
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -128,6 +135,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Phone Number",
         _phoneNumber,
         "phone number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -139,6 +147,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Working palce",
         _workingPlace,
         "working place",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(

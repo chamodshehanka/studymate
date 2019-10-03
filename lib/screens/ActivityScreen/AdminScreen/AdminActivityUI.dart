@@ -98,10 +98,9 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
       ),
     );
     return MaterialApp(
-      title: 'Manage Activities UI',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Manage Activities'),
+          title: Text('Manage Activities List'),
           backgroundColor: Colors.deepPurpleAccent,
         ),
         body: adminActivityBody,
@@ -119,6 +118,8 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             title: Text(
               'Create A New Activity',
               textAlign: TextAlign.center,
@@ -149,43 +150,53 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
                     child: StudymateDropdown(
                         'Select activity type', activityTypeList),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      color: Colors.deepPurple,
-                      textColor: Colors.white,
-                      child: Text("Save"),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          //Adding to DB
-                          Future<Activity> isAdded =
-                              activityService.createActivity(
-                                  nameController.text, typeController.text);
-                          if (isAdded != null) {
-                            Navigator.pop(context);
-                          } else {
-                            //Have to add error message
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text('Failed to Add!'),
-                              backgroundColor: Colors.deepPurple,
-                            ));
-                          }
-                        }
-                      },
-                    ),
-                  ),
-                  //Test Dispose button
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      color: Colors.redAccent,
-                      textColor: Colors.white,
-                      child: Text("Cancel"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          elevation: 10,
+                          color: Colors.deepPurple,
+                          textColor: Colors.white,
+                          child: Text("Save"),
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              _formKey.currentState.save();
+                              //Adding to DB
+                              Future<Activity> isAdded =
+                                  activityService.createActivity(
+                                      nameController.text, typeController.text);
+                              if (isAdded != null) {
+                                Navigator.pop(context);
+                              } else {
+                                //Have to add error message
+                                Scaffold.of(context).showSnackBar(new SnackBar(
+                                  content: new Text('Failed to Add!'),
+                                  backgroundColor: Colors.deepPurple,
+                                ));
+                              }
+                            }
+                          },
+                        ),
+                        // Test Dispose button
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: RaisedButton(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            color: Colors.redAccent,
+                            textColor: Colors.white,
+                            child: Text("Cancel"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

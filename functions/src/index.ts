@@ -96,6 +96,26 @@ async function grantStudentRole(email: string): Promise<void> {
     });
 }
 
+//this func won't deploy until billing enabled
+exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun(async (context) => {
+    const inActiveStudents = await getInActiveStudents();
+    console.log('In active users : ' + inActiveStudents.length);
+});
+
+async function getInActiveStudents() {
+    const users: admin.auth.UserRecord[] = [];
+
+    const result = await admin.auth().listUsers();
+
+    // for test
+    console.log('Users count : '+result.users.length);
+
+    const inActiveStudents = result.users.filter(user => Date.parse(user.metadata.lastSignInTime) < (Date.now() - 2 * 24 * 60 * 60 * 1000));
+    users.concat(inActiveStudents);
+
+    return users;
+}
+
 // exports.sendPushNotification = functions.firestore.document('Activities').onCreate(event => {
 //     var request = event.data;
 //     var playload = {

@@ -19,7 +19,6 @@ class ManageActivityScreen extends StatelessWidget {
     void activityDeleteAction() {
       Future<dynamic> isDeleted = activityService.deleteActivity(activity.id);
       if (isDeleted != null) {
-        print('Deleted!!');
         Navigator.pop(context);
       } else {
         print('Activity Delete Failed');
@@ -61,6 +60,7 @@ class ManageActivityScreen extends StatelessWidget {
                     'Activity Name',
                     nameController,
                     'text',
+                    false,
                     Colors.grey,
                     TextInputType.text,
                     Icon(Icons.local_activity, color: Colors.grey)),
@@ -90,8 +90,7 @@ class ManageActivityScreen extends StatelessWidget {
                           if (activity.id != null) {
                             Activity updatedActivity = Activity(activity.id,
                                 nameController.text, activity.type);
-                            print(activity.id);
-                            print(nameController.text);
+                            
                             Future isUpdated =
                                 activityService.updateActivity(updatedActivity);
                             if (isUpdated != null) {
