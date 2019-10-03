@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 
@@ -25,12 +26,19 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
   StreamSubscription<QuerySnapshot> studentActivitiesSubscription;
   String studentId;
+  BaseAuthentication _authentication = Authentication();
 
   @override
   void initState() {
     super.initState();
 
     studentId = 'JfaAiaJ4yAqhqUqey1mG';
+    _authentication.getCurrentUser().then((userID) {
+      if (userID != null)
+        setState(() {
+          studentId = userID;
+        });
+    });
 
     socialActivityList = List();
     socialActivitySubscription?.cancel();
