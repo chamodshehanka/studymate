@@ -523,9 +523,6 @@ class _ActivityAdminDashboardScreenState
     Navigator.pushNamed(context, '/adminActivityList');
   }
 
-  // View Activities Usage UI 
-  void viewActivitiesUsage(){
-    
-  }
-
+  // View Activities Usage UI
+  void viewActivitiesUsage() {}
 }

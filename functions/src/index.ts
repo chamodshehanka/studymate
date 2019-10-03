@@ -97,24 +97,49 @@ async function grantStudentRole(email: string): Promise<void> {
 }
 
 //this func won't deploy until billing enabled
-exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun(async (context) => {
-    const inActiveStudents = await getInActiveStudents();
-    console.log('In active users : ' + inActiveStudents.length);
+// exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun(async (context) => {
+//     const inActiveStudents = await getInActiveStudents();
+//     console.log('In active users : ' + inActiveStudents.length);
+// });
+
+export const tempScheduleFunction = functions.https.onRequest((request, response) => {
+
+    // admin.firestore().collection('students').doc('X4F5Vl8FqghvT5gAJPF0BrVJ2ha2').get().then(doc => {
+    //     console.log(doc.data)
+    //     response.send(doc.data);
+    // }).catch(
+    //     error => {
+    //         response.status(500).send(error);
+    //     }
+    // );
+
+
+
+    // response.send("Hello from Firebase!");
+
+    admin.auth().listUsers().then((userRecords) => {
+        userRecords.users.forEach((user) => console.log(user.toJSON()));
+        response.end('Retrieved users list successfully.');
+    }).catch((error) => console.log(error));
+
+
+
 });
 
-async function getInActiveStudents() {
-    const users: admin.auth.UserRecord[] = [];
 
-    const result = await admin.auth().listUsers();
+// async function getInActiveStudents() {
+//     const users: admin.auth.UserRecord[] = [];
 
-    // for test
-    console.log('Users count : '+result.users.length);
+//     const result = await admin.auth().listUsers();
 
-    const inActiveStudents = result.users.filter(user => Date.parse(user.metadata.lastSignInTime) < (Date.now() - 2 * 24 * 60 * 60 * 1000));
-    users.concat(inActiveStudents);
+//     // for test
+//     console.log('Users count : ' + result.users.length);
 
-    return users;
-}
+//     const inActiveStudents = result.users.filter(user => Date.parse(user.metadata.lastSignInTime) < (Date.now() - 2 * 24 * 60 * 60 * 1000));
+//     users.concat(inActiveStudents);
+
+//     return users;
+// }
 
 // exports.sendPushNotification = functions.firestore.document('Activities').onCreate(event => {
 //     var request = event.data;
