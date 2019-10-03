@@ -63,6 +63,8 @@ class _SignInScreenState extends State<SignInScreen> {
           Icons.lock,
           color: Colors.grey,
         ));
+
+       
   }
 
   @override
@@ -115,6 +117,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: StudymateRaisedButton(
                         'Sign in', _userLogin, Colors.deepPurpleAccent),
                   ),
+                 
+                  
                 ],
               ),
 

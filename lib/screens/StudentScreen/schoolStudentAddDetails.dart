@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 //import 'package:studymate/models/Student.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
+
 import 'package:studymate/widgets/loading.dart';
 
 
@@ -21,7 +22,8 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _schoolName = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
-
+String mascotAnimationType;
+  
 
   int groupValue;
   bool b = true;
@@ -105,6 +107,8 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       logo,
+                  
+
                       SizedBox(height: 48.0),
                       firstName,
                       SizedBox(height: 24.0),
