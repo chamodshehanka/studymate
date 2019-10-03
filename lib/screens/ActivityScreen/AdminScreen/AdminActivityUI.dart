@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
-import 'package:studymate/widgets/StudymateDropdown.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class AdminActivityListScreen extends StatefulWidget {
   _AdminActivityListScreenState createState() =>
@@ -114,6 +115,7 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
   }
 
   void _createNewActivity(BuildContext context) async {
+    String activityType;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -132,23 +134,36 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Enter activity name'),
-                      controller: nameController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter activity name';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
+                    child: StudymateTextField(
+                        'Activity Name',
+                        nameController,
+                        'text',
+                        false,
+                        Colors.grey,
+                        TextInputType.text,
+                        Icon(
+                          Icons.local_activity,
+                          color: Colors.grey,
+                        )),
                   ),
                   Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: StudymateDropdown(
-                        'Select activity type', activityTypeList),
+                    child: DropdownButtonFormField(
+                      
+                      hint: Text('Activity Type'),
+                      value: activityType,
+                      items: ["Leisure", "Social"]
+                          .map((label) => DropdownMenuItem(
+                                child: Text(label),
+                                value: label,
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          activityType = value;
+                        });
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -163,6 +178,8 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
                           textColor: Colors.white,
                           child: Text("Save"),
                           onPressed: () {
+                            log('Activity Type : ' + activityType);
+
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
                               //Adding to DB
