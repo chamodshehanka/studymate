@@ -177,21 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    _authentication.signUp(email, password, 'student');
-
-    // if (_formKey.currentState.validate()) {
-    //   _formKey.currentState.save();
-
-    //   // Future<String> user =
-    //   //     auth.signUp(_emailController.text, _passwordController.text);
-
-    //   if (user != null) {
-    //     // Navigator.pushNamed(context, '/home');
-    //   } else {
-    //     // Have to change
-    //     // Navigator.pushNamed(context, '/home');
-    //   }
-    // }
+    _authentication.signUp(email, password, 'student', null);
   }
 }
 
