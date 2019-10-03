@@ -24,8 +24,9 @@ class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  StudymateTextField _emailField;
-  StudymateTextField _passwordField;
+   StudymateTextField _emailField;
+   StudymateTextField _passwordField;
+   FlatButton _forgotPassword;
   bool _blackVisible = false;
   VoidCallback onBackPress;
   String mascotAnimationType;
@@ -63,6 +64,15 @@ class _SignInScreenState extends State<SignInScreen> {
           Icons.lock,
           color: Colors.grey,
         ));
+     _forgotPassword = FlatButton(
+       child: Text(
+         'Forgot password',
+         style: TextStyle(color: Colors.black54),
+       ),
+       onPressed: () {
+         Navigator.pushNamed(context, '/forgotPassword');
+       },
+     ) ;  
 
        
   }
@@ -117,6 +127,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: StudymateRaisedButton(
                         'Sign in', _userLogin, Colors.deepPurpleAccent),
                   ),
+                  _forgotPassword
                  
                   
                 ],
