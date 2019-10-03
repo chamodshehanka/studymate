@@ -45,6 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
         "Email Address",
         emailController,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -55,6 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
         "Password",
         passwordController,
         "password",
+        true,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -115,6 +117,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ],
               ),
+
+               final signInLabel = FlatButton(
+      child: Text(
+        'Sign In',
+        style: TextStyle(color: Colors.black54),
+      ),
+      onPressed: () {
+        Navigator.pushNamed(context, '/sign_in');
+      },
+    );
               SafeArea(
                 child: IconButton(
                   icon: Icon(Icons.arrow_back),
