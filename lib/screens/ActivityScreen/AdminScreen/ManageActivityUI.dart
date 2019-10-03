@@ -61,6 +61,7 @@ class ManageActivityScreen extends StatelessWidget {
                     'Activity Name',
                     nameController,
                     'text',
+                    false,
                     Colors.grey,
                     TextInputType.text,
                     Icon(Icons.local_activity, color: Colors.grey)),

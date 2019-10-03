@@ -38,7 +38,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
 
     final email = StudymateTextField("Email", _email,
-     "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+     "email", false, Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
 
 
     final forgotPasswordButton = StudymateRaisedButton("Forgot Password", ()=>{
