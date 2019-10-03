@@ -7,6 +7,9 @@ class Validator {
       case 'password':
         return validatePassword(value);
         break;
+      case 'confirm password':
+        return validateConfirmPassword(value);
+        break;  
       case 'name':
         return validateName(value);
         break;
@@ -40,6 +43,15 @@ class Validator {
   }
 
   static String validatePassword(value) {
+    Pattern pattern = r'^.{6,}$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Password must be at least 6 characters.';
+    else
+      return null;
+  }
+
+  static String validateConfirmPassword(value) {
     Pattern pattern = r'^.{6,}$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))

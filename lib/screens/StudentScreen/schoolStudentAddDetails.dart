@@ -22,11 +22,26 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
   final TextEditingController _schoolName = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
 
+
+  int groupValue;
+  bool b = true;
   bool _autoValidate = false;
   bool _loadingVisible = false;
   @override
   void initState() {
     super.initState();
+    groupValue = 0;
+  }
+
+  setSelectedRadio(int val) {
+    setState(() {
+      groupValue = val;
+      if (val == 0) {
+        b = true;
+      } else if (val == 1) {
+        b = false;
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -46,22 +61,22 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
     );
 
     final firstName = StudymateTextField("First Name", _firstName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
     final lastName = StudymateTextField("Last Name", _lastName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
     final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
-     "phone", Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
+     "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
 
     final schoolName = StudymateTextField("School Name", _schoolName,
-     "school", Colors.grey, TextInputType.text, Icon(Icons.school,color: Colors.grey,));
+     "school", false, Colors.grey, TextInputType.text, Icon(Icons.school,color: Colors.grey,));
   
  
 
   
     final password = StudymateTextField("Password", _password,
-     "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+     "password", true,Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
   
 
     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{

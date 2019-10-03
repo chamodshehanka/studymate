@@ -31,7 +31,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              StudymateTextField("Test", editingController, "Test", color,
+              StudymateTextField("Test", editingController, "Test", false, color,
                   textInputType, Icon(Icons.email, color: Colors.grey)),
               StudymateDropdown("Select A Subject", list),
               RaisedButton(

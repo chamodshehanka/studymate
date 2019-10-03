@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 
@@ -23,6 +24,7 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
   StreamSubscription<QuerySnapshot> activitySubscription;
   StreamSubscription<QuerySnapshot> studentActivitiesSubscription;
   String studentId;
+  BaseAuthentication _authentication = Authentication();
 
   @override
   void initState() {
@@ -43,18 +45,22 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
       });
     });
 
-    // Student Preferred Activities List
-    studentActivitiesList = List();
-    studentActivitiesSubscription?.cancel();
-    studentActivitiesSubscription = studentService
-        .getAllPreferredActivities(studentId)
-        .listen((QuerySnapshot snapshot) {
-      final List<ActivityProgress> activityProgress = snapshot.documents
-          .map((documentSnapshot) =>
-              ActivityProgress.fromMap(documentSnapshot.data))
-          .toList();
-      setState(() {
-        studentActivitiesList = activityProgress;
+    _authentication.getCurrentUser().then((user) {
+      studentId = user;
+
+      // Student Preferred Activities List
+      studentActivitiesList = List();
+      studentActivitiesSubscription?.cancel();
+      studentActivitiesSubscription = studentService
+          .getAllPreferredActivities(studentId)
+          .listen((QuerySnapshot snapshot) {
+        final List<ActivityProgress> activityProgress = snapshot.documents
+            .map((documentSnapshot) =>
+                ActivityProgress.fromMap(documentSnapshot.data))
+            .toList();
+        setState(() {
+          studentActivitiesList = activityProgress;
+        });
       });
     });
   }
@@ -126,30 +132,16 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
               ActivityProgress(leisureActivity.id, leisureActivity.name, 0);
 
           if (!isActivityPreferred) {
-            // Activity Adding
-            Future<ActivityProgress> isAdded = studentService
-                .addTActivityToProgress(studentId, activityProgress);
+            _authentication.getCurrentUser().then((user) {
+              studentId = user;
+              // Activity Adding
+              Future<ActivityProgress> isAdded = studentService
+                  .addTActivityToProgress(studentId, activityProgress);
 
-            // Preferred Activity Adding SnackBar
-            if (isAdded != null) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: new Text('Added to preferred List'),
-                backgroundColor: Colors.green,
-              ));
-            } else {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: new Text('Adding failed!'),
-                backgroundColor: Colors.redAccent,
-              ));
-            }
-          } else {
-            // Preferred Activity removing
-            Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-                studentId, getActivityProgressId(leisureActivity));
-            isDeleted.then((result) {
-              if (result) {
+              // Preferred Activity Adding SnackBar
+              if (isAdded != null) {
                 Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: new Text('Successfully Removed'),
+                  content: new Text('Added to preferred List'),
                   backgroundColor: Colors.green,
                 ));
               } else {
@@ -158,6 +150,27 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
                   backgroundColor: Colors.redAccent,
                 ));
               }
+            });
+          } else {
+            _authentication.getCurrentUser().then((user) {
+              studentId = user;
+              
+              // Preferred Activity removing
+              Future<dynamic> isDeleted = studentService.deleteActivityProgress(
+                  studentId, getActivityProgressId(leisureActivity));
+              isDeleted.then((result) {
+                if (result) {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Successfully Removed'),
+                    backgroundColor: Colors.green,
+                  ));
+                } else {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Adding failed!'),
+                    backgroundColor: Colors.redAccent,
+                  ));
+                }
+              });
             });
           }
         },

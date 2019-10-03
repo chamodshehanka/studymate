@@ -14,6 +14,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController _newPassword = new TextEditingController();
   final TextEditingController _confirmNewPassword = new TextEditingController();
 
+  
+
   bool _autoValidate = false;
   bool _loadingVisible = false;
   @override
@@ -38,10 +40,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
 
     final newPassword = StudymateTextField("New Password", _newPassword,
-     "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+     "password", true, Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
 
     final confirmNewPassword = StudymateTextField("Confirm New Password", _confirmNewPassword,
-     "confirm password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+     "confirm password", true, Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
  
 
 
