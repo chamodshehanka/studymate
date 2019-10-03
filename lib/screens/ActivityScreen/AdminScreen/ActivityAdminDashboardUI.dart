@@ -6,6 +6,7 @@ import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
 import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
 class ActivityAdminDashboardScreen extends StatefulWidget {
   _ActivityAdminDashboardScreenState createState() =>
@@ -153,16 +154,40 @@ class _ActivityAdminDashboardScreenState
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'text',
+                      'Recent Actions',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.deepPurple),
                     ),
                     SizedBox(height: 5),
                     Expanded(
-                      child: Container(),
+                      child: Container(
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton(
+                                      'All Activities',
+                                      viewActivitiesList,
+                                      Colors.deepPurpleAccent),
+                                ),
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton(
+                                      'Activities Usage',
+                                      viewActivitiesList,
+                                      Colors.deepPurpleAccent),
+                                ),
+                              ],
+                            ),
+                            // Row(),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -492,4 +517,15 @@ class _ActivityAdminDashboardScreenState
       });
     });
   }
+
+  // View Activities List UI
+  void viewActivitiesList() {
+    Navigator.pushNamed(context, '/adminActivityList');
+  }
+
+  // View Activities Usage UI 
+  void viewActivitiesUsage(){
+    
+  }
+
 }
