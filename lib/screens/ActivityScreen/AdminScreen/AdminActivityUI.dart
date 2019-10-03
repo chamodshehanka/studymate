@@ -98,10 +98,9 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
       ),
     );
     return MaterialApp(
-      title: 'Manage Activities UI',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Manage Activities'),
+          title: Text('Manage Activities List'),
           backgroundColor: Colors.deepPurpleAccent,
         ),
         body: adminActivityBody,
