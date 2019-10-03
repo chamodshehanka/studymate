@@ -144,46 +144,6 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                      ),
                       
                   
-                    //  const SizedBox(height: 20.0),
-                    //  DropdownButtonFormField<String>(
-                    //    //controller:typeController,
-                    // decoration: InputDecoration(
-                    //   enabledBorder: OutlineInputBorder(
-                    //     borderSide: BorderSide(
-                    //       color: Colors.indigo,
-                    //       width: 1.5,
-                    //       style: BorderStyle.solid,
-                    //     ),
-                    //     borderRadius: BorderRadius.all(
-                    //       Radius.circular(15.0),
-                    //     ),
-                    //   ),
-                    //   focusedBorder: OutlineInputBorder(
-                    //     borderSide: BorderSide(
-                    //       color: Colors.indigo,
-                    //       width: 1.5,
-                    //       style: BorderStyle.solid,
-                    //     ),
-                    //     borderRadius: BorderRadius.all(
-                    //       Radius.circular(15.0),
-                    //     ),
-                    //   ),
-                    //   labelText: "Badge Type",
-                    //   labelStyle: TextStyle(
-                    //       color: Colors.indigo, fontWeight: FontWeight.bold),
-                    // ),
-                                        
-                    //                     value: type,
-                    //                     items: ["Subject", "Activity"]
-                    //                         .map((label) => DropdownMenuItem(
-                    //                               child: Text(label),
-                    //                               value: label,
-                    //                             ))
-                    //                         .toList(),
-                    //                     onChanged: (value) {
-                    //                       setState(() => type = value);
-                    //                     },
-                    //                   ),
                    
                   const SizedBox(height: 20.0),
                   TextFormField(

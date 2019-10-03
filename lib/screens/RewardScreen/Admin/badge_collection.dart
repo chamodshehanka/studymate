@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Badge.dart';
 import 'package:studymate/services/custom/BadgeService.dart';
+//import 'package:studymate/Screens/RewardScreen/Admin/new_badge.dart';
 
 class BadgesScreen extends StatefulWidget {
   _BadgesScreenState createState() => _BadgesScreenState();
@@ -11,9 +12,9 @@ class BadgesScreen extends StatefulWidget {
 
 class _BadgesScreenState extends State<BadgesScreen> {
   List<Badge> badgeList;
-  BadgeService badgeService = BadgeService();
+     BadgeService badgeService = BadgeService();
   StreamSubscription<QuerySnapshot> badgeSubscription;
-  // final _formKey =
+  
 
   @override
   void initState() {
@@ -46,104 +47,86 @@ class _BadgesScreenState extends State<BadgesScreen> {
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           leading: Container(
             padding: EdgeInsets.only(right: 12.0),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white30)
-                    )
-                    ),
-           child:Center(
-             child:Padding(
-               padding: EdgeInsets.all(8.0),
-               child:Column(
-                 children: <Widget>[
-                   Container(
-                     width:MediaQuery.of(context).size.width,
-                     height: 350.0,
-                     child: Padding(
-                       padding: EdgeInsets.only(top: 8.0,bottom: 8.0),
-                      child: Material(
-                        color: Colors.white,
-                        elevation: 14.0,
-                        //  shadowColor: Color(),
-                        child:Center()
+            child:Hero(
+
+            tag: badge.name,
+            child: Column(children: <Widget>[
+              Material(
+                child: InkWell(
+                    onTap: () {
+                  
+                    },
+            
+            child: Container(
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Text(
+                              badge.type,
+                              style: TextStyle(color: Colors.black, fontSize: 18.0)),
+                        ),
                       ),
-                     ),
-                    //  child: Image.network(
-                    //   //  badge.Image,
-                    //   //  fit:BoxFit.fill
-                    //  ),
-                    
-                   ),
-                   SizedBox(height: 10.0,),
-                   Text(
-                     badge.name,
-                      style:
-                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                     
-                   ),
-                    SizedBox(height: 10.0,),
-                   Text(
-                     badge.type,
-                      style:
-                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                     
-                   ),
-                   SizedBox(height: 10.0,),
-                   Text(
-                     badge.milestone,
-                      style:
-                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                     
-                   ),
-                   SizedBox(height: 10.0,),
-                   Text(
-                     badge.description,
-                      style:
-                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                     
-                   ),
+                     Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Text(
+                              badge.name,
+                              style: TextStyle(color: Colors.black, fontSize: 18.0)),
+                        ),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Text(
+                              badge.milestone,
+                              style: TextStyle(color: Colors.black, fontSize: 18.0)),
+                        ),
+                      ),
+                  ],
+                )
+              ),
+            ),
+            ),
 
-                 ],
-               )
-             )
-           )
-          // Text(
-          //     badge.type,
-          //     style:
-          //         TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          //   ),
-          // ),
-          // title: Text(
-          //   badge.name,
-          //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          // ),
           
-
-        //   trailing: Icon(Icons.open_in_new, color: Colors.white, size: 30.0),
-        //   onTap: () => {_viewBadge(context)},
+     ) 
+            ]
+            )
+          )
     )
     );
 
     Card makeCard(Badge badge) => Card(
           elevation: 8.0,
-          margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          
+          margin: new EdgeInsets.symmetric(horizontal: 5.0, vertical: 12.0),
           child: Container(
-            decoration: BoxDecoration(color: Colors.deepPurpleAccent),
+            decoration: BoxDecoration(
+              color: Colors.white,
+               borderRadius: BorderRadius.circular(24.0),
+                
+            ),
             child: buildTilesList(badge),
           ),
         );
 
     final badgeBody = Container(
-      child: ListView.builder(
-
+      child: GridView.builder(
+          gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           itemCount: badgeList.length,
           itemBuilder: (BuildContext context, int index) {
             return makeCard(badgeList[index]);
-          }
+          }, 
           ),
     );
+ 
+   
     return Scaffold(
         appBar: AppBar(
           title: Text('Badge Collection'),
@@ -160,3 +143,6 @@ class _BadgesScreenState extends State<BadgesScreen> {
 }
 
 
+
+
+ 
