@@ -44,13 +44,15 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
     );
 
     final firstName = StudymateTextField("First Name", _firstName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
     final lastName = StudymateTextField("Last Name", _lastName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+
+     
 
     final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
-     "phone", Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
+     "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
 
   
   
@@ -58,8 +60,9 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
 
   
     final password = StudymateTextField("Password", _password,
-     "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
-  
+     "password", true,Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+     
+     
 
     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
        _emailSignUp(
@@ -91,6 +94,9 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
                       SizedBox(height: 24.0),
                       lastName,
                       SizedBox(height: 24.0),
+        
+                        
+                           
                       phoneNumber,
                       SizedBox(height: 24.0),
                       password,

@@ -12,7 +12,8 @@ final CollectionReference studentsCollection =
 class StudentService {
   Future<Student> createStudent(Student student, String authId) {
     final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(studentsCollection.document());
+      final DocumentSnapshot ds =
+          await tx.get(studentsCollection.document(authId));
 
       final Student studentModel = new Student(
           authId,
@@ -36,19 +37,8 @@ class StudentService {
     });
   }
 
-  Future<QuerySnapshot> getByID(String uid) {
-    // Future<QuerySnapshot> snapshot = studentsCollection.where('id', isEqualTo: uid).limit(1).getDocuments();
-    // Student student;
-    // snapshot.then((value){
-    //   print(value.documents.first.data);
-    //   student = Student.map(value.documents.first.data);
-    //   print(student.email);
-    // });
-
-    return studentsCollection
-        .where('id', isEqualTo: uid)
-        .limit(1)
-        .getDocuments();
+  Future<DocumentSnapshot> getByID(String uid) {
+    return studentsCollection.document(uid).get();
   }
 
   Stream<QuerySnapshot> getStudentList({int offset, int limit}) {

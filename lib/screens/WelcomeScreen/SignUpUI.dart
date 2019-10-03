@@ -38,6 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         'Name',
         _nameController,
         null,
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(Icons.text_fields, color: Colors.grey));
