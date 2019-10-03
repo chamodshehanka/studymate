@@ -103,51 +103,14 @@ async function grantStudentRole(email: string): Promise<void> {
 // });
 
 export const tempScheduleFunction = functions.https.onRequest((request, response) => {
-
-    // admin.firestore().collection('students').doc('X4F5Vl8FqghvT5gAJPF0BrVJ2ha2').get().then(doc => {
-    //     console.log(doc.data)
-    //     response.send(doc.data);
-    // }).catch(
-    //     error => {
-    //         response.status(500).send(error);
-    //     }
-    // );
-
-
-
-    // response.send("Hello from Firebase!");
-
     admin.auth().listUsers().then((userRecords) => {
         userRecords.users.forEach((user) => console.log(user.toJSON()));
         response.end('Retrieved users list successfully.');
     }).catch((error) => console.log(error));
-
-
-
 });
 
 
-// async function getInActiveStudents() {
-//     const users: admin.auth.UserRecord[] = [];
-
-//     const result = await admin.auth().listUsers();
-
-//     // for test
-//     console.log('Users count : ' + result.users.length);
-
-//     const inActiveStudents = result.users.filter(user => Date.parse(user.metadata.lastSignInTime) < (Date.now() - 2 * 24 * 60 * 60 * 1000));
-//     users.concat(inActiveStudents);
-
-//     return users;
-// }
-
-// exports.sendPushNotification = functions.firestore.document('Activities').onCreate(event => {
-//     var request = event.data;
-//     var playload = {
-//        data: {
-//            username: 'Random',
-//            email: 'studymate@gmail.com'
-//        } 
-//     }
-//     admin.messaging().sendToDevice(playload);
-// });
+exports.getStudentsNamesFunction = functions.https.onRequest((request, response) => {
+    const name = request.get.name;
+    response.send(name + 'Kusura');
+});

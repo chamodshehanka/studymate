@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
@@ -13,6 +14,16 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
   final TextEditingController _studentNameController = TextEditingController();
   final TextEditingController _recordDetailsController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +91,7 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
   }
 
   void searchStudent() {
-    print('Search student' + _studentNameController.text);
+    // print('Search student' + _studentNameController.text);
     var date = new DateTime.now();
     log(date.toString());
   }
@@ -89,5 +100,7 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
     Navigator.pop(context);
   }
 
-  void createMedicalRecord() {}
+  void createMedicalRecord() {
+    // _studentService.getStudentsByName('Student');
+  }
 }
