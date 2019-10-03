@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ActivityProgress.dart';
+import 'package:studymate/models/PreferredActivity.dart';
 
 import 'package:studymate/models/Student.dart';
 import 'package:studymate/utils/CommonConstants.dart';
@@ -90,18 +91,30 @@ class StudentService {
     });
   }
 
-  Future<ActivityProgress> addTActivityToProgress(
-      String studentId, ActivityProgress activityProgress) {
+  // Have to change
+  Future<ActivityProgress> addToPreferredActivities(String studentId,
+      PreferredActivity preferredActivity, String activityType) {
     final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(Firestore.instance
-          .collection(CommonConstants.studentsCollectionName)
-          .document(studentId)
-          .collection(CommonConstants.activityProgressCollectionName)
-          .document());
+      final DocumentSnapshot ds = activityType == 'Social'
+          ? await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .document(activityType)
+              .collection(CommonConstants.socialActivitiesCollectionName)
+              .document(preferredActivity.name))
+          : await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .document(activityType)
+              .collection(CommonConstants.leisureActivitiesCollectionName)
+              .document(preferredActivity.name));
 
-      final ActivityProgress progress = new ActivityProgress(
-          ds.documentID, activityProgress.name, activityProgress.progress);
-      final Map<String, dynamic> data = progress.toMap();
+      final PreferredActivity prefer = new PreferredActivity(
+          preferredActivity.name, preferredActivity.totalHours);
+
+      final Map<String, dynamic> data = prefer.toMap();
 
       await tx.set(ds.reference, data);
 
@@ -116,30 +129,25 @@ class StudentService {
     });
   }
 
-  Stream<QuerySnapshot> getAllPreferredActivities(String id,
-      {int offset, int limit}) {
-    Stream<QuerySnapshot> snapshots = studentsCollection
-        .document(id)
-        .collection(CommonConstants.activityProgressCollectionName)
-        .snapshots();
-
-    if (offset != null) {
-      snapshots = snapshots.skip(offset);
-    }
-
-    if (limit != null) {
-      snapshots = snapshots.take(limit);
-    }
-    return snapshots;
-  }
-
-  Future<dynamic> deleteActivityProgress(String studentId, String activityId) {
+  // Have to delete
+  Future<dynamic> deleteFromPreferredActivities(
+      String studentId, String activityName, String activityType) {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(Firestore.instance
-          .collection(CommonConstants.studentsCollectionName)
-          .document(studentId)
-          .collection(CommonConstants.activityProgressCollectionName)
-          .document(activityId));
+      final DocumentSnapshot ds = activityType == 'Social'
+          ? await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .document(activityType)
+              .collection(CommonConstants.socialActivitiesCollectionName)
+              .document(activityName))
+          : await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .document(activityType)
+              .collection(CommonConstants.leisureActivitiesCollectionName)
+              .document(activityName));
 
       await tx.delete(ds.reference);
       return {'deleted': true};
@@ -152,5 +160,32 @@ class StudentService {
       print('error: $error');
       return false;
     });
+  }
+
+  Stream<QuerySnapshot> getAllPreferredActivities(
+      String uid, String activityType,
+      {int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots = activityType == 'Social'
+        ? studentsCollection
+            .document(uid)
+            .collection(CommonConstants.preferredActivitiesCollectionName)
+            .document(activityType)
+            .collection(CommonConstants.socialActivitiesCollectionName)
+            .snapshots()
+        : studentsCollection
+            .document(uid)
+            .collection(CommonConstants.preferredActivitiesCollectionName)
+            .document(activityType)
+            .collection(CommonConstants.leisureActivitiesCollectionName)
+            .snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+    return snapshots;
   }
 }
