@@ -91,6 +91,7 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
                         'Student Name',
                         _studentNameController,
                         'text',
+                        false,
                         Colors.grey,
                         TextInputType.text,
                         Icon(Icons.search, color: Colors.grey)),

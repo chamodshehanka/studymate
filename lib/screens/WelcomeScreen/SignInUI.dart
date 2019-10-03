@@ -118,15 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ],
               ),
 
-               final signInLabel = FlatButton(
-      child: Text(
-        'Sign In',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {
-        Navigator.pushNamed(context, '/sign_in');
-      },
-    );
+    
               SafeArea(
                 child: IconButton(
                   icon: Icon(Icons.arrow_back),
