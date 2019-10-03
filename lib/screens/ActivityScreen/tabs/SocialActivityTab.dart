@@ -33,12 +33,6 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     super.initState();
 
     studentId = 'JfaAiaJ4yAqhqUqey1mG';
-    _authentication.getCurrentUser().then((userID) {
-      if (userID != null)
-        setState(() {
-          studentId = userID;
-        });
-    });
 
     socialActivityList = List();
     socialActivitySubscription?.cancel();
@@ -53,18 +47,21 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       });
     });
 
-    // Student Preferred Activities List
-    studentActivitiesList = List();
-    studentActivitiesSubscription?.cancel();
-    studentActivitiesSubscription = studentService
-        .getAllPreferredActivities(studentId)
-        .listen((QuerySnapshot snapshot) {
-      final List<ActivityProgress> activityProgress = snapshot.documents
-          .map((documentSnapshot) =>
-              ActivityProgress.fromMap(documentSnapshot.data))
-          .toList();
-      setState(() {
-        studentActivitiesList = activityProgress;
+    _authentication.getCurrentUser().then((user) {
+      studentId = user;
+      // Student Preferred Activities List
+      studentActivitiesList = List();
+      studentActivitiesSubscription?.cancel();
+      studentActivitiesSubscription = studentService
+          .getAllPreferredActivities(studentId)
+          .listen((QuerySnapshot snapshot) {
+        final List<ActivityProgress> activityProgress = snapshot.documents
+            .map((documentSnapshot) =>
+                ActivityProgress.fromMap(documentSnapshot.data))
+            .toList();
+        setState(() {
+          studentActivitiesList = activityProgress;
+        });
       });
     });
   }
@@ -147,22 +144,26 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
             ActivityProgress(socialActivity.id, socialActivity.name, 0);
 
         if (!isActivityPreferred) {
-          // Activity Adding
-          Future<ActivityProgress> isAdded = studentService
-              .addTActivityToProgress(studentId, activityProgress);
+          _authentication.getCurrentUser().then((user) {
+            studentId = user;
 
-          // Preferred Activity Adding SnackBar
-          if (isAdded != null) {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Added to preferred List'),
-              backgroundColor: Colors.green,
-            ));
-          } else {
-            Scaffold.of(context).showSnackBar(new SnackBar(
-              content: new Text('Adding failed!'),
-              backgroundColor: Colors.redAccent,
-            ));
-          }
+            // Activity Adding
+            Future<ActivityProgress> isAdded = studentService
+                .addTActivityToProgress(studentId, activityProgress);
+
+            // Preferred Activity Adding SnackBar
+            if (isAdded != null) {
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text('Added to preferred List'),
+                backgroundColor: Colors.green,
+              ));
+            } else {
+              Scaffold.of(context).showSnackBar(new SnackBar(
+                content: new Text('Adding failed!'),
+                backgroundColor: Colors.redAccent,
+              ));
+            }
+          });
         } else {
           deleteActivityProgress(socialActivity);
         }
@@ -197,21 +198,24 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   }
 
   void deleteActivityProgress(Activity activity) {
-    // Preferred Activity removing
-    Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-        studentId, getActivityProgressId(activity));
-    isDeleted.then((result) {
-      if (result) {
-        Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text('Successfully Removed'),
-          backgroundColor: Colors.green,
-        ));
-      } else {
-        Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text('Adding failed!'),
-          backgroundColor: Colors.redAccent,
-        ));
-      }
+    _authentication.getCurrentUser().then((user) {
+      studentId = user;
+      // Preferred Activity removing
+      Future<dynamic> isDeleted = studentService.deleteActivityProgress(
+          studentId, getActivityProgressId(activity));
+      isDeleted.then((result) {
+        if (result) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Successfully Removed'),
+            backgroundColor: Colors.green,
+          ));
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Adding failed!'),
+            backgroundColor: Colors.redAccent,
+          ));
+        }
+      });
     });
   }
 }

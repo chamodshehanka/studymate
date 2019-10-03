@@ -31,8 +31,8 @@ class _TestUIScreenState extends State<TestUIScreen> {
         body: Container(
           child: ListView(
             children: <Widget>[
-              StudymateTextField("Test", editingController, "Test", false, color,
-                  textInputType, Icon(Icons.email, color: Colors.grey)),
+              StudymateTextField("Test", editingController, "Test", false,
+                  color, textInputType, Icon(Icons.email, color: Colors.grey)),
               StudymateDropdown("Select A Subject", list),
               RaisedButton(
                 child: Text('Admin Activity'),
@@ -47,8 +47,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
                 color: Colors.deepPurpleAccent,
                 textColor: Colors.white,
                 focusColor: Colors.deepPurple,
-                onPressed: () =>
-                    {Navigator.pushNamed(context, '/doctorReg')},
+                onPressed: () => {Navigator.pushNamed(context, '/doctorReg')},
               ),
               RaisedButton(
                 child: Text('forgot password'),
@@ -63,8 +62,7 @@ class _TestUIScreenState extends State<TestUIScreen> {
                 color: Colors.deepPurpleAccent,
                 textColor: Colors.white,
                 focusColor: Colors.deepPurple,
-                onPressed: () =>
-                    {Navigator.pushNamed(context, '/studentAdd')},
+                onPressed: () => {Navigator.pushNamed(context, '/studentAdd')},
               ),
               RaisedButton(
                 child: Text('Doctor Reg'),
