@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/ActivityProgress.dart';
+import 'package:studymate/models/PreferredActivity.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
@@ -32,8 +33,6 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
   void initState() {
     super.initState();
 
-    studentId = 'JfaAiaJ4yAqhqUqey1mG';
-
     socialActivityList = List();
     socialActivitySubscription?.cancel();
     socialActivitySubscription = activityService
@@ -53,7 +52,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       studentActivitiesList = List();
       studentActivitiesSubscription?.cancel();
       studentActivitiesSubscription = studentService
-          .getAllPreferredActivities(studentId)
+          .getAllPreferredActivities(studentId, 'Social')
           .listen((QuerySnapshot snapshot) {
         final List<ActivityProgress> activityProgress = snapshot.documents
             .map((documentSnapshot) =>
@@ -140,16 +139,17 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
         ));
 
         // Pass activity
-        ActivityProgress activityProgress =
-            ActivityProgress(socialActivity.id, socialActivity.name, 0);
+        PreferredActivity preferredActivity =
+            PreferredActivity(socialActivity.name, 0);
 
         if (!isActivityPreferred) {
           _authentication.getCurrentUser().then((user) {
             studentId = user;
 
             // Activity Adding
-            Future<ActivityProgress> isAdded = studentService
-                .addTActivityToProgress(studentId, activityProgress);
+            Future<ActivityProgress> isAdded =
+                studentService.addToPreferredActivities(
+                    studentId, preferredActivity, socialActivity.type);
 
             // Preferred Activity Adding SnackBar
             if (isAdded != null) {
@@ -189,20 +189,20 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     return iconData;
   }
 
-  String getActivityProgressId(Activity activity) {
-    String id;
-    studentActivitiesList.forEach((studentActivity) {
-      if (activity.name == studentActivity.name) id = studentActivity.id;
-    });
-    return id;
-  }
+  // String getActivityProgressId(Activity activity) {
+  //   String id;
+  //   studentActivitiesList.forEach((studentActivity) {
+  //     if (activity.name == studentActivity.name) id = studentActivity.id;
+  //   });
+  //   return id;
+  // }
 
   void deleteActivityProgress(Activity activity) {
     _authentication.getCurrentUser().then((user) {
       studentId = user;
       // Preferred Activity removing
-      Future<dynamic> isDeleted = studentService.deleteActivityProgress(
-          studentId, getActivityProgressId(activity));
+      Future<dynamic> isDeleted = studentService.deleteFromPreferredActivities(
+          studentId, activity.name, activity.type);
       isDeleted.then((result) {
         if (result) {
           Scaffold.of(context).showSnackBar(new SnackBar(
