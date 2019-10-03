@@ -51,6 +51,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "First Name",
         _firstName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -62,6 +63,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "Last Name",
         _lastName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -73,6 +75,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "NIC number",
         _nicNumber,
         "NIC number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -84,6 +87,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "Email",
         _email,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -94,7 +98,8 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     final phoneNumber = StudymateTextField(
         "Phone Number",
         _phoneNumber,
-        "Phone number",
+        "phone",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -103,9 +108,10 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         ));
 
     final password = StudymateTextField(
-        'Password',
+        "Password",
         _password,
-        'text',
+        "password",
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -114,9 +120,10 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         ));
 
      final confirmPassword = StudymateTextField(
-        'Confirm password',
+        "Confirm password",
         _confirmPassword,
-        'text',
+        "password",
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -127,7 +134,8 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     final workingPlace = StudymateTextField(
         'Working Place',
         _workingPlaceController,
-        'text',
+        "working place",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(Icons.place, color: Colors.grey));

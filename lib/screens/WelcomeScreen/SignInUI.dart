@@ -45,6 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
         "Email Address",
         emailController,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -55,6 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
         "Password",
         passwordController,
         "password",
+        true,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -115,6 +117,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ],
               ),
+
+    
               SafeArea(
                 child: IconButton(
                   icon: Icon(Icons.arrow_back),
