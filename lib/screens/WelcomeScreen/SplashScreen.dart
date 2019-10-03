@@ -16,9 +16,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initState() {
     super.initState();
-    
+    log("I am in");
     _auth.getCurrentUser().then((currentUser) {
+      log("I am in");
           if (currentUser != null){
+            log("I am in");
               firebaseUser.then((user) {
                 user.getIdToken().then((result) {
                   bool isAdmin = result.claims['moderator'] ?? false;
@@ -39,12 +41,11 @@ class _SplashScreenState extends State<SplashScreen> {
                 });
               });
             }
-          else
-            {
-              Navigator.pushNamed(context, '/welcome');
-            }
+          
         }).catchError((e){
-          log('ERROR : ' + e);
+          log('ERROR : ' + e.toString());
+          Navigator.pushNamed(context, '/welcome');
+
         });
   }
 

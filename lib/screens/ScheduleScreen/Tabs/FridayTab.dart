@@ -1,0 +1,38 @@
+import 'dart:async';
+
+
+import 'package:device_calendar/device_calendar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:studymate/services/custom/ScheduleServices.dart';
+
+class FridayTab extends StatefulWidget {
+  FridayTab();
+
+
+  @override
+  _FridayTabState createState() => _FridayTabState();
+}
+
+class _FridayTabState extends State<FridayTab> {
+  ScheduleService scheduleService =  new ScheduleService();
+  Future<Calendar> futureCalendar;
+  Calendar calendar;
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      backgroundColor: Colors.white10,
+   
+    
+      
+    );
+  }
+
+}
