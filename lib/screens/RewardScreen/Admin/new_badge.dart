@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Badge.dart';
 import 'package:studymate/services/custom/BadgeService.dart';
+//import 'package:image_picker/image_picker.dart';
 
 
 class NewBadgeScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class NewBadgeScreen extends StatefulWidget {
 
 class _NewBadgeScreenState extends State<NewBadgeScreen> {
 
+  File image;
   List<Badge> badgeList;
   BadgeService badgeService = BadgeService();
   StreamSubscription<QuerySnapshot> badgeSubscription;
@@ -51,6 +54,10 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text(

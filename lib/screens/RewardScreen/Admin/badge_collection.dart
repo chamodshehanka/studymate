@@ -61,14 +61,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(1.0),
-                          child: Text(
-                              badge.type,
-                              style: TextStyle(color: Colors.black, fontSize: 18.0)),
-                        ),
-                      ),
+                                           
                      Container(
                         child: Padding(
                           padding: const EdgeInsets.all(1.0),
