@@ -43,12 +43,36 @@ class _TestUIScreenState extends State<TestUIScreen> {
                     {Navigator.pushNamed(context, '/adminActivity')},
               ),
               RaisedButton(
-                child: Text('Activity Menu'),
+                child: Text('Doctor Reg'),
                 color: Colors.deepPurpleAccent,
                 textColor: Colors.white,
                 focusColor: Colors.deepPurple,
                 onPressed: () =>
-                    {Navigator.pushNamed(context, '/activityMenu')},
+                    {Navigator.pushNamed(context, '/doctorReg')},
+              ),
+              RaisedButton(
+                child: Text('forgot password'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/forgotPassword')},
+              ),
+              RaisedButton(
+                child: Text('Doctor Reg'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/studentAdd')},
+              ),
+              RaisedButton(
+                child: Text('Doctor Reg'),
+                color: Colors.deepPurpleAccent,
+                textColor: Colors.white,
+                focusColor: Colors.deepPurple,
+                onPressed: () =>
+                    {Navigator.pushNamed(context, '/SchoolStudentEditPage')},
               ),
               RaisedButton(
                   child: Text('Admin Activity Dashboard'),

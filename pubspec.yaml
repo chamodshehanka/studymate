@@ -38,7 +38,7 @@ dependencies:
   device_calendar:  ^0.2.1+1
   intl:
   image_picker:
-  flare_flutter: ^1.5.8 
+  flare_flutter: ^1.5.8
   flutter_slidable: ^0.5.3
   percent_indicator: ^2.1.1
 
@@ -75,6 +75,10 @@ flutter:
     - assets/images/image7.jpg
     - assets/images/minion.png
     - assets/images/kids.png
+    - assets/images/user.png
+    - assets/images/leisure.png
+    - assets/images/speaking.jpg
+    - assets/images/swimming.jpg
     - assets/animations/MultiOptionButton.flr
     - assets/animations/tiger.flr
     - assets/images/Kevin_minions.png
