@@ -16,10 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initState() {
     super.initState();
-
-    _auth.getCurrentUser().then((currentUser) => {
-          if (currentUser != null)
-            {
+    
+    _auth.getCurrentUser().then((currentUser) {
+          if (currentUser != null){
               firebaseUser.then((user) {
                 user.getIdToken().then((result) {
                   bool isAdmin = result.claims['moderator'] ?? false;
@@ -38,12 +37,14 @@ class _SplashScreenState extends State<SplashScreen> {
                     Navigator.pushNamed(context, '/studentMain');
                   }
                 });
-              })
+              });
             }
           else
             {
-              Navigator.pushNamed(context, '/welcome'),
+              Navigator.pushNamed(context, '/welcome');
             }
+        }).catchError((e){
+          log('ERROR : ' + e);
         });
   }
 
