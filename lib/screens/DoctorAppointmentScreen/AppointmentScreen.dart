@@ -7,6 +7,7 @@ class TaskScreen extends StatefulWidget {
   final Task task;
   TaskScreen(this.task);
   @override
+
   _TaskScreenState createState() => _TaskScreenState();
 }
 

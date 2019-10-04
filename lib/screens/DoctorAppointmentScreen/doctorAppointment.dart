@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Task.dart';
 import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentScreen.dart';
+import 'package:studymate/screens/DoctorAppointmentScreen/EditAppointment.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 import 'AppointmentScreen.dart';
 
@@ -135,16 +136,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                             mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[
                                             IconButton(
-                                            icon:Icon(Icons.check_circle,color:Colors.green,size: 35), 
+                                            icon:Icon(Icons.delete,color:Colors.red,size: 35), 
                                             onPressed: () {},
                                             ),
                                           Padding(
                                           padding:const EdgeInsets.only() ,
                                           child: Column(
                                           children: <Widget>[
-                                          Text( " Approved ",
+                                          Text( " Delete ",
                                              style: TextStyle(
-                                              color: Colors.green,
+                                              color: Colors.red,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 17.0,
                                               ),
@@ -153,22 +154,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                     ),
                                      IconButton(
-                                            icon:Icon(Icons.cancel,color:Colors.red,size: 35), 
-                                            onPressed: () {},
+                                            icon:Icon(Icons.edit,color:Colors.purple,size: 35), 
+                                            onPressed: () {
+                                                Navigator.of(context).push(new MaterialPageRoute(
+                                                  builder: (BuildContext context)=> new EditAppointment())
+                                                );
+                                            },
                                             ),
                                           Padding(
                                           padding:const EdgeInsets.only() ,
                                           child: Column(
                                           children: <Widget>[
-                                          Text( "UnApproved",
+                                          Text( "Edit",
                                              style: TextStyle(
-                                              color: Colors.red,
+                                              color: Colors.purple,
                                               fontSize: 17.0,
                                               fontWeight: FontWeight.bold,
                                               ),
                                             )
                                           ],
-                                      ),
+                                      ), 
                                     ),
                                          ],
                                         ),
@@ -260,8 +265,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white,
                     ),
                     onPressed: () {
-                      //
-                    }),
+                            // Report generating UI
+                            Navigator.pushNamed(context, '/appointmentReports');
+                          },),
               ),
             ),
           ],

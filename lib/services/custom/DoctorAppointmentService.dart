@@ -42,4 +42,21 @@ class AppointmentService {
     }
     return snapshots;
   }
+   Future<dynamic> updateTask(Task task) async {
+    final TransactionHandler updateTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds =
+          await tx.get(myCollection.document(task.taskappointmentID));
+
+      await tx.update(ds.reference, task.toMap());
+      return {'updated': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(updateTransaction)
+        .then((result) => result['updated'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
+  }
 }
