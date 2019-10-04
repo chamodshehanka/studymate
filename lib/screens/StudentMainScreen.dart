@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/StudentPlaceHolder.dart';
+import 'package:studymate/services/Authentication.dart';
 
 class StudentMainScreen extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class StudentMainScreen extends StatefulWidget {
 }
 
 class _StudentMainScreenState extends State<StudentMainScreen> {
+  BaseAuthentication _authentication = Authentication();
+
   int _currentIndex = 0;
   final List<Widget> _children = [
     StudentPlaceholder(0),
@@ -37,6 +40,15 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           });
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        
+        child: Icon(Icons.close, color: Colors.white),
+        onPressed: () {
+          _authentication.signOut();
+          Navigator.pushNamed(context, '/welcome');
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

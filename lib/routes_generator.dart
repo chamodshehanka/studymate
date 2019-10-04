@@ -19,11 +19,9 @@ import 'package:studymate/screens/RewardScreen/badges.dart';
 import 'package:studymate/screens/RewardScreen/Admin/badge_collection.dart';
 import 'package:studymate/screens/RewardScreen/s_reward.dart';
 import 'package:studymate/screens/RewardScreen/Admin/rewards.dart';
-import 'package:studymate/screens/RewardScreen/Admin/image_bank.dart';
 import 'package:studymate/screens/RewardScreen/achievments.dart';
-import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
-import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
+import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
 import 'package:studymate/screens/StudentMainScreen.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
 import 'package:studymate/screens/StudentScreen/changePassword.dart';
@@ -91,8 +89,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RewardsScreen());
       case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
-      case '/image_bank':
-        return MaterialPageRoute(builder: (_) => ImagesScreen());
+      // case '/image_bank':
+        // return MaterialPageRoute(builder: (_) => ImagesScreen());
       case '/achievments':
         return MaterialPageRoute(builder: (_) => AchievmentsScreen());
       case '/homeDoctor':
@@ -105,10 +103,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       case '/createMedicalRecord':
         return MaterialPageRoute(builder: (_) => CreateMedicalRecordScreen());
-      case '/scheduleManager':
-        return MaterialPageRoute(builder: (_) => ScheduleManagerHome());
-      case '/createdSchedule':
-        return MaterialPageRoute(builder: (_) => CreateSchedule());
       case '/chat':
         return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/schoolStudentAddDetails':
@@ -135,6 +129,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
       case '/studentMain':
         return MaterialPageRoute(builder: (_) => StudentMainScreen());
+       case '/weeklySchedule':
+        return MaterialPageRoute(builder: (_) => WeeklyPlanScreen());  
       default:
         return _errorRoute();
     }

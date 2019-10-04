@@ -1,47 +1,55 @@
-import 'package:device_calendar/device_calendar.dart';
-import 'package:flutter/services.dart';
-//import 'package:studymate/models/Calendar.dart';
+import 'dart:core';
+import 'dart:developer';
 
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studymate/models/ScheduleTask.dart';
+import 'package:studymate/utils/CommonConstants.dart';
 class ScheduleService{
-  DeviceCalendarPlugin deviceCalendarPlugin = new DeviceCalendarPlugin();
-  List<Calendar> calendars;
-  Calendar calendar;
-
-    Future<Calendar> selectCalendar()async{
-    try {
-      var permissionsGranted = await deviceCalendarPlugin.hasPermissions();
-      if (permissionsGranted.isSuccess && !permissionsGranted.data) {
-        permissionsGranted =  await deviceCalendarPlugin.requestPermissions();
-        if (!permissionsGranted.isSuccess || !permissionsGranted.data) {
-            calendars = retrieveCalendars() as List<Calendar>;
-            calendar = calendars[4];
-        }
-    
-       
-      }
-       
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    return calendar;
-  }
-
-    Future<List<Calendar>> retrieveCalendars() async {
-    try {
-      var permissionsGranted = await deviceCalendarPlugin.hasPermissions();
-      if (permissionsGranted.isSuccess && !permissionsGranted.data) {
-        permissionsGranted = await deviceCalendarPlugin.requestPermissions();
-        if (!permissionsGranted.isSuccess || !permissionsGranted.data) {
-          final calendarsResult = await deviceCalendarPlugin.retrieveCalendars();
-          calendars = calendarsResult?.data;
+final CollectionReference studentsCollection =
+  Firestore.instance.collection(CommonConstants.studentsCollectionName);
+ 
+  Future<ScheduleTask> addToSchedule(String studentId,
+      ScheduleTask scheduleTask, String day) {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+       DocumentSnapshot ds = 
+           await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document("weeklyschedule")
+              .collection(day)
+              .document());
           
-        }
-      }
-    
-    } on PlatformException catch (e) {
-      print(e);
-    }
-      return calendars;
+  scheduleTask.setId(ds.documentID);
+
+      final Map<String, dynamic> data = scheduleTask.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return ScheduleTask.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
   }
+
+  Stream<QuerySnapshot> getDailyTaskList(String studentId,String day) {
+   
+    Stream<QuerySnapshot> snapshots =
+        studentsCollection
+              .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document("weeklyschedule")
+              .collection(day).snapshots();
+
+log("Snapshots "+snapshots.isEmpty.toString());
+log(studentId.toString());
+log(day.toString());
+    return snapshots;
+  }
+
 }

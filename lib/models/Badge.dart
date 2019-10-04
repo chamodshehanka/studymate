@@ -45,5 +45,7 @@ Badge(this._id, this._name, this._type, this._milestone, this._description);
     this._milestone = map['milestone'];
     this._description = map['description'];
   }
+
+  toList() {}
 }
 
