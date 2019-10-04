@@ -6,7 +6,7 @@ class StudentRewardsScreen extends StatefulWidget {
 
 class _StudentRewardsScreenState extends State<StudentRewardsScreen> {
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -38,8 +38,8 @@ class MainContent extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: Container(
-                        height: 400.0,
-                                                   child: Column(
+                        height: 500.0,
+                            child: Column(
                               children: <Widget>[
                                 Expanded(
                                   child: Padding(
@@ -49,8 +49,15 @@ class MainContent extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        color: Color(0xFFFD7384),
-                                      ),
+                                        gradient: LinearGradient(
+                                               colors: [
+                                                 Colors.orange.shade300,
+                                                 Colors.deepOrange.shade400
+                                        
+                                               ],
+  
+                                            ),
+                                       ),
                                        child: FlatButton(
                             onPressed: () =>
                                 Navigator.pushNamed(context, '/badges'),
@@ -59,12 +66,16 @@ class MainContent extends StatelessWidget {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 50.0, left: 20.0),
-                                            child: Icon(
-                                              Icons.star_border,
-                                              color: Colors.white,
-                                              size: 50.0,
-                                            ),
+                                                right: 20.0, left: 20.0),
+                                            child:  Image.asset(
+                                                          "assets/images/Kevin_minions.png",
+                                                          fit: BoxFit.contain,
+                                                          width: 150,
+                                                          height: 200,
+                                                          alignment: Alignment.bottomRight,
+                                                        ),
+                                                      
+                                                    
                                           ),
                                           Text(
                                             "Badges",
@@ -87,7 +98,13 @@ class MainContent extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        color: Color(0XFF28D093),
+                                        gradient: LinearGradient(
+                                               colors: [
+                                                 Colors.pink.shade300,
+                                                 Colors.redAccent.shade400
+                                               ],
+  
+                                            ),
                                       ),
                                       child: FlatButton(
                             onPressed: () =>
@@ -97,15 +114,18 @@ class MainContent extends StatelessWidget {
                                         children: <Widget>[
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                right: 50.0, left: 20.0),
-                                            child: Icon(
-                                              Icons.security,
-                                              color: Colors.white,
-                                              size: 50.0,
-                                            ),
+                                                right: 20.0, left: 10.0),
+                                           child:  Image.asset(
+                                                          "assets/images/minion.png",
+                                                          fit: BoxFit.contain,
+                                                          width: 120,
+                                                          height: 200,
+                                                          alignment: Alignment.bottomRight,
+                                                        ),
+                                            
                                           ),
                                           Text(
-                                            "Achievments",
+                                            "Achievements",
                                             textAlign: TextAlign.justify,
                                             style: TextStyle(
                                                 color: Colors.white,
@@ -130,3 +150,11 @@ class MainContent extends StatelessWidget {
     );
   }
 }
+    
+
+        
+  
+
+
+
+
