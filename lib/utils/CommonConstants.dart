@@ -14,12 +14,14 @@ class CommonConstants extends InheritedWidget {
   static final String doctorCollectionName = 'doctors';
   static final String studentsCollectionName = 'students';
   static final String medicalRecordCollection = 'medicalRecord';
+  static final String scheduleCollection = 'schedule';
 
   // Cloud Functions Names
   static final String addAdminFunction = 'addAdmin';
   static final String addDoctorFunction = 'addDoctor';
   static final String addStudentFunction = 'addStudent';
   static final String activityProgressFunction = 'activityProgress';
+  static final String sendMessageToParent = 'sendMessageToParent';
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => false;

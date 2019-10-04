@@ -43,7 +43,6 @@ class ActivityService {
     if (limit != null) {
       snapshots = snapshots.take(limit);
     }
-
     return snapshots;
   }
 
