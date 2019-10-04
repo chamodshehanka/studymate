@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Badge.dart';
 import 'package:studymate/services/custom/BadgeService.dart';
+//import 'package:image_picker/image_picker.dart';
 
 
 class NewBadgeScreen extends StatefulWidget {
@@ -13,6 +15,7 @@ class NewBadgeScreen extends StatefulWidget {
 
 class _NewBadgeScreenState extends State<NewBadgeScreen> {
 
+  File image;
   List<Badge> badgeList;
   BadgeService badgeService = BadgeService();
   StreamSubscription<QuerySnapshot> badgeSubscription;
@@ -51,6 +54,10 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -144,46 +151,6 @@ class _NewBadgeScreenState extends State<NewBadgeScreen> {
                      ),
                       
                   
-                    //  const SizedBox(height: 20.0),
-                    //  DropdownButtonFormField<String>(
-                    //    //controller:typeController,
-                    // decoration: InputDecoration(
-                    //   enabledBorder: OutlineInputBorder(
-                    //     borderSide: BorderSide(
-                    //       color: Colors.indigo,
-                    //       width: 1.5,
-                    //       style: BorderStyle.solid,
-                    //     ),
-                    //     borderRadius: BorderRadius.all(
-                    //       Radius.circular(15.0),
-                    //     ),
-                    //   ),
-                    //   focusedBorder: OutlineInputBorder(
-                    //     borderSide: BorderSide(
-                    //       color: Colors.indigo,
-                    //       width: 1.5,
-                    //       style: BorderStyle.solid,
-                    //     ),
-                    //     borderRadius: BorderRadius.all(
-                    //       Radius.circular(15.0),
-                    //     ),
-                    //   ),
-                    //   labelText: "Badge Type",
-                    //   labelStyle: TextStyle(
-                    //       color: Colors.indigo, fontWeight: FontWeight.bold),
-                    // ),
-                                        
-                    //                     value: type,
-                    //                     items: ["Subject", "Activity"]
-                    //                         .map((label) => DropdownMenuItem(
-                    //                               child: Text(label),
-                    //                               value: label,
-                    //                             ))
-                    //                         .toList(),
-                    //                     onChanged: (value) {
-                    //                       setState(() => type = value);
-                    //                     },
-                    //                   ),
                    
                   const SizedBox(height: 20.0),
                   TextFormField(
