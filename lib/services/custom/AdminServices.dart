@@ -8,7 +8,8 @@ final CollectionReference adminsCollection =
 class AdminService {
   Future<Admin> create(Admin admin, String authId) {
     final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(adminsCollection.document());
+      final DocumentSnapshot ds =
+          await tx.get(adminsCollection.document(authId));
 
       final Admin adminModel = new Admin(authId, admin.firstName,
           admin.lastName, admin.email, admin.contactNo, admin.workPlace);

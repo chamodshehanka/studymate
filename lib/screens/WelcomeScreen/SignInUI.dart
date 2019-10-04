@@ -45,6 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
         "Email Address",
         emailController,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -55,6 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
         "Password",
         passwordController,
         "password",
+        true,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -115,6 +117,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ],
               ),
+
+    
               SafeArea(
                 child: IconButton(
                   icon: Icon(Icons.arrow_back),
@@ -172,11 +176,9 @@ class _SignInScreenState extends State<SignInScreen> {
             } else if (isDoctor) {
               Navigator.pushNamed(context, '/homeDoctor');
             } else if (isStudent) {
-              Future<QuerySnapshot> data = studentService.getByID(user.uid);
-
+              Future<DocumentSnapshot> data = studentService.getByID(user.uid);
               data.then((value) {
-                Student student = Student.map(value.documents.first.data);
-
+                Student student = Student.map(value.data);
                 if (student.name != null && student.phoneNumber != null) {
                   // Already regiesterd student
                   Navigator.pushNamed(context, '/home');

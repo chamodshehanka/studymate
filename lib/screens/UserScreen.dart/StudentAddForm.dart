@@ -44,6 +44,7 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
         "Email",
         _email,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -55,6 +56,7 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
         "Password",
         _password,
         "password",
+        true,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -66,6 +68,7 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
         "Confirm password",
         _confirmPassword,
         "confirmPassword",
+        true,
         Colors.grey,
         TextInputType.text,
         Icon(
