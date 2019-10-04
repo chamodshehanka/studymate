@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreenDoctor> {
         crossAxisCount: 2,
         children: <Widget>[
           HomeTile(Icons.calendar_today, "Appointments", Colors.amber,
-              "/AppointmentWelcome"),
+              "/DashboardAppointment"),
           HomeTile(Icons.healing, "Medical Records", Colors.lightBlue, "/medicalRecord"),
           HomeTile(Icons.timeline, "Progress Tracker", Colors.cyan, ""),
           HomeTile(
