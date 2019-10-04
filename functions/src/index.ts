@@ -1,12 +1,21 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import * as Twilio from 'twilio';
+import * as secretKeys from '../secrets/keys'
 
+// require('dotenv').config();
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+
+const twilioNumber = secretKeys.twilioNumber;
+const accountSid = secretKeys.accountSid;
+const authToken = secretKeys.authToken;
+
+const client = Twilio(accountSid, authToken);
 
 admin.initializeApp();
 
@@ -113,4 +122,18 @@ export const tempScheduleFunction = functions.https.onRequest((request, response
 exports.getStudentsNamesFunction = functions.https.onRequest((request, response) => {
     const name = request.get.name;
     response.send(name + 'Kusura');
+});
+
+exports.sendMessageToParent = functions.https.onCall((data, context) => {
+    const message = data.message;
+    const textContent = {
+        body: `${message}`,
+        to: '+94775633985',
+        from: twilioNumber
+    }
+    client.messages.create(textContent).then((msg) => {
+        console.log(msg);
+    }).catch((error) => {
+        console.log(error);
+    });
 });

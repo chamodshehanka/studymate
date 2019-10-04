@@ -7,3 +7,6 @@ typings/
 
 node_modules/
 secrets/
+
+**/*.env
+keys.ts

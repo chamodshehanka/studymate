@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/services/CloudFunctionsService.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
 import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
@@ -23,6 +26,7 @@ class _ActivityAdminDashboardScreenState
   Animation<double> _heightAnimation;
   Animation<double> _iconSizeAnimation;
   AnimationController _graphAnimationController;
+  CloudFunctionService cloudFunctionService = CloudFunctionService();
 
   @override
   void initState() {
@@ -184,7 +188,15 @@ class _ActivityAdminDashboardScreenState
                                 ),
                               ],
                             ),
-                            // Row(),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton('Send Message',
+                                      sendMessage, Colors.deepPurpleAccent),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -525,4 +537,14 @@ class _ActivityAdminDashboardScreenState
 
   // View Activities Usage UI
   void viewActivitiesUsage() {}
+
+  void sendMessage() {
+    cloudFunctionService
+        .sendMessageToParent('Student has not updated his journal!')
+        .then((onValue) {
+      log(onValue.toString());
+    }).catchError((error) {
+      log(error.toString());
+    });
+  }
 }
