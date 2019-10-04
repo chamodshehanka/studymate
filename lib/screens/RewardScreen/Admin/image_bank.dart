@@ -1,95 +1,85 @@
-import 'dart:typed_data';
+// import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+// import 'package:flutter/material.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 
-class ImagesScreen extends StatefulWidget {
-  @override
-  _ImagesScreenState createState() => _ImagesScreenState();
-}
+// class ImagesScreen extends StatefulWidget {
+//   @override
+//   _ImagesScreenState createState() => _ImagesScreenState();
+// }
 
-class _ImagesScreenState extends State<ImagesScreen> {
+// class _ImagesScreenState extends State<ImagesScreen> {
+//   Widget imageGrid() {
+//     return GridView.builder(
+//       itemCount: 30,
+//       gridDelegate:
+//           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+//       itemBuilder: (context, index) {
+//         return ImageGridItem(index + 1);
+//       },
+//     );
+//   }
 
-  Widget imageGrid(){
-    return GridView.builder(
-      itemCount: 30,
-       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-       itemBuilder:(context, index){
-         return ImageGridItem(index + 1);
-       },   
-    );
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-       appBar: AppBar(
-        title: Text(
-          "Image  Bank",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-         backgroundColor: Colors.deepPurple,
-        elevation: 0.0,
-        iconTheme: IconThemeData(color: Color(0xFF18D191), size: 10.0),
-       ),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(
+//           "Image  Bank",
+//           style: TextStyle(fontWeight: FontWeight.bold),
+//         ),
+//         backgroundColor: Colors.deepPurple,
+//         elevation: 0.0,
+//         iconTheme: IconThemeData(color: Color(0xFF18D191), size: 10.0),
+//       ),
+//       body: Container(
+//         child: imageGrid(),
+//       ),
+//     );
+//   }
+// }
 
-       body: Container(
-          child:imageGrid(),
-       ),
-    );
-  }
-}       
+// class ImageGridItem extends StatefulWidget {
+//   final int _index;
+//   ImageGridItem(index);
 
-class ImageGridItem extends StatefulWidget {
+//   @override
+//   _ImageGridItemState createState() => _ImageGridItemState();
+// }
 
-  int _index;
-  ImageGridItem(int index){
-    this._index = index;
-  }
+// class _ImageGridItemState extends State<ImageGridItem> {
+//   Uint8List imageFile;
+//   StorageReference badgesReference =
+//       FirebaseStorage.instance.ref().child("badges");
 
-     @override
-     _ImageGridItemState createState() => _ImageGridItemState();
-   }
+//   getImage() {
+//     final int maxSize = 1 * 1024 * 1024;
+//     badgesReference
+//         .child("badge_${widget._index}.png")
+//         .getData(maxSize)
+//         .then((data) {
+//       this.setState(() {
+//         imageFile = data;
+//       });
+//     }).catchError((error) {});
+//   }
 
-class _ImageGridItemState extends State<ImageGridItem>{
-  Uint8List imageFile;
-  StorageReference badgesReference = FirebaseStorage.instance.ref().child("badges");
+//   Widget decideGridTileWidget() {
+//     if (imageFile == null) {
+//       return Center(child: Text("Loading"));
+//     } else {
+//       return Image.memory(imageFile, fit: BoxFit.cover);
+//     }
+//   }
 
-    getImage(){
-      int MAX_SIZE =1*1024*1024;
-      badgesReference.child("badge_${widget._index}.png").getData(MAX_SIZE).then((data){
-        this.setState((){
-          imageFile = data;
-        });
-      }).catchError((error){
+//   @override
+//   void initState() {
+//     super.initState();
+//     getImage();
+//   }
 
-      });
-
-      }
-
-  Widget decideGridTileWidget(){
-    if(imageFile == null){
-      return Center(child: Text("Loading"));
-    }else{
-     return Image.memory(imageFile,fit:BoxFit.cover);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getImage();
-  }
-  @override
-  Widget build(BuildContext context) {
-    
-    return GridTile(child: decideGridTileWidget());
-  }
-      
-    }
-
-     
-   
-   
-    
-    
-    
+//   @override
+//   Widget build(BuildContext context) {
+//     return GridTile(child: decideGridTileWidget());
+//   }
+// }
