@@ -39,7 +39,7 @@ class MainContent extends StatelessWidget {
                     Expanded(
                       child: Container(
                         height: 400.0,
-                                                   child: Column(
+                            child: Column(
                               children: <Widget>[
                                 Expanded(
                                   child: Padding(
@@ -49,8 +49,14 @@ class MainContent extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        color: Color(0xFFFD7384),
-                                      ),
+                                        gradient: LinearGradient(
+                                               colors: [
+                                                 const Color(0XFF333399),
+                                                 const Color(0XFFFF00CC),
+                                               ],
+  
+                                            ),
+                                       ),
                                        child: FlatButton(
                             onPressed: () =>
                                 Navigator.pushNamed(context, '/badge_collection'),
@@ -87,7 +93,13 @@ class MainContent extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20.0),
-                                        color: Color(0XFF28D093),
+                                        gradient: LinearGradient(
+                                               colors: [
+                                                 const Color(0XFFEC008C),
+                                                 const Color(0XFFFC6767),
+                                               ],
+  
+                                            ),
                                       ),
                                       child: FlatButton(
                             onPressed: () =>
