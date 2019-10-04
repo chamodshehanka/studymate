@@ -4,7 +4,6 @@ import 'dart:async';
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_calendar/device_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/ScheduleTask.dart';

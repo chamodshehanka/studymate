@@ -35,7 +35,6 @@ dependencies:
   flutter_screenutil: ^0.4.2
   carousel_slider: ^0.0.4
   googleapis: ^0.54.0
-  device_calendar:  ^0.2.1+1
   intl:
   image_picker:
   flare_flutter: ^1.5.8
