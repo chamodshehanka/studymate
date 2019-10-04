@@ -1,12 +1,21 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import * as Twilio from 'twilio';
+import * as secretKeys from '../secrets/keys'
 
+// require('dotenv').config();
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+
+const twilioNumber = secretKeys.twilioNumber;
+const accountSid = secretKeys.accountSid;
+const authToken = secretKeys.authToken;
+
+const client = Twilio(accountSid, authToken);
 
 admin.initializeApp();
 
@@ -97,32 +106,34 @@ async function grantStudentRole(email: string): Promise<void> {
 }
 
 //this func won't deploy until billing enabled
-exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun(async (context) => {
-    const inActiveStudents = await getInActiveStudents();
-    console.log('In active users : ' + inActiveStudents.length);
+// exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun(async (context) => {
+//     const inActiveStudents = await getInActiveStudents();
+//     console.log('In active users : ' + inActiveStudents.length);
+// });
+
+export const tempScheduleFunction = functions.https.onRequest((request, response) => {
+    admin.auth().listUsers().then((userRecords) => {
+        userRecords.users.forEach((user) => console.log(user.toJSON()));
+        response.end('Retrieved users list successfully.');
+    }).catch((error) => console.log(error));
 });
 
-async function getInActiveStudents() {
-    const users: admin.auth.UserRecord[] = [];
 
-    const result = await admin.auth().listUsers();
+exports.getStudentsNamesFunction = functions.https.onRequest((request, response) => {
+    const name = request.get.name;
+    response.send(name + 'Kusura');
+});
 
-    // for test
-    console.log('Users count : '+result.users.length);
-
-    const inActiveStudents = result.users.filter(user => Date.parse(user.metadata.lastSignInTime) < (Date.now() - 2 * 24 * 60 * 60 * 1000));
-    users.concat(inActiveStudents);
-
-    return users;
-}
-
-// exports.sendPushNotification = functions.firestore.document('Activities').onCreate(event => {
-//     var request = event.data;
-//     var playload = {
-//        data: {
-//            username: 'Random',
-//            email: 'studymate@gmail.com'
-//        } 
-//     }
-//     admin.messaging().sendToDevice(playload);
-// });
+exports.sendMessageToParent = functions.https.onCall((data, context) => {
+    const message = data.message;
+    const textContent = {
+        body: `${message}`,
+        to: '+94775633985',
+        from: twilioNumber
+    }
+    client.messages.create(textContent).then((msg) => {
+        console.log(msg);
+    }).catch((error) => {
+        console.log(error);
+    });
+});

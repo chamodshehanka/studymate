@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreenDoctor> {
         children: <Widget>[
           HomeTile(Icons.calendar_today, "Appointments", Colors.amber,
               "/AppointmentWelcome"),
-          HomeTile(Icons.healing, "Patients", Colors.lightBlue, ""),
+          HomeTile(Icons.healing, "Medical Records", Colors.lightBlue, "/medicalRecord"),
           HomeTile(Icons.timeline, "Progress Tracker", Colors.cyan, ""),
           HomeTile(
               Icons.calendar_today, "Schedule", Colors.cyan, "/createSchedule"),
