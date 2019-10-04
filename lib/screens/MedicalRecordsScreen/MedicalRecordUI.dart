@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/MedicalRecord.dart';
 import 'package:studymate/services/custom/MedicalRecordService.dart';
-import 'package:studymate/widgets/MultiOptionButton/MultiOptionButton.dart';
 
 class MedicalRecordUIScreen extends StatefulWidget {
   _MedicalRecordScreenState createState() => _MedicalRecordScreenState();
@@ -14,7 +13,10 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
   List<MedicalRecord> medicalRecordList;
   MedicalRecordService medicalRecordService = MedicalRecordService();
   StreamSubscription<QuerySnapshot> medicalRecordSubscription;
-  // final _formKey =
+  // final FirebaseStorage firebaseStorage = FirebaseStorage(
+  //     app: Firestore.instance.app,
+  //     storageBucket: 'gs://studymate-v1.appspot.com/medicalRecords');
+  // Uint8List imageBytes;
 
   @override
   void initState() {
@@ -32,6 +34,18 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
         this.medicalRecordList = medicalRecords;
       });
     });
+
+    // getting image data
+    // firebaseStorage
+    //     .ref()
+    //     .child('octocat.jpeg')
+    //     .getData(10000000)
+    //     .then((data) => setState(() {
+    //           imageBytes = data;
+    //         }))
+    //     .catchError((e) {
+    //   print(e);
+    // });
   }
 
   @override
@@ -88,13 +102,11 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
           backgroundColor: Colors.deepPurple,
         ),
         body: medicalRecordBody,
-        floatingActionButton: Align(
-            alignment: Alignment.bottomRight, child: MultiOptionButton()));
-    // FloatingActionButton(
-    //   backgroundColor: Colors.deepPurple,
-    //   child: Icon(Icons.add),
-    //   onPressed: () => Navigator.pushNamed(context, '/createMedicalRecord'),
-    // ));
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.deepPurple,
+          child: Icon(Icons.add),
+          onPressed: () => Navigator.pushNamed(context, '/createMedicalRecord'),
+        ));
   }
 
   _viewMedicalReport(BuildContext context) {

@@ -3,39 +3,52 @@ import 'package:flutter/material.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
-class ManageActivityScreen extends StatelessWidget {
+class ManageActivityScreen extends StatefulWidget {
   final Activity activity;
-  final ActivityService activityService = ActivityService();
-  final _formKey = GlobalKey<FormState>();
-  final nameController;
 
-  ManageActivityScreen({Key key, @required this.activity, this.nameController});
+  ManageActivityScreen({Key key, @required this.activity});
+
+  @override
+  _ManageActivityScreenState createState() => _ManageActivityScreenState();
+}
+
+class _ManageActivityScreenState extends State<ManageActivityScreen> {
+  final ActivityService activityService = ActivityService();
+
+  final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = widget.activity.name;
+  }
 
   @override
   Widget build(BuildContext context) {
     // Activity Delete Action
     void activityDeleteAction() {
-      Future<dynamic> isDeleted = activityService.deleteActivity(activity.id);
+      Future<dynamic> isDeleted =
+          activityService.deleteActivity(widget.activity.id);
       if (isDeleted != null) {
-        Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text("Successfully Deleted!"),
-          backgroundColor: Colors.deepPurple,
-        ));
         Navigator.pop(context);
-      } else {}
+      } else {
+        print('Activity Delete Failed');
+      }
     }
 
     void showDeleteConfirmationDialog() {
-      if (activity.id != null) {
+      if (widget.activity.id != null) {
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (BuildContext context) {
               return StudymateDialogBox(
                 title: 'Are you sure?',
-                description:
-                    activity.name + ' activity will be permanently deleted!',
+                description: widget.activity.name +
+                    ' activity will be permanently deleted!',
                 confirmation: true,
                 confirmationAction: activityDeleteAction,
                 tigerAnimationType: 'fail',
@@ -57,62 +70,68 @@ class ManageActivityScreen extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(labelText: "Activity Name"),
-                  controller: nameController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter activity name';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
+                child: StudymateTextField(
+                    'Activity Name',
+                    nameController,
+                    'text',
+                    false,
+                    Colors.grey,
+                    TextInputType.text,
+                    Icon(Icons.local_activity, color: Colors.grey)),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: TextFormField(
-                  initialValue: activity.type,
+                  initialValue: widget.activity.type,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  color: Colors.deepPurpleAccent,
-                  textColor: Colors.white,
-                  child: Text('Save'),
-                  onPressed: () {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      elevation: 10,
+                      color: Colors.deepPurpleAccent,
+                      textColor: Colors.white,
+                      child: Text('Save'),
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
 
-                      if (activity.id != null) {
-                        Activity updatedActivity = Activity(
-                            activity.id, nameController.text, activity.type);
-                        print(activity.id);
-                        print(nameController.text);
-                        Future isUpdated =
-                            activityService.updateActivity(updatedActivity);
-                        if (isUpdated != null) {
-                          Navigator.pop(context);
+                          if (widget.activity.id != null) {
+                            Activity updatedActivity = Activity(
+                                widget.activity.id,
+                                nameController.text,
+                                widget.activity.type);
+
+                            Future isUpdated =
+                                activityService.updateActivity(updatedActivity);
+                            if (isUpdated != null) {
+                              Navigator.pop(context);
+                            }
+                          } else {
+                            print('Activity id is not valid');
+                          }
                         }
-                      } else {
-                        Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text('Activity ID is not valid!'),
-                          backgroundColor: Colors.deepPurple,
-                        ));
-                      }
-                    }
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  color: Colors.redAccent,
-                  textColor: Colors.white,
-                  child: Text('Remove'),
-                  onPressed: showDeleteConfirmationDialog,
-                ),
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      elevation: 10,
+                      color: Colors.redAccent,
+                      textColor: Colors.white,
+                      child: Text('Remove'),
+                      onPressed: showDeleteConfirmationDialog,
+                    ),
+                  ),
+                ],
               ),
             ],
           )),
@@ -121,7 +140,7 @@ class ManageActivityScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(activity.name),
+          title: Text('Manage ' + widget.activity.name + ' Activity'),
           backgroundColor: Colors.deepPurpleAccent,
         ),
         body: manageActivityBody,

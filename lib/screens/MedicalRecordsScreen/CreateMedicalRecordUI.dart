@@ -1,8 +1,8 @@
-import 'dart:io';
+import 'dart:developer';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class CreateMedicalRecordScreen extends StatefulWidget {
   _CreateMedicalRecordScreenState createState() =>
@@ -10,110 +10,72 @@ class CreateMedicalRecordScreen extends StatefulWidget {
 }
 
 class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
-  File image;
-  bool _isUploaded;
-  String _downloadUrl;
+  final TextEditingController _studentNameController = TextEditingController();
+  final TextEditingController _recordDetailsController =
+      TextEditingController();
 
-  final StorageReference reference =
-      FirebaseStorage.instance.ref().child('medicalRecords/image1.jpg');
-
-  Future<dynamic> getImage(bool isCamera) async {
-    var pickImage;
-    isCamera
-        ? pickImage = await ImagePicker.pickImage(source: ImageSource.camera)
-        : await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      image = pickImage;
-    });
+  @override
+  void initState() {
+    super.initState();
   }
 
-  Future<dynamic> uploadImage() async {
-    final StorageUploadTask task = reference.putFile(image);
-    /* StorageTaskSnapshot snapshot = */ await task.onComplete;
-    //
-
-    setState(() {
-      _isUploaded = true;
-    });
-  }
-
-  Future downloadImage() async {
-    String downloadAddress = await reference.getDownloadURL();
-    setState(() {
-      _downloadUrl = downloadAddress;
-    });
-  }
-
-  Widget enableUpload() {
-    return Container(
-        child: Column(children: <Widget>[
-      Image.file(
-        image,
-        height: 300.0,
-        width: 300.0,
-      ),
-      RaisedButton(
-        color: Colors.deepPurpleAccent,
-        child: Text('Upload'),
-        textColor: Colors.white,
-        onPressed: () {
-          uploadImage();
-
-          if (_isUploaded) {
-            // Navigator.pop(context);
-            downloadImage();
-          }
-        },
-      )
-    ]));
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var createMedicalRecordBody = Container(
+      alignment: Alignment.topCenter,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: image == null ? Text('Select an image') : enableUpload(),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: image != null
-                ? Image.network(_downloadUrl)
-                : Image.network(
-                    'https://hacktoberfest.digitalocean.com/pretty_logo.png'),
-          ),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: Colors.deepPurpleAccent,
-                textColor: Colors.white,
-                child: Text('Add Image'),
-                onPressed: () => {getImage(false)},
-              )),
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: Colors.deepPurpleAccent,
-                textColor: Colors.white,
-                child: Text('Take a photo'),
-                onPressed: () => {getImage(true)},
-              )),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RaisedButton(
-              color: Colors.redAccent,
-              textColor: Colors.white,
-              child: Text('Cancel'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+          SafeArea(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(1.0),
+                  child: Container(
+                    width: 255,
+                    child: StudymateTextField(
+                        'Student Name',
+                        _studentNameController,
+                        'text',
+                        false,
+                        Colors.grey,
+                        TextInputType.text,
+                        Icon(Icons.search, color: Colors.grey)),
+                  ),
+                ),
+                Container(
+                  width: 150,
+                  child: StudymateRaisedButton(
+                      'Search', searchStudent, Colors.deepPurpleAccent),
+                ),
+              ],
             ),
           ),
+          StudymateTextField('Record Details', _recordDetailsController, 'text',
+              false, Colors.grey, TextInputType.text, Icon(Icons.comment)),
+          Container(),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: 150,
+                child: StudymateRaisedButton(
+                    'Create', createMedicalRecord, Colors.deepPurpleAccent),
+              ),
+              Container(
+                width: 150,
+                child: StudymateRaisedButton(
+                    'Cancel', closeWindow, Colors.redAccent),
+              )
+            ],
+          )
         ],
       ),
     );
@@ -125,5 +87,19 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
               backgroundColor: Colors.deepPurple,
             ),
             body: createMedicalRecordBody));
+  }
+
+  void searchStudent() {
+    // print('Search student' + _studentNameController.text);
+    var date = new DateTime.now();
+    log(date.toString());
+  }
+
+  void closeWindow() {
+    Navigator.pop(context);
+  }
+
+  void createMedicalRecord() {
+    // _studentService.getStudentsByName('Student');
   }
 }
