@@ -46,6 +46,7 @@ dependencies:
   flutter_datetime_picker:
   fab_circular_menu: ^0.1.1
   printing: any
+  flutter_local_notifications: ^0.8.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.2+1

@@ -1,9 +1,12 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/CloudFunctionsService.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
@@ -27,6 +30,8 @@ class _ActivityAdminDashboardScreenState
   Animation<double> _iconSizeAnimation;
   AnimationController _graphAnimationController;
   CloudFunctionService cloudFunctionService = CloudFunctionService();
+  FirebaseMessaging _fcm = FirebaseMessaging();
+  BaseAuthentication _authentication = Authentication();
 
   @override
   void initState() {
@@ -55,6 +60,49 @@ class _ActivityAdminDashboardScreenState
     // Graph Animations
     _graphAnimationController =
         AnimationController(vsync: this, duration: Duration(seconds: 2));
+
+    // fcm
+    _fcm.configure(onMessage: (Map<String, dynamic> message) async {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                content: ListTile(
+                  title: Text(message['notification']['title']),
+                  subtitle: Text(message['notification']['body']),
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Ok'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ));
+    }, onResume: (Map<String, dynamic> message) async {
+      print('On Resume');
+    }, onLaunch: (Map<String, dynamic> message) async {
+      print('On launch');
+    });
+
+    _saveDeviceToken();
+  }
+
+  _saveDeviceToken() async {
+    _authentication.getCurrentUser().then((userId) async {
+      String uid = userId;
+      String _fcmToken = await _fcm.getToken();
+      if (_fcmToken != null) {
+        var tokenRef = Firestore.instance
+            .collection('admins')
+            .document(uid)
+            .collection('tokens')
+            .document(_fcmToken);
+        await tokenRef.setData({
+          'token': _fcmToken,
+          'createdAt': FieldValue.serverTimestamp(),
+          'platform': Platform.operatingSystem
+        });
+      }
+    });
   }
 
   @override
@@ -539,10 +587,15 @@ class _ActivityAdminDashboardScreenState
   void viewActivitiesUsage() {}
 
   void sendMessage() {
-    cloudFunctionService
-        .sendMessageToParent('Student has not updated his journal!')
-        .then((onValue) {
-      log(onValue.toString());
+    // cloudFunctionService
+    //     .sendMessageToParent('Student has not updated his journal!')
+    //     .then((onValue) {
+    //   log(onValue.toString());
+    // }).catchError((error) {
+    //   log(error.toString());
+    // });
+    _authentication.getCurrentUser().then((authId) {
+      cloudFunctionService.cloudNotificationFunction(authId);
     }).catchError((error) {
       log(error.toString());
     });

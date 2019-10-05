@@ -22,6 +22,7 @@ class CommonConstants extends InheritedWidget {
   static final String addStudentFunction = 'addStudent';
   static final String activityProgressFunction = 'activityProgress';
   static final String sendMessageToParent = 'sendMessageToParent';
+  static final String cloudNotificatinFunction = 'cloudNotificatinFunction';
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => false;

@@ -41,13 +41,24 @@ class CloudFunctionService {
     final HttpsCallable callable = CloudFunctions.instance
         .getHttpsCallable(functionName: 'sendMessageToParent');
 
-        log(CommonConstants.sendMessageToParent);
+    log(CommonConstants.sendMessageToParent);
 
     Map<String, dynamic> data = new Map();
     data['message'] = message;
 
     HttpsCallableResult result = await callable.call(data);
     // log('result : ' + result.data.toString());
+    return result.data.toString();
+  }
+
+  Future<String> cloudNotificationFunction(String authId) async {
+    final HttpsCallable callable = CloudFunctions.instance
+        .getHttpsCallable(functionName: 'cloudNotificatinFunction');
+
+    Map<String, dynamic> data = new Map();
+    data['authId'] = authId;
+
+    HttpsCallableResult result = await callable.call(data);
     return result.data.toString();
   }
 }
