@@ -195,6 +195,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.7.3"
+  flutter_local_notifications:
+    dependency: "direct main"
+    description:
+      name: flutter_local_notifications
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.4"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -340,13 +347,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
-  printing:
-    dependency: "direct main"
-    description:
-      name: printing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.8"
   quiver:
     dependency: transitive
     description:
