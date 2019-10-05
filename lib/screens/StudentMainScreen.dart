@@ -23,7 +23,8 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FabCircularMenu(
+      body: 
+      FabCircularMenu(
         child: Container(
 
             child: _children[_currentIndex], 
@@ -35,6 +36,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
             IconButton(icon: Icon(Icons.calendar_today), onPressed: () {Navigator.pushNamed(context, '/daily');}, iconSize: 30.0, color: Colors.white),
             IconButton(icon: Icon(Icons.schedule), onPressed: () {}, iconSize: 30.0, color: Colors.white),
             IconButton(icon: Icon(Icons.chat), onPressed: () {}, iconSize: 30.0, color: Colors.white),
+            IconButton(icon: Icon(Icons.track_changes), onPressed: () {Navigator.pushNamed(context, '/studentDailyReport');}, iconSize: 30.0, color: Colors.white),
           ],
       ),
       
