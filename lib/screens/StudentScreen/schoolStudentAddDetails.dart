@@ -1,7 +1,9 @@
 
 //import 'package:flushbar/flushbar.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 //import 'package:googleapis/servicecontrol/v1.dart';
 //import 'package:studymate/auth.dart';
 //import 'package:studymate/models/Student.dart';
@@ -29,7 +31,9 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
   final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _schoolName = new TextEditingController();
-  final TextEditingController _password = new TextEditingController();
+
+ 
+  
 String mascotAnimationType;
 
 // String labelText;
@@ -117,18 +121,15 @@ String mascotAnimationType;
  
 
   
-    final password = StudymateTextField("Password", _password,
-     "password", true,Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
-  
-
+    
     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
-       _emailSignUp(
+       _addStudentDetails(
               firstName: _firstName.text,
               lastName: _lastName.text,
               birthday: _birthday.text,
               phoneNumber: _phoneNumber.text,
               schoolName: _schoolName.text,
-              password: _password.text,
+              
               context: context)
     }, Colors.deepPurple);
     
@@ -161,8 +162,6 @@ String mascotAnimationType;
                       SizedBox(height: 24.0),
                       schoolName,
                       SizedBox(height: 24.0),
-                      password,
-                      SizedBox(height: 12.0),
                       signUpButton,
                       
                     ],
@@ -181,38 +180,31 @@ String mascotAnimationType;
     });
   }
 
-  void _emailSignUp(
+  void _addStudentDetails(
       {String firstName,
       String lastName,
       String birthday,
       String phoneNumber,
       String schoolName,
-      String password,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {
       try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
+
+        
  
-        // await Auth.signUp(email, password).then((uID) {
-        //   Auth.addUserSettingsDB(new User(
-        //     userId: uID,
-        //     email: email,
-        //     firstName: firstName,
-        //     lastName: lastName,
-        //   ));
-        // });
       
-        await Navigator.pushNamed(context, '/sign_in');
+        await Navigator.pushNamed(context, '/home');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
-        //String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Sign Up Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
+        String exception = Authentication.getExceptionText(e);
+        Flushbar(
+          title: "Sign Up Error",
+          message: exception,
+          duration: Duration(seconds: 5),
+        )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);

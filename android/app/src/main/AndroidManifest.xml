@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.brocode.studymate">
-<uses-permission android:name="android.permission.READ_CALENDAR" />
-<uses-permission android:name="android.permission.WRITE_CALENDAR" />
+<!-- <uses-permission android:name="adroid.permission.RECEIVE_BOOT_COMPLETED"/> -->
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -31,10 +30,10 @@
             </intent-filter>
 
             <!-- Push notifications -->
-            <intent-filter>
+            <!-- <intent-filter>
                 <action android:name="FLUTTER_NOTIFICATION_CLICK"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
+            </intent-filter> -->
         </activity>
     </application>
 </manifest>

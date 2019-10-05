@@ -18,7 +18,8 @@ class StudentService {
 
       final Student studentModel = new Student(
           authId,
-          student.name,
+          student.firstName,
+          student.lastName,
           student.email,
           student.schooling,
           student.schoolName,
