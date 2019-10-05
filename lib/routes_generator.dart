@@ -127,8 +127,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
       case '/studentMain':
         return MaterialPageRoute(builder: (_) => StudentMainScreen());
-       case '/weeklySchedule':
-        return MaterialPageRoute(builder: (_) => WeeklyPlanScreen());  
+      case '/weeklySchedule':
+        return MaterialPageRoute(builder: (_) => WeeklyPlanScreen());
       default:
         return _errorRoute();
     }
