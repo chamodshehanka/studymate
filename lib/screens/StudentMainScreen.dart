@@ -41,12 +41,14 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        
         child: Icon(Icons.close, color: Colors.white),
         onPressed: () {
           _authentication.signOut();
           Navigator.pushNamed(context, '/welcome');
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
