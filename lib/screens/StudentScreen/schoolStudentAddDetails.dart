@@ -7,21 +7,59 @@ import 'package:flutter/services.dart';
 //import 'package:studymate/models/Student.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
+
 import 'package:studymate/widgets/loading.dart';
 
 
 class SchoolStudentAddDetailsScreen extends StatefulWidget {
   _SchoolStudentAddDetailsScreenState createState() => _SchoolStudentAddDetailsScreenState();
+//   final String labelText;
+//   SchoolStudentAddDetailsScreen(this.labelText);
+// @override
+// State<StatefulWidget> createState() {
+//     return _SchoolStudentAddDetailsScreenState(labelText);
+//   }
+  
 }
 
 class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
+  final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _schoolName = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
+String mascotAnimationType;
 
+// String labelText;
+//   _SchoolStudentAddDetailsScreenState(this.labelText);
+//   DateTime _date = DateTime.now();
+//   TimeOfDay _time = new TimeOfDay.now();
+
+//   var dateController = TextEditingController();
+
+
+// Future<void> _selectDate(BuildContext context) async {
+//     final DateTime picked = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(2019),
+//       lastDate: DateTime(2101),
+//     );
+//     if (picked != null && picked != _date) {
+//       setState(() {
+//         _date = picked;
+//         dateController.text = _date.year.toString() +
+//             ' - ' +
+//             _date.month.toString() +
+//             ' - ' +
+//             _date.day.toString();
+//       });
+//     }
+//   }
+
+  
 
   int groupValue;
   bool b = true;
@@ -66,6 +104,10 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
     final lastName = StudymateTextField("Last Name", _lastName,
      "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
+     final birthday = StudymateTextField("Birthday", _birthday,
+     "birthday", false, Colors.grey, TextInputType.text, Icon(Icons.calendar_view_day,color: Colors.grey,));
+
+
     final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
      "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
 
@@ -83,6 +125,7 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
        _emailSignUp(
               firstName: _firstName.text,
               lastName: _lastName.text,
+              birthday: _birthday.text,
               phoneNumber: _phoneNumber.text,
               schoolName: _schoolName.text,
               password: _password.text,
@@ -105,10 +148,14 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       logo,
+                  
+
                       SizedBox(height: 48.0),
                       firstName,
                       SizedBox(height: 24.0),
                       lastName,
+                      SizedBox(height: 24.0),
+                      birthday,
                       SizedBox(height: 24.0),
                       phoneNumber,
                       SizedBox(height: 24.0),
@@ -137,6 +184,7 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
   void _emailSignUp(
       {String firstName,
       String lastName,
+      String birthday,
       String phoneNumber,
       String schoolName,
       String password,
