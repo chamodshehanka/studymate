@@ -159,7 +159,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
     final signUpButton = StudymateRaisedButton(
         "Create Account",
         () => {
-              _emailSignUp(
+              _addDoctorDetails(
                   firstName: _firstName.text,
                   lastName: _lastName.text,
                   nicNumber: _nicNumber.text,
@@ -228,7 +228,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
     });
   }
 
-  void _emailSignUp(
+  void _addDoctorDetails(
       {String firstName,
       String lastName,
       String nicNumber,
@@ -248,6 +248,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
             'id', firstName, lastName, slmcRegNumber, nicNumber, workingPlace);
 
         _authentication.signUp(email, password, 'doctor', doctor);
+        await Navigator.pushNamed(context, '/homeAdmin');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
 
-void main() => runApp(new MyApp());
+// void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'UI Profile',
-      home: new ProfileUIScreen(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return new MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'UI Profile',
+//       home: new ProfileUIScreen(),
+//     );
+//   }
+// }
 
 class ProfileUIScreen extends StatefulWidget {
-  @override
   _ProfileUIScreenState createState() => _ProfileUIScreenState();
 }
 

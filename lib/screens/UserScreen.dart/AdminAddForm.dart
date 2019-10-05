@@ -144,7 +144,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     final signUpButton = StudymateRaisedButton(
         "Create Account",
         () => {
-              _emailSignUp(
+              _addAdminDetails(
                   firstName: _firstName.text,
                   lastName: _lastName.text,
                   nicNumber: _nicNumber.text,
@@ -210,7 +210,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     });
   }
 
-  void _emailSignUp(
+  void _addAdminDetails(
       {String firstName,
       String lastName,
       String nicNumber,
@@ -229,6 +229,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
             Admin('_id', firstName, lastName, email, phoneNumber, workingPlace);
 
         _authentication.signUp(email, password, 'admin', admin);
+        await Navigator.pushNamed(context, '/homeAdmin');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");

@@ -137,8 +137,11 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
 
-        Student student = Student('id', null, email, null, null, null, null);
-        _authentication.signUp(email, password, 'student', student);
+       Student student=
+            Student('id', null, null, email, null, null, null, null);
+
+        _authentication.signUp(email, password, 'admin', student);
+        await Navigator.pushNamed(context, '/homeAdmin');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");

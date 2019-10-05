@@ -1,6 +1,8 @@
 //import 'package:flushbar/flushbar.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 //import 'package:googleapis/servicecontrol/v1.dart';
 //import 'package:studymate/auth.dart';
 //import 'package:studymate/models/Student.dart';
@@ -18,7 +20,7 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
-  final TextEditingController _password = new TextEditingController();
+  
 
   bool _autoValidate = false;
   bool _loadingVisible = false;
@@ -59,17 +61,14 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
  
 
   
-    final password = StudymateTextField("Password", _password,
-     "password", true,Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
-     
-     
+   
 
     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
        _emailSignUp(
               firstName: _firstName.text,
               lastName: _lastName.text,
               phoneNumber: _phoneNumber.text,
-              password: _password.text,
+              
               context: context)
     }, Colors.deepPurple);
     
@@ -99,8 +98,7 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
                            
                       phoneNumber,
                       SizedBox(height: 24.0),
-                      password,
-                      SizedBox(height: 12.0),
+                      
                       signUpButton,
                       
                     ],
@@ -139,16 +137,16 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
         //   ));
         // });
       
-        await Navigator.pushNamed(context, '/sign_in');
+        await Navigator.pushNamed(context, '/home');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
-        //String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Sign Up Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
+        String exception = Authentication.getExceptionText(e);
+        Flushbar(
+          title: "Sign Up Error",
+          message: exception,
+          duration: Duration(seconds: 5),
+        )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);
