@@ -22,7 +22,8 @@ class StudentService {
           student.email,
           student.schooling,
           student.schoolName,
-          student.phoneNumber);
+          student.phoneNumber,
+          student.birthday);
       final Map<String, dynamic> data = studentModel.toMap();
 
       await tx.set(ds.reference, data);
