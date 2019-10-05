@@ -196,7 +196,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 Student student = Student.map(value.data);
                 if (student.firstName != null && student.phoneNumber != null) {
                   // Already regiesterd student
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushNamed(context, '/studentMain');
                 } else {
                   // For first time login student
                   Navigator.pushNamed(context, '/changePassword');
