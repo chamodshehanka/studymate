@@ -1,28 +1,23 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Appointment.dart';
+import 'package:studymate/screens/AppointmentScreen_New/ManageAppointmentUI.dart';
 import 'package:studymate/services/custom/AppointmentServiceNew.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
-class AdminAppointmentListScreen extends StatefulWidget {
-  _AdminAppointmentListScreenState createState() =>
-      _AdminAppointmentListScreenState();
+class StudentAppointmentListScreen extends StatefulWidget {
+  _StudentAppointmentListScreenState createState() =>
+      _StudentAppointmentListScreenState();
 }
 
-class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen> {
+class _StudentAppointmentListScreenState extends State<StudentAppointmentListScreen> {
   List<Appointment> appointmentList;
   AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
   StreamSubscription<QuerySnapshot> appointmentSubscription;
-  List<String> appointmentStatusList;
-  final _formKey = GlobalKey<FormState>();
-  final specialDescriptionController = TextEditingController();
-  final dateController = TextEditingController();
-  final timeController = TextEditingController();
-  final placeController = TextEditingController();
+  //List<String> appointmentStatusList;
+
  // final statusController = TextEditingController();
 
   @override
@@ -59,39 +54,41 @@ class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen>
           leading: Container(
             padding: EdgeInsets.only(right: 12.0),
             decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white30))),
-            child: Text(
-              appointment.date,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            border: new Border(
+               right: new BorderSide(width: 1.0, color: Colors.white30))),
+            child: Text(appointment.date,
+              style:TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
           title: Text(
-            appointment.specialDescription,
+            appointment.time,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-         /* trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
+          subtitle: Text(
+            appointment.place,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
           onTap: () => {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         ManageAppointmentScreen(appointment: appointment)))
-          },*/
+          },
         );
 
-  Card makeCard(Appointment leisureActivity) => Card(
+  Card makeCard(Appointment approveAppointment) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
             decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-            child: buildTilesList(leisureActivity),
+            child: buildTilesList(approveAppointment),
           ),
         );
 
-    final adminAppointmentBody = Container(
-      child: ListView.builder(
+  final adminAppointmentBody = Container(
+    child: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: appointmentList.length,
@@ -100,11 +97,12 @@ class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen>
                   },
                 ),
               );
-              return MaterialApp(
+              return MaterialApp(debugShowCheckedModeBanner: false,
                 home: Scaffold(
                   appBar: AppBar(
                     title: Text('Manage Appointment List'),
                     backgroundColor: Colors.deepPurpleAccent,
+                   
                   ),
                   body: adminAppointmentBody,
                   floatingActionButton: FloatingActionButton(
@@ -116,157 +114,103 @@ class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen>
               );
             }
           
-            void _createNewAppointment(BuildContext context) async {
-              String appointmentspecialDescription;
-              // String appointmentStatus;
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape:
-                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      title: Text(
-                        'Create New Appointment',
-                        textAlign: TextAlign.center,
-                      ),
-                      backgroundColor: Colors.deepPurple[50],
-                      content: Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: StudymateTextField(
-                                  'Special Description',
-                                  specialDescriptionController,
-                                  'text',
-                                  false,
-                                  Colors.grey,
-                                  TextInputType.text,
-                                  Icon(
-                                    Icons.local_activity,
-                                    color: Colors.grey,
-                                  )),
-                            ),Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: StudymateTextField(
-                                  'Date',
-                                  dateController,
-                                  'text',
-                                  false,
-                                  Colors.grey,
-                                  TextInputType.text,
-                                  Icon(
-                                    Icons.local_activity,
-                                    color: Colors.grey,
-                                  )),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: StudymateTextField(
-                                  'Time',
-                                  timeController,
-                                  'text',
-                                  false,
-                                  Colors.grey,
-                                  TextInputType.text,
-                                  Icon(
-                                    Icons.local_activity,
-                                    color: Colors.grey,
-                                  )),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: StudymateTextField(
-                                  'Place',
-                                  placeController,
-                                  'text',
-                                  false,
-                                  Colors.grey,
-                                  TextInputType.text,
-                                  Icon(
-                                    Icons.edit_location,
-                                    color: Colors.grey,
-                                  )),
-                            ),
-                            /*Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: DropdownButtonFormField(
-                                
-                                hint: Text('Appointment status'),
-                                value: appointmentStatus,
-                                items: ["Approve", "UnApprove"]
-                                    .map((label) => DropdownMenuItem(
-                                          child: Text(label),
-                                          value: label,
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    appointmentStatus = value;
-                                  });
-                                },
-                              ),
-                            ),*/
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(30)),
-                                    elevation: 10,
-                                    color: Colors.deepPurple,
-                                    textColor: Colors.white,
-                                    child: Text("Save"),
-                                    onPressed: () {
-                                      log('Appointment SpecialDescription : ' + appointmentspecialDescription);
-          
-                                      if (_formKey.currentState.validate()) {
-                                        _formKey.currentState.save();
+ void _createNewAppointment(BuildContext context) async {
+ showDialog(
+     context: context,
+     builder:(_){
+       return StudymateDialog();
+     });
+ }
+}
+class StudymateDialog extends StatefulWidget {
+  _StudymateDialogState createState() => _StudymateDialogState();
+}
+
+class _StudymateDialogState extends State<StudymateDialog> {
+  
+final _formKeyAddAppointment = GlobalKey<FormState>();
+  final specialDescriptionController = TextEditingController();
+  final dateController = TextEditingController();
+  final timeController = TextEditingController();
+  final placeController = TextEditingController();
+  AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              title: Text('Request New Appointment',textAlign: TextAlign.center,),
+                backgroundColor: Colors.deepPurple[50],
+                 content: Form(
+                   key: _formKeyAddAppointment,
+                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                   mainAxisSize: MainAxisSize.min,
+                   children: <Widget>[
+
+         StudymateTextField('Date',dateController,'text',false,Colors.grey,TextInputType.text,
+         Icon(Icons.date_range,color: Colors.grey, )),
+                                  
+         StudymateTextField('Time',timeController,'text',false,Colors.grey,TextInputType.text,
+         Icon(Icons.timer,color: Colors.grey,)),
+                        
+         StudymateTextField('Place',placeController,'text',false,Colors.grey,TextInputType.text,
+         Icon(Icons.edit_location,color: Colors.grey,)),
+
+         new Flexible(fit: FlexFit.loose,
+         child: new TextField (
+           controller: specialDescriptionController,
+         decoration: new InputDecoration(
+           hintText: 'Special Description', ),
+         maxLines: 2,),),
+
+           SizedBox(height: 20) ,              
+           Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                             borderRadius: BorderRadius.circular(30)),
+                             elevation: 10,
+                               color: Colors.deepPurple,
+                               textColor: Colors.white,
+                                child: Text("Request"),
+                                onPressed: () {
+                                 /*log('Appointment SpecialDescription : ' + appointmentspecialDescription);
+                                 log('Appointment Date : ' + appointmentdate);
+                                 log('Appointment Time : ' + appointmenttime);
+                                 log('Appointment Place : ' + appointmentplace);*/
+                                  if (_formKeyAddAppointment.currentState.validate()) {
+                                        _formKeyAddAppointment.currentState.save();
                                         //Adding to DB
-                                        Future<Appointment> isAdded =
-                                            AppointmentServiceNew().createAppointment(
+                                        Future<Appointment> isAdded =appointmentServiceNew
+                                        .createAppointment(
                                             specialDescriptionController.text, dateController.text,timeController.text,placeController.text,); 
                                            if (isAdded != null) {
                                           Navigator.pop(context);
                                         } else {
-                                          //Have to add error message
-                                          Scaffold.of(context).showSnackBar(new SnackBar(
-                                            content: new Text('Failed to Add!'),
-                                            backgroundColor: Colors.deepPurple,
-                                          ));
-                                        }
-                                      }
-                                    },
-                                  ),
-                                  // Test Dispose button
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: RaisedButton(
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30)),
-                                      color: Colors.redAccent,
-                                      textColor: Colors.white,
-                                      child: Text("Cancel"),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-            }
-          
-           makeCard(Appointment appointmentList) {}
-           
+                                          Navigator.pop(context);
+                                          }
+                    }
+                  },
+                ),
+                SizedBox(width: 10),
+                RaisedButton(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
