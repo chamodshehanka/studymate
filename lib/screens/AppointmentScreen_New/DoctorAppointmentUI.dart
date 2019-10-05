@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -18,12 +16,8 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
   List<Appointment> appointmentList;
   AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
   StreamSubscription<QuerySnapshot> appointmentSubscription;
-  List<String> appointmentStatusList;
-  final _formKey = GlobalKey<FormState>();
-  final specialDescriptionController = TextEditingController();
-  final dateController = TextEditingController();
-  final timeController = TextEditingController();
-  final placeController = TextEditingController();
+  //List<String> appointmentStatusList;
+
  // final statusController = TextEditingController();
 
   @override
@@ -82,12 +76,12 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
           },
         );
 
-  Card makeCard(Appointment leisureActivity) => Card(
+  Card makeCard(Appointment approveAppointment) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
             decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-            child: buildTilesList(leisureActivity),
+            child: buildTilesList(approveAppointment),
           ),
         );
 
@@ -119,22 +113,41 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
             }
           
  void _createNewAppointment(BuildContext context) async {
-    String appointmentspecialDescription;
+    /*String appointmentspecialDescription;
     String appointmentdate;
     String appointmenttime;
-    String appointmentplace;
+    String appointmentplace;*/
     // String appointmentStatus;
  showDialog(
      context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+     builder:(_){
+       return StudymateDialog();
+     });
+ }
+}
+class StudymateDialog extends StatefulWidget {
+  _StudymateDialogState createState() => _StudymateDialogState();
+}
+
+class _StudymateDialogState extends State<StudymateDialog> {
+  
+final _formKeyAddAppointment = GlobalKey<FormState>();
+  final specialDescriptionController = TextEditingController();
+  final dateController = TextEditingController();
+  final timeController = TextEditingController();
+  final placeController = TextEditingController();
+  AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               title: Text('Create New Appointment',textAlign: TextAlign.center,),
                 backgroundColor: Colors.deepPurple[50],
                  content: Form(
-                   key: _formKey,
+                   key: _formKeyAddAppointment,
                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                    mainAxisSize: MainAxisSize.min,
                    children: <Widget>[
 
@@ -150,29 +163,9 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
          new Flexible(fit: FlexFit.loose,child: new TextField (
          decoration: new InputDecoration(hintText: 'Special Description', ),
          maxLines: 2,),),
-                            
-                            /*Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: DropdownButtonFormField(
-                                
-                                hint: Text('Appointment status'),
-                                value: appointmentStatus,
-                                items: ["Approve", "UnApprove"]
-                                    .map((label) => DropdownMenuItem(
-                                          child: Text(label),
-                                          value: label,
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  setState(() {
-                                    appointmentStatus = value;
-                                  });
-                                },
-                              ),
-                            ),*/
-                  Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Row(
+
+           SizedBox(height: 20) ,              
+           Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         RaisedButton(
@@ -183,50 +176,41 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
                                textColor: Colors.white,
                                 child: Text("Save"),
                                 onPressed: () {
-                                 log('Appointment SpecialDescription : ' + appointmentspecialDescription);
+                                 /*log('Appointment SpecialDescription : ' + appointmentspecialDescription);
                                  log('Appointment Date : ' + appointmentdate);
                                  log('Appointment Time : ' + appointmenttime);
-                                 log('Appointment Place : ' + appointmentplace);
-                                  if (_formKey.currentState.validate()) {
-                                        _formKey.currentState.save();
+                                 log('Appointment Place : ' + appointmentplace);*/
+                                  if (_formKeyAddAppointment.currentState.validate()) {
+                                        //_formKeyAddAppointment.currentState.save();
                                         //Adding to DB
-                                        Future<Appointment> isAdded =
-                                            AppointmentServiceNew().createAppointment(
+                                        Future<Appointment> isAdded =appointmentServiceNew
+                                        .createAppointment(
                                             specialDescriptionController.text, dateController.text,timeController.text,placeController.text,); 
                                            if (isAdded != null) {
                                           Navigator.pop(context);
                                         } else {
-                                          //Have to add error message
-                                          Scaffold.of(context).showSnackBar(new SnackBar(
-                                            content: new Text('Failed to Add!'),
-                                            backgroundColor: Colors.deepPurple,
-                                          ));
-                                        }
-                                      }
-                                    },
-                                  ),
-                                  // Test Dispose button
-                                  RaisedButton(
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30)),
-                                      color: Colors.redAccent,
-                                      textColor: Colors.white,
-                                      child: Text("Cancel"),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                ],
-                              ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-            }
-          
-           makeCard(Appointment appointmentList) {}
-           
+                                          Navigator.pop(context);
+                                          }
+                    }
+                  },
+                ),
+                SizedBox(width: 10),
+                RaisedButton(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
