@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:studymate/models/Calendar.dart';
 import 'package:studymate/models/ScheduleTask.dart';
 import 'package:studymate/services/custom/ScheduleServices.dart';
@@ -59,10 +60,18 @@ class _MondayTabState extends State<MondayTab> {
     Card makeCard(ScheduleTask mondayTask) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Container(
+          child: Slidable(child: Container(
             decoration: BoxDecoration(color: Colors.deepPurpleAccent),
             child: buildTilesList(mondayTask),
           ),
+          actionPane: SlidableDrawerActionPane(),
+          secondaryActions: <Widget>[
+            IconSlideAction(caption: 'Deler',
+            color: Colors.redAccent,
+            icon: Icons.delete,
+            onTap: ()=> deleteTask(mondayTask),)
+          ],)
+         
         );
 
     final mondayTabBody = Container(
@@ -91,6 +100,27 @@ class _MondayTabState extends State<MondayTab> {
       ),
     );
   }
+      void deleteTask(ScheduleTask task) {
+    baseAuthentication.getCurrentUser().then((user) {
+      studentId = user;
+      
+      Future<dynamic> isDeleted = scheduleService.deleteTask(
+          studentId,"monday",task.id.toString());
+      isDeleted.then((result) {
+        if (result) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Successfully Removed'),
+            backgroundColor: Colors.green,
+          ));
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Adding failed!'),
+            backgroundColor: Colors.redAccent,
+          ));
+        }
+      });
+    });
+  }
 }
 
 buildTilesList(ScheduleTask task) => ListTile(
@@ -116,6 +146,7 @@ buildTilesList(ScheduleTask task) => ListTile(
       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     ),
     trailing: Text(task.type));
+
 
 class AddTaskDialog extends StatefulWidget {
   final String studentId;

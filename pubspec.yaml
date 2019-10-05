@@ -45,7 +45,6 @@ dependencies:
   curved_navigation_bar:
   flutter_datetime_picker:
   fab_circular_menu: ^0.1.1
-  printing: any
   flutter_local_notifications: ^0.8.4
 
 dev_dependencies:

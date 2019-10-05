@@ -194,7 +194,7 @@ class _SignInScreenState extends State<SignInScreen> {
               Future<DocumentSnapshot> data = studentService.getByID(user.uid);
               data.then((value) {
                 Student student = Student.map(value.data);
-                if (student.name != null && student.phoneNumber != null) {
+                if (student.firstName != null && student.phoneNumber != null) {
                   // Already regiesterd student
                   Navigator.pushNamed(context, '/home');
                 } else {
