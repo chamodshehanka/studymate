@@ -136,7 +136,7 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
 
-        Student student = Student('id', null, email, null, null, null);
+        Student student = Student('id', null, email, null, null, null, null);
         _authentication.signUp(email, password, 'student', student);
       } catch (e) {
         _changeLoadingVisible();
