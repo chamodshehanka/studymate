@@ -32,29 +32,19 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SafeArea(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(1.0),
-                  child: Container(
-                    width: 255,
-                    child: StudymateTextField(
-                        'Student Name',
-                        _studentNameController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(Icons.search, color: Colors.grey)),
-                  ),
-                ),
-                Container(
-                  width: 150,
-                  child: StudymateRaisedButton(
-                      'Search', searchStudent, Colors.deepPurpleAccent),
-                ),
-              ],
+          
+          Padding(
+            padding: EdgeInsets.all(1.0),
+            child: Container(
+              width: 255,
+              child: StudymateTextField(
+                  'Student Name',
+                  _studentNameController,
+                  'text',
+                  false,
+                  Colors.grey,
+                  TextInputType.text,
+                  Icon(Icons.search, color: Colors.grey)),
             ),
           ),
           StudymateTextField('Record Details', _recordDetailsController, 'text',
