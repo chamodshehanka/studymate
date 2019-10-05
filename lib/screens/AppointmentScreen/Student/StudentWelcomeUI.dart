@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/DoctorAppointmentScreen/Dashboard.dart';
+import 'package:studymate/screens/AppointmentScreen/Student/StudentAppointmentUI.dart';
 
-class DoctorAppointmentScreen extends StatefulWidget {
+
+class StudentAppointmentScreen extends StatefulWidget {
   @override
   _WelcomeState createState() => _WelcomeState();
 }
 
-class _WelcomeState extends State<DoctorAppointmentScreen> {
+class _WelcomeState extends State<StudentAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class _WelcomeState extends State<DoctorAppointmentScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Dashboard(),
+                        builder: (context) => StudentAppointmentListScreen(),
                       ),
                     );
                   },

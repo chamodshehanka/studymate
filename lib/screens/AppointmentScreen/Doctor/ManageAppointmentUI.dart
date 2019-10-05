@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Appointment.dart';
-import 'package:studymate/services/custom/AppointmentServiceNew.dart';
+import 'package:studymate/services/custom/AppointmentService.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
@@ -15,7 +15,7 @@ class ManageAppointmentScreen extends StatefulWidget {
 }
 
 class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
-  final AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
+  final AppointmentService appointmentService = AppointmentService();
 
   final _formKey = GlobalKey<FormState>();
   final specialDescriptionController = TextEditingController();
@@ -41,7 +41,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
     // Appointment Delete Action
     void appointmentDeleteAction() {
       Future<dynamic> isDeleted =
-          AppointmentServiceNew().deleteAppointment(widget.appointment.id);
+          AppointmentService().deleteAppointment(widget.appointment.id);
       if (isDeleted != null) {
         Navigator.pop(context);
       } else {
@@ -125,7 +125,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                                 /*widget.appointment.status*/);
 
                             Future isUpdated =
-                                AppointmentServiceNew().updateAppointment(updatedAppointment);
+                                AppointmentService().updateAppointment(updatedAppointment);
                             if (isUpdated != null) {
                               Navigator.pop(context);
                             }

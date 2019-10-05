@@ -6,9 +6,9 @@ import 'package:studymate/screens/ActivityScreen/AdminScreen/ActivityAdminDashbo
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ActivityReportUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
-import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
+//import 'package:studymate/screens/AppoinmentScreen/Appointment.dart';
 import 'package:studymate/screens/ChatScreen/ChatUI.dart';
-import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentReportUI.dart';
+import 'package:studymate/screens/AppointmentScreen/Doctor/AppointmentReportUI.dart';
 //import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentWelcome.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
@@ -40,8 +40,7 @@ import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/SubjectsScreen/UDSubjectUI.dart';
-
-import 'screens/AppointmentScreen_New/tab/AppointmentWelcome.dart';
+import 'package:studymate/screens/AppointmentScreen/Doctor/AppointmentWelcome.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -78,13 +77,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/activityReports':
         return MaterialPageRoute(builder: (_) => ActivityReportScreen());
-      case '/appointment':
-        return MaterialPageRoute(builder: (_) => AppointmentScreen());
+/*      case '/appointment':
+        return MaterialPageRoute(builder: (_) => AppointmentScreen());*/
       case '/DoctorAppointmentScreen':
         return MaterialPageRoute(builder: (_) => DoctorAppointmentScreen());
       case '/appointmentReports':
         return MaterialPageRoute(builder: (_) => AppointmentReportScreen());
-
       case '/new_badge':
         return MaterialPageRoute(builder: (_) => NewBadgeScreen());
       case '/badge_collection':

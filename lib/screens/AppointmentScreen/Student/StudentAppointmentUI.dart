@@ -3,18 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Appointment.dart';
-import 'package:studymate/screens/AppointmentScreen_New/ManageAppointmentUI.dart';
-import 'package:studymate/services/custom/AppointmentServiceNew.dart';
+import 'package:studymate/screens/AppointmentScreen/Doctor/ManageAppointmentUI.dart';
+import 'package:studymate/services/custom/AppointmentService.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
-class DoctorAppointmentListScreen extends StatefulWidget {
-  _DoctorAppointmentListScreenState createState() =>
-      _DoctorAppointmentListScreenState();
+class StudentAppointmentListScreen extends StatefulWidget {
+  _StudentAppointmentListScreenState createState() =>
+      _StudentAppointmentListScreenState();
 }
 
-class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScreen> {
+class _StudentAppointmentListScreenState extends State<StudentAppointmentListScreen> {
   List<Appointment> appointmentList;
-  AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
+  AppointmentService appointmentService = AppointmentService();
   StreamSubscription<QuerySnapshot> appointmentSubscription;
   //List<String> appointmentStatusList;
 
@@ -27,7 +27,7 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
     appointmentList = List();
     appointmentSubscription?.cancel();
     appointmentSubscription =
-        appointmentServiceNew.getAppointmentList().listen((QuerySnapshot snapshot) {
+        appointmentService.getAppointmentList().listen((QuerySnapshot snapshot) {
       final List<Appointment> appointment = snapshot.documents
           .map((documentSnapshot) => Appointment.fromMap(documentSnapshot.data))
           .toList();
@@ -133,13 +133,13 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final placeController = TextEditingController();
-  AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
+  AppointmentService appointmentService = AppointmentService();
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
             shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              title: Text('Create New Appointment',textAlign: TextAlign.center,),
+              title: Text('Request New Appointment',textAlign: TextAlign.center,),
                 backgroundColor: Colors.deepPurple[50],
                  content: Form(
                    key: _formKeyAddAppointment,
@@ -174,7 +174,7 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
                              elevation: 10,
                                color: Colors.deepPurple,
                                textColor: Colors.white,
-                                child: Text("Save"),
+                                child: Text("Request"),
                                 onPressed: () {
                                  /*log('Appointment SpecialDescription : ' + appointmentspecialDescription);
                                  log('Appointment Date : ' + appointmentdate);
@@ -183,7 +183,7 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
                                   if (_formKeyAddAppointment.currentState.validate()) {
                                         _formKeyAddAppointment.currentState.save();
                                         //Adding to DB
-                                        Future<Appointment> isAdded =appointmentServiceNew
+                                        Future<Appointment> isAdded =appointmentService
                                         .createAppointment(
                                             specialDescriptionController.text, dateController.text,timeController.text,placeController.text,); 
                                            if (isAdded != null) {

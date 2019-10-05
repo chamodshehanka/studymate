@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:studymate/screens/AppointmentScreen_New/DoctorAppointmentUI.dart';
+import 'package:studymate/screens/AppointmentScreen/Doctor/DoctorAppointmentUI.dart';
 
 class DashboardAppointment extends StatefulWidget {
   @override
