@@ -85,7 +85,7 @@ class _ManageActivityScreenState extends State<ManageActivityScreen> {
               Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Padding(
-                    padding: EdgeInsets.only(left: 18,right: 18),
+                    padding: EdgeInsets.only(left: 18, right: 18),
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
                           border: OutlineInputBorder(

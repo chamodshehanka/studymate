@@ -147,8 +147,8 @@ exports.cloudNotificatinFunction = functions.https.onCall(async (data, context) 
     const token = querySnapshot.docs.map(snap => snap.id);
     const payload: admin.messaging.MessagingPayload = {
         notification: {
-            title: 'You are on your way',
-            body: 'Please do not remove your ticket until you reach the destination. ',
+            title: 'We missed you!',
+            body: 'Please come back and complete rings ',
             clickAction: 'FLUTTER_NOTIFICATION_CLICK'
 
         }
