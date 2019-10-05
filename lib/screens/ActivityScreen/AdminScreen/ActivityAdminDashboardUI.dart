@@ -25,6 +25,8 @@ class _ActivityAdminDashboardScreenState
   int noOfLeisureActivities = 0;
   int noOfSocialActivities = 0;
   int noOfOtherActivities = 0;
+  double countFontSize = 42;
+  Color countNumColor = Colors.deepPurple;
   AnimationController _controller;
   Animation<double> _heightAnimation;
   Animation<double> _iconSizeAnimation;
@@ -206,7 +208,7 @@ class _ActivityAdminDashboardScreenState
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'Recent Actions',
+                      'Quick Actions',
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontSize: 16,
@@ -223,7 +225,7 @@ class _ActivityAdminDashboardScreenState
                                 Container(
                                   width: 190,
                                   child: StudymateRaisedButton(
-                                      'All Activities',
+                                      'Manage Activities',
                                       viewActivitiesList,
                                       Colors.deepPurpleAccent),
                                 ),
@@ -242,6 +244,13 @@ class _ActivityAdminDashboardScreenState
                                   width: 190,
                                   child: StudymateRaisedButton('Send Message',
                                       sendMessage, Colors.deepPurpleAccent),
+                                ),
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton(
+                                      'Create Activity',
+                                      sendMessage,
+                                      Colors.deepPurpleAccent),
                                 ),
                               ],
                             ),
@@ -375,6 +384,7 @@ class _ActivityAdminDashboardScreenState
   // Have to impl
   Widget _buildActivitiesChart(Size media) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Container(
           alignment: Alignment.center,
@@ -416,7 +426,7 @@ class _ActivityAdminDashboardScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'No of all activities',
+                          'Activities',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold),
@@ -424,7 +434,9 @@ class _ActivityAdminDashboardScreenState
                         Text(
                           noOfAllActivities.toString(),
                           style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 15),
+                              fontWeight: FontWeight.w500,
+                              fontSize: countFontSize,
+                              color: countNumColor),
                         ),
                       ],
                     ),
@@ -455,7 +467,7 @@ class _ActivityAdminDashboardScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Leisure Activities',
+                          'Leisure',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold),
@@ -463,7 +475,9 @@ class _ActivityAdminDashboardScreenState
                         Text(
                           noOfLeisureActivities.toString(),
                           style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w500),
+                              color: countNumColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: countFontSize),
                         ),
                       ],
                     ),
@@ -503,13 +517,15 @@ class _ActivityAdminDashboardScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Social Activities',
+                        Text('Social',
                             style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold)),
                         Text(noOfSocialActivities.toString(),
                             style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 15)),
+                                fontWeight: FontWeight.w500,
+                                fontSize: countFontSize,
+                                color: countNumColor))
                       ],
                     ),
                   ),
@@ -541,13 +557,15 @@ class _ActivityAdminDashboardScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Other Activities',
+                        Text('Other',
                             style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold)),
                         Text(noOfOtherActivities.toString(),
                             style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 15)),
+                                fontWeight: FontWeight.w500,
+                                fontSize: countFontSize,
+                                color: countNumColor)),
                       ],
                     ),
                   ),
@@ -587,13 +605,6 @@ class _ActivityAdminDashboardScreenState
   void viewActivitiesUsage() {}
 
   void sendMessage() {
-    // cloudFunctionService
-    //     .sendMessageToParent('Student has not updated his journal!')
-    //     .then((onValue) {
-    //   log(onValue.toString());
-    // }).catchError((error) {
-    //   log(error.toString());
-    // });
     _authentication.getCurrentUser().then((authId) {
       cloudFunctionService.cloudNotificationFunction(authId);
     }).catchError((error) {
