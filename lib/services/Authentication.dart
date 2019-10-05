@@ -9,8 +9,10 @@ abstract class BaseAuthentication {
   Future<FirebaseUser> signIn(String email, String password);
   Future<String> signUp(
       String email, String password, String userType, Object userObject);
+    
   Future<String> getCurrentUser();
   Future<void> signOut();
+  Future<String> forgotPasswordEmail(String email);
 }
 
 class Authentication implements BaseAuthentication {
@@ -32,6 +34,11 @@ class Authentication implements BaseAuthentication {
             email: email, password: password))
         .user;
     return user;
+  }
+   @override
+    Future<String> forgotPasswordEmail(String email) async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    return user.uid;
   }
 
   @override

@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
+
 import 'package:studymate/services/Authentication.dart';
 
-class ProfileUIScreen extends StatefulWidget {
+// void main() => runApp(new MyApp());
 
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return new MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'UI Profile',
+//       home: new ProfileUIScreen(),
+//     );
+//   }
+// }
+
+class ProfileUIScreen extends StatefulWidget {
   _ProfileUIScreenState createState() => _ProfileUIScreenState();
 }
 
 class _ProfileUIScreenState extends State<ProfileUIScreen> {
-   BaseAuthentication _authentication = Authentication();
+   
   Color gradientStar = Colors.orange[200];
+  BaseAuthentication _authentication = Authentication();
 
   Color gradientEnd = Colors.purple;
 
