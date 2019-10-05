@@ -11,11 +11,11 @@ class AppointmentServiceNew {
   // static final AppointmentServiceNew _appointmentServiceNew = AppointmentServiceNew();
   // factory _AppointmentServiceNew() => _appointmentServiceNew;
 
-  Future<Appointment> createAppointment(String specialDescription,String date,String time,String place, String type) {
+  Future<Appointment> createAppointment(String specialDescription,String date,String time,String place) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(appointmentCollection.document());
 
-      final Appointment appointment = new Appointment(ds.documentID, specialDescription,date,time,place, type);
+      final Appointment appointment = new Appointment(ds.documentID, specialDescription,date,time,place);
       final Map<String, dynamic> data = appointment.toMap();
 
       await tx.set(ds.reference, data);
@@ -30,7 +30,7 @@ class AppointmentServiceNew {
       return null;
     });
   }
-
+/*
   //Get Only Emergency Appointment
   Stream<QuerySnapshot> getEmergencyAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
@@ -61,7 +61,7 @@ class AppointmentServiceNew {
 
     return snapshots;
   }
-
+*/
   //Get All Appointments
   Stream<QuerySnapshot> getAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = appointmentCollection.snapshots();

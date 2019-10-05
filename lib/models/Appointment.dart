@@ -4,9 +4,9 @@ class Appointment {
   String _date;
   String _time;
   String _place;
-  String _type;
+  //String _type;
 
-  Appointment(this._id, this._specialDescription,this._date,this._time,this._place, this._type);
+  Appointment(this._id, this._specialDescription,this._date,this._time,this._place, );
 
   Appointment.map(dynamic appointment) {
     this._id = appointment['id'];
@@ -14,7 +14,7 @@ class Appointment {
     this._date = appointment['date'];
     this._time = appointment['time'];
     this._place = appointment['place'];
-    this._type = appointment['type'];
+    //this._type = appointment['type'];
   }
 
   String get id => _id;
@@ -22,7 +22,9 @@ class Appointment {
   String get date => _date;
   String get time => _time;
   String get place => _place;
-  String get type => _type;
+
+  get type => null;
+  //String get type => _type;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
@@ -33,7 +35,7 @@ class Appointment {
     map['date'] = _date;
     map['time'] = _time;
     map['place'] = _place;
-    map['type'] = _type;
+    //map['type'] = _type;
 
     return map;
   }
@@ -44,6 +46,6 @@ class Appointment {
     this._date = map['date'];
     this._time = map['time'];
     this._place = map['place'];
-    this._type = map['type'];
+   // this._type = map['type'];
   }
 }

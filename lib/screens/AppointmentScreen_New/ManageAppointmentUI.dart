@@ -22,7 +22,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final placeController = TextEditingController();
-  final typeController = TextEditingController();
+  //final typeController = TextEditingController();
 
 
   @override
@@ -70,15 +70,16 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
     }
 
     final manageAppointmentBody = Container(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(5.0),
       child: Form(
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+               SizedBox(height: 24),
               Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: StudymateTextField(
                         'Special Description',
                         specialDescriptionController,
@@ -91,7 +92,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                           color: Colors.grey,
                         )),
                   ),Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: StudymateTextField(
                         'Date',
                         dateController,
@@ -105,7 +106,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                         )),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: StudymateTextField(
                         'Time',
                         timeController,
@@ -119,7 +120,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                         )),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: StudymateTextField(
                         'Place',
                         placeController,
@@ -132,20 +133,20 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                           color: Colors.grey,
                         )),
                   ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
+             /* Padding(
+                padding: EdgeInsets.all(5.0),
                 child: TextFormField(
                   initialValue: widget.appointment.type,
                 ),
-              ),
+              ),*/
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: RaisedButton(
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)),
+                          borderRadius: BorderRadius.circular(10)),
                       elevation: 10,
                       color: Colors.deepPurpleAccent,
                       textColor: Colors.white,
@@ -161,7 +162,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                                 dateController.text,
                                 timeController.text,
                                 placeController.text,
-                                widget.appointment.type);
+                                /*widget.appointment.type*/);
 
                             Future isUpdated =
                                 AppointmentServiceNew().updateAppointment(updatedAppointment);

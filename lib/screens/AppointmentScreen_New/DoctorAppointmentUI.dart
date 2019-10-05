@@ -63,7 +63,7 @@ class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen>
                 border: new Border(
                     right: new BorderSide(width: 1.0, color: Colors.white30))),
             child: Text(
-              appointment.type,
+              appointment.date,
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
@@ -82,7 +82,7 @@ class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen>
           },
         );
 
-    Card makeCard(Appointment leisureActivity) => Card(
+  Card makeCard(Appointment leisureActivity) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
@@ -98,172 +98,175 @@ class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen>
         itemCount: appointmentList.length,
         itemBuilder: (BuildContext context, int index) {
           return makeCard(appointmentList[index]);
-        },
-      ),
-    );
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Manage Appointment List'),
-          backgroundColor: Colors.deepPurpleAccent,
-        ),
-        body: adminAppointmentBody,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.deepPurple,
-          child: Icon(Icons.add),
-          onPressed: () => _createNewAppointment(context),
-        ),
-      ),
-    );
-  }
-
-  void _createNewAppointment(BuildContext context) async {
-    String appointmentType;
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            title: Text(
-              'Create New Appointment',
-              textAlign: TextAlign.center,
-            ),
-            backgroundColor: Colors.deepPurple[50],
-            content: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: StudymateTextField(
-                        'Special Description',
-                        specialDescriptionController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
-                  ),Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: StudymateTextField(
-                        'Date',
-                        dateController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
+                  },
+                ),
+              );
+              return MaterialApp(
+                home: Scaffold(
+                  appBar: AppBar(
+                    title: Text('Manage Appointment List'),
+                    backgroundColor: Colors.deepPurpleAccent,
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: StudymateTextField(
-                        'Time',
-                        timeController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
+                  body: adminAppointmentBody,
+                  floatingActionButton: FloatingActionButton(
+                    backgroundColor: Colors.deepPurple,
+                    child: Icon(Icons.add),
+                    onPressed: () => _createNewAppointment(context),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: StudymateTextField(
-                        'Place',
-                        placeController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: DropdownButtonFormField(
-                      
-                      hint: Text('Appointment Type'),
-                      value: appointmentType,
-                      items: ["Emergency", "Not Emergency"]
-                          .map((label) => DropdownMenuItem(
-                                child: Text(label),
-                                value: label,
-                              ))
-                          .toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          appointmentType = value;
-                        });
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          elevation: 10,
-                          color: Colors.deepPurple,
-                          textColor: Colors.white,
-                          child: Text("Save"),
-                          onPressed: () {
-                            log('Appointment Type : ' + appointmentType);
-
-                            if (_formKey.currentState.validate()) {
-                              _formKey.currentState.save();
-                              //Adding to DB
-                              Future<Appointment> isAdded =
-                                  AppointmentServiceNew().createAppointment(
-                                  specialDescriptionController.text, dateController.text,timeController.text,placeController.text,typeController.text); 
-                                 if (isAdded != null) {
-                                Navigator.pop(context);
-                              } else {
-                                //Have to add error message
-                                Scaffold.of(context).showSnackBar(new SnackBar(
-                                  content: new Text('Failed to Add!'),
-                                  backgroundColor: Colors.deepPurple,
-                                ));
-                              }
-                            }
-                          },
+                ),
+              );
+            }
+          
+            void _createNewAppointment(BuildContext context) async {
+              String appointmentspecialDescription;
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape:
+                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      title: Text(
+                        'Create New Appointment',
+                        textAlign: TextAlign.center,
+                      ),
+                      backgroundColor: Colors.deepPurple[50],
+                      content: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Special Description',
+                                  specialDescriptionController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.local_activity,
+                                    color: Colors.grey,
+                                  )),
+                            ),Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Date',
+                                  dateController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.local_activity,
+                                    color: Colors.grey,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Time',
+                                  timeController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.local_activity,
+                                    color: Colors.grey,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Place',
+                                  placeController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.local_activity,
+                                    color: Colors.grey,
+                                  )),
+                            ),
+                            /*Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: DropdownButtonFormField(
+                                
+                                hint: Text('Appointment Type'),
+                                value: appointmentType,
+                                items: ["Emergency", "Not Emergency"]
+                                    .map((label) => DropdownMenuItem(
+                                          child: Text(label),
+                                          value: label,
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() {
+                                    appointmentType = value;
+                                  });
+                                },
+                              ),
+                            ),*/
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30)),
+                                    elevation: 10,
+                                    color: Colors.deepPurple,
+                                    textColor: Colors.white,
+                                    child: Text("Save"),
+                                    onPressed: () {
+                                      log('Appointment SpecialDescription : ' + appointmentspecialDescription);
+          
+                                      if (_formKey.currentState.validate()) {
+                                        _formKey.currentState.save();
+                                        //Adding to DB
+                                        Future<Appointment> isAdded =
+                                            AppointmentServiceNew().createAppointment(
+                                            specialDescriptionController.text, dateController.text,timeController.text,placeController.text); 
+                                           if (isAdded != null) {
+                                          Navigator.pop(context);
+                                        } else {
+                                          //Have to add error message
+                                          Scaffold.of(context).showSnackBar(new SnackBar(
+                                            content: new Text('Failed to Add!'),
+                                            backgroundColor: Colors.deepPurple,
+                                          ));
+                                        }
+                                      }
+                                    },
+                                  ),
+                                  // Test Dispose button
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: RaisedButton(
+                                      elevation: 10,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(30)),
+                                      color: Colors.redAccent,
+                                      textColor: Colors.white,
+                                      child: Text("Cancel"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        // Test Dispose button
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: RaisedButton(
-                            elevation: 10,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)),
-                            color: Colors.redAccent,
-                            textColor: Colors.white,
-                            child: Text("Cancel"),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
+                      ),
+                    );
+                  });
+            }
+          
+           makeCard(Appointment appointmentList) {}
+           
 }
