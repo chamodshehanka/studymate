@@ -1,17 +1,17 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/StudentPlaceHolder.dart';
-import 'package:studymate/services/Authentication.dart';
 
 class StudentMainScreen extends StatefulWidget {
-  @override
+
   State<StatefulWidget> createState() {
     return _StudentMainScreenState();
   }
 }
 
 class _StudentMainScreenState extends State<StudentMainScreen> {
-  BaseAuthentication _authentication = Authentication();
+ 
 
   int _currentIndex = 0;
   final List<Widget> _children = [
@@ -23,7 +23,21 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex], // new
+      body: FabCircularMenu(
+        child: Container(
+
+            child: _children[_currentIndex], 
+          ),
+          ringColor: Colors.deepPurple,
+          ringDiameter: 200.0,
+          ringWidth: 60.0,
+          options: <Widget>[
+            IconButton(icon: Icon(Icons.calendar_today), onPressed: () {}, iconSize: 30.0, color: Colors.white),
+            IconButton(icon: Icon(Icons.schedule), onPressed: () {}, iconSize: 30.0, color: Colors.white),
+            IconButton(icon: Icon(Icons.chat), onPressed: () {}, iconSize: 30.0, color: Colors.white),
+          ],
+      ),
+      
       bottomNavigationBar: CurvedNavigationBar(
         color: Colors.deepPurple,
         buttonBackgroundColor: Colors.deepPurple,
@@ -40,15 +54,6 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           });
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        
-        child: Icon(Icons.close, color: Colors.white),
-        onPressed: () {
-          _authentication.signOut();
-          Navigator.pushNamed(context, '/welcome');
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
