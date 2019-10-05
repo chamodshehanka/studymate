@@ -31,37 +31,6 @@ class AppointmentServiceNew {
     });
   }
 
-  //Get Only Emergency Appointment
-  Stream<QuerySnapshot> getApproveAppointmentList({int offset, int limit}) {
-    Stream<QuerySnapshot> snapshots =
-        appointmentCollection.where('status', isEqualTo: 'Approve').snapshots();
-
-    if (offset != null) {
-      snapshots = snapshots.skip(offset);
-    }
-
-    if (limit != null) {
-      snapshots = snapshots.take(limit);
-    }
-    return snapshots;
-  }
-
-  //Get Only Not Emergency Appointment
-  Stream<QuerySnapshot> getUnApproveAppointmentList({int offset, int limit}) {
-    Stream<QuerySnapshot> snapshots =
-        appointmentCollection.where('status', isEqualTo: 'UnApprove').snapshots();
-
-    if (offset != null) {
-      snapshots = snapshots.skip(offset);
-    }
-
-    if (limit != null) {
-      snapshots = snapshots.take(limit);
-    }
-
-    return snapshots;
-  }
-
   //Get All Appointments
   Stream<QuerySnapshot> getAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = appointmentCollection.snapshots();

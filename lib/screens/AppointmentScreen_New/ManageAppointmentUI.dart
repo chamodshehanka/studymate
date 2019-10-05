@@ -71,75 +71,34 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
     }
 
     final manageAppointmentBody = Container(
-      padding: EdgeInsets.all(5.0),
+      padding: EdgeInsets.all(20.0),
       child: Form(
           key: _formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-               SizedBox(height: 24),
-              Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: StudymateTextField(
-                        'Special Description',
-                        specialDescriptionController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
-                  ),Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: StudymateTextField(
-                        'Date',
-                        dateController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: StudymateTextField(
-                        'Time',
-                        timeController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                    child: StudymateTextField(
-                        'Place',
-                        placeController,
-                        'text',
-                        false,
-                        Colors.grey,
-                        TextInputType.text,
-                        Icon(
-                          Icons.local_activity,
-                          color: Colors.grey,
-                        )),
-                  ),
-            /*Padding(
-                padding: EdgeInsets.all(5.0),
-                child: TextFormField(
-                  initialValue: widget.appointment.status,
-                ),
-              ),*/
+               
+         Padding(
+                padding: EdgeInsets.all(8.0),
+                child:StudymateTextField('Date',dateController,'text',false,Colors.grey,TextInputType.text,
+         Icon(Icons.date_range,color: Colors.grey, )),
+         ),             
+          Padding(
+                padding: EdgeInsets.all(8.0),
+                child:StudymateTextField('Time',timeController,'text',false,Colors.grey,TextInputType.text,
+         Icon(Icons.timer,color: Colors.grey,)),
+          ),
+          Padding(
+                padding: EdgeInsets.all(8.0),
+                child:StudymateTextField('Place',placeController,'text',false,Colors.grey,TextInputType.text,
+         Icon(Icons.edit_location,color: Colors.grey,)),
+          ),
+
+         new Flexible(fit: FlexFit.loose,child: new TextField (
+         decoration: new InputDecoration(hintText: 'Special Description', ),
+         maxLines: 2,),),
+                  
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

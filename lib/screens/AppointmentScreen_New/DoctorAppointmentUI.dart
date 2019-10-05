@@ -54,16 +54,18 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
           leading: Container(
             padding: EdgeInsets.only(right: 12.0),
             decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: Colors.white30))),
-            child: Text(
-              appointment.date,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            border: new Border(
+               right: new BorderSide(width: 1.0, color: Colors.white30))),
+            child: Text(appointment.date,
+              style:TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
           title: Text(
-            appointment.specialDescription,
+            appointment.time,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(
+            appointment.place,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
@@ -113,11 +115,6 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
             }
           
  void _createNewAppointment(BuildContext context) async {
-    /*String appointmentspecialDescription;
-    String appointmentdate;
-    String appointmenttime;
-    String appointmentplace;*/
-    // String appointmentStatus;
  showDialog(
      context: context,
      builder:(_){
@@ -160,8 +157,11 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
          StudymateTextField('Place',placeController,'text',false,Colors.grey,TextInputType.text,
          Icon(Icons.edit_location,color: Colors.grey,)),
 
-         new Flexible(fit: FlexFit.loose,child: new TextField (
-         decoration: new InputDecoration(hintText: 'Special Description', ),
+         new Flexible(fit: FlexFit.loose,
+         child: new TextField (
+           controller: specialDescriptionController,
+         decoration: new InputDecoration(
+           hintText: 'Special Description', ),
          maxLines: 2,),),
 
            SizedBox(height: 20) ,              
@@ -181,7 +181,7 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
                                  log('Appointment Time : ' + appointmenttime);
                                  log('Appointment Place : ' + appointmentplace);*/
                                   if (_formKeyAddAppointment.currentState.validate()) {
-                                        //_formKeyAddAppointment.currentState.save();
+                                        _formKeyAddAppointment.currentState.save();
                                         //Adding to DB
                                         Future<Appointment> isAdded =appointmentServiceNew
                                         .createAppointment(
