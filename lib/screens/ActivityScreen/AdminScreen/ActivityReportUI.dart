@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/ActivityScreen/AdminScreen/PDFWidget.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ActivityReportScreen extends StatefulWidget {
   _ActivityReportScreenState createState() => _ActivityReportScreenState();
@@ -24,6 +26,9 @@ class _ActivityReportScreenState extends State<ActivityReportScreen> {
   }
 
   _generatePDFAndView(context) async {
-    PDFWidget().getPDF();
+    // PDFWidget().getPDF();
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/my_file.txt');
+    await file.writeAsString('Hello world!');
   }
 }
