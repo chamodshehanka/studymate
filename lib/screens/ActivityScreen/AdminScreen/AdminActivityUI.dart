@@ -133,7 +133,9 @@ class _StudymateDialogState extends State<StudymateDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      title: Text('Create Activity', textAlign: TextAlign.center),
+      title: Text('Create Activity',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.deepPurple)),
       content: Form(
         key: _formKeyAddActivity,
         child: Column(
@@ -151,20 +153,34 @@ class _StudymateDialogState extends State<StudymateDialog> {
                   Icons.local_activity,
                   color: Colors.grey,
                 )),
-            DropdownButtonFormField<String>(
-              value: type,
-              hint: Text('Select Type'),
-              items: ["Leisure", "Social"]
-                  .map((label) => DropdownMenuItem(
-                        child: Text(label),
-                        value: label,
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() => type = value);
-              },
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: BorderSide(),
+                    ),
+                    contentPadding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Icon(Icons.directions_run, color: Colors.grey),
+                    )),
+                value: type,
+                hint: Text('Activity Type'),
+                items: ["Leisure", "Social"]
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() => type = value);
+                },
+              ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
