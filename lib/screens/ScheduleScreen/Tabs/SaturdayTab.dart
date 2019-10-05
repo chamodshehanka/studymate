@@ -3,11 +3,15 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/Calendar.dart';
 import 'package:studymate/models/ScheduleTask.dart';
 import 'package:studymate/services/custom/ScheduleServices.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:studymate/services/custom/StudentService.dart';
+import 'package:studymate/utils/CommonConstants.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
 class SaturdayTab extends StatefulWidget {
@@ -19,11 +23,16 @@ class SaturdayTab extends StatefulWidget {
 
 class _SaturdayTabState extends State<SaturdayTab> {
   ScheduleService scheduleService = new ScheduleService();
+  StudentService studentService = new StudentService();
   Future<Calendar> futureCalendar;
   BaseAuthentication baseAuthentication = Authentication();
   StreamSubscription<QuerySnapshot> dailyTaskSubscription;
+  StreamSubscription<QuerySnapshot> socialActivitySubscription;
+  StreamSubscription<QuerySnapshot> leisureActivitySubscription;
   Calendar calendar;
   String studentId;
+  List socialActivities = List();
+  List leisureActivities = List();
   List<ScheduleTask> saturdayTaskList = List();
   @override
   void initState() {
@@ -45,6 +54,33 @@ class _SaturdayTabState extends State<SaturdayTab> {
           this.saturdayTaskList = tasks;
         });
       });
+      socialActivitySubscription?.cancel();
+      socialActivitySubscription = studentService.getAllPreferredActivities
+      (studentId, "Social")
+          .listen((QuerySnapshot snapshot) {
+        final List activities = snapshot.documents
+            .map((documentSnapshot) =>
+                Activity.fromMap(documentSnapshot.data).name)
+            .toList();
+      
+        setState(() {
+          this.socialActivities = activities;
+        });
+      });
+
+      leisureActivitySubscription?.cancel();
+      leisureActivitySubscription = studentService.getAllPreferredActivities
+      (studentId, "Leisure")
+          .listen((QuerySnapshot snapshot) {
+        final List activities = snapshot.documents
+            .map((documentSnapshot) =>
+                Activity.fromMap(documentSnapshot.data).name)
+            .toList();
+      
+        setState(() {
+          this.leisureActivities = activities;
+        });
+      });
     });
   }
 
@@ -56,13 +92,25 @@ class _SaturdayTabState extends State<SaturdayTab> {
 
   @override
   Widget build(BuildContext context) {
-    Card makeCard(ScheduleTask saturdayTask) => Card(
+     Card makeCard(ScheduleTask saturdayTask) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Container(
+          child: Slidable(child: Container(
             decoration: BoxDecoration(color: Colors.deepPurpleAccent),
             child: buildTilesList(saturdayTask),
           ),
+          actionPane: SlidableDrawerActionPane(),
+          secondaryActions: <Widget>[
+            IconSlideAction(caption: 'Delete',
+            color: Colors.redAccent,
+            icon: Icons.delete,
+            onTap: ()=> deleteTask(saturdayTask),),
+            IconSlideAction(caption: 'Update',
+            color: Colors.yellowAccent,
+            icon: Icons.update,
+            onTap: ()=> updateTask(saturdayTask,socialActivities,leisureActivities),)
+          ],)
+         
         );
 
     final saturdayTabBody = Container(
@@ -85,11 +133,46 @@ class _SaturdayTabState extends State<SaturdayTab> {
           showDialog(
               context: context,
               builder: (_) {
-                return AddTaskDialog(studentId: studentId);
+                return AddTaskDialog(studentId,this.socialActivities,this.leisureActivities);
               });
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+
+void deleteTask(ScheduleTask task) {
+    baseAuthentication.getCurrentUser().then((user) {
+      studentId = user;
+      
+      Future<dynamic> isDeleted = scheduleService.deleteTask(
+          studentId,"saturday",task.id.toString());
+      isDeleted.then((result) {
+        if (result) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Successfully Removed'),
+            backgroundColor: Colors.green,
+          ));
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Adding failed!'),
+            backgroundColor: Colors.redAccent,
+          ));
+        }
+      });
+    });
+  }
+     void updateTask(ScheduleTask task,List socialList,List leisureList) {
+    
+        String start = '${DateTime.parse(task.start).hour.toString().padLeft(2, "0")}:${DateTime.parse(task.start).minute.toString().padLeft(2, "0")}:${DateTime.parse(task.start).second.toString().padLeft(2, "0")}';
+        String end = '${DateTime.parse(task.end).hour.toString().padLeft(2, "0")}:${DateTime.parse(task.end).minute.toString().padLeft(2, "0")}:${DateTime.parse(task.end).second.toString().padLeft(2, "0")}';
+
+  
+         showDialog(
+              context: context,
+              builder: (_) {
+                return UpdateTaskDialog(studentId, task,start,end,socialList,leisureList);
+              });
   }
 }
 
@@ -119,7 +202,9 @@ buildTilesList(ScheduleTask task) => ListTile(
 
 class AddTaskDialog extends StatefulWidget {
   final String studentId;
-  AddTaskDialog({this.studentId});
+    final List socialList;
+  final List  leisureList;
+  AddTaskDialog(this.studentId,this.socialList,this.leisureList);
   @override
   _AddTaskDialogState createState() => new _AddTaskDialogState();
 }
@@ -132,6 +217,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   final _formKey = GlobalKey<FormState>();
   var type;
   var activity;
+  var taskList = List();
 
   @override
   Widget build(BuildContext context) {
@@ -142,10 +228,10 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(height: 24),
-            DropdownButtonFormField<String>(
+            DropdownButtonFormField(
               value: type,
               hint: Text('Select Type'),
-              items: ["Study", "Leisure", "Social"]
+              items: CommonConstants.scheduleTypes
                   .map((label) => DropdownMenuItem(
                         child: Text(label),
                         value: label,
@@ -153,13 +239,22 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   .toList(),
               onChanged: (value) {
                 setState(() => type = value);
+                setState(() {
+                  switch(type){
+                    case "Social" : taskList = widget.socialList;
+                      break;
+                    case "Leisure" : taskList = widget.leisureList;
+                      break;
+                    default : taskList = ["Select Type First"];
+                  }
+                });
               },
             ),
             SizedBox(height: 24),
-            DropdownButtonFormField<String>(
-              hint: Text('Select Subject/Activity'),
+            DropdownButtonFormField(
+              hint: Text('Select Task'),
               value: activity,
-              items: ["Science", "Mathematics", "History"]
+              items:taskList
                   .map((label) => DropdownMenuItem(
                         child: Text(label),
                         value: label,
@@ -296,8 +391,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   ScheduleTask scheduleTask = new ScheduleTask(
                       activity, type, start.toString(), end.toString());
 
-                  ScheduleService().addToSchedule(
-                      widget.studentId, scheduleTask, "saturday");
+                  ScheduleService()
+                      .addToSchedule(widget.studentId, scheduleTask, "saturday");
                 }
               }, Colors.deepPurple),
             )
@@ -306,4 +401,231 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
       ),
     );
   }
+}
+
+
+class UpdateTaskDialog extends StatefulWidget {
+ 
+  final String studentId;
+  final ScheduleTask task;
+  final String start;
+  final String end;
+  final List socialList;
+  final List leisureList;
+
+
+  UpdateTaskDialog(this.studentId,this.task,this.start,this.end,this.socialList,this.leisureList);
+  @override
+  _UpdateTaskDialogState createState() => new _UpdateTaskDialogState(task.id,task.name,task.type,start,end);
+}
+
+class _UpdateTaskDialogState extends State<UpdateTaskDialog> {
+
+
+  String id;
+  String name;
+  String type;
+  DateTime start;
+  DateTime end;
+  String _startTime;
+  String _endTime;
+  var taskList = List();
+
+  _UpdateTaskDialogState(this.id,this.name,this.type,this._startTime,this._endTime);
+
+
+
+  
+    
+    final _formKey = GlobalKey<FormState>();
+    
+    
+
+    @override
+    Widget build(BuildContext context) {
+      return AlertDialog(
+        content: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              SizedBox(height: 24),
+              DropdownButtonFormField(
+                value: type,
+
+                hint: Text('Select Type'),
+                items: CommonConstants.scheduleTypes
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() => type = value);
+                  setState(() {
+                  switch(type){
+                    case "Social" : taskList = widget.socialList;
+                      break;
+                    case "Leisure" : taskList = widget.leisureList;
+                      break;
+                    default : taskList = ["Select Type First"];
+                  }
+                    });
+                },
+              ),
+              SizedBox(height: 24),
+              DropdownButtonFormField(
+                hint: Text('Select Task'),
+                value: name,
+                items: taskList
+                                    .map((label) => DropdownMenuItem(
+                                          child: Text(label),
+                                          value: label,
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  setState(() => name = value);
+                                },
+                              ),
+                              SizedBox(child: Text("Start Time"), height: 24),
+                              RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                elevation: 4.0,
+                                onPressed: () {
+                                  DatePicker.showTimePicker(context,
+                                      theme: DatePickerTheme(
+                                        containerHeight: 210.0,
+                                      ),
+                                      showTitleActions: true, onConfirm: (time) {
+                                    print('confirm $time');
+                                    _startTime =
+                                        '${time.hour.toString().padLeft(2, "0")}:${time.minute.toString().padLeft(2, "0")}:${time.second.toString().padLeft(2, "0")}';
+                                    setState(() {});
+                                  }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 50.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Container(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.access_time,
+                                                  size: 18.0,
+                                                  color: Colors.teal,
+                                                ),
+                                                Text(
+                                                  " $_startTime",
+                                                  style: TextStyle(
+                                                      color: Colors.teal,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 18.0),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Text(
+                                        "  Change",
+                                        style: TextStyle(
+                                            color: Colors.teal,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                color: Colors.white,
+                              ),
+                              SizedBox(child: Text("End Time"), height: 24),
+                              RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                elevation: 4.0,
+                                onPressed: () {
+                                  DatePicker.showTimePicker(context,
+                                      theme: DatePickerTheme(
+                                        containerHeight: 210.0,
+                                      ),
+                                      showTitleActions: true, onConfirm: (time) {
+                                    print('confirm $time');
+                                    _endTime =
+                                        '${time.hour.toString().padLeft(2, "0")}:${time.minute.toString().padLeft(2, "0")}:${time.second.toString().padLeft(2, "0")}';
+                                    setState(() {});
+                                  }, currentTime: DateTime.now(), locale: LocaleType.en);
+                                  setState(() {});
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: 50.0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Container(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.access_time,
+                                                  size: 18.0,
+                                                  color: Colors.teal,
+                                                ),
+                                                Text(
+                                                  " $_endTime",
+                                                  style: TextStyle(
+                                                      color: Colors.teal,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 18.0),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Text(
+                                        "  Change",
+                                        style: TextStyle(
+                                            color: Colors.teal,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                color: Colors.white,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: StudymateRaisedButton("Update Task", () {
+                                  if (_formKey.currentState.validate()) {
+                                     _formKey.currentState.save();
+                                    start = DateTime.parse("2019-01-01 " + _startTime);
+                                    end = DateTime.parse("2019-01-01 " + _endTime);
+                  
+                                    ScheduleTask scheduleTask = new ScheduleTask(
+                                         name, type, start.toString(), end.toString());
+                                         scheduleTask.setId(id);
+                  
+                                     ScheduleService()
+                                        .updateTask(widget.studentId, scheduleTask, "saturday");
+                                  }
+                                }, Colors.deepPurple),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                
+  
+    
 }

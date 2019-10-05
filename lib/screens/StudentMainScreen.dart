@@ -32,7 +32,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           ringDiameter: 200.0,
           ringWidth: 60.0,
           options: <Widget>[
-            IconButton(icon: Icon(Icons.calendar_today), onPressed: () {}, iconSize: 30.0, color: Colors.white),
+            IconButton(icon: Icon(Icons.calendar_today), onPressed: () {Navigator.pushNamed(context, '/daily');}, iconSize: 30.0, color: Colors.white),
             IconButton(icon: Icon(Icons.schedule), onPressed: () {}, iconSize: 30.0, color: Colors.white),
             IconButton(icon: Icon(Icons.chat), onPressed: () {}, iconSize: 30.0, color: Colors.white),
           ],

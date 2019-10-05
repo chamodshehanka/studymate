@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:studymate/screens/ScheduleScreen/DailyStudy.dart';
+import 'package:studymate/models/Subject.dart';
 import 'package:studymate/services/SuperService.dart';
 
 final CollectionReference subjectsCollection =
