@@ -65,8 +65,6 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
               );
             });
       } else {
-        // showDialog<void>(
-        //     context: context, child: Text('Something went wrong'));
       }
     }
 
