@@ -89,8 +89,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RewardsScreen());
       case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
-      // case '/image_bank':
-        // return MaterialPageRoute(builder: (_) => ImagesScreen());
       case '/achievments':
         return MaterialPageRoute(builder: (_) => AchievmentsScreen());
       case '/homeDoctor':
