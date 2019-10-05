@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studymate/models/Student.dart';
@@ -141,6 +142,12 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
+        String exception = Authentication.getExceptionText(e);
+        Flushbar(
+          title: "Sign Up Error",
+          message: exception,
+          duration: Duration(seconds: 5),
+        )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);

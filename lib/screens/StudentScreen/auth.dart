@@ -85,7 +85,7 @@
 //     }
 //   }
 
-//   static Future<String> storeUserLocal(User user) async {
+//   static Future<String> storeUserLocal(Student student) async {
 //     SharedPreferences prefs = await SharedPreferences.getInstance();
 //     String storeUser = userToJson(user);
 //     await prefs.setString('user', storeUser);
