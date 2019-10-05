@@ -13,8 +13,13 @@ class MedicalRecordService extends SuperService<MedicalRecord, String> {
       final DocumentSnapshot ds =
           await tx.get(medicalRecordCollection.document());
 
-      final MedicalRecord md = new MedicalRecord(ds.documentID,
-          medicalRecord.name, medicalRecord.date, medicalRecord.url);
+      final MedicalRecord md = new MedicalRecord(
+          ds.documentID,
+          medicalRecord.name,
+          medicalRecord.date,
+          medicalRecord.doctorName,
+          medicalRecord.studentName,
+          medicalRecord.url);
       final Map<String, dynamic> data = md.toMap();
 
       await tx.set(ds.reference, data);

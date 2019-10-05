@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:studymate/screens/DoctorAppointmentScreen/doctorAppointment.dart';
+import 'package:studymate/screens/AppointmentScreen/Doctor/DoctorAppointmentUI.dart';
 
-class Dashboard extends StatefulWidget {
+class DashboardAppointment extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends State<DashboardAppointment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -220,7 +220,7 @@ class _DashboardState extends State<Dashboard> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DoctorAppointmentScreen(),
+                        builder: (context) => DoctorAppointmentListScreen(),
                       ),
                     );
                   },
