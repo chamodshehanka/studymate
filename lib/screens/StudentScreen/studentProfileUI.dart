@@ -167,6 +167,7 @@ class _ProfileUIScreenState extends State<ProfileUIScreen> {
           Navigator.pushNamed(context, '/welcome');
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
   }
 }

@@ -72,5 +72,31 @@ final CollectionReference studentsCollection =
     });
   }
 
+    Future<dynamic> updateTask(
+      String studentId, ScheduleTask task,String day) {
+    final TransactionHandler updateTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = 
+        await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document("weeklyschedule")
+              .collection(day)
+              .document(task.id));
+
+
+      await tx.update(ds.reference, task.toMap());
+      return {'updated': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(updateTransaction)
+        .then((result) => result['updated'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
+  }
+
 
 }
