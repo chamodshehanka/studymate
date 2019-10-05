@@ -45,6 +45,7 @@ class _StudymateTextField extends State<StudymateTextField> {
             validator: (value) {
               return Validator.validate(widget.validation, value);
             },
+            obscureText: widget.obscureText,
             keyboardType: widget.keyboardType,
             style: new TextStyle(
               fontFamily: "Poppins",
