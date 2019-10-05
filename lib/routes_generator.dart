@@ -93,8 +93,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => RewardsScreen());
       case '/s_rewards':
         return MaterialPageRoute(builder: (_) => StudentRewardsScreen());
-      // case '/image_bank':
-        // return MaterialPageRoute(builder: (_) => ImagesScreen());
       case '/achievments':
         return MaterialPageRoute(builder: (_) => AchievmentsScreen());
       case '/homeDoctor':
@@ -133,8 +131,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
       case '/studentMain':
         return MaterialPageRoute(builder: (_) => StudentMainScreen());
-       case '/weeklySchedule':
-        return MaterialPageRoute(builder: (_) => WeeklyPlanScreen());  
+      case '/weeklySchedule':
+        return MaterialPageRoute(builder: (_) => WeeklyPlanScreen());
       default:
         return _errorRoute();
     }
