@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ScheduleTask.dart';
@@ -45,11 +44,33 @@ final CollectionReference studentsCollection =
               .collection(CommonConstants.scheduleCollection)
               .document("weeklyschedule")
               .collection(day).snapshots();
-
-log("Snapshots "+snapshots.isEmpty.toString());
-log(studentId.toString());
-log(day.toString());
     return snapshots;
   }
+
+   Future<dynamic> deleteTask(
+      String studentId, String day,String taskId) {
+    final TransactionHandler deleteTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = 
+        await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document("weeklyschedule")
+              .collection(day)
+              .document(taskId));
+
+      await tx.delete(ds.reference);
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
+  }
+
 
 }
