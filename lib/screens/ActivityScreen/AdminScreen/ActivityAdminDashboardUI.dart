@@ -377,10 +377,6 @@ class _ActivityAdminDashboardScreenState
     );
   }
 
-  // Widget _buildRoomItem(BoxConstraints constraints, Size media) {
-  //   return Container();
-  // }
-
   // Have to impl
   Widget _buildActivitiesChart(Size media) {
     return Column(
