@@ -5,16 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Appointment.dart';
-import 'package:studymate/screens/AppointmentScreen_New/ManageAppointmentUI.dart';
 import 'package:studymate/services/custom/AppointmentServiceNew.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
-class DoctorAppointmentListScreen extends StatefulWidget {
-  _DoctorAppointmentListScreenState createState() =>
-      _DoctorAppointmentListScreenState();
+class AdminAppointmentListScreen extends StatefulWidget {
+  _AdminAppointmentListScreenState createState() =>
+      _AdminAppointmentListScreenState();
 }
 
-class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScreen> {
+class _AdminAppointmentListScreenState extends State<AdminAppointmentListScreen> {
   List<Appointment> appointmentList;
   AppointmentServiceNew appointmentServiceNew = AppointmentServiceNew();
   StreamSubscription<QuerySnapshot> appointmentSubscription;
@@ -72,14 +71,14 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
             appointment.specialDescription,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
+         /* trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
           onTap: () => {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
                         ManageAppointmentScreen(appointment: appointment)))
-          },
+          },*/
         );
 
   Card makeCard(Appointment leisureActivity) => Card(
@@ -91,8 +90,8 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
           ),
         );
 
-  final adminAppointmentBody = Container(
-    child: ListView.builder(
+    final adminAppointmentBody = Container(
+      child: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemCount: appointmentList.length,
@@ -101,12 +100,11 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
                   },
                 ),
               );
-              return MaterialApp(debugShowCheckedModeBanner: false,
+              return MaterialApp(
                 home: Scaffold(
                   appBar: AppBar(
                     title: Text('Manage Appointment List'),
                     backgroundColor: Colors.deepPurpleAccent,
-                   
                   ),
                   body: adminAppointmentBody,
                   floatingActionButton: FloatingActionButton(
@@ -118,39 +116,80 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
               );
             }
           
- void _createNewAppointment(BuildContext context) async {
-    String appointmentspecialDescription;
-    String appointmentdate;
-    String appointmenttime;
-    String appointmentplace;
-    // String appointmentStatus;
- showDialog(
-     context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              title: Text('Create New Appointment',textAlign: TextAlign.center,),
-                backgroundColor: Colors.deepPurple[50],
-                 content: Form(
-                   key: _formKey,
-                   child: Column(
-                   mainAxisSize: MainAxisSize.min,
-                   children: <Widget>[
-
-         StudymateTextField('Date',dateController,'text',false,Colors.grey,TextInputType.text,
-         Icon(Icons.date_range,color: Colors.grey, )),
-                                  
-         StudymateTextField('Time',timeController,'text',false,Colors.grey,TextInputType.text,
-         Icon(Icons.timer,color: Colors.grey,)),
-                        
-         StudymateTextField('Place',placeController,'text',false,Colors.grey,TextInputType.text,
-         Icon(Icons.edit_location,color: Colors.grey,)),
-
-         new Flexible(fit: FlexFit.loose,child: new TextField (
-         decoration: new InputDecoration(hintText: 'Special Description', ),
-         maxLines: 2,),),
-                            
+            void _createNewAppointment(BuildContext context) async {
+              String appointmentspecialDescription;
+              // String appointmentStatus;
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape:
+                          RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      title: Text(
+                        'Create New Appointment',
+                        textAlign: TextAlign.center,
+                      ),
+                      backgroundColor: Colors.deepPurple[50],
+                      content: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Special Description',
+                                  specialDescriptionController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.local_activity,
+                                    color: Colors.grey,
+                                  )),
+                            ),Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Date',
+                                  dateController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.local_activity,
+                                    color: Colors.grey,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Time',
+                                  timeController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.local_activity,
+                                    color: Colors.grey,
+                                  )),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: StudymateTextField(
+                                  'Place',
+                                  placeController,
+                                  'text',
+                                  false,
+                                  Colors.grey,
+                                  TextInputType.text,
+                                  Icon(
+                                    Icons.edit_location,
+                                    color: Colors.grey,
+                                  )),
+                            ),
                             /*Padding(
                               padding: EdgeInsets.all(8.0),
                               child: DropdownButtonFormField(
@@ -170,24 +209,22 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
                                 },
                               ),
                             ),*/
-                  Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                             borderRadius: BorderRadius.circular(30)),
-                             elevation: 10,
-                               color: Colors.deepPurple,
-                               textColor: Colors.white,
-                                child: Text("Save"),
-                                onPressed: () {
-                                 log('Appointment SpecialDescription : ' + appointmentspecialDescription);
-                                 log('Appointment Date : ' + appointmentdate);
-                                 log('Appointment Time : ' + appointmenttime);
-                                 log('Appointment Place : ' + appointmentplace);
-                                  if (_formKey.currentState.validate()) {
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30)),
+                                    elevation: 10,
+                                    color: Colors.deepPurple,
+                                    textColor: Colors.white,
+                                    child: Text("Save"),
+                                    onPressed: () {
+                                      log('Appointment SpecialDescription : ' + appointmentspecialDescription);
+          
+                                      if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         //Adding to DB
                                         Future<Appointment> isAdded =
@@ -206,7 +243,9 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
                                     },
                                   ),
                                   // Test Dispose button
-                                  RaisedButton(
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: RaisedButton(
                                       elevation: 10,
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(30)),
@@ -217,9 +256,10 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
                                         Navigator.pop(context);
                                       },
                                     ),
+                                  ),
                                 ],
                               ),
-                              ),
+                            ),
                           ],
                         ),
                       ),

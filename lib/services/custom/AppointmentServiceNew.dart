@@ -30,11 +30,11 @@ class AppointmentServiceNew {
       return null;
     });
   }
-/*
+
   //Get Only Emergency Appointment
-  Stream<QuerySnapshot> getEmergencyAppointmentList({int offset, int limit}) {
+  Stream<QuerySnapshot> getApproveAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
-        appointmentCollection.where('type', isEqualTo: 'Emergency').snapshots();
+        appointmentCollection.where('status', isEqualTo: 'Approve').snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -47,9 +47,9 @@ class AppointmentServiceNew {
   }
 
   //Get Only Not Emergency Appointment
-  Stream<QuerySnapshot> getNotEmergencyActivityList({int offset, int limit}) {
+  Stream<QuerySnapshot> getUnApproveAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
-        appointmentCollection.where('type', isEqualTo: 'Not Emergency').snapshots();
+        appointmentCollection.where('status', isEqualTo: 'UnApprove').snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -61,7 +61,7 @@ class AppointmentServiceNew {
 
     return snapshots;
   }
-*/
+
   //Get All Appointments
   Stream<QuerySnapshot> getAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = appointmentCollection.snapshots();

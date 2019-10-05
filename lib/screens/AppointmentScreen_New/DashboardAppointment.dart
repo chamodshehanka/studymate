@@ -220,7 +220,7 @@ class _DashboardState extends State<DashboardAppointment> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AdminAppointmentListScreen(),
+                        builder: (context) => DoctorAppointmentListScreen(),
                       ),
                     );
                   },

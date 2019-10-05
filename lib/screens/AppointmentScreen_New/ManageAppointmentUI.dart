@@ -22,7 +22,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
   final dateController = TextEditingController();
   final timeController = TextEditingController();
   final placeController = TextEditingController();
-  //final typeController = TextEditingController();
+  final statusController = TextEditingController();
 
 
   @override
@@ -32,6 +32,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
     dateController.text = widget.appointment.date;
     timeController.text = widget.appointment.time ;
     placeController.text = widget.appointment.place ;
+    //statusController.text = widget.appointment.status ;
 
   }
 
@@ -133,10 +134,10 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                           color: Colors.grey,
                         )),
                   ),
-             /* Padding(
+            /*Padding(
                 padding: EdgeInsets.all(5.0),
                 child: TextFormField(
-                  initialValue: widget.appointment.type,
+                  initialValue: widget.appointment.status,
                 ),
               ),*/
               Row(
@@ -162,7 +163,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
                                 dateController.text,
                                 timeController.text,
                                 placeController.text,
-                                /*widget.appointment.type*/);
+                                /*widget.appointment.status*/);
 
                             Future isUpdated =
                                 AppointmentServiceNew().updateAppointment(updatedAppointment);
