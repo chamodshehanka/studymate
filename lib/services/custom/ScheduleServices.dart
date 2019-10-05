@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ScheduleTask.dart';
@@ -19,7 +20,7 @@ final CollectionReference studentsCollection =
               .collection(day)
               .document());
           
-  
+  scheduleTask.setId(ds.documentID);
 
       final Map<String, dynamic> data = scheduleTask.toMap();
 
@@ -34,6 +35,21 @@ final CollectionReference studentsCollection =
       print('error: $error');
       return null;
     });
+  }
+
+  Stream<QuerySnapshot> getDailyTaskList(String studentId,String day) {
+   
+    Stream<QuerySnapshot> snapshots =
+        studentsCollection
+              .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document("weeklyschedule")
+              .collection(day).snapshots();
+
+log("Snapshots "+snapshots.isEmpty.toString());
+log(studentId.toString());
+log(day.toString());
+    return snapshots;
   }
 
 }

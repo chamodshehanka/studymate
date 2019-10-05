@@ -113,13 +113,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.1"
-  device_calendar:
-    dependency: "direct main"
-    description:
-      name: device_calendar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -181,6 +174,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_datetime_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_datetime_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.6"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -262,7 +262,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.0"
+    version: "0.15.8"
   logging:
     dependency: transitive
     description:
