@@ -44,6 +44,7 @@ dependencies:
   percent_indicator: ^2.1.1
   curved_navigation_bar:
   flutter_datetime_picker:
+  printing: any
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.2+1
