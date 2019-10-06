@@ -1,4 +1,3 @@
-
 //import 'package:flushbar/flushbar.dart';
 import 'dart:async';
 
@@ -17,9 +16,9 @@ import 'package:studymate/widgets/StudymateTextField.dart';
 
 import 'package:studymate/widgets/loading.dart';
 
-
 class SchoolStudentAddDetailsScreen extends StatefulWidget {
-  _SchoolStudentAddDetailsScreenState createState() => _SchoolStudentAddDetailsScreenState();
+  _SchoolStudentAddDetailsScreenState createState() =>
+      _SchoolStudentAddDetailsScreenState();
 //   final String labelText;
 //   SchoolStudentAddDetailsScreen(this.labelText);
 // @override
@@ -27,10 +26,10 @@ class SchoolStudentAddDetailsScreen extends StatefulWidget {
 //     return _SchoolStudentAddDetailsScreenState(labelText);
 //   }
 
-  
 }
 
-class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsScreen> {
+class _SchoolStudentAddDetailsScreenState
+    extends State<SchoolStudentAddDetailsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
@@ -38,17 +37,14 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _schoolName = new TextEditingController();
   var type;
- 
+
   List<Student> studentList;
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> studentSubscription;
   List<String> genderTypeList;
   //List<String> studentList;
-  
 
- 
-  
-String mascotAnimationType;
+  String mascotAnimationType;
 
 // String labelText;
 //   _SchoolStudentAddDetailsScreenState(this.labelText);
@@ -56,7 +52,6 @@ String mascotAnimationType;
 //   TimeOfDay _time = new TimeOfDay.now();
 
 //   var dateController = TextEditingController();
-
 
 // Future<void> _selectDate(BuildContext context) async {
 //     final DateTime picked = await showDatePicker(
@@ -77,8 +72,6 @@ String mascotAnimationType;
 //     }
 //   }
 
-  
-
   int groupValue;
   bool b = true;
   bool _autoValidate = false;
@@ -87,7 +80,7 @@ String mascotAnimationType;
   void initState() {
     super.initState();
     groupValue = 0;
-     studentList = List();
+    studentList = List();
     studentSubscription?.cancel();
     studentSubscription =
         studentService.getStudentList().listen((QuerySnapshot snapshot) {
@@ -98,8 +91,6 @@ String mascotAnimationType;
         this.studentList = students;
       });
     });
-
-    
   }
 
   @override
@@ -135,43 +126,79 @@ String mascotAnimationType;
           )),
     );
 
-    final firstName = StudymateTextField("First Name", _firstName,
-     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+    final firstName = StudymateTextField(
+        "First Name",
+        _firstName,
+        "name",
+        false,
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.person,
+          color: Colors.grey,
+        ));
 
-    final lastName = StudymateTextField("Last Name", _lastName,
-     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+    final lastName = StudymateTextField(
+        "Last Name",
+        _lastName,
+        "name",
+        false,
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.person,
+          color: Colors.grey,
+        ));
 
-     final birthday = StudymateTextField("Birthday", _birthday,
-     "birthday", false, Colors.grey, TextInputType.text, Icon(Icons.calendar_view_day,color: Colors.grey,));
+    final birthday = StudymateTextField(
+        "Birthday",
+        _birthday,
+        "birthday",
+        false,
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.calendar_view_day,
+          color: Colors.grey,
+        ));
 
+    final phoneNumber = StudymateTextField(
+        "Phone Number",
+        _phoneNumber,
+        "phone",
+        false,
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.phone_android,
+          color: Colors.grey,
+        ));
 
+    final schoolName = StudymateTextField(
+        "School Name",
+        _schoolName,
+        "school",
+        false,
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.school,
+          color: Colors.grey,
+        ));
 
-
-    final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
-     "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
-
-    final schoolName = StudymateTextField("School Name", _schoolName,
-     "school", false, Colors.grey, TextInputType.text, Icon(Icons.school,color: Colors.grey,));
-  
- 
-
-  
-    
-    final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
-       _addStudentDetails(
-              firstName: _firstName.text,
-              lastName: _lastName.text,
-              birthday: _birthday.text,
-              phoneNumber: _phoneNumber.text,
-              schoolName: _schoolName.text,
-              type: type,
-              
-              
-              context: context)
-    }, Colors.deepPurple);
-
-    
-    
+    final signUpButton = StudymateRaisedButton(
+        "Sign Up",
+        () => {
+              _addStudentDetails(
+                  firstName: _firstName.text,
+                  lastName: _lastName.text,
+                  birthday: _birthday.text,
+                  phoneNumber: _phoneNumber.text,
+                  schoolName: _schoolName.text,
+                  type: type,
+                  context: context)
+            },
+        Colors.deepPurple);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -188,8 +215,6 @@ String mascotAnimationType;
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       logo,
-                  
-
                       SizedBox(height: 48.0),
                       firstName,
                       SizedBox(height: 24.0),
@@ -198,39 +223,38 @@ String mascotAnimationType;
                       birthday,
                       SizedBox(height: 24.0),
                       Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Icon(Icons.person, color: Colors.grey),
-                    )),
-                value: type,
-                hint: Text('Gender'),
-                items: ["Male", "Female"]
-                    .map((label) => DropdownMenuItem(
-                          child: Text(label),
-                          value: label,
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() => type = value);
-                },
-              ),
-            ),
+                        padding: const EdgeInsets.all(18.0),
+                        child: DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(),
+                              ),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 10.0, 20.0, 10.0),
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only(left: 5.0),
+                                child: Icon(Icons.person, color: Colors.grey),
+                              )),
+                          value: type,
+                          hint: Text('Gender'),
+                          items: ["Male", "Female"]
+                              .map((label) => DropdownMenuItem(
+                                    child: Text(label),
+                                    value: label,
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() => type = value);
+                          },
+                        ),
+                      ),
                       SizedBox(height: 24.0),
                       phoneNumber,
                       SizedBox(height: 24.0),
                       schoolName,
                       SizedBox(height: 24.0),
                       signUpButton,
-                      
                     ],
                   ),
                 ),
@@ -261,8 +285,6 @@ String mascotAnimationType;
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
 
- 
-      
         await Navigator.pushNamed(context, '/home');
       } catch (e) {
         _changeLoadingVisible();
@@ -278,12 +300,4 @@ String mascotAnimationType;
       setState(() => _autoValidate = true);
     }
   }
-   
 }
-
-
-   
-
-
-
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:studymate/widgets/LineChart.dart';
 
 class ActivityProgressScreen extends StatefulWidget {
   _ActivityProgressScreenState createState() => _ActivityProgressScreenState();
@@ -12,7 +13,11 @@ class _ActivityProgressScreenState extends State<ActivityProgressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var activityProgressBody = Container();
+    var activityProgressBody = Container(
+      child: ActivityLineChartWidget(
+        
+      ),
+    );
 
     return MaterialApp(
       title: 'Activity Progress UI',
