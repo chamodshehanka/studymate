@@ -140,7 +140,7 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
        Student student=
             Student('id', null, null, email, null, null, null, null);
 
-        _authentication.signUp(email, password, 'admin', student);
+        _authentication.signUp(email, password, 'student', student);
         await Navigator.pushNamed(context, '/homeAdmin');
       } catch (e) {
         _changeLoadingVisible();
