@@ -6,6 +6,7 @@
 // import 'package:studymate/models/settings.dart';
 // import 'package:studymate/models/state.dart';
 // import 'package:studymate/services/Authentication.dart';
+// import 'package:studymate/services/custom/StudentService.dart';
 
 // class StateWidget extends StatefulWidget {
 //   final StateModel state;
@@ -44,20 +45,20 @@
 
 //   Future<Null> initUser() async {
     
-//     FirebaseUser firebaseUserAuth = await Authentication.getCurrentFirebaseUser();
+//     FirebaseAuth firebaseUserAuth = await getUserFirestore().getByID;
 //     Student student = await Authentication.forgotPasswordEmail();
-//     Settings settings = await Authentication.getSettingsLocal();
+//     //Settings settings = await Authentication.getSettingsLocal();
 //     setState(() {
 //       state.isLoading = false;
 //       state.firebaseUserAuth = firebaseUserAuth;
-//       state.student = student;
-//       state.settings = settings;
+//       state.student = student; 
+//      // state.settings = settings;
 //     });
 //   }
 
 //   Future<void> logOutUser() async {
 //     await Authentication.signOut();
-//     FirebaseUser firebaseUserAuth = await Authentication.getCurrentFirebaseUser();
+//     FirebaseUser firebaseUserAuth = await Authentication.getCurrentUser();
 //     setState(() {
 //       state.student = null;
 //       state.settings = null;
@@ -66,7 +67,7 @@
 //   }
 
 //   Future<void> logInUser(email, password) async {
-//     String userd = await Authentication.signIn(email, password);
+//     String user = await Authentication.signIn(email, password);
 //     Student student = await Authentication.getUserFirestore(userId);
 //     await Authentication.storeUserLocal(user);
 //     Settings settings = await Authentication.getSettingsFirestore(userId);
