@@ -1,27 +1,69 @@
 
 //import 'package:flushbar/flushbar.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 //import 'package:googleapis/servicecontrol/v1.dart';
 //import 'package:studymate/auth.dart';
 //import 'package:studymate/models/Student.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
+
 import 'package:studymate/widgets/loading.dart';
 
 
 class SchoolStudentAddDetailsScreen extends StatefulWidget {
   _SchoolStudentAddDetailsScreenState createState() => _SchoolStudentAddDetailsScreenState();
+//   final String labelText;
+//   SchoolStudentAddDetailsScreen(this.labelText);
+// @override
+// State<StatefulWidget> createState() {
+//     return _SchoolStudentAddDetailsScreenState(labelText);
+//   }
+  
 }
 
 class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
+  final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _schoolName = new TextEditingController();
-  final TextEditingController _password = new TextEditingController();
 
+ 
+  
+String mascotAnimationType;
+
+// String labelText;
+//   _SchoolStudentAddDetailsScreenState(this.labelText);
+//   DateTime _date = DateTime.now();
+//   TimeOfDay _time = new TimeOfDay.now();
+
+//   var dateController = TextEditingController();
+
+
+// Future<void> _selectDate(BuildContext context) async {
+//     final DateTime picked = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(2019),
+//       lastDate: DateTime(2101),
+//     );
+//     if (picked != null && picked != _date) {
+//       setState(() {
+//         _date = picked;
+//         dateController.text = _date.year.toString() +
+//             ' - ' +
+//             _date.month.toString() +
+//             ' - ' +
+//             _date.day.toString();
+//       });
+//     }
+//   }
+
+  
 
   int groupValue;
   bool b = true;
@@ -66,6 +108,10 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
     final lastName = StudymateTextField("Last Name", _lastName,
      "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
+     final birthday = StudymateTextField("Birthday", _birthday,
+     "birthday", false, Colors.grey, TextInputType.text, Icon(Icons.calendar_view_day,color: Colors.grey,));
+
+
     final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
      "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
 
@@ -75,17 +121,15 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
  
 
   
-    final password = StudymateTextField("Password", _password,
-     "password", true,Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
-  
-
+    
     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
-       _emailSignUp(
+       _addStudentDetails(
               firstName: _firstName.text,
               lastName: _lastName.text,
+              birthday: _birthday.text,
               phoneNumber: _phoneNumber.text,
               schoolName: _schoolName.text,
-              password: _password.text,
+              
               context: context)
     }, Colors.deepPurple);
     
@@ -105,17 +149,19 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       logo,
+                  
+
                       SizedBox(height: 48.0),
                       firstName,
                       SizedBox(height: 24.0),
                       lastName,
                       SizedBox(height: 24.0),
+                      birthday,
+                      SizedBox(height: 24.0),
                       phoneNumber,
                       SizedBox(height: 24.0),
                       schoolName,
                       SizedBox(height: 24.0),
-                      password,
-                      SizedBox(height: 12.0),
                       signUpButton,
                       
                     ],
@@ -134,37 +180,31 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
     });
   }
 
-  void _emailSignUp(
+  void _addStudentDetails(
       {String firstName,
       String lastName,
+      String birthday,
       String phoneNumber,
       String schoolName,
-      String password,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {
       try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
+
+        
  
-        // await Auth.signUp(email, password).then((uID) {
-        //   Auth.addUserSettingsDB(new User(
-        //     userId: uID,
-        //     email: email,
-        //     firstName: firstName,
-        //     lastName: lastName,
-        //   ));
-        // });
       
-        await Navigator.pushNamed(context, '/sign_in');
+        await Navigator.pushNamed(context, '/home');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
-        //String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Sign Up Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
+        String exception = Authentication.getExceptionText(e);
+        Flushbar(
+          title: "Sign Up Error",
+          message: exception,
+          duration: Duration(seconds: 5),
+        )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);

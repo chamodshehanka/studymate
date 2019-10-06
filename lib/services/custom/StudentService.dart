@@ -18,11 +18,13 @@ class StudentService {
 
       final Student studentModel = new Student(
           authId,
-          student.name,
+          student.firstName,
+          student.lastName,
           student.email,
           student.schooling,
           student.schoolName,
-          student.phoneNumber);
+          student.phoneNumber,
+          student.birthday);
       final Map<String, dynamic> data = studentModel.toMap();
 
       await tx.set(ds.reference, data);

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ScheduleScreen/Tabs/FridayTab.dart';
 import 'package:studymate/screens/ScheduleScreen/Tabs/MondayTab.dart';
@@ -22,7 +24,8 @@ class _WeeklyPlanScreenState extends State<WeeklyPlanScreen> {
   @override
   void initState() {
     super.initState();
-
+    DateTime date =  DateTime.now();
+      log((date.year.toString()+"-"+date.month.toString()+"-"+date.day.toString()));
   }
   @override
   Widget build(BuildContext context) {
@@ -38,13 +41,13 @@ class _WeeklyPlanScreenState extends State<WeeklyPlanScreen> {
             centerTitle:true,
             bottom: TabBar(
               tabs: <Widget>[
-                Tab(text: "SUN"),
-                Tab(text: "MON"),
-                Tab(text: "TUE"),
-                Tab(text: "WED"),
-                Tab(text: "THU"),
-                Tab(text: "FRI"),
-                Tab(text: "SAT"),
+                Tab(text: "S"),
+                Tab(text: "M"),
+                Tab(text: "T"),
+                Tab(text: "W"),
+                Tab(text: "T"),
+                Tab(text: "F"),
+                Tab(text: "S"),
               ],
             ),
           ),
@@ -59,6 +62,7 @@ class _WeeklyPlanScreenState extends State<WeeklyPlanScreen> {
               SaturdayTab(),
             ],
           ),
+      
          ),
       ),
     );
