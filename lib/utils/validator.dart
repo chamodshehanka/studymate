@@ -23,11 +23,15 @@ class Validator {
       case 'phone':
         return validateNumber(value);
         break;
+      case 'birthday':
+        return validatebirthday(value);
+        break;
       case 'text':
         return validateText(value);
       case 'working place':
         return validateWorkingPlace(value);    
         break;
+        
       default:
         return null;
     }
@@ -38,6 +42,14 @@ class Validator {
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
       return 'Please enter a valid email address.';
+    else
+      return null;
+  }
+   static String validatebirthday(value) {
+    Pattern pattern = r'^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Please enter a correct birthday.';
     else
       return null;
   }
@@ -54,11 +66,15 @@ class Validator {
   static String validateConfirmPassword(value) {
     Pattern pattern = r'^.{6,}$';
     RegExp regex = new RegExp(pattern);
+    
     if (!regex.hasMatch(value))
       return 'Password must be at least 6 characters.';
-    else
+    else 
       return null;
+    
   }
+
+  
 
   static String validateName(value) {
     Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
@@ -119,4 +135,5 @@ class Validator {
   static String validateText(value) {
     return null;
   }
+
 }

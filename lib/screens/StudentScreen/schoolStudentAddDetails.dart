@@ -37,6 +37,8 @@ class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsS
   final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _schoolName = new TextEditingController();
+  
+  
   var type;
  
   List<Student> studentList;
@@ -99,7 +101,7 @@ String mascotAnimationType;
       });
     });
 
-    
+    genderTypeList = ['Male', 'Female'];
   }
 
   @override
@@ -141,7 +143,7 @@ String mascotAnimationType;
     final lastName = StudymateTextField("Last Name", _lastName,
      "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
-     final birthday = StudymateTextField("Birthday", _birthday,
+     final birthday = StudymateTextField("Birthday (dd/mm/yyyy)", _birthday,
      "birthday", false, Colors.grey, TextInputType.text, Icon(Icons.calendar_view_day,color: Colors.grey,));
 
 
@@ -254,16 +256,25 @@ String mascotAnimationType;
       bool schooling,
       String phoneNumber,
       String schoolName,
-      String type,
+      var type,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {
       try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
 
- 
+        // Future<Student> isAdded = studentService
+        //                   .updateStudent();
+
+                          
+        //               if (isAdded != null) {
+        //                 Navigator.pushNamed(context, '/home');
+        //               } else {
+        //                 Navigator.pop(context);
+        //               }
+        
       
-        await Navigator.pushNamed(context, '/home');
+       // await Navigator.pushNamed(context, '/home');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
