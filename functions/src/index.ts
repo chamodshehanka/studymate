@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import * as Twilio from 'twilio';
-import * as secretKeys from '../secrets/keys'
+// import * as Twilio from 'twilio';
+// import * as secretKeys from '../secrets/keys'
 
 // require('dotenv').config();
 // // Start writing Firebase Functions
@@ -11,13 +11,15 @@ import * as secretKeys from '../secrets/keys'
 //  response.send("Hello from Firebase!");
 // });
 
-const twilioNumber = secretKeys.twilioNumber;
-const accountSid = secretKeys.accountSid;
-const authToken = secretKeys.authToken;
+// const twilioNumber = secretKeys.twilioNumber;
+// const accountSid = secretKeys.accountSid;
+// const authToken = secretKeys.authToken;
 
-const client = Twilio(accountSid, authToken);
+// const client = Twilio(accountSid, authToken);
 
 admin.initializeApp();
+
+const fcm = admin.messaging();
 
 // Add New Admin Function
 exports.addAdmin = functions.https.onCall((data, context) => {
@@ -119,21 +121,63 @@ export const tempScheduleFunction = functions.https.onRequest((request, response
 });
 
 
-exports.getStudentsNamesFunction = functions.https.onRequest((request, response) => {
-    const name = request.get.name;
-    response.send(name + 'Kusura');
-});
+// exports.getStudentsNamesFunction = functions.https.onRequest((request, response) => {
+//     const name = request.get.name;
+//     response.send(name + 'Kusura');
+// });
 
-exports.sendMessageToParent = functions.https.onCall((data, context) => {
-    const message = data.message;
-    const textContent = {
-        body: `${message}`,
-        to: '+94775633985',
-        from: twilioNumber
-    }
-    client.messages.create(textContent).then((msg) => {
-        console.log(msg);
-    }).catch((error) => {
-        console.log(error);
-    });
+// exports.sendMessageToParent = functions.https.onCall((data, context) => {
+//     const message = data.message;
+//     const textContent = {
+//         body: `${message}`,
+//         to: '+94775633985',
+//         from: twilioNumber
+//     }
+//     client.messages.create(textContent).then((msg) => {
+//         console.log(msg);
+//     }).catch((error) => {
+//         console.log(error);
+//     });
+// });
+
+exports.cloudNotificatinFunction = functions.https.onCall(async (data, context) => {
+    const querySnapshot = await admin.firestore().collection('admins')
+        .doc(data.authId).collection('tokens').get();
+
+    const token = querySnapshot.docs.map(snap => snap.id);
+    const payload: admin.messaging.MessagingPayload = {
+        notification: {
+            title: 'We missed you!',
+            body: 'Please come back and complete rings ',
+            clickAction: 'FLUTTER_NOTIFICATION_CLICK'
+
+        }
+    };
+    return fcm.sendToDevice(token, payload);
 });
+//needs to be completed
+
+// exports.dailyLeisureProgressFunction = functions.firestore.document('dailyLogs/{documentId}/{dayCollection}/{dayDocId}/tasks/tasks/Leisure/{docId}')
+//     .onWrite(async (change, context) => {
+    
+//         const newData = change.after.data();
+//         const oldData = change.before.data();
+//         if (newData != null && oldData != null) {
+//             const documentId = context.params.documentId;
+//             const dayCollection = context.params.dayCollection;
+//             const difference = newData.completed - oldData.completed;
+            
+//             const doc = await admin.firestore().collection('dailyLogs').doc(documentId).collection(dayCollection).doc(dayCollection).collection('tasks').doc('tasks').get();
+//             const progess = doc.data();
+//             if(difference > 0){
+//                 doc.
+//             }
+
+//             return ("Updated Total Leisure");
+//         }
+//         else {
+//             return {
+//                 error: 'Something went wrong'
+//             }
+//         }
+//     });

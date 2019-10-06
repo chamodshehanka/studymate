@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
-import 'package:pdf/widgets.dart' as pdfPackage;
 
 class ActivityReportScreen extends StatefulWidget {
   _ActivityReportScreenState createState() => _ActivityReportScreenState();
@@ -28,19 +26,9 @@ class _ActivityReportScreenState extends State<ActivityReportScreen> {
   }
 
   _generatePDFAndView(context) async {
-    final pdf = pdfPackage.Document();
-
-    pdf.addPage(pdfPackage.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (pdfPackage.Context context) {
-          return pdfPackage.Container(child: pdfPackage.Text('Hello world'));
-          // return pdfPackage.Text('Hello world');
-        }));
-
-    final String dir = (await getApplicationDocumentsDirectory()).path;
-    print('dir : ' + dir);
-    final String path = '$dir/report.pdf';
-    final File file = File(path);
-    await file.writeAsBytes(pdf.save());
+    // PDFWidget().getPDF();
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/my_file.txt');
+    await file.writeAsString('Hello world!');
   }
 }

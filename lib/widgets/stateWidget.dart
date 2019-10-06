@@ -2,10 +2,10 @@
 // import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:studymate/auth.dart';
 // import 'package:studymate/models/Student.dart';
 // import 'package:studymate/models/settings.dart';
 // import 'package:studymate/models/state.dart';
+// import 'package:studymate/services/Authentication.dart';
 
 // class StateWidget extends StatefulWidget {
 //   final StateModel state;
@@ -44,33 +44,33 @@
 
 //   Future<Null> initUser() async {
     
-//     FirebaseUser firebaseUserAuth = await Auth.getCurrentFirebaseUser();
-//     User user = await Auth.getUserLocal();
-//     Settings settings = await Auth.getSettingsLocal();
+//     FirebaseUser firebaseUserAuth = await Authentication.getCurrentFirebaseUser();
+//     Student student = await Authentication.forgotPasswordEmail();
+//     Settings settings = await Authentication.getSettingsLocal();
 //     setState(() {
 //       state.isLoading = false;
 //       state.firebaseUserAuth = firebaseUserAuth;
-//       state.user = user;
+//       state.student = student;
 //       state.settings = settings;
 //     });
 //   }
 
 //   Future<void> logOutUser() async {
-//     await Auth.signOut();
-//     FirebaseUser firebaseUserAuth = await Auth.getCurrentFirebaseUser();
+//     await Authentication.signOut();
+//     FirebaseUser firebaseUserAuth = await Authentication.getCurrentFirebaseUser();
 //     setState(() {
-//       state.user = null;
+//       state.student = null;
 //       state.settings = null;
 //       state.firebaseUserAuth = firebaseUserAuth;
 //     });
 //   }
 
 //   Future<void> logInUser(email, password) async {
-//     String userId = await Auth.signIn(email, password);
-//     User user = await Auth.getUserFirestore(userId);
-//     await Auth.storeUserLocal(user);
-//     Settings settings = await Auth.getSettingsFirestore(userId);
-//     await Auth.storeSettingsLocal(settings);
+//     String userd = await Authentication.signIn(email, password);
+//     Student student = await Authentication.getUserFirestore(userId);
+//     await Authentication.storeUserLocal(user);
+//     Settings settings = await Authentication.getSettingsFirestore(userId);
+//     await Authentication.storeSettingsLocal(settings);
 //     await initUser();
 //   }
 

@@ -48,11 +48,11 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
         crossAxisSpacing: 10.0,
         crossAxisCount: 2,
         children: <Widget>[
-          HomeTile(Icons.verified_user, "Add New Student", Colors.red,
+          HomeTile(Icons.verified_user, "Student Manager", Colors.red,
               "/studentAdd"),
           HomeTile(
-              Icons.calendar_today, "Admin Manage", Colors.amber, "/adminAdd"),
-          HomeTile(Icons.calendar_today, "Doctor Manage", Colors.amber,
+              Icons.calendar_today, "Admin Manager", Colors.amber, "/adminAdd"),
+          HomeTile(Icons.calendar_today, "Doctor Manager", Colors.amber,
               "/doctorAdd"),
           HomeTile(Icons.local_activity, "Activity Manager",
               Colors.deepPurpleAccent, "/adminActivityDashboard"),
@@ -62,9 +62,8 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
               "/changePassword"),
           HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
               "/forgotPassword"),
-          HomeTile(Icons.stars, "Rewards", Colors.pink, "/rewards"),
-          HomeTile(
-              Icons.settings, "Admin Test", Colors.black, "/medicalRecord"),
+          HomeTile(Icons.stars, "Rewards Manager", Colors.pink, "/rewards"),
+          HomeTile(Icons.settings, "Admin Test", Colors.black, "/medicalRecord"),
         ],
       ),
       floatingActionButton: FloatingActionButton(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -26,6 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   StudymateTextField _emailField;
   StudymateTextField _passwordField;
+  FlatButton _forgotPassword;
   bool _blackVisible = false;
   VoidCallback onBackPress;
   String mascotAnimationType;
@@ -63,6 +66,15 @@ class _SignInScreenState extends State<SignInScreen> {
           Icons.lock,
           color: Colors.grey,
         ));
+    _forgotPassword = FlatButton(
+      child: Text(
+        'Forgot password',
+        style: TextStyle(color: Colors.black54),
+      ),
+      onPressed: () {
+        Navigator.pushNamed(context, '/forgotPassword');
+      },
+    );
   }
 
   @override
@@ -115,10 +127,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: StudymateRaisedButton(
                         'Sign in', _userLogin, Colors.deepPurpleAccent),
                   ),
+                  _forgotPassword
                 ],
               ),
-
-    
               SafeArea(
                 child: IconButton(
                   icon: Icon(Icons.arrow_back),
@@ -170,6 +181,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
             // print('Is Admin' + isAdmin.toString());
             // print('Claim result : ' + result.claims.toString());
+            log('Admin : ' + isAdmin.toString());
+            log('Doctor : ' + isDoctor.toString());
+            log('Student : ' + isStudent.toString());
 
             if (isAdmin) {
               Navigator.pushNamed(context, '/homeAdmin');
@@ -177,11 +191,12 @@ class _SignInScreenState extends State<SignInScreen> {
               Navigator.pushNamed(context, '/homeDoctor');
             } else if (isStudent) {
               Future<DocumentSnapshot> data = studentService.getByID(user.uid);
+
               data.then((value) {
                 Student student = Student.map(value.data);
-                if (student.name != null && student.phoneNumber != null) {
+                if (student.firstName != null || student.phoneNumber != null) {
                   // Already regiesterd student
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushNamed(context, '/studentMain');
                 } else {
                   // For first time login student
                   Navigator.pushNamed(context, '/changePassword');
