@@ -47,6 +47,7 @@ dependencies:
   fab_circular_menu: ^0.1.1
   flutter_local_notifications: ^0.8.4
   flutter_full_pdf_viewer: ^1.0.4
+  syncfusion_flutter_charts: ^17.3.14
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.2+1
