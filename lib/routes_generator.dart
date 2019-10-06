@@ -21,7 +21,8 @@ import 'package:studymate/screens/RewardScreen/Admin/badge_collection.dart';
 import 'package:studymate/screens/RewardScreen/s_reward.dart';
 import 'package:studymate/screens/RewardScreen/Admin/rewards.dart';
 import 'package:studymate/screens/RewardScreen/achievments.dart';
-import 'package:studymate/screens/ScheduleScreen/Daily.dart';
+import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
+import 'package:studymate/screens/ScheduleScreen/Reports/ReportGeneration.dart';
 import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
 import 'package:studymate/screens/StudentMainScreen.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
@@ -60,7 +61,7 @@ class RouteGenerator {
       case '/accountType':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
-        return MaterialPageRoute(builder: (_) => DailyScreen());
+        return MaterialPageRoute(builder: (_) => DailyScheduleScreen());
       case '/activityDashboard':
         return MaterialPageRoute(builder: (_) => ActivityDashboardScreen());
       case '/adminActivityDashboard':
@@ -133,6 +134,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => StudentMainScreen());
       case '/weeklySchedule':
         return MaterialPageRoute(builder: (_) => WeeklyPlanScreen());
+      case '/studentDailyReport':
+        return MaterialPageRoute(builder: (_) => ReportGeneration());
       default:
         return _errorRoute();
     }

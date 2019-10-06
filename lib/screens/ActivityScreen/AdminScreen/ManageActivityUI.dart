@@ -76,7 +76,7 @@ class _ManageActivityScreenState extends State<ManageActivityScreen> {
                 child: StudymateTextField(
                     'Activity Name',
                     nameController,
-                    'text',
+                    'name',
                     false,
                     Colors.grey,
                     TextInputType.text,
