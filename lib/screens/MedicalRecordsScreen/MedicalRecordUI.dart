@@ -13,10 +13,6 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
   List<MedicalRecord> medicalRecordList;
   MedicalRecordService medicalRecordService = MedicalRecordService();
   StreamSubscription<QuerySnapshot> medicalRecordSubscription;
-  // final FirebaseStorage firebaseStorage = FirebaseStorage(
-  //     app: Firestore.instance.app,
-  //     storageBucket: 'gs://studymate-v1.appspot.com/medicalRecords');
-  // Uint8List imageBytes;
 
   @override
   void initState() {
@@ -34,18 +30,6 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
         this.medicalRecordList = medicalRecords;
       });
     });
-
-    // getting image data
-    // firebaseStorage
-    //     .ref()
-    //     .child('octocat.jpeg')
-    //     .getData(10000000)
-    //     .then((data) => setState(() {
-    //           imageBytes = data;
-    //         }))
-    //     .catchError((e) {
-    //   print(e);
-    // });
   }
 
   @override
@@ -70,9 +54,18 @@ class _MedicalRecordScreenState extends State<MedicalRecordUIScreen> {
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
-          title: Text(
-            medicalRecord.name,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(medicalRecord.name,
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
+              Text(medicalRecord.studentName,
+                  style: TextStyle(color: Colors.white, fontSize: 15)),
+              Text(medicalRecord.doctorName,
+                  style: TextStyle(color: Colors.white))
+            ],
           ),
           trailing: Icon(Icons.open_in_new, color: Colors.white, size: 30.0),
           onTap: () => {_viewMedicalReport(context)},

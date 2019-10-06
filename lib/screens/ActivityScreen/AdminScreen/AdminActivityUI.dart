@@ -145,7 +145,7 @@ class _StudymateDialogState extends State<StudymateDialog> {
             StudymateTextField(
                 'Activity Name',
                 nameController,
-                'text',
+                'name',
                 false,
                 Colors.grey,
                 TextInputType.text,
