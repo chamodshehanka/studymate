@@ -73,57 +73,65 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
   }
 
   @override
+  void dispose() { 
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FabCircularMenu(
-        child: Container(
-          child: _children[_currentIndex],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: FabCircularMenu(
+          child: Container(
+            child: _children[_currentIndex],
+          ),
+          ringColor: Colors.deepPurple,
+          ringDiameter: 200.0,
+          ringWidth: 60.0,
+          options: <Widget>[
+            IconButton(
+                icon: Icon(Icons.calendar_today),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/daily');
+                },
+                iconSize: 30.0,
+                color: Colors.white),
+            IconButton(
+                icon: Icon(Icons.schedule),
+                onPressed: () {},
+                iconSize: 30.0,
+                color: Colors.white),
+            IconButton(
+                icon: Icon(Icons.chat),
+                onPressed: () {},
+                iconSize: 30.0,
+                color: Colors.white),
+            IconButton(
+                icon: Icon(Icons.track_changes),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/studentDailyReport');
+                },
+                iconSize: 30.0,
+                color: Colors.white),
+          ],
         ),
-        ringColor: Colors.deepPurple,
-        ringDiameter: 200.0,
-        ringWidth: 60.0,
-        options: <Widget>[
-          IconButton(
-              icon: Icon(Icons.calendar_today),
-              onPressed: () {
-                Navigator.pushNamed(context, '/daily');
-              },
-              iconSize: 30.0,
-              color: Colors.white),
-          IconButton(
-              icon: Icon(Icons.schedule),
-              onPressed: () {},
-              iconSize: 30.0,
-              color: Colors.white),
-          IconButton(
-              icon: Icon(Icons.chat),
-              onPressed: () {},
-              iconSize: 30.0,
-              color: Colors.white),
-          IconButton(
-              icon: Icon(Icons.track_changes),
-              onPressed: () {
-                Navigator.pushNamed(context, '/studentDailyReport');
-              },
-              iconSize: 30.0,
-              color: Colors.white),
-        ],
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
-        color: Colors.deepPurple,
-        buttonBackgroundColor: Colors.deepPurple,
-        backgroundColor: Colors.white,
-        items: <Widget>[
-          Icon(Icons.home, size: 30, color: Colors.white),
-          Icon(Icons.calendar_today, size: 30, color: Colors.white),
-          Icon(Icons.favorite, size: 30, color: Colors.white),
-          Icon(Icons.person, size: 30, color: Colors.white),
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        bottomNavigationBar: CurvedNavigationBar(
+          color: Colors.deepPurple,
+          buttonBackgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.white,
+          items: <Widget>[
+            Icon(Icons.home, size: 30, color: Colors.white),
+            Icon(Icons.calendar_today, size: 30, color: Colors.white),
+            Icon(Icons.favorite, size: 30, color: Colors.white),
+            Icon(Icons.person, size: 30, color: Colors.white),
+          ],
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+        ),
       ),
     );
   }
