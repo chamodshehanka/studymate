@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Grade89Subject extends StatefulWidget {
-  Grade89Subject({Key key, this.title}) : super(key: key);
+class Grade89SubjectUI extends StatefulWidget {
+  Grade89SubjectUI({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _Grade89SubjectState createState() => _Grade89SubjectState();
+  _Grade89SubjectUIState createState() => _Grade89SubjectUIState();
 }
 
-class _Grade89SubjectState extends State<Grade89Subject> {
+class _Grade89SubjectUIState extends State<Grade89SubjectUI> {
   List subjects;
 
   @override

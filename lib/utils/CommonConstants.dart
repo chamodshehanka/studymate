@@ -6,6 +6,7 @@ class CommonConstants extends InheritedWidget {
 
   // Collections Names
   static final String activityCollectionName = 'Activities';
+  static final String subjectCollectionName = 'Subjects';
   static final String adminsCollectionName = 'admins';
   static final String preferredActivitiesCollectionName = 'preferredActivities';
   static final String socialActivitiesCollectionName = 'socialActivities';
@@ -21,6 +22,7 @@ class CommonConstants extends InheritedWidget {
   static final String addDoctorFunction = 'addDoctor';
   static final String addStudentFunction = 'addStudent';
   static final String activityProgressFunction = 'activityProgress';
+  static final String subjectProgressFunction = 'subjectProgress';
   static final String sendMessageToParent = 'sendMessageToParent';
 
   @override

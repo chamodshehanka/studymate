@@ -87,7 +87,8 @@ flutter:
     - assets/animations/tiger.flr
     - assets/images/Kevin_minions.png
     - assets/images/how-to-roll-up-calendars-in-sharepoint-icons-png-22.png
-
+    - assets/images/grade89.jpg
+    - assets/images/ol.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

@@ -30,7 +30,6 @@ import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
-import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
 import 'package:studymate/screens/UserScreen.dart/AdminAddForm.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
@@ -39,7 +38,13 @@ import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
-import 'package:studymate/screens/SubjectsScreen/UDSubjectUI.dart';
+import 'package:studymate/screens/SubjectsScreen/tabs/SubjectUI.dart';
+import 'package:studymate/screens/SubjectsScreen/tabs/SubjectProgressUI.dart';
+import 'package:studymate/screens/SubjectsScreen/tabs/SubjectDashboardUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/AdminSubjectUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/ManageSubjectUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/SubjectReportUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/SubjectAdminDashboardUI.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -60,20 +65,36 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
+      case '/subjectDashboard':
+        return MaterialPageRoute(builder: (_) => SubjectDashboardScreen());
       case '/activityDashboard':
         return MaterialPageRoute(builder: (_) => ActivityDashboardScreen());
+      case '/adminSubjectDashboard':
+        return MaterialPageRoute(
+            builder: (_) => SubjectAdminDashboardScreen());
       case '/adminActivityDashboard':
         return MaterialPageRoute(
             builder: (_) => ActivityAdminDashboardScreen());
+       case '/subject':
+        return MaterialPageRoute(builder: (_) => SubjectsScreen());     
       case '/activity':
         return MaterialPageRoute(builder: (_) => ActivityScreen());
+      case '/adminSubjectList':
+        return MaterialPageRoute(builder: (_) => AdminSubjectListScreen());
       case '/adminActivityList':
         return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
+      case '/manageSubject':
+        return MaterialPageRoute(
+            builder: (_) => ManageSubjectScreen(subject: null));
       case '/manageActivity':
         return MaterialPageRoute(
             builder: (_) => ManageActivityScreen(activity: null));
+      case '/subjectProgress':
+        return MaterialPageRoute(builder: (_) => SubjectProgressScreen());
       case '/activityProgress':
         return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
+      case '/subjectReports':
+        return MaterialPageRoute(builder: (_) => SubjectReportScreen());
       case '/activityReports':
         return MaterialPageRoute(builder: (_) => ActivityReportScreen());
       case '/appointment':
@@ -112,14 +133,10 @@ class RouteGenerator {
       case '/nonSchoolStudentAddDetails':
         return MaterialPageRoute(
             builder: (_) => NonSchoolStudentAddDetailsScreen());
-      case '/subject':
-        return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':
         return MaterialPageRoute(builder: (_) => TestUIScreen());
       case '/profileUI':
         return MaterialPageRoute(builder: (_) => ProfileUIScreen());
-      case '/udSubject':
-        return MaterialPageRoute(builder: (_) => UDSubjectUI());
       case '/doctorAdd':
         return MaterialPageRoute(builder: (_) => DoctorAddScreen());
       case '/studentAdd':

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ALevelSubject extends StatefulWidget {
-  ALevelSubject({Key key, this.title}) : super(key: key);
+
+class ALevelSubjectUI extends StatefulWidget {
+  ALevelSubjectUI({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _ALevelSubjectState createState() => _ALevelSubjectState();
+  _ALevelSubjectUIState createState() => _ALevelSubjectUIState();
 }
 
-class _ALevelSubjectState extends State<ALevelSubject> {
+class _ALevelSubjectUIState extends State<ALevelSubjectUI> {
   List subjects;
 
   @override
