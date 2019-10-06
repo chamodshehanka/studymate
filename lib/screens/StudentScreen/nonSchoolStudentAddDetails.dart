@@ -20,6 +20,7 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
+  var type;
   
 
   bool _autoValidate = false;
@@ -92,6 +93,35 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
                       firstName,
                       SizedBox(height: 24.0),
                       lastName,
+                      SizedBox(height: 24.0),
+                       SizedBox(height: 24.0),
+                      Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: BorderSide(),
+                    ),
+                    contentPadding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Icon(Icons.person, color: Colors.grey),
+                    )),
+                value: type,
+                hint: Text('Gender'),
+                items: ["Male", "Female"]
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() => type = value);
+                },
+              ),
+            ),
                       SizedBox(height: 24.0),
         
                         

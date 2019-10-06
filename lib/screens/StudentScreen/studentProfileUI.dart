@@ -166,7 +166,9 @@ class _ProfileUIScreenState extends State<ProfileUIScreen> {
           _authentication.signOut();
           Navigator.pushNamed(context, '/welcome');
         },
+
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
   }
 }

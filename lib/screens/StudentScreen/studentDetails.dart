@@ -1,6 +1,5 @@
 // import 'package:flutter/material.dart';
 // import 'package:studymate/models/state.dart';
-// import 'package:studymate/screens/StudentScreen/signIn.dart';
 // import 'package:studymate/widgets/loading.dart';
 // import 'package:studymate/widgets/stateWidget.dart';
 
@@ -20,9 +19,9 @@
 //     appState = StateWidget.of(context).state;
 //     if (!appState.isLoading &&
 //         (appState.firebaseUserAuth == null ||
-//             appState.user == null ||
+//             appState.student == null ||
 //             appState.settings == null)) {
-//       return SignInScreen1();
+//       return HomeScreen();
 //     } else {
 //       if (appState.isLoading) {
 //         _loadingVisible = true;
@@ -69,30 +68,22 @@
 //         },
 //       );
 
-//       final signUpLabel = FlatButton(
-//         child: Text(
-//           'Sign Up',
-//           style: TextStyle(color: Colors.black54),
-//         ),
-//         onPressed: () {
-//           Navigator.pushNamed(context, '/schoolStudentEditPage');
-//         },
-//       );
+//       // final signUpLabel = FlatButton(
+//       //   child: Text(
+//       //     'Sign Up',
+//       //     style: TextStyle(color: Colors.black54),
+//       //   ),
+//       //   onPressed: () {
+//       //     Navigator.pushNamed(context, '/');
+//       //   },
+//       // );
 
-//       final signInLabel = FlatButton(
-//         child: Text(
-//           'Sign In',
-//           style: TextStyle(color: Colors.black54),
-//         ),
-//         onPressed: () {
-//           Navigator.pushNamed(context, '/sign_in');
-//         },
-//       );
+      
 
 //       final userId = appState?.firebaseUserAuth?.uid ?? '';
 //       final email = appState?.firebaseUserAuth?.email ?? '';
-//       final firstName = appState?.user?.firstName ?? '';
-//       final lastName = appState?.user?.lastName ?? '';
+//       final firstName = appState?.student?.firstName ?? '';
+//       final lastName = appState?.student?.lastName ?? '';
 //       final settingsId = appState?.settings?.settingsId ?? '';
 //       final userIdLabel = Text('App Id: ');
 //       final emailLabel = Text('Email: ');
@@ -117,10 +108,7 @@
 //                       Text(userId,
 //                           style: TextStyle(fontWeight: FontWeight.bold)),
 //                       SizedBox(height: 12.0),
-//                       emailLabel,
-//                       Text(email,
-//                           style: TextStyle(fontWeight: FontWeight.bold)),
-//                       SizedBox(height: 12.0),
+                     
 //                       firstNameLabel,
 //                       Text(firstName,
 //                           style: TextStyle(fontWeight: FontWeight.bold)),
@@ -129,13 +117,15 @@
 //                       Text(lastName,
 //                           style: TextStyle(fontWeight: FontWeight.bold)),
 //                       SizedBox(height: 12.0),
+//                        emailLabel,
+//                       Text(email,
+//                           style: TextStyle(fontWeight: FontWeight.bold)),
+//                       SizedBox(height: 12.0),
 //                       settingsIdLabel,
 //                       Text(settingsId,
 //                           style: TextStyle(fontWeight: FontWeight.bold)),
 //                       SizedBox(height: 12.0),
 //                       signOutButton,
-//                       signInLabel,
-//                       signUpLabel,
 //                       forgotLabel
 //                     ],
 //                   ),
