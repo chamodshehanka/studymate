@@ -160,13 +160,10 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
                    mainAxisSize: MainAxisSize.min,
                    children: <Widget>[
 
-         StudymateTextField('Date',dateController,'text',false,Colors.grey,TextInputType.text,
-         Icon(Icons.date_range,color: Colors.grey, )
-        /* validator: (val)=>
-         val.length < 5 ? 'pdpdkpekvpe' :null,*/
-         ),
+         StudymateTextField('Date',dateController,'Date',false,Colors.grey,TextInputType.text,
+         Icon(Icons.date_range,color: Colors.grey,)),
                                   
-         StudymateTextField('Time',timeController,'text',false,Colors.grey,TextInputType.text,
+         StudymateTextField('Time',timeController,'Time',false,Colors.grey,TextInputType.text,
          Icon(Icons.timer,color: Colors.grey,)),
                         
          StudymateTextField('Place',placeController,'text',false,Colors.grey,TextInputType.text,
@@ -192,12 +189,9 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
                                //when you click save Button All the data  save inside the DB
                                 child: Text("Save"),
                                 onPressed: () {
-                                 /*log('Appointment SpecialDescription : ' + appointmentspecialDescription);
-                                 log('Appointment Date : ' + appointmentdate);
-                                 log('Appointment Time : ' + appointmenttime);
-                                 log('Appointment Place : ' + appointmentplace);*/
+                                //validate
                                   if (_formKeyAddAppointment.currentState.validate()) {
-                                        _formKeyAddAppointment.currentState.save();//Save
+                                        
                                         //Adding to DB
                                         Future<Appointment> isAdded =appointmentService
                                         //calling the create Appointment Function***Adding to data to firestore

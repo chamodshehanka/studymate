@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+//import 'package:googleapis/cloudsearch/v1.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:studymate/screens/AppointmentScreen/Doctor/DoctorAppointmentUI.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
+
 
 class DashboardAppointment extends StatefulWidget {
   @override
@@ -8,6 +11,47 @@ class DashboardAppointment extends StatefulWidget {
 }
 
 class _DashboardState extends State<DashboardAppointment> {
+  //String textValue = 'Hello world';
+  // FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+/*
+@override
+  void initState() {
+    super.initState();
+
+    // fcm
+    firebaseMessaging.configure
+    (onLaunch: (Map<String, dynamic> msg) async {
+      print("Called");
+    },
+    onResume: (Map<String, dynamic> msg) async {
+      print("Called");
+    },
+    onMessage:(Map<String, dynamic> msg) async {
+      print("Called"); 
+    }
+    );
+    firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(
+        sound: true,
+        alert: true,
+        badge: true,
+      )
+    );
+    firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings setting){
+        print('Ios Setting Registed');
+    });
+    firebaseMessaging.getToken().then((token){
+        update(token);
+    });
+  }
+  update(String token){
+    print(token);
+    textValue = token;
+    setState((){
+
+    });
+  }
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +127,7 @@ class _DashboardState extends State<DashboardAppointment> {
                   padding: EdgeInsets.only(top: 30),
                 ),
                 Text(
-                  '125',
+                  '7',
                   style: TextStyle(
                     color: Colors.deepPurple,
                     fontSize: 80,
@@ -143,71 +187,7 @@ class _DashboardState extends State<DashboardAppointment> {
                   height: 25,
                   color: Colors.grey[300],
                 ),
-                Container(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'APPROVED',
-                              style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '259',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.deepPurple,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              'UNAPPROVED',
-                              style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '102',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.deepPurple,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+               
                 Divider(
                   height: 25,
                   color: Colors.grey[300],

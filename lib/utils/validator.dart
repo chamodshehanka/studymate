@@ -28,6 +28,12 @@ class Validator {
       case 'working place':
         return validateWorkingPlace(value);    
         break;
+      case 'Date':
+        return validateDate(value); 
+      case 'Time':
+        return validateTime(value);
+      case 'Place':
+        return validatePlace(value); 
       default:
         return null;
     }
@@ -112,6 +118,31 @@ class Validator {
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
       return 'Please enter a number.';
+    else
+      return null;
+  }
+
+static String validateDate(value) {
+    Pattern pattern = r'^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Please enter(yyyy-mm-dd)format.';
+    else
+      return null;
+  }
+  static String validateTime(value) {
+    Pattern pattern = r'^[0-2][0-3]:[0-5][0-9]$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Please enter(HH:MM)format.';
+    else
+      return null;
+  }
+static String validatePlace(value) {
+    Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Please enter the place ';
     else
       return null;
   }
