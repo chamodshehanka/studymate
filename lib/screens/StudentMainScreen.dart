@@ -22,7 +22,9 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+    onWillPop: () async => false,
+    child:Scaffold(
       body: 
       FabCircularMenu(
         child: Container(
@@ -56,6 +58,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           });
         },
       ),
+    ),
     );
   }
 }

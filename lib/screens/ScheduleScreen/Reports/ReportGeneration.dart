@@ -9,7 +9,7 @@ import 'package:studymate/services/custom/StudentService.dart';
 class ReportGeneration extends StatelessWidget {
 
   final StudentService studentService = new StudentService();
-  var data = {
+  final data = {
           "Task":"Singing",
           "Completed":"45",
           "Schedules":"60"
