@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/Calendar.dart';
 import 'package:studymate/models/ScheduleTask.dart';
@@ -29,6 +30,7 @@ class _MondayTabState extends State<MondayTab> {
   StreamSubscription<QuerySnapshot> dailyTaskSubscription;
   StreamSubscription<QuerySnapshot> socialActivitySubscription;
   StreamSubscription<QuerySnapshot> leisureActivitySubscription;
+  ProgressDialog progressDialog;
   Calendar calendar;
   String studentId;
   List socialActivities = List();
@@ -52,7 +54,7 @@ class _MondayTabState extends State<MondayTab> {
             .toList();
 
         setState(() {
-          this.mondayTaskList = tasks;
+          this.mondayTaskList = scheduleService.sortSchedule(tasks);
         });
       });
 
@@ -214,6 +216,7 @@ class AddTaskDialog extends StatefulWidget {
   final String studentId;
   final List socialList;
   final List leisureList;
+ 
   AddTaskDialog(this.studentId, this.socialList, this.leisureList);
   @override
   _AddTaskDialogState createState() => new _AddTaskDialogState();
@@ -224,6 +227,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   String _endTime = "Not set";
   DateTime start;
   DateTime end;
+  ProgressDialog progressDialog;
   final _formKey = GlobalKey<FormState>();
   var type;
   var activity;
@@ -403,9 +407,14 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
                   ScheduleTask scheduleTask = new ScheduleTask(
                       activity, type, start.toString(), end.toString());
-
-                  ScheduleService()
+                  progressDialog = new ProgressDialog(context,type: ProgressDialogType.Normal);
+                  progressDialog.show();
+                  Future<ScheduleTask> task=ScheduleService()
                       .addToSchedule(widget.studentId, scheduleTask, "monday");
+                  if(task!=null){
+                    progressDialog.dismiss();
+                    Navigator.pop(context);
+                  }
                 }
               }, Colors.deepPurple),
             )
