@@ -182,7 +182,7 @@ class _AddProgressDialogState extends State<AddProgressDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(height: 24),
-            StudymateTextField("Completed Type",completeController,"text",true,Colors.grey,TextInputType.text,Icon(Icons.lock,color: Colors.grey,)),
+            StudymateTextField("Completed Time",completeController,"text",true,Colors.grey,TextInputType.text,Icon(Icons.lock,color: Colors.grey,)),
             SizedBox(height: 24),
             StudymateTextField("Remarks", remarksController,"" , false, Colors.grey,TextInputType.text, Icon(Icons.lock,color: Colors.grey,)),
           
@@ -195,7 +195,7 @@ class _AddProgressDialogState extends State<AddProgressDialog> {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
                   
-                  prefix0.ScheduleService().addTaskProgress(widget.studentId, widget.task.name, completeController.text, widget.duration,
+                  prefix0.ScheduleService().addTaskProgress(widget.studentId, widget.task.name, int.parse(completeController.text), int.parse(widget.duration),
                   remarksController.text, widget.today,widget.task.type);
                 }
               }, Colors.deepPurple),
