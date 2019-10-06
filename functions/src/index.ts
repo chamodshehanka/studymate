@@ -155,3 +155,29 @@ exports.cloudNotificatinFunction = functions.https.onCall(async (data, context) 
     };
     return fcm.sendToDevice(token, payload);
 });
+//needs to be completed
+
+// exports.dailyLeisureProgressFunction = functions.firestore.document('dailyLogs/{documentId}/{dayCollection}/{dayDocId}/tasks/tasks/Leisure/{docId}')
+//     .onWrite(async (change, context) => {
+    
+//         const newData = change.after.data();
+//         const oldData = change.before.data();
+//         if (newData != null && oldData != null) {
+//             const documentId = context.params.documentId;
+//             const dayCollection = context.params.dayCollection;
+//             const difference = newData.completed - oldData.completed;
+            
+//             const doc = await admin.firestore().collection('dailyLogs').doc(documentId).collection(dayCollection).doc(dayCollection).collection('tasks').doc('tasks').get();
+//             const progess = doc.data();
+//             if(difference > 0){
+//                 doc.
+//             }
+
+//             return ("Updated Total Leisure");
+//         }
+//         else {
+//             return {
+//                 error: 'Something went wrong'
+//             }
+//         }
+//     });
