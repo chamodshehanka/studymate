@@ -3,18 +3,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Appointment.dart';
+import 'package:studymate/screens/AppointmentScreen/Doctor/AppointmentReportUI.dart';
 import 'package:studymate/screens/AppointmentScreen/Doctor/ManageAppointmentUI.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
+//Create Stateful Class
 class DoctorAppointmentListScreen extends StatefulWidget {
   _DoctorAppointmentListScreenState createState() =>
       _DoctorAppointmentListScreenState();
 }
 
 class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScreen> {
-  List<Appointment> appointmentList;
-  AppointmentService appointmentService = AppointmentService();
+  List<Appointment> appointmentList; //Create Appointment List
+
+  AppointmentService appointmentService = AppointmentService(); 
   StreamSubscription<QuerySnapshot> appointmentSubscription;
   //List<String> appointmentStatusList;
 
@@ -97,17 +100,25 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
                   },
                 ),
               );
-              return MaterialApp(debugShowCheckedModeBanner: false,
+              return MaterialApp(
+              debugShowCheckedModeBanner: false,
                 home: Scaffold(
                   appBar: AppBar(
+                    actions: <Widget>[
+                    IconButton(
+                    icon: Icon(Icons.picture_as_pdf),
+                    onPressed: () => AppointmentReportScreen(),
+                    ),
+                  ],//This is the main screen Title 
                     title: Text('Manage Appointment List'),
                     backgroundColor: Colors.deepPurpleAccent,
-                   
                   ),
+              
                   body: adminAppointmentBody,
+                  //This is the Button when i'm click Display the Create New Appointment Form
                   floatingActionButton: FloatingActionButton(
                     backgroundColor: Colors.deepPurple,
-                    child: Icon(Icons.add),
+                    child: Icon(Icons.add),//When press the Add icon it routed to our Create New Appointment Form
                     onPressed: () => _createNewAppointment(context),
                   ),
                 ),
@@ -122,6 +133,7 @@ class _DoctorAppointmentListScreenState extends State<DoctorAppointmentListScree
      });
  }
 }
+//Create New StudymateDialog class
 class StudymateDialog extends StatefulWidget {
   _StudymateDialogState createState() => _StudymateDialogState();
 }
@@ -148,10 +160,10 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
                    mainAxisSize: MainAxisSize.min,
                    children: <Widget>[
 
-         StudymateTextField('Date',dateController,'text',false,Colors.grey,TextInputType.text,
-         Icon(Icons.date_range,color: Colors.grey, )),
+         StudymateTextField('Date',dateController,'Date',false,Colors.grey,TextInputType.text,
+         Icon(Icons.date_range,color: Colors.grey,)),
                                   
-         StudymateTextField('Time',timeController,'text',false,Colors.grey,TextInputType.text,
+         StudymateTextField('Time',timeController,'Time',false,Colors.grey,TextInputType.text,
          Icon(Icons.timer,color: Colors.grey,)),
                         
          StudymateTextField('Place',placeController,'text',false,Colors.grey,TextInputType.text,
@@ -166,7 +178,7 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
 
            SizedBox(height: 20) ,              
            Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         RaisedButton(
                           shape: RoundedRectangleBorder(
@@ -174,16 +186,15 @@ final _formKeyAddAppointment = GlobalKey<FormState>();
                              elevation: 10,
                                color: Colors.deepPurple,
                                textColor: Colors.white,
+                               //when you click save Button All the data  save inside the DB
                                 child: Text("Save"),
                                 onPressed: () {
-                                 /*log('Appointment SpecialDescription : ' + appointmentspecialDescription);
-                                 log('Appointment Date : ' + appointmentdate);
-                                 log('Appointment Time : ' + appointmenttime);
-                                 log('Appointment Place : ' + appointmentplace);*/
+                                //validate
                                   if (_formKeyAddAppointment.currentState.validate()) {
-                                        _formKeyAddAppointment.currentState.save();
+                                        
                                         //Adding to DB
                                         Future<Appointment> isAdded =appointmentService
+                                        //calling the create Appointment Function***Adding to data to firestore
                                         .createAppointment(
                                             specialDescriptionController.text, dateController.text,timeController.text,placeController.text,); 
                                            if (isAdded != null) {

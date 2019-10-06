@@ -136,7 +136,7 @@ final CollectionReference studentsCollection =
   }
 
     Future<ScheduleTask> addTaskProgress(String studentId,
-      String activity,String completion,String duration,String remarks,String date,String type) {
+      String activity,int completion,int duration,String remarks,String date,String type) {
 
     var data = {
           'completed' : completion,
@@ -164,11 +164,17 @@ final CollectionReference studentsCollection =
       return data;
     };
 
+
     return Firestore.instance.runTransaction(createTransaction).then((mapData) {
       return ScheduleTask.fromMap(mapData);
     }).catchError((error) {
       print('error: $error');
       return null;
     });
+  }
+
+  List<ScheduleTask> sortSchedule(List<ScheduleTask> taskList){
+      taskList.sort((a,b) => DateTime.parse(a.start).compareTo(DateTime.parse(b.start)));
+      return taskList;
   }
 }

@@ -232,9 +232,10 @@ class _ActivityAdminDashboardScreenState
                                 Container(
                                   width: 190,
                                   child: StudymateRaisedButton(
-                                      'Activities Usage',
-                                      viewActivitiesList,
-                                      Colors.deepPurpleAccent),
+                                    'Activities Usage',
+                                    viewActivitiesList,
+                                    Colors.deepPurpleAccent,
+                                  ),
                                 ),
                               ],
                             ),
