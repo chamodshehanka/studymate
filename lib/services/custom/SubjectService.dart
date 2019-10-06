@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Subject.dart';
-<<<<<<< HEAD
 import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference subjectCollection =
@@ -36,9 +35,6 @@ class SubjectService {
   Stream<QuerySnapshot> getGrade89SubjectList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
         subjectCollection.where('type', isEqualTo: 'Grade89').snapshots();
-=======
-import 'package:studymate/services/SuperService.dart';
->>>>>>> 83812c04f34ca25dd55489e87beadcd536657f42
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
