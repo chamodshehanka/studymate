@@ -171,4 +171,9 @@ final CollectionReference studentsCollection =
       return null;
     });
   }
+
+  List<ScheduleTask> sortSchedule(List<ScheduleTask> taskList){
+      taskList.sort((a,b) => DateTime.parse(a.start).compareTo(DateTime.parse(b.start)));
+      return taskList;
+  }
 }
