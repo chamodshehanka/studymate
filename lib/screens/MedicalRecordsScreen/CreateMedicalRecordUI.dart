@@ -32,7 +32,6 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          
           Padding(
             padding: EdgeInsets.all(1.0),
             child: Container(
