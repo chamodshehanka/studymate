@@ -1,3 +1,5 @@
+//Create Model class to 
+//task parameters
 class Appointment {
   String _id;
   String _specialDescription;
@@ -6,8 +8,11 @@ class Appointment {
   String _place;
   //String _status;
 
+//create constructors
   Appointment(this._id, this._specialDescription,this._date,this._time,this._place,/*this._status */);
-
+//add methods like from map to map ,reason that doing is data that 
+//that recieve from the firestore has to be deserialize so that we are using
+//this method **add those property value
   Appointment.map(dynamic appointment) {
     this._id = appointment['id'];
     this._specialDescription = appointment['specialDescription'];
@@ -16,16 +21,15 @@ class Appointment {
     this._place = appointment['place'];
     //this._status = appointment['status'];
   }
-
+//we are create getter methods
   String get id => _id;
   String get specialDescription => _specialDescription;
   String get date => _date;
   String get time => _time;
   String get place => _place;
+//String get status => _status;
 
- 
-  //String get status => _status;
-
+//deserialized the data recieve from the firestore
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     if (_id != null) {
