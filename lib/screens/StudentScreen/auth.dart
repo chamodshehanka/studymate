@@ -59,15 +59,15 @@
 //     return user.uid;
 //   }
 
-//   static Future<User> getUserFirestore(String userId) async {
+//   static Future<Student> getUserFirestore(String userId) async {
 //     if (userId != null) {
 //       return Firestore.instance
-//           .collection('users')
+//           .collection('student')
 //           .document(userId)
 //           .get()
-//           .then((documentSnapshot) => User.fromDocument(documentSnapshot));
+//           .then((documentSnapshot) => Student.fromDocument(documentSnapshot));
 //     } else {
-//       print('firestore userId can not be null');
+//       print('firestore studentId can not be null');
 //       return null;
 //     }
 //   }

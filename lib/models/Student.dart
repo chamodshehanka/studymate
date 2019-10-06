@@ -7,9 +7,10 @@ class Student {
   String _schoolName;
   String _phoneNumber;
   String _birthday;
+  String _type;
 
   Student(this._id, this._firstName, this._lastName,this._email, this._schooling,  this._phoneNumber,this._schoolName,
-      this._birthday);
+      this._birthday, this._type);
 
   Student.map(dynamic student) {
     this._id = student['id'];
@@ -20,6 +21,7 @@ class Student {
     this._schoolName = student['schoolName'];
     this._phoneNumber = student['phoneNumber'];
     this._birthday = student['birthday'];
+    this._type = student['type'];
   }
 
   String get id => _id;
@@ -30,6 +32,7 @@ class Student {
   String get schoolName => _schoolName;
   String get phoneNumber => _phoneNumber;
   String get birthday => _birthday;
+  String get type => _type;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
@@ -43,6 +46,7 @@ class Student {
     map['schoolName'] = _schoolName;
     map['phoneNumber'] = _phoneNumber;
     map['birthday'] = _birthday;
+    map['type'] = _type;
 
     return map;
   }
@@ -56,5 +60,6 @@ class Student {
     this._schoolName = map['schoolName'];
     this._phoneNumber = map['phoneNumber'];
     this._birthday = map['birthday'];
+    this._type = map['type'];
   }
 }
