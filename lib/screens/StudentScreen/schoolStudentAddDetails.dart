@@ -164,7 +164,7 @@ String mascotAnimationType;
               birthday: _birthday.text,
               phoneNumber: _phoneNumber.text,
               schoolName: _schoolName.text,
-              type: type.text,
+              type: type,
               
               
               context: context)

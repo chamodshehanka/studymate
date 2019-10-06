@@ -12,7 +12,7 @@ class StudymateTextField extends StatefulWidget {
   
   
   StudymateTextField(this.labelText, this.textEditingController,
-      this.validation, this.obscureText,  this.color, this.keyboardType, this.icon);
+      this.validation, this.obscureText,  this.color, this.keyboardType, this.icon, {maxLines});
 
   _StudymateTextField createState() => _StudymateTextField();
 }
