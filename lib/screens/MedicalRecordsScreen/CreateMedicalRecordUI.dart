@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:studymate/models/MedicalRecord.dart';
+import 'package:studymate/services/custom/MedicalRecordService.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
@@ -11,8 +13,11 @@ class CreateMedicalRecordScreen extends StatefulWidget {
 
 class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
   final TextEditingController _studentNameController = TextEditingController();
+  final TextEditingController _doctorNameController = TextEditingController();
   final TextEditingController _recordDetailsController =
       TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
+  MedicalRecordService _medicalRecordService = MedicalRecordService();
 
   @override
   void initState() {
@@ -39,14 +44,30 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
               child: StudymateTextField(
                   'Student Name',
                   _studentNameController,
-                  'text',
+                  'name',
                   false,
                   Colors.grey,
                   TextInputType.text,
                   Icon(Icons.search, color: Colors.grey)),
             ),
           ),
-          StudymateTextField('Record Details', _recordDetailsController, 'text',
+          Padding(
+            padding: EdgeInsets.all(1.0),
+            child: Container(
+              width: 255,
+              child: StudymateTextField(
+                  'Doctor Name',
+                  _doctorNameController,
+                  'name',
+                  false,
+                  Colors.grey,
+                  TextInputType.text,
+                  Icon(Icons.search, color: Colors.grey)),
+            ),
+          ),
+          StudymateTextField('Record Details', _recordDetailsController, 'name',
+              false, Colors.grey, TextInputType.text, Icon(Icons.comment)),
+          StudymateTextField('Record Details', _commentController, 'name',
               false, Colors.grey, TextInputType.text, Icon(Icons.comment)),
           Container(),
           Row(
@@ -90,5 +111,23 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
 
   void createMedicalRecord() {
     // _studentService.getStudentsByName('Student');
+    MedicalRecord medicalRecord = MedicalRecord(
+        'id',
+        _recordDetailsController.text,
+        '2019-10-07',
+        _doctorNameController.text,
+        _studentNameController.text,
+        "url");
+
+    Future<MedicalRecord> isAdded = _medicalRecordService.create(medicalRecord);
+
+    isAdded.then((value) {
+      if (value != null) {
+        Navigator.pop(context);
+      }
+      else {
+        print("Didnt add");
+      }
+    });
   }
 }
