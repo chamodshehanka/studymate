@@ -3,10 +3,12 @@ import 'package:studymate/widgets/RadialProgress.dart';
 import 'package:studymate/widgets/TopBar.dart';
 
 class HomeScreen extends StatefulWidget {
+            
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text("Minutes",style: TextStyle(color: Colors.white,fontSize: 20.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                         Text("To Go",style: TextStyle(color: Colors.white,fontSize: 20.0,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
                       ],
+                
                     ),
                   ),
+                
                 ],
               ),
             ),
@@ -67,4 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
   }
+
+// void checkPreferences()async{
+//   final prefs = await SharedPreferences.getInstance();
+//   prefs.get('dailySchedule');
+//   log(prefs.get('dailySchedule').toString());
+// }
+
 }
+
