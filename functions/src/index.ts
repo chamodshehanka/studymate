@@ -3,7 +3,6 @@ import * as admin from 'firebase-admin';
 // import * as Twilio from 'twilio';
 // import * as secretKeys from '../secrets/keys'
 
-// require('dotenv').config();
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
@@ -120,26 +119,7 @@ export const tempScheduleFunction = functions.https.onRequest((request, response
     }).catch((error) => console.log(error));
 });
 
-
-// exports.getStudentsNamesFunction = functions.https.onRequest((request, response) => {
-//     const name = request.get.name;
-//     response.send(name + 'Kusura');
-// });
-
-// exports.sendMessageToParent = functions.https.onCall((data, context) => {
-//     const message = data.message;
-//     const textContent = {
-//         body: `${message}`,
-//         to: '+94775633985',
-//         from: twilioNumber
-//     }
-//     client.messages.create(textContent).then((msg) => {
-//         console.log(msg);
-//     }).catch((error) => {
-//         console.log(error);
-//     });
-// });
-
+// In active adolecents push notification function 
 exports.cloudNotificatinFunction = functions.https.onCall(async (data, context) => {
     const querySnapshot = await admin.firestore().collection('admins')
         .doc(data.authId).collection('tokens').get();
@@ -155,3 +135,81 @@ exports.cloudNotificatinFunction = functions.https.onCall(async (data, context) 
     };
     return fcm.sendToDevice(token, payload);
 });
+
+// Doctor Appointment notification function
+exports.doctorNotificatinFunction = functions.https.onCall(async (data, context) => {
+    const querySnapshot = await admin.firestore().collection('students')
+        .doc(data.authId).collection('tokens').get();
+
+    const token = querySnapshot.docs.map(snap => snap.id);
+    const payload: admin.messaging.MessagingPayload = {
+        notification: {
+            title: 'You have an appointment',
+            body: 'Please come to see the doctor ',
+            clickAction: 'FLUTTER_NOTIFICATION_CLICK'
+
+        }
+    };
+    return fcm.sendToDevice(token, payload);
+});
+
+
+exports.dailyLeisureProgressFunction = functions.firestore
+    .document('dailyLogs/{documentId}/{dayCollection}/{dayDocId}/{tasks}/{tasks}/{collectionName}/{docId}')
+    .onWrite(async (change, context) => {
+
+        const newData = change.after.data();
+        const oldData = change.before.data();
+        if (newData !== null && oldData !== null) {
+            const documentId = context.params.documentId;
+            const dayCollection = context.params.dayCollection;
+            const difference = newData.completed - oldData.completed;
+            const collectionName = context.params.collectionName;
+
+            const doc = await admin.firestore().collection('dailyLogs').doc(documentId)
+                .collection(dayCollection).doc(dayCollection).collection('tasks').doc('tasks').get();
+
+            const docData = doc.data();
+
+            let progress;
+
+            switch (collectionName) {
+                case "Leisure": {
+                    progress = docData.totalLeisure + difference;
+                    admin.firestore().collection('dailyLogs')
+                        .doc(documentId).collection(dayCollection)
+                        .doc(dayCollection).collection("tasks").doc("tasks")
+                        .update({ dailyLeisure: progress })
+                        .then(() => console.log('Success'))
+                        .catch(err => console.log(err));
+                }
+                    break;
+                case "Social": {
+                    progress = docData.totalSocial + difference;
+                    admin.firestore().collection('dailyLogs')
+                        .doc(documentId).collection(dayCollection)
+                        .doc(dayCollection).collection("tasks").doc("tasks")
+                        .update({ dailySocial: progress })
+                        .then(() => console.log('Success'))
+                        .catch(err => console.log(err));
+                }
+                    break;
+                default: {
+                    progress = docData.totalStudy + difference;
+                    admin.firestore().collection('dailyLogs')
+                        .doc(documentId).collection(dayCollection)
+                        .doc(dayCollection).collection("tasks").doc("tasks")
+                        .update({ dailyStudy: progress })
+                        .then(() => console.log('Success'))
+                        .catch(err => console.log(err));
+                }
+            }
+
+            return ("Updated Daily Progress");
+        }
+        else {
+            return {
+                error: 'Something went wrong'
+            }
+        }
+    });

@@ -15,6 +15,7 @@ class CommonConstants extends InheritedWidget {
   static final String studentsCollectionName = 'students';
   static final String medicalRecordCollection = 'medicalRecord';
   static final String scheduleCollection = 'schedule';
+  static final String dailylogCollection = 'dailyLogs';
   static final String appointmentCollectionName = 'appointment';
 
   // Cloud Functions Names
@@ -24,6 +25,12 @@ class CommonConstants extends InheritedWidget {
   static final String activityProgressFunction = 'activityProgress';
   static final String sendMessageToParent = 'sendMessageToParent';
   static final String cloudNotificatinFunction = 'cloudNotificatinFunction';
+
+  //common data
+
+  static final List<String> activityTypes = ["Leisure","Social","Other"];
+  static final List<String> subjectTypes = ["Advanced Level","Ordinary Level","Grade 6","Grade 7","Grade 8","Grade 9"];
+  static final List<String> scheduleTypes = ["Study","Leisure","Social"];
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => false;

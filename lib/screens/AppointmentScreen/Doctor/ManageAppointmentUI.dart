@@ -65,8 +65,6 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
               );
             });
       } else {
-        // showDialog<void>(
-        //     context: context, child: Text('Something went wrong'));
       }
     }
 
@@ -77,16 +75,15 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-               
+            children: <Widget>[               
          Padding(
                 padding: EdgeInsets.all(8.0),
-                child:StudymateTextField('Date',dateController,'text',false,Colors.grey,TextInputType.text,
+                child:StudymateTextField('Date',dateController,'Date',false,Colors.grey,TextInputType.text,
          Icon(Icons.date_range,color: Colors.grey, )),
-         ),             
+         ), 
           Padding(
                 padding: EdgeInsets.all(8.0),
-                child:StudymateTextField('Time',timeController,'text',false,Colors.grey,TextInputType.text,
+                child:StudymateTextField('Time',timeController,'Time',false,Colors.grey,TextInputType.text,
          Icon(Icons.timer,color: Colors.grey,)),
           ),
           Padding(
@@ -96,7 +93,7 @@ class _ManageAppointmentScreenState extends State<ManageAppointmentScreen> {
           ),
 
          new Flexible(fit: FlexFit.loose,child: new TextField (
-         decoration: new InputDecoration(hintText: 'Special Description', ),
+         decoration: new InputDecoration(hintText: 'Special Description',),
          maxLines: 2,),),
                   
               Row(

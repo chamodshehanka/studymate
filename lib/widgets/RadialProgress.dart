@@ -55,12 +55,12 @@ class RadialPainter extends CustomPainter{
 
     Paint ppaint = Paint()
       ..color = Colors.blue
-      ..shader = LinearGradient(colors:[Colors.purple,Colors.deepPurple]).createShader(Rect.fromCircle(center: center,radius: size.width/2))
+      ..shader = LinearGradient(colors:[Colors.greenAccent,Colors.green]).createShader(Rect.fromCircle(center: center,radius: size.width/2))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = 15.0;
 
-    canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/2),math.radians(-90),math.radians(250) ,false, ppaint);
+    canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/2),math.radians(-90),math.radians(220) ,false, ppaint);
 
     Paint cpaint2 = Paint()
       ..color = Colors.black12
@@ -76,7 +76,7 @@ class RadialPainter extends CustomPainter{
       ..style = PaintingStyle.stroke
       ..strokeWidth = 15.0;
 
-    canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/2.5),math.radians(-90),math.radians(250) ,false, ppaint2);
+    canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/2.5),math.radians(-90),math.radians(150) ,false, ppaint2);
 
 
     Paint cpaint3 = Paint()
@@ -93,7 +93,7 @@ class RadialPainter extends CustomPainter{
       ..style = PaintingStyle.stroke
       ..strokeWidth = 15.0;
 
-    canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/3.5),math.radians(-90),math.radians(250) ,false, ppaint3);
+    canvas.drawArc(Rect.fromCircle(center: center,radius: size.width/3.5),math.radians(-90),math.radians(90) ,false, ppaint3);
   }
 
   @override

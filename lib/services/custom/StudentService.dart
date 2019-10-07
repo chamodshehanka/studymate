@@ -3,7 +3,6 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ActivityProgress.dart';
 import 'package:studymate/models/PreferredActivity.dart';
-
 import 'package:studymate/models/Student.dart';
 import 'package:studymate/utils/CommonConstants.dart';
 
@@ -24,7 +23,8 @@ class StudentService {
           student.schooling,
           student.schoolName,
           student.phoneNumber,
-          student.birthday);
+          student.birthday,
+          student.type);
       final Map<String, dynamic> data = studentModel.toMap();
 
       await tx.set(ds.reference, data);
@@ -39,6 +39,19 @@ class StudentService {
       return null;
     });
   }
+
+  //   static Future<Student> getUserFirestore(String userId) async {
+  //   if (userId != null) {
+  //     return Firestore.instance
+  //         .collection('student')
+  //         .document(userId)
+  //         .get()
+  //         .then((documentSnapshot) => Student.fromMap();
+  //   } else {
+  //     print('firestore studentId can not be null');
+  //     return null;
+  //   }
+  // }
 
   Future<DocumentSnapshot> getByID(String uid) {
     return studentsCollection.document(uid).get();

@@ -8,8 +8,7 @@ final CollectionReference activityCollection =
     Firestore.instance.collection(CommonConstants.activityCollectionName);
 
 class ActivityService {
-  // static final ActivityService _activityService = ActivityService();
-  // factory ActivityService() => _activityService;
+
 
   Future<Activity> createActivity(String name, String type) {
     final TransactionHandler createTransaction = (Transaction tx) async {
