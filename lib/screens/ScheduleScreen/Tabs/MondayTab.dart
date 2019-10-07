@@ -13,6 +13,7 @@ import 'package:studymate/services/Authentication.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 import 'package:studymate/utils/CommonConstants.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
 class MondayTab extends StatefulWidget {
@@ -152,9 +153,18 @@ class _MondayTabState extends State<MondayTab> {
   }
 
   void deleteTask(ScheduleTask task) {
-    baseAuthentication.getCurrentUser().then((user) {
+      baseAuthentication.getCurrentUser().then((user) {
       studentId = user;
-
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return StudymateDialogBox(
+                title: 'Are you sure?',
+                description: task.name +
+                    ' Task will be permanently deleted!',
+                confirmation: true,
+                confirmationAction: (){
       Future<dynamic> isDeleted =
           scheduleService.deleteTask(studentId, "monday", task.id.toString());
       isDeleted.then((result) {
@@ -168,10 +178,18 @@ class _MondayTabState extends State<MondayTab> {
             content: new Text('Adding failed!'),
             backgroundColor: Colors.redAccent,
           ));
+
         }
-      });
-    });
+      }
+      );
+      Navigator.pop(context);
+    },
+                tigerAnimationType: 'fail',
+              );
+            });}
+    );
   }
+
 
   void updateTask(ScheduleTask task, List socialList, List leisureList) {
     String start =
@@ -407,14 +425,16 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
                   ScheduleTask scheduleTask = new ScheduleTask(
                       activity, type, start.toString(), end.toString());
-                  progressDialog = new ProgressDialog(context,type: ProgressDialogType.Normal);
-                  progressDialog.show();
+               
                   Future<ScheduleTask> task=ScheduleService()
                       .addToSchedule(widget.studentId, scheduleTask, "monday");
-                  if(task!=null){
-                    progressDialog.dismiss();
+                  //ProgressDialog progressDialog = new ProgressDialog(context,type: ProgressDialogType.Normal);
+                  //progressDialog.show();
+                  if(task!= null){
+                    //progressDialog.dismiss();
                     Navigator.pop(context);
                   }
+                  
                 }
               }, Colors.deepPurple),
             )
@@ -633,6 +653,7 @@ class _UpdateTaskDialogState extends State<UpdateTaskDialog> {
 
                   ScheduleService()
                       .updateTask(widget.studentId, scheduleTask, "monday");
+                      Navigator.pop(context);
                 }
               }, Colors.deepPurple),
             )

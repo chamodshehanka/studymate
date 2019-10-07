@@ -15,6 +15,7 @@ import 'package:studymate/services/Authentication.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 import 'package:studymate/utils/CommonConstants.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
 class TuesdayTab extends StatefulWidget {
@@ -145,12 +146,21 @@ socialActivitySubscription?.cancel();
     );
   }
 
-void deleteTask(ScheduleTask task) {
-    baseAuthentication.getCurrentUser().then((user) {
+ void deleteTask(ScheduleTask task) {
+      baseAuthentication.getCurrentUser().then((user) {
       studentId = user;
-      
-      Future<dynamic> isDeleted = scheduleService.deleteTask(
-          studentId,"tuesday",task.id.toString());
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return StudymateDialogBox(
+                title: 'Are you sure?',
+                description: task.name +
+                    ' Task will be permanently deleted!',
+                confirmation: true,
+                confirmationAction: (){
+      Future<dynamic> isDeleted =
+          scheduleService.deleteTask(studentId, "tuesday", task.id.toString());
       isDeleted.then((result) {
         if (result) {
           Scaffold.of(context).showSnackBar(new SnackBar(
@@ -162,9 +172,16 @@ void deleteTask(ScheduleTask task) {
             content: new Text('Adding failed!'),
             backgroundColor: Colors.redAccent,
           ));
+
         }
-      });
-    });
+      }
+      );
+      Navigator.pop(context);
+    },
+                tigerAnimationType: 'fail',
+              );
+            });}
+    );
   }
      void updateTask(ScheduleTask task,List socialList,List leisureList) {
     
@@ -396,6 +413,7 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
 
                   ScheduleService()
                       .addToSchedule(widget.studentId, scheduleTask, "tuesday");
+                      Navigator.pop(context);
                 }
               }, Colors.deepPurple),
             )
@@ -620,6 +638,7 @@ class _UpdateTaskDialogState extends State<UpdateTaskDialog> {
                   
                                      ScheduleService()
                                         .updateTask(widget.studentId, scheduleTask, "tuesday");
+                                        Navigator.pop(context);
                                   }
                                 }, Colors.deepPurple),
                               )
