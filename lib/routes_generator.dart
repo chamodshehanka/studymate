@@ -23,7 +23,7 @@ import 'package:studymate/screens/RewardScreen/s_reward.dart';
 import 'package:studymate/screens/RewardScreen/Admin/rewards.dart';
 import 'package:studymate/screens/RewardScreen/achievments.dart';
 import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
-import 'package:studymate/screens/ScheduleScreen/Reports/ReportGeneration.dart';
+import 'package:studymate/screens/ScheduleScreen/Reports/DailyReportGeneration.dart';
 import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
 import 'package:studymate/screens/StudentMainScreen.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';

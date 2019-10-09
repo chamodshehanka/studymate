@@ -409,7 +409,6 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
                   _formKey.currentState.save();
                   start = DateTime.parse("2019-01-01 " + _startTime);
                   end = DateTime.parse("2019-01-01 " + _endTime);
-
                   ScheduleTask scheduleTask = new ScheduleTask(
                       activity, type, start.toString(), end.toString());
 
@@ -631,6 +630,7 @@ class _UpdateTaskDialogState extends State<UpdateTaskDialog> {
                                 child: StudymateRaisedButton("Update Task", () {
                                   if (_formKey.currentState.validate()) {
                                      _formKey.currentState.save();
+                                  
                                     start = DateTime.parse("2019-01-01 " + _startTime);
                                     end = DateTime.parse("2019-01-01 " + _endTime);
                   
