@@ -251,6 +251,8 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
   var activity;
   var taskList = List();
 
+  String dropDownError;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -415,11 +417,18 @@ class _AddTaskDialogState extends State<AddTaskDialog> {
               ),
               color: Colors.white,
             ),
+            Text(dropDownError??"",
+            style: TextStyle(color: Colors.red),),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: StudymateRaisedButton("Add To Schedule", () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
+                  if(type == null){
+                    setState(() {
+                      dropDownError = "Type Cannot Be Empty";
+                    });
+                  }
                   start = DateTime.parse("2019-01-01 " + _startTime);
                   end = DateTime.parse("2019-01-01 " + _endTime);
 
@@ -469,6 +478,8 @@ class _UpdateTaskDialogState extends State<UpdateTaskDialog> {
   String _startTime;
   String _endTime;
   var taskList = List();
+
+  String dropDownError;
 
   _UpdateTaskDialogState(
       this.id, this.name, this.type, this._startTime, this._endTime);
@@ -639,6 +650,8 @@ class _UpdateTaskDialogState extends State<UpdateTaskDialog> {
               ),
               color: Colors.white,
             ),
+            Text(dropDownError??"",
+            style: TextStyle(color: Colors.red),),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: StudymateRaisedButton("Update Task", () {
@@ -646,6 +659,11 @@ class _UpdateTaskDialogState extends State<UpdateTaskDialog> {
                   _formKey.currentState.save();
                   start = DateTime.parse("2019-01-01 " + _startTime);
                   end = DateTime.parse("2019-01-01 " + _endTime);
+                  if(type == null){
+                    setState(() {
+                      dropDownError = "Type Cannot Be Empty";
+                    });
+                  }
 
                   ScheduleTask scheduleTask = new ScheduleTask(
                       name, type, start.toString(), end.toString());

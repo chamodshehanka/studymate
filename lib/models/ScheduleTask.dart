@@ -5,10 +5,15 @@ class ScheduleTask {
   String _start;
   String _end;
   String _id;
+  int _duration;
  
 
   void setId(String id){
     this._id = id;
+  }
+
+  void setDuration(int duration){
+    this._duration = duration;
   }
   ScheduleTask(this._name, this._type,this._start,this._end,[this._id]);
 
@@ -18,6 +23,7 @@ class ScheduleTask {
     this._start = scheduleTask['start'];
     this._end = scheduleTask['end'];
     this._id = scheduleTask['id'];
+    this._duration = scheduleTask['duration'];
   }
 
   String get name => _name;
@@ -25,6 +31,7 @@ class ScheduleTask {
   String get start => _start;
   String get end => _end;
   String get id => _id;
+  int get duration=> _duration;
 
 
   Map<String, dynamic> toMap() {
@@ -34,6 +41,7 @@ class ScheduleTask {
     map['start'] = _start;
     map['end'] = _end;
     map['id'] = _id;
+    map['duration'] = _duration;
 
     return map;
   }
@@ -44,5 +52,6 @@ class ScheduleTask {
     this._start = map['start'];
     this._end = map['end'];
     this._id = map['id'];
+    this._duration = map['duration'];
   }
 }

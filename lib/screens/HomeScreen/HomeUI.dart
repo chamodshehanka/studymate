@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:studymate/widgets/RadialProgress.dart';
 import 'package:studymate/widgets/TopBar.dart';
@@ -71,12 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
   }
-
-// void checkPreferences()async{
-//   final prefs = await SharedPreferences.getInstance();
-//   prefs.get('dailySchedule');
-//   log(prefs.get('dailySchedule').toString());
-// }
 
 }
 
