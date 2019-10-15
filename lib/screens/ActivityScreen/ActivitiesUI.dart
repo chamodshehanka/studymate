@@ -9,8 +9,6 @@ class ActivityScreen extends StatefulWidget {
 }
 
 class _ActivityScreenState extends State<ActivityScreen> {
-   
-
   
   @override
   Widget build(BuildContext context) {
@@ -36,12 +34,12 @@ class _ActivityScreenState extends State<ActivityScreen> {
               OtherActivityTab(),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.deepPurple,
-            child: Icon(Icons.show_chart),
-            onPressed: () => Navigator.pushNamed(context, '/activityProgress'),
-          ),
-        ),
+          // floatingActionButton: FloatingActionButton(
+          //   backgroundColor: Colors.deepPurple,
+          //   child: Icon(Icons.show_chart),
+          //   onPressed: () => Navigator.pushNamed(context, '/activityProgress'),
+          // ),
+         ),
       ),
     );
   }

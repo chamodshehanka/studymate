@@ -1,6 +1,8 @@
     
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
@@ -13,7 +15,8 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = new TextEditingController();
-
+ 
+  String userEmail;
   bool _autoValidate = false;
   bool _loadingVisible = false;
   @override
@@ -38,21 +41,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
 
     final email = StudymateTextField("Email", _email,
-     "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+     "email", false, Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
 
 
     final forgotPasswordButton = StudymateRaisedButton("Forgot Password", ()=>{
-      _forgotPassword(email: _email.text, context: context)
+     
+     Authentication().forgotPasswordEmail(email.textEditingController.text)
+      
     }, Colors.deepPurple);
     
 
     final signInLabel = FlatButton(
       child: Text(
-        'Sign In',
+        'You have a account? Sign In',
         style: TextStyle(color: Colors.black54),
       ),
       onPressed: () {
-        Navigator.pushNamed(context, '/sign_in');
+        Navigator.pushNamed(context, '/signin');
       },
     );
 
@@ -92,28 +97,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     });
   }
 
-  void _forgotPassword({String email, BuildContext context}) async {
+  void forgotPasswordEmail({String email, BuildContext context}) async {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     if (_formKey.currentState.validate()) {
       try {
         await _changeLoadingVisible();
-        // await Auth.forgotPasswordEmail(email);
-        // await _changeLoadingVisible();
-        // Flushbar(
-        //   title: "Password Reset Email Sent",
-        //   message: 
-        //       'Check your email and follow the instructions to reset your password.',
-        //   duration: Duration(seconds: 20)
-        // )..show(context);
+        await Authentication().forgotPasswordEmail(email);
+        await _changeLoadingVisible();
+        Flushbar(
+          title: "Password Reset Email Sent",
+          message: 
+              'Check your email and follow the instructions to reset your password.',
+          duration: Duration(seconds: 20)
+        )..show(context);
       } catch (e) {
         _changeLoadingVisible();
         print("Forgot Password Error: $e");
-        // String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Forgot Password Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 10),
-        // )..show(context);
+        String exception = Authentication.getExceptionText(e);
+        Flushbar(
+          title: "Forgot Password Error",
+          message: exception,
+          duration: Duration(seconds: 10),
+        )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);

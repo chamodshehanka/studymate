@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -51,6 +52,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "First Name",
         _firstName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -62,6 +64,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Last Name",
         _lastName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -73,6 +76,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "NIC number",
         _nicNumber,
         "NIC number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -84,6 +88,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "SLMC reg number",
         _slmcRegNumber,
         "SLMC reg number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -95,6 +100,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Email",
         _email,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -106,6 +112,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         'Password',
         _password,
         'password',
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -117,6 +124,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         'Confirm password',
         _confirmPassword,
         'password',
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -128,6 +136,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Phone Number",
         _phoneNumber,
         "phone number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -139,6 +148,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
         "Working palce",
         _workingPlace,
         "working place",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -149,7 +159,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
     final signUpButton = StudymateRaisedButton(
         "Create Account",
         () => {
-              _emailSignUp(
+              _addDoctorDetails(
                   firstName: _firstName.text,
                   lastName: _lastName.text,
                   nicNumber: _nicNumber.text,
@@ -218,7 +228,7 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
     });
   }
 
-  void _emailSignUp(
+  void _addDoctorDetails(
       {String firstName,
       String lastName,
       String nicNumber,
@@ -238,9 +248,16 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
             'id', firstName, lastName, slmcRegNumber, nicNumber, workingPlace);
 
         _authentication.signUp(email, password, 'doctor', doctor);
+        await Navigator.pushNamed(context, '/homeAdmin');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
+        String exception = Authentication.getExceptionText(e);
+        Flushbar(
+          title: "Sign Up Error",
+          message: exception,
+          duration: Duration(seconds: 5),
+        )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);

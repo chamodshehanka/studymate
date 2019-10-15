@@ -8,7 +8,8 @@ final CollectionReference doctorCollection =
 class DoctorService {
   Future<Doctor> create(Doctor doctor, String authId) {
     final TransactionHandler createTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(doctorCollection.document());
+      final DocumentSnapshot ds =
+          await tx.get(doctorCollection.document(authId));
 
       final Doctor doctorModel = new Doctor(authId, doctor.firstName,
           doctor.lastName, doctor.regNo, doctor.nic, doctor.workPlace);

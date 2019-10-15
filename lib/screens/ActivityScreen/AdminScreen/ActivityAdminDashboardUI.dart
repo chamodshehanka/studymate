@@ -1,10 +1,18 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
+import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/services/CloudFunctionsService.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
+import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
+import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
 class ActivityAdminDashboardScreen extends StatefulWidget {
   _ActivityAdminDashboardScreenState createState() =>
@@ -17,10 +25,15 @@ class _ActivityAdminDashboardScreenState
   int noOfLeisureActivities = 0;
   int noOfSocialActivities = 0;
   int noOfOtherActivities = 0;
+  double countFontSize = 42;
+  Color countNumColor = Colors.deepPurple;
   AnimationController _controller;
   Animation<double> _heightAnimation;
   Animation<double> _iconSizeAnimation;
   AnimationController _graphAnimationController;
+  CloudFunctionService cloudFunctionService = CloudFunctionService();
+  FirebaseMessaging _fcm = FirebaseMessaging();
+  BaseAuthentication _authentication = Authentication();
 
   @override
   void initState() {
@@ -49,6 +62,49 @@ class _ActivityAdminDashboardScreenState
     // Graph Animations
     _graphAnimationController =
         AnimationController(vsync: this, duration: Duration(seconds: 2));
+
+    // fcm
+    _fcm.configure(onMessage: (Map<String, dynamic> message) async {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                content: ListTile(
+                  title: Text(message['notification']['title']),
+                  subtitle: Text(message['notification']['body']),
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Ok'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ));
+    }, onResume: (Map<String, dynamic> message) async {
+      print('On Resume');
+    }, onLaunch: (Map<String, dynamic> message) async {
+      print('On launch');
+    });
+
+    _saveDeviceToken();
+  }
+
+  _saveDeviceToken() async {
+    _authentication.getCurrentUser().then((userId) async {
+      String uid = userId;
+      String _fcmToken = await _fcm.getToken();
+      if (_fcmToken != null) {
+        var tokenRef = Firestore.instance
+            .collection('admins')
+            .document(uid)
+            .collection('tokens')
+            .document(_fcmToken);
+        await tokenRef.setData({
+          'token': _fcmToken,
+          'createdAt': FieldValue.serverTimestamp(),
+          'platform': Platform.operatingSystem
+        });
+      }
+    });
   }
 
   @override
@@ -152,16 +208,56 @@ class _ActivityAdminDashboardScreenState
                     ),
                     SizedBox(height: 5),
                     Text(
-                      'text',
+                      'Quick Actions',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.deepPurple),
                     ),
                     SizedBox(height: 5),
                     Expanded(
-                      child: Container(),
+                      child: Container(
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton(
+                                      'Manage Activities',
+                                      viewActivitiesList,
+                                      Colors.deepPurpleAccent),
+                                ),
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton(
+                                    'Activities Usage',
+                                    viewActivitiesList,
+                                    Colors.deepPurpleAccent,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton('Send Message',
+                                      sendMessage, Colors.deepPurpleAccent),
+                                ),
+                                Container(
+                                  width: 190,
+                                  child: StudymateRaisedButton(
+                                      'Create Activity',
+                                      sendMessage,
+                                      Colors.deepPurpleAccent),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -242,7 +338,8 @@ class _ActivityAdminDashboardScreenState
                             size: _iconSizeAnimation.value,
                           ),
                           onPressed: () {
-                            // have to impl
+                            // Report generating UI
+                            Navigator.pushNamed(context, '/activityReports');
                             _controller.reverse();
                           },
                         ),
@@ -281,23 +378,24 @@ class _ActivityAdminDashboardScreenState
     );
   }
 
-  // Widget _buildRoomItem(BoxConstraints constraints, Size media) {
-  //   return Container();
-  // }
-
   // Have to impl
   Widget _buildActivitiesChart(Size media) {
-    return Container(
-      alignment: Alignment.center,
-      height: 100,
-      child: InkWell(
-        onTap: () {
-          _graphAnimationController.forward();
-        },
-        child: Graph(
-          animationController: _graphAnimationController,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          alignment: Alignment.center,
+          height: 100,
+          child: InkWell(
+            onTap: () {
+              _graphAnimationController.forward();
+            },
+            child: Graph(
+                animationController: _graphAnimationController,
+                values: monthData),
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -325,7 +423,7 @@ class _ActivityAdminDashboardScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'No of all activities',
+                          'Activities',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold),
@@ -333,7 +431,9 @@ class _ActivityAdminDashboardScreenState
                         Text(
                           noOfAllActivities.toString(),
                           style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 15),
+                              fontWeight: FontWeight.w500,
+                              fontSize: countFontSize,
+                              color: countNumColor),
                         ),
                       ],
                     ),
@@ -364,7 +464,7 @@ class _ActivityAdminDashboardScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Leisure Activities',
+                          'Leisure',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold),
@@ -372,7 +472,9 @@ class _ActivityAdminDashboardScreenState
                         Text(
                           noOfLeisureActivities.toString(),
                           style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.w500),
+                              color: countNumColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: countFontSize),
                         ),
                       ],
                     ),
@@ -412,13 +514,15 @@ class _ActivityAdminDashboardScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Social Activities',
+                        Text('Social',
                             style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold)),
                         Text(noOfSocialActivities.toString(),
                             style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 15)),
+                                fontWeight: FontWeight.w500,
+                                fontSize: countFontSize,
+                                color: countNumColor))
                       ],
                     ),
                   ),
@@ -450,13 +554,15 @@ class _ActivityAdminDashboardScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Other Activities',
+                        Text('Other',
                             style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold)),
                         Text(noOfOtherActivities.toString(),
                             style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 15)),
+                                fontWeight: FontWeight.w500,
+                                fontSize: countFontSize,
+                                color: countNumColor)),
                       ],
                     ),
                   ),
@@ -484,6 +590,22 @@ class _ActivityAdminDashboardScreenState
           }
         });
       });
+    });
+  }
+
+  // View Activities List UI
+  void viewActivitiesList() {
+    Navigator.pushNamed(context, '/adminActivityList');
+  }
+
+  // View Activities Usage UI
+  void viewActivitiesUsage() {}
+
+  void sendMessage() {
+    _authentication.getCurrentUser().then((authId) {
+      cloudFunctionService.cloudNotificationFunction(authId);
+    }).catchError((error) {
+      log(error.toString());
     });
   }
 }

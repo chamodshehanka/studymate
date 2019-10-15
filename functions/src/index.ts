@@ -1,5 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+// import * as Twilio from 'twilio';
+// import * as secretKeys from '../secrets/keys'
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -8,7 +10,15 @@ import * as admin from 'firebase-admin';
 //  response.send("Hello from Firebase!");
 // });
 
+// const twilioNumber = secretKeys.twilioNumber;
+// const accountSid = secretKeys.accountSid;
+// const authToken = secretKeys.authToken;
+
+// const client = Twilio(accountSid, authToken);
+
 admin.initializeApp();
+
+const fcm = admin.messaging();
 
 // Add New Admin Function
 exports.addAdmin = functions.https.onCall((data, context) => {
@@ -96,13 +106,110 @@ async function grantStudentRole(email: string): Promise<void> {
     });
 }
 
-// exports.sendPushNotification = functions.firestore.document('Activities').onCreate(event => {
-//     var request = event.data;
-//     var playload = {
-//        data: {
-//            username: 'Random',
-//            email: 'studymate@gmail.com'
-//        } 
-//     }
-//     admin.messaging().sendToDevice(playload);
+//this func won't deploy until billing enabled
+// exports.scheduledFunction = functions.pubsub.schedule('every 1 minutes').onRun(async (context) => {
+//     const inActiveStudents = await getInActiveStudents();
+//     console.log('In active users : ' + inActiveStudents.length);
 // });
+
+export const tempScheduleFunction = functions.https.onRequest((request, response) => {
+    admin.auth().listUsers().then((userRecords) => {
+        userRecords.users.forEach((user) => console.log(user.toJSON()));
+        response.end('Retrieved users list successfully.');
+    }).catch((error) => console.log(error));
+});
+
+// In active adolecents push notification function 
+exports.cloudNotificatinFunction = functions.https.onCall(async (data, context) => {
+    const querySnapshot = await admin.firestore().collection('admins')
+        .doc(data.authId).collection('tokens').get();
+
+    const token = querySnapshot.docs.map(snap => snap.id);
+    const payload: admin.messaging.MessagingPayload = {
+        notification: {
+            title: 'We missed you!',
+            body: 'Please come back and complete rings ',
+            clickAction: 'FLUTTER_NOTIFICATION_CLICK'
+
+        }
+    };
+    return fcm.sendToDevice(token, payload);
+});
+
+// Doctor Appointment notification function
+exports.doctorNotificatinFunction = functions.https.onCall(async (data, context) => {
+    const querySnapshot = await admin.firestore().collection('students')
+        .doc(data.authId).collection('tokens').get();
+
+    const token = querySnapshot.docs.map(snap => snap.id);
+    const payload: admin.messaging.MessagingPayload = {
+        notification: {
+            title: 'You have an appointment',
+            body: 'Please come to see the doctor ',
+            clickAction: 'FLUTTER_NOTIFICATION_CLICK'
+
+        }
+    };
+    return fcm.sendToDevice(token, payload);
+});
+
+
+exports.dailyLeisureProgressFunction = functions.firestore
+    .document('dailyLogs/{documentId}/{dayCollection}/{dayDocId}/{tasks}/{tasks}/{collectionName}/{docId}')
+    .onWrite(async (change, context) => {
+
+        const newData = change.after.data();
+        const oldData = change.before.data();
+        if (newData !== null && oldData !== null) {
+            const documentId = context.params.documentId;
+            const dayCollection = context.params.dayCollection;
+            const difference = newData.completed - oldData.completed;
+            const collectionName = context.params.collectionName;
+
+            const doc = await admin.firestore().collection('dailyLogs').doc(documentId)
+                .collection(dayCollection).doc(dayCollection).collection('tasks').doc('tasks').get();
+
+            const docData = doc.data();
+
+            let progress;
+
+            switch (collectionName) {
+                case "Leisure": {
+                    progress = docData.totalLeisure + difference;
+                    admin.firestore().collection('dailyLogs')
+                        .doc(documentId).collection(dayCollection)
+                        .doc(dayCollection).collection("tasks").doc("tasks")
+                        .update({ dailyLeisure: progress })
+                        .then(() => console.log('Success'))
+                        .catch(err => console.log(err));
+                }
+                    break;
+                case "Social": {
+                    progress = docData.totalSocial + difference;
+                    admin.firestore().collection('dailyLogs')
+                        .doc(documentId).collection(dayCollection)
+                        .doc(dayCollection).collection("tasks").doc("tasks")
+                        .update({ dailySocial: progress })
+                        .then(() => console.log('Success'))
+                        .catch(err => console.log(err));
+                }
+                    break;
+                default: {
+                    progress = docData.totalStudy + difference;
+                    admin.firestore().collection('dailyLogs')
+                        .doc(documentId).collection(dayCollection)
+                        .doc(dayCollection).collection("tasks").doc("tasks")
+                        .update({ dailyStudy: progress })
+                        .then(() => console.log('Success'))
+                        .catch(err => console.log(err));
+                }
+            }
+
+            return ("Updated Daily Progress");
+        }
+        else {
+            return {
+                error: 'Something went wrong'
+            }
+        }
+    });

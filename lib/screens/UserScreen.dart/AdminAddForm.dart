@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -51,6 +52,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "First Name",
         _firstName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -62,6 +64,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "Last Name",
         _lastName,
         "name",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -73,6 +76,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "NIC number",
         _nicNumber,
         "NIC number",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -84,6 +88,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         "Email",
         _email,
         "email",
+        false,
         Colors.grey,
         TextInputType.emailAddress,
         Icon(
@@ -94,7 +99,8 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     final phoneNumber = StudymateTextField(
         "Phone Number",
         _phoneNumber,
-        "Phone number",
+        "phone",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(
@@ -103,9 +109,10 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         ));
 
     final password = StudymateTextField(
-        'Password',
+        "Password",
         _password,
-        'text',
+        "password",
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -114,9 +121,10 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
         ));
 
      final confirmPassword = StudymateTextField(
-        'Confirm password',
+        "Confirm password",
         _confirmPassword,
-        'text',
+        "password",
+        true,
         Colors.grey,
         TextInputType.visiblePassword,
         Icon(
@@ -127,7 +135,8 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     final workingPlace = StudymateTextField(
         'Working Place',
         _workingPlaceController,
-        'text',
+        "working place",
+        false,
         Colors.grey,
         TextInputType.text,
         Icon(Icons.place, color: Colors.grey));
@@ -135,7 +144,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     final signUpButton = StudymateRaisedButton(
         "Create Account",
         () => {
-              _emailSignUp(
+              _addAdminDetails(
                   firstName: _firstName.text,
                   lastName: _lastName.text,
                   nicNumber: _nicNumber.text,
@@ -201,7 +210,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
     });
   }
 
-  void _emailSignUp(
+  void _addAdminDetails(
       {String firstName,
       String lastName,
       String nicNumber,
@@ -220,15 +229,16 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
             Admin('_id', firstName, lastName, email, phoneNumber, workingPlace);
 
         _authentication.signUp(email, password, 'admin', admin);
+        await Navigator.pushNamed(context, '/homeAdmin');
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
-        //String exception = Auth.getExceptionText(e);
-        // Flushbar(
-        //   title: "Sign Up Error",
-        //   message: exception,
-        //   duration: Duration(seconds: 5),
-        // )..show(context);
+        String exception = Authentication.getExceptionText(e);
+        Flushbar(
+          title: "Sign Up Error",
+          message: exception,
+          duration: Duration(seconds: 5),
+        )..show(context);
       }
     } else {
       setState(() => _autoValidate = true);

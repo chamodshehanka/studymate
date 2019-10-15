@@ -7,10 +7,12 @@ class StudymateTextField extends StatefulWidget {
   final Color color;
   final TextInputType keyboardType;
   final String validation;
+  final bool obscureText;
   final Icon icon;
-
+  
+  
   StudymateTextField(this.labelText, this.textEditingController,
-      this.validation, this.color, this.keyboardType, this.icon);
+      this.validation, this.obscureText,  this.color, this.keyboardType, this.icon, {maxLines, String Function(String value) validator});
 
   _StudymateTextField createState() => _StudymateTextField();
 }
@@ -43,6 +45,7 @@ class _StudymateTextField extends State<StudymateTextField> {
             validator: (value) {
               return Validator.validate(widget.validation, value);
             },
+            obscureText: widget.obscureText,
             keyboardType: widget.keyboardType,
             style: new TextStyle(
               fontFamily: "Poppins",

@@ -1,7 +1,11 @@
 import 'dart:async';
-
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/services/custom/ScheduleServices.dart';
+
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -10,22 +14,75 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   BaseAuthentication _auth = Authentication();
+  Future<FirebaseUser> firebaseUser = FirebaseAuth.instance.currentUser();
+  
+  // Future<List> _getDailySocialFromSharedPrefs() async{
+  //     final prefs = await SharedPreferences.getInstance();
+  //     final dailySocial = prefs.get('dailySocial');
+  //     return dailySocial;
+
+  // }
+
+  Future<void> _setDailyTimeToSharedPrefs(String studentId) async{
+      final prefs = await SharedPreferences.getInstance();
+      ScheduleService scheduleService = new ScheduleService();
+
+      int today = DateTime.now().weekday;
+      String day;
+        switch(today){
+          case 1:day = "monday";
+            break;
+          case 2:day = "tuesday";
+            break;
+          case 3:day = "wednesday";
+            break;
+          case 4:day = "thursday";
+            break;
+          case 5:day = "friday";
+            break;
+          case 6:day = "saturday";
+            break;
+          case 7:day = "sunday";
+            break;
+        }
+
+        await prefs.setInt('dailySocial',scheduleService.getDailySocialTime(day, studentId));
+        await prefs.setInt('dailyStudy',scheduleService.getDailyStudyTime(day, studentId));
+        await prefs.setInt('dailyLeisure',scheduleService.getDailyLeisureTime(day, studentId));
+
+  }
+
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () => Navigator.pushNamed(context, '/welcome'));
-    _auth.getCurrentUser().then((currentUser) => {
-          if (currentUser != null)
-            {
-              // Have to impl correct role based one
-              Timer(Duration(seconds: 5),
-                  () => Navigator.pushNamed(context, '/home'))
+    _auth.getCurrentUser().then((currentUser) {
+      if (currentUser != null) {
+        firebaseUser.then((user) {
+          user.getIdToken().then((result) async {
+            bool isAdmin = result.claims['moderator'] ?? false;
+            bool isDoctor = result.claims['doctor'] ?? false;
+            bool isStudent = result.claims['student'] ?? false;
+
+            if (isAdmin) {
+              Navigator.pushNamed(context, '/homeAdmin');
+            } else if (isDoctor) {
+              Navigator.pushNamed(context, '/homeDoctor');
+            } else if (isStudent) {
+              final prefs = await SharedPreferences.getInstance();
+              
+              if(prefs.get('dailySocial') == null){
+                log("Inside Prefs");
+                _setDailyTimeToSharedPrefs(currentUser);
+              }
+              Navigator.pushNamed(context, '/studentMain');
+              
             }
-          else
-            {
-              Timer(Duration(seconds: 5),
-                  () => Navigator.pushNamed(context, '/welcome'))
-            }
+          });
         });
+      }
+    }).catchError((e) {
+      log('ERROR : ' + e.toString());
+      Navigator.pushNamed(context, '/welcome');
+    });
   }
 
   @override

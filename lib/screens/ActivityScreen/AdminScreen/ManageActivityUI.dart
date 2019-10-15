@@ -5,21 +5,37 @@ import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
-class ManageActivityScreen extends StatelessWidget {
+class ManageActivityScreen extends StatefulWidget {
   final Activity activity;
-  final ActivityService activityService = ActivityService();
-  final _formKey = GlobalKey<FormState>();
-  final nameController;
 
-  ManageActivityScreen({Key key, @required this.activity, this.nameController});
+  ManageActivityScreen({Key key, @required this.activity});
+
+  @override
+  _ManageActivityScreenState createState() => _ManageActivityScreenState();
+}
+
+class _ManageActivityScreenState extends State<ManageActivityScreen> {
+  final ActivityService activityService = ActivityService();
+
+  final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  var type;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.text = widget.activity.name;
+    type = widget.activity.type;
+  }
 
   @override
   Widget build(BuildContext context) {
     // Activity Delete Action
     void activityDeleteAction() {
-      Future<dynamic> isDeleted = activityService.deleteActivity(activity.id);
+      Future<dynamic> isDeleted =
+          activityService.deleteActivity(widget.activity.id);
       if (isDeleted != null) {
-        print('Deleted!!');
+        Navigator.pop(context);
         Navigator.pop(context);
       } else {
         print('Activity Delete Failed');
@@ -27,15 +43,15 @@ class ManageActivityScreen extends StatelessWidget {
     }
 
     void showDeleteConfirmationDialog() {
-      if (activity.id != null) {
+      if (widget.activity.id != null) {
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: (BuildContext context) {
               return StudymateDialogBox(
                 title: 'Are you sure?',
-                description:
-                    activity.name + ' activity will be permanently deleted!',
+                description: widget.activity.name +
+                    ' activity will be permanently deleted!',
                 confirmation: true,
                 confirmationAction: activityDeleteAction,
                 tigerAnimationType: 'fail',
@@ -60,17 +76,42 @@ class ManageActivityScreen extends StatelessWidget {
                 child: StudymateTextField(
                     'Activity Name',
                     nameController,
-                    'text',
+                    'name',
+                    false,
                     Colors.grey,
                     TextInputType.text,
                     Icon(Icons.local_activity, color: Colors.grey)),
               ),
               Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextFormField(
-                  initialValue: activity.type,
-                ),
-              ),
+                  padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 18, right: 18),
+                    child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            borderSide: BorderSide(),
+                          ),
+                          contentPadding: EdgeInsetsDirectional.fromSTEB(
+                              20.0, 10.0, 20.0, 10.0),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.only(left: 5.0),
+                            child:
+                                Icon(Icons.directions_run, color: Colors.grey),
+                          )),
+                      value: type,
+                      hint: Text('Activity Type'),
+                      items: ["Leisure", "Social"]
+                          .map((label) => DropdownMenuItem(
+                                child: Text(label),
+                                value: label,
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() => type = value);
+                      },
+                    ),
+                  )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -87,11 +128,10 @@ class ManageActivityScreen extends StatelessWidget {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
 
-                          if (activity.id != null) {
-                            Activity updatedActivity = Activity(activity.id,
-                                nameController.text, activity.type);
-                            print(activity.id);
-                            print(nameController.text);
+                          if (widget.activity.id != null) {
+                            Activity updatedActivity = Activity(
+                                widget.activity.id, nameController.text, type);
+
                             Future isUpdated =
                                 activityService.updateActivity(updatedActivity);
                             if (isUpdated != null) {
@@ -125,7 +165,7 @@ class ManageActivityScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(activity.name),
+          title: Text('Manage ' + widget.activity.name + ' Activity'),
           backgroundColor: Colors.deepPurpleAccent,
         ),
         body: manageActivityBody,

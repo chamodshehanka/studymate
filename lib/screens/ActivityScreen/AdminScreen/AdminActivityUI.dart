@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
-import 'package:studymate/widgets/StudymateDropdown.dart';
+import 'package:studymate/widgets/StudymateTextField.dart';
 
 class AdminActivityListScreen extends StatefulWidget {
   _AdminActivityListScreenState createState() =>
@@ -18,9 +18,6 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
   ActivityService activityService = ActivityService();
   StreamSubscription<QuerySnapshot> activitySubscription;
   List<String> activityTypeList;
-  final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final typeController = TextEditingController();
 
   @override
   void initState() {
@@ -98,10 +95,9 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
       ),
     );
     return MaterialApp(
-      title: 'Manage Activities UI',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Manage Activities'),
+          title: Text('Manage Activities List'),
           backgroundColor: Colors.deepPurpleAccent,
         ),
         body: adminActivityBody,
@@ -117,81 +113,115 @@ class _AdminActivityListScreenState extends State<AdminActivityListScreen> {
   void _createNewActivity(BuildContext context) async {
     showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              'Create A New Activity',
-              textAlign: TextAlign.center,
-            ),
-            backgroundColor: Colors.deepPurple[50],
-            content: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Enter activity name'),
-                      controller: nameController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter activity name';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: StudymateDropdown(
-                        'Select activity type', activityTypeList),
-                  ),
+        builder: (_) {
+          return StudymateDialog();
+        });
+  }
+}
 
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      color: Colors.deepPurple,
-                      textColor: Colors.white,
-                      child: Text("Save"),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          //Adding to DB
-                          Future<Activity> isAdded =
-                              activityService.createActivity(
-                                  nameController.text, typeController.text);
-                          if (isAdded != null) {
-                            Navigator.pop(context);
-                          } else {
-                            //Have to add error message
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text('Failed to Add!'),
-                              backgroundColor: Colors.deepPurple,
-                            ));
-                          }
-                        }
-                      },
+class StudymateDialog extends StatefulWidget {
+  _StudymateDialogState createState() => _StudymateDialogState();
+}
+
+class _StudymateDialogState extends State<StudymateDialog> {
+  final _formKeyAddActivity = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  var type;
+  ActivityService _activityService = ActivityService();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      title: Text('Create Activity',
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.deepPurple)),
+      content: Form(
+        key: _formKeyAddActivity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            StudymateTextField(
+                'Activity Name',
+                nameController,
+                'name',
+                false,
+                Colors.grey,
+                TextInputType.text,
+                Icon(
+                  Icons.local_activity,
+                  color: Colors.grey,
+                )),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: BorderSide(),
                     ),
-                  ),
-                  //Test Dispose button
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      color: Colors.redAccent,
-                      textColor: Colors.white,
-                      child: Text("Cancel"),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
+                    contentPadding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Icon(Icons.directions_run, color: Colors.grey),
+                    )),
+                value: type,
+                hint: Text('Activity Type'),
+                items: ["Leisure", "Social"]
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() => type = value);
+                },
               ),
             ),
-          );
-        });
+            SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  elevation: 10,
+                  color: Colors.deepPurpleAccent,
+                  textColor: Colors.white,
+                  child: Text("Save"),
+                  onPressed: () {
+                    if (_formKeyAddActivity.currentState.validate()) {
+                      // Adding to DB
+                      Future<Activity> isAdded = _activityService
+                          .createActivity(nameController.text, type);
+
+                      if (isAdded != null) {
+                        Navigator.pop(context);
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    }
+                  },
+                ),
+                SizedBox(width: 10),
+                RaisedButton(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

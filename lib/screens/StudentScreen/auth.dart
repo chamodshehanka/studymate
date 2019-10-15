@@ -16,18 +16,18 @@
 //     return user.uid;
 //   }
 
-//   static void addUserSettingsDB(User user) async {
-//     checkUserExist(user.userId).then((value) {
+//   static void studentAddDetailsDB(Student student) async {
+//     checkUserExist(student.id).then((value) {
 //       if (!value) {
-//         print("user ${user.firstName} ${user.email} added");
+//         print("student ${student.firstName} ${student.email} added");
 //         Firestore.instance
-//             .document("users/${user.userId}")
-//             .setData(user.toJson());
+//             .document("student/${student.id}")
+//             .setData(student.toMap());
 //         _addSettings(new Settings(
-//           settingsId: user.userId,
+//           settingsId: student.id,
 //         ));
 //       } else {
-//         print("user ${user.firstName} ${user.email} exists");
+//         print("student ${student.firstName} ${student.email} exists");
 //       }
 //     });
 //   }
@@ -35,7 +35,7 @@
 //   static Future<bool> checkUserExist(String userId) async {
 //     bool exists = false;
 //     try {
-//       await Firestore.instance.document("users/$userId").get().then((doc) {
+//       await Firestore.instance.document("student/$userId").get().then((doc) {
 //         if (doc.exists)
 //           exists = true;
 //         else
@@ -59,15 +59,15 @@
 //     return user.uid;
 //   }
 
-//   static Future<User> getUserFirestore(String userId) async {
+//   static Future<Student> getUserFirestore(String userId) async {
 //     if (userId != null) {
 //       return Firestore.instance
-//           .collection('users')
+//           .collection('student')
 //           .document(userId)
 //           .get()
-//           .then((documentSnapshot) => User.fromDocument(documentSnapshot));
+//           .then((documentSnapshot) => Student.fromDocument(documentSnapshot));
 //     } else {
-//       print('firestore userId can not be null');
+//       print('firestore studentId can not be null');
 //       return null;
 //     }
 //   }
@@ -85,7 +85,7 @@
 //     }
 //   }
 
-//   static Future<String> storeUserLocal(User user) async {
+//   static Future<String> storeUserLocal(Student student) async {
 //     SharedPreferences prefs = await SharedPreferences.getInstance();
 //     String storeUser = userToJson(user);
 //     await prefs.setString('user', storeUser);

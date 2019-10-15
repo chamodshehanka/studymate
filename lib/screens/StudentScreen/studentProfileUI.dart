@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
 
-void main() => runApp(new MyApp());
+import 'package:studymate/services/Authentication.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'UI Profile',
-      home: new ProfileUIScreen(),
-    );
-  }
-}
+// void main() => runApp(new MyApp());
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return new MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'UI Profile',
+//       home: new ProfileUIScreen(),
+//     );
+//   }
+// }
 
 class ProfileUIScreen extends StatefulWidget {
-  @override
   _ProfileUIScreenState createState() => _ProfileUIScreenState();
 }
 
 class _ProfileUIScreenState extends State<ProfileUIScreen> {
-
+   
   Color gradientStar = Colors.orange[200];
+  BaseAuthentication _authentication = Authentication();
 
   Color gradientEnd = Colors.purple;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body:
+    Stack(
         alignment: Alignment.center,
         children: <Widget>[
           Column(
@@ -52,7 +56,7 @@ class _ProfileUIScreenState extends State<ProfileUIScreen> {
               Expanded(
                   child: Container(
                       margin: EdgeInsets.only(top: 50),
-                      child: Column(
+                      child: Stack(
                         children: <Widget>[
                           Divider(height: 1, color: Colors.grey),
                           Container(
@@ -155,6 +159,16 @@ class _ProfileUIScreenState extends State<ProfileUIScreen> {
           ),
         ],
       ),
-    );
+       floatingActionButton: FloatingActionButton(
+        
+        child: Icon(Icons.close, color: Colors.white),
+        onPressed: () {
+          _authentication.signOut();
+          Navigator.pushNamed(context, '/welcome');
+        },
+
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      );
   }
 }
