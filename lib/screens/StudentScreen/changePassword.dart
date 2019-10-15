@@ -14,11 +14,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController _newPassword = new TextEditingController();
   final TextEditingController _confirmNewPassword = new TextEditingController();
 
-  
-
   bool _autoValidate = false;
   bool _loadingVisible = false;
-  @override
   void initState() {
     super.initState();
   }

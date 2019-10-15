@@ -1,5 +1,7 @@
 
+import 'dart:async';
 import 'dart:core';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ScheduleTask.dart';
@@ -19,7 +21,11 @@ final CollectionReference studentsCollection =
               .document("weeklyschedule")
               .collection(day)
               .document());
-          
+      DateTime start = DateTime.parse(scheduleTask.start);
+      DateTime end = DateTime.parse(scheduleTask.end);
+      Duration duration = end.difference(start);
+
+  scheduleTask.setDuration(duration.inMinutes);
   scheduleTask.setId(ds.documentID);
 
       final Map<String, dynamic> data = scheduleTask.toMap();
@@ -48,6 +54,7 @@ final CollectionReference studentsCollection =
     return snapshots;
   }
 
+
    Future<dynamic> deleteTask(
       String studentId, String day,String taskId) {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
@@ -71,6 +78,8 @@ final CollectionReference studentsCollection =
       print('error: $error');
       return false;
     });
+
+
   }
 
     Future<dynamic> updateTask(
@@ -171,6 +180,66 @@ final CollectionReference studentsCollection =
       print('error: $error');
       return null;
     });
+  }
+
+
+  int getDailySocialTime(String day,String studentId){
+        int totalMinutes = 0;
+        StreamSubscription<QuerySnapshot> dailyTaskSubscription;
+        List<ScheduleTask> list = List();
+      dailyTaskSubscription?.cancel();
+      dailyTaskSubscription = getDailySocialTaskList(studentId, day)
+          .listen((QuerySnapshot snapshot) {
+        final List<ScheduleTask> tasks = snapshot.documents
+            .map((documentSnapshot) =>
+                ScheduleTask.fromMap(documentSnapshot.data))
+            .toList();
+
+          list = tasks;
+           
+      });
+      log(list.toString());
+
+ for(int i = 0 ; i< list.length ; i++){
+              totalMinutes+=list[i].duration;
+            }
+      return totalMinutes;
+  }
+
+   int getDailyLeisureTime(String day,String studentId){
+        int totalMinutes = 0;
+        StreamSubscription<QuerySnapshot> dailyTaskSubscription;
+      dailyTaskSubscription?.cancel();
+      dailyTaskSubscription = getDailyLeisureTaskList(studentId, day)
+          .listen((QuerySnapshot snapshot) {
+        final List<ScheduleTask> tasks = snapshot.documents
+            .map((documentSnapshot) =>
+                ScheduleTask.fromMap(documentSnapshot.data))
+            .toList();
+            for(int i = 0 ; i< tasks.length ; i++){
+              totalMinutes+=tasks[i].duration;
+            }
+      });
+
+      return totalMinutes;
+  }
+
+   int getDailyStudyTime(String day,String studentId){
+        int totalMinutes = 0;
+        StreamSubscription<QuerySnapshot> dailyTaskSubscription;
+      dailyTaskSubscription?.cancel();
+      dailyTaskSubscription = getDailyStudyTaskList(studentId, day)
+          .listen((QuerySnapshot snapshot) {
+        final List<ScheduleTask> tasks = snapshot.documents
+            .map((documentSnapshot) =>
+                ScheduleTask.fromMap(documentSnapshot.data))
+            .toList();
+            for(int i = 0 ; i< tasks.length ; i++){
+              totalMinutes+=tasks[i].duration;
+            }
+      });
+
+      return totalMinutes;
   }
 
   List<ScheduleTask> sortSchedule(List<ScheduleTask> taskList){

@@ -10,12 +10,12 @@ import 'package:studymate/screens/ChatScreen/ChatUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
+import 'package:studymate/screens/MainScreenStudent.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/CreateMedicalRecordUI.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
 import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
-import 'package:studymate/screens/ScheduleScreen/Reports/ReportGeneration.dart';
+import 'package:studymate/screens/ScheduleScreen/Reports/DailyReportGeneration.dart';
 import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
-import 'package:studymate/screens/StudentMainScreen.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
 import 'package:studymate/screens/StudentScreen/changePassword.dart';
 import 'package:studymate/screens/StudentScreen/forgot_password.dart';
@@ -72,7 +72,7 @@ class RouteGenerator {
       case '/homeAdmin':
         return MaterialPageRoute(builder: (_) => HomeScreenAdmin());
       case '/forgotPassword':
-        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());  
       case '/medicalRecord':
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       case '/createMedicalRecord':

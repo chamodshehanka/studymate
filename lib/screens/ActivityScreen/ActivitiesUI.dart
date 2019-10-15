@@ -4,6 +4,7 @@ import 'package:studymate/screens/ActivityScreen/tabs/OtherActivityTab.dart';
 import 'package:studymate/screens/ActivityScreen/tabs/SocialActivityTab.dart';
 
 class ActivityScreen extends StatefulWidget {
+
   _ActivityScreenState createState() => _ActivityScreenState();
 }
 
