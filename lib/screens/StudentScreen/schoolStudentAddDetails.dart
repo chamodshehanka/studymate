@@ -10,15 +10,16 @@ import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
 
-class SchoolStudentScreen extends StatefulWidget {
-  _SchoolStudentScreenState createState() => _SchoolStudentScreenState();
+class SchoolStudentAddDetailsScreen extends StatefulWidget {
+  _SchoolStudentAddDetailsScreenState createState() => _SchoolStudentAddDetailsScreenState();
 }
 
-class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
+class _SchoolStudentAddDetailsScreenState extends State<SchoolStudentAddDetailsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
-  final TextEditingController _email = new TextEditingController();
+  final TextEditingController _phoneNumber = new TextEditingController();
+  final TextEditingController _schoolName = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
 
   bool _autoValidate = false;
@@ -45,14 +46,20 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
     );
 
     final firstName = StudymateTextField("First Name", _firstName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
+     "name", Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
     final lastName = StudymateTextField("Last Name", _lastName,
-     "name", Colors.grey, TextInputType.text, Icon(Icons.text_fields,color: Colors.grey,));
+     "name", Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
-    final email = StudymateTextField("Email", _email,
-     "email", Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+    final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
+     "phone", Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
 
+    final schoolName = StudymateTextField("School Name", _schoolName,
+     "school", Colors.grey, TextInputType.text, Icon(Icons.school,color: Colors.grey,));
+  
+ 
+
+  
     final password = StudymateTextField("Password", _password,
      "password", Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
   
@@ -61,21 +68,12 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
        _emailSignUp(
               firstName: _firstName.text,
               lastName: _lastName.text,
-              email: _email.text,
+              phoneNumber: _phoneNumber.text,
+              schoolName: _schoolName.text,
               password: _password.text,
               context: context)
     }, Colors.deepPurple);
     
-
-    final signInLabel = FlatButton(
-      child: Text(
-        'Have an Account? Sign In.',
-        style: TextStyle(color: Colors.black54),
-      ),
-      onPressed: () {
-        Navigator.pushNamed(context, '/signin');
-      },
-    );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -97,12 +95,14 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
                       SizedBox(height: 24.0),
                       lastName,
                       SizedBox(height: 24.0),
-                      email,
+                      phoneNumber,
+                      SizedBox(height: 24.0),
+                      schoolName,
                       SizedBox(height: 24.0),
                       password,
                       SizedBox(height: 12.0),
                       signUpButton,
-                      signInLabel
+                      
                     ],
                   ),
                 ),
@@ -122,7 +122,8 @@ class _SchoolStudentScreenState extends State<SchoolStudentScreen> {
   void _emailSignUp(
       {String firstName,
       String lastName,
-      String email,
+      String phoneNumber,
+      String schoolName,
       String password,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {

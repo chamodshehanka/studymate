@@ -19,6 +19,7 @@ class ProfileUIScreen extends StatefulWidget {
 }
 
 class _ProfileUIScreenState extends State<ProfileUIScreen> {
+
   Color gradientStar = Colors.orange[200];
 
   Color gradientEnd = Colors.purple;

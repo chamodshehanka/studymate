@@ -11,6 +11,7 @@ import 'package:studymate/screens/DoctorAppointmentScreen/AppointmentWelcome.dar
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
+import 'package:studymate/screens/MainScreenStudent.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/CreateMedicalRecordUI.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
 import 'package:studymate/screens/RewardScreen/Admin/new_badge.dart';
@@ -24,10 +25,16 @@ import 'package:studymate/screens/ScheduleScreen/ScheduleManagerMain.dart';
 import 'package:studymate/screens/ScheduleScreen/CreateSchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Daily.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
+import 'package:studymate/screens/StudentScreen/changePassword.dart';
+import 'package:studymate/screens/StudentScreen/forgot_password.dart';
+import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart';
+import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/TestUI.dart';
-import 'package:studymate/screens/UserScreen.dart/DoctorRegForm.dart';
+import 'package:studymate/screens/UserScreen.dart/AdminAddForm.dart';
+import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
+import 'package:studymate/screens/UserScreen.dart/StudentAddForm.dart';
 import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
@@ -49,7 +56,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
-      case '/accounttype':
+      case '/accountType':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
       case '/daily':
         return MaterialPageRoute(builder: (_) => DailyScreen());
@@ -89,6 +96,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
         return MaterialPageRoute(builder: (_) => HomeScreenAdmin());
+      case '/forgotPassword':
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());  
       case '/medicalRecord':
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       case '/createMedicalRecord':
@@ -99,6 +108,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => CreateSchedule());
       case '/chat':
         return MaterialPageRoute(builder: (_) => ChatScreen());
+      case '/schoolStudentAddDetails':
+        return MaterialPageRoute(builder: (_) => SchoolStudentAddDetailsScreen());
+       case '/nonSchoolStudentAddDetails':
+        return MaterialPageRoute(builder: (_) => NonSchoolStudentAddDetailsScreen());    
       case '/subject':
         return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/testUI':
@@ -106,9 +119,17 @@ class RouteGenerator {
       case '/profileUI':
         return MaterialPageRoute(builder: (_) => ProfileUIScreen());
       case '/udSubject':
-        return MaterialPageRoute(builder: (_) => UDSubjectUI());
-      case '/doctorReg':
-        return MaterialPageRoute(builder: (_) => DoctorRegScreen());
+        return MaterialPageRoute(builder: (_) => UDSubjectUI());  
+      case '/doctorAdd':
+        return MaterialPageRoute(builder: (_) => DoctorAddScreen());
+      case '/studentAdd':
+        return MaterialPageRoute(builder: (_) => StudentAddScreen()); 
+      case '/adminAdd':
+        return MaterialPageRoute(builder: (_) => AdminAddScreen()); 
+      case '/changePassword':
+        return MaterialPageRoute(builder: (_) => ChangePasswordScreen());   
+      case '/studentMain':
+        return MaterialPageRoute(builder: (_) => MainScreenStudent());        
       default:
         return _errorRoute();
     }

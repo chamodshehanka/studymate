@@ -10,6 +10,9 @@ class Validator {
       case 'name':
         return validateName(value);
         break;
+      case 'school':
+        return validateSchool(value);
+        break;  
       case 'nic number':
         return validateNicNumber(value);  
       case 'slmc number':
@@ -54,6 +57,18 @@ class Validator {
       return null;
   }
 
+
+  static String validateSchool(value) {
+    Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Please enter a school name.';
+    else
+      return null;
+  }
+
+  
+
   static String validateNicNumber(value) {
     Pattern pattern = r'^.{6,}$';
     RegExp regex = new RegExp(pattern);
@@ -75,7 +90,7 @@ class Validator {
     Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
-      return 'Please enter a name.';
+      return 'Please enter a working place.';
     else
       return null;
   }
