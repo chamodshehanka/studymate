@@ -6,35 +6,29 @@ import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'HomeScreen/HomeUI.dart';
 
 class PlaceholderWidget extends StatefulWidget {
- final int index;
+  final int index;
 
- PlaceholderWidget(this.index);
-   _PlaceHolderState createState() => _PlaceHolderState();
+  PlaceholderWidget(this.index);
+  _PlaceHolderState createState() => _PlaceHolderState();
 }
 
 class _PlaceHolderState extends State<PlaceholderWidget> {
+  @override
+  Widget build(BuildContext context) {
+    switch (widget.index) {
+      case 0:
+        return HomeScreen();
+        break;
+      case 1:
+        return WeeklyPlanScreen();
+        break;
 
- @override
- Widget build(BuildContext context) {
+      case 2:
+        return ActivityScreen();
+        break;
 
-   switch(widget.index){
-     case 0 : return HomeScreen();
-      break;
-      case 1 :return WeeklyPlanScreen();
-      break;
-
-      case 2:return ActivityScreen();
-      break;
-
-      default:return ProfileUIScreen();
-
-   }
-   
-   
-   
-   
-  
- }
-
-  
+      default:
+        return ProfileUIScreen();
+    }
+  }
 }
