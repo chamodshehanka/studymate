@@ -9,31 +9,31 @@ class Validator {
         break;
       case 'confirm password':
         return validateConfirmPassword(value);
-        break;  
+        break;
       case 'name':
         return validateName(value);
         break;
       case 'school':
         return validateSchool(value);
-        break;  
+        break;
       case 'nic number':
-        return validateNicNumber(value);  
+        return validateNicNumber(value);
       case 'slmc number':
-        return validateSlmcRegNumber(value);    
+        return validateSlmcRegNumber(value);
       case 'phone':
         return validateNumber(value);
         break;
       case 'text':
         return validateText(value);
       case 'working place':
-        return validateWorkingPlace(value);    
+        return validateWorkingPlace(value);
         break;
       case 'Date':
-        return validateDate(value); 
+        return validateDate(value);
       case 'Time':
         return validateTime(value);
       case 'Place':
-        return validatePlace(value); 
+        return validatePlace(value);
       default:
         return null;
     }
@@ -75,7 +75,6 @@ class Validator {
       return null;
   }
 
-
   static String validateSchool(value) {
     Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
     RegExp regex = new RegExp(pattern);
@@ -84,8 +83,6 @@ class Validator {
     else
       return null;
   }
-
-  
 
   static String validateNicNumber(value) {
     Pattern pattern = r'^.{6,}$';
@@ -104,6 +101,7 @@ class Validator {
     else
       return null;
   }
+
   static String validateWorkingPlace(value) {
     Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
     RegExp regex = new RegExp(pattern);
@@ -122,7 +120,7 @@ class Validator {
       return null;
   }
 
-static String validateDate(value) {
+  static String validateDate(value) {
     Pattern pattern = r'^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
@@ -130,6 +128,7 @@ static String validateDate(value) {
     else
       return null;
   }
+
   static String validateTime(value) {
     Pattern pattern = r'^[0-2][0-3]:[0-5][0-9]$';
     RegExp regex = new RegExp(pattern);
@@ -138,7 +137,8 @@ static String validateDate(value) {
     else
       return null;
   }
-static String validatePlace(value) {
+
+  static String validatePlace(value) {
     Pattern pattern = r"^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
