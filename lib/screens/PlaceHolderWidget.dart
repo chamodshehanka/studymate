@@ -5,14 +5,14 @@ import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 
 import 'HomeScreen/HomeUI.dart';
 
-class StudentPlaceholder extends StatefulWidget {
+class PlaceholderWidget extends StatefulWidget {
   final int index;
 
-  StudentPlaceholder(this.index);
-  _StudentPlaceholderState createState() => _StudentPlaceholderState();
+  PlaceholderWidget(this.index);
+  _PlaceHolderState createState() => _PlaceHolderState();
 }
 
-class _StudentPlaceholderState extends State<StudentPlaceholder> {
+class _PlaceHolderState extends State<PlaceholderWidget> {
   @override
   Widget build(BuildContext context) {
     switch (widget.index) {

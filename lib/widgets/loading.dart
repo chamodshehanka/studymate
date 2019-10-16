@@ -37,7 +37,6 @@ class LoadingScreen extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                   shape: BoxShape.circle,
                 ),
-              
                 child: Align(
                   alignment: Alignment.center,
                   child: SizedBox(

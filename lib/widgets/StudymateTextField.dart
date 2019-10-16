@@ -9,10 +9,17 @@ class StudymateTextField extends StatefulWidget {
   final String validation;
   final bool obscureText;
   final Icon icon;
-  
-  
-  StudymateTextField(this.labelText, this.textEditingController,
-      this.validation, this.obscureText,  this.color, this.keyboardType, this.icon, {maxLines, String Function(String value) validator});
+
+  StudymateTextField(
+      this.labelText,
+      this.textEditingController,
+      this.validation,
+      this.obscureText,
+      this.color,
+      this.keyboardType,
+      this.icon,
+      {maxLines,
+      String Function(String value) validator});
 
   _StudymateTextField createState() => _StudymateTextField();
 }

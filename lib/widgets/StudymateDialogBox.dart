@@ -19,6 +19,7 @@ class StudymateDialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    dialogContent(context);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 0.1,
@@ -28,6 +29,32 @@ class StudymateDialogBox extends StatelessWidget {
   }
 
   dialogContent(BuildContext context) {
+    List<Widget> bottomWidgetList;
+
+    if (confirmation) {
+      bottomWidgetList = <Widget>[
+        FlatButton(
+          onPressed: confirmationAction,
+          child: Text('Yes'), // To confirm the dialog
+        ),
+        FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // To close the dialog
+          },
+          child: Text('No'),
+        ),
+      ];
+    } else {
+      bottomWidgetList = <Widget>[
+        FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // To close the dialog
+          },
+          child: Text('Okay'),
+        ),
+      ];
+    }
+
     return Stack(children: <Widget>[
       Container(
         padding: EdgeInsets.only(
@@ -78,18 +105,7 @@ class StudymateDialogBox extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FlatButton(
-                    onPressed: confirmationAction,
-                    child: Text('Yes'),
-                  ),
-                  FlatButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // To close the dialog
-                    },
-                    child: Text('No'),
-                  ),
-                ],
+                children: bottomWidgetList,
               ),
             ),
           ],

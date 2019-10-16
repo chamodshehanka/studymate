@@ -73,7 +73,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
   }
 
   @override
-  void dispose() { 
+  void dispose() {
     super.dispose();
   }
 
