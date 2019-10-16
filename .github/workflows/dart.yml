@@ -20,7 +20,7 @@ jobs:
           channel: 'beta'
       - run: flutter pub get
 #       - run: flutter test
-      - run: flutter build apk
+#       - run: flutter build apk
 
 # jobs:
 #   build:
