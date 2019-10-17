@@ -130,7 +130,7 @@ class _ProfileUIScreenState extends State<ProfileUIScreen> {
                                   ),
                                 ],
                               )),
-                          Divider(height: 5),
+                          Divider(height: 10),
                           Container(
                               margin: EdgeInsets.only(top: 30, left: 5),
                               child: Column(

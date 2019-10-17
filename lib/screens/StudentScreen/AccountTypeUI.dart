@@ -11,7 +11,7 @@ class AccountTypeScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 60.0),
             child: Icon(
               Icons.business,
-              color: Colors.blueAccent,
+              color: Colors.deepPurple,
               size: 125.0,
             ),
           ),
@@ -22,7 +22,7 @@ class AccountTypeScreen extends StatelessWidget {
               softWrap: true,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.blueAccent,
+                color: Colors.deepPurple,
                 decoration: TextDecoration.none,
                 fontSize: 24.0,
                 fontWeight: FontWeight.w700,
@@ -44,7 +44,7 @@ class AccountTypeScreen extends StatelessWidget {
               splashColor: Colors.black12,
               borderColor: Colors.white,
               borderWidth: 0,
-              color: Colors.blueAccent,
+              color: Colors.deepPurple,
             ),
           ),
           Padding(
