@@ -36,6 +36,8 @@ class _SchoolStudentAddDetailsScreenState
   final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   final TextEditingController _schoolName = new TextEditingController();
+  
+  
   var type;
 
   List<Student> studentList;
@@ -91,6 +93,8 @@ class _SchoolStudentAddDetailsScreenState
         this.studentList = students;
       });
     });
+
+    genderTypeList = ['Male', 'Female'];
   }
 
   @override
@@ -200,6 +204,44 @@ class _SchoolStudentAddDetailsScreenState
             },
         Colors.deepPurple);
 
+    final firstName = StudymateTextField("First Name", _firstName,
+     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+
+    final lastName = StudymateTextField("Last Name", _lastName,
+     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+
+     final birthday = StudymateTextField("Birthday (dd/mm/yyyy)", _birthday,
+     "birthday", false, Colors.grey, TextInputType.text, Icon(Icons.calendar_view_day,color: Colors.grey,));
+
+
+
+
+    final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
+     "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
+
+    final schoolName = StudymateTextField("School Name", _schoolName,
+     "school", false, Colors.grey, TextInputType.text, Icon(Icons.school,color: Colors.grey,));
+  
+ 
+
+  
+    
+    final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
+       _addStudentDetails(
+              firstName: _firstName.text,
+              lastName: _lastName.text,
+              birthday: _birthday.text,
+              phoneNumber: _phoneNumber.text,
+              schoolName: _schoolName.text,
+              type: type,
+              
+              
+              context: context)
+    }, Colors.deepPurple);
+
+    
+    
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: LoadingScreen(
@@ -278,14 +320,29 @@ class _SchoolStudentAddDetailsScreenState
       bool schooling,
       String phoneNumber,
       String schoolName,
-      String type,
+      var type,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {
       try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
 
+
         await Navigator.pushNamed(context, '/home');
+
+        // Future<Student> isAdded = studentService
+        //                   .updateStudent();
+
+                          
+        //               if (isAdded != null) {
+        //                 Navigator.pushNamed(context, '/home');
+        //               } else {
+        //                 Navigator.pop(context);
+        //               }
+        
+      
+       // await Navigator.pushNamed(context, '/home');
+
       } catch (e) {
         _changeLoadingVisible();
         print("Sign Up Error: $e");
