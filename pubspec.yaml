@@ -83,8 +83,6 @@ flutter:
     - assets/images/swimming.jpg
     - assets/animations/MultiOptionButton.flr
     - assets/animations/tiger.flr
-    - assets/images/Kevin_minions.png
-    - assets/images/how-to-roll-up-calendars-in-sharepoint-icons-png-22.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -97,17 +95,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Bebas
-      fonts:
-        - asset: assets/fonts/bebas_regular.otf
-        - asset: assets/fonts/bebas_bold.otf
-          weight: 700
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/poppins_regular.ttf
-        - asset: assets/fonts/poppins_bold.ttf
-          weight: 700
+  # fonts:
+  #   - family: Bebas
+  #     fonts:
+  #       - asset: assets/fonts/bebas_regular.otf
+  #       - asset: assets/fonts/bebas_bold.otf
+  #         weight: 700
+  #   - family: Poppins
+  #     fonts:
+  #       - asset: assets/fonts/poppins_regular.ttf
+  #       - asset: assets/fonts/poppins_bold.ttf
+  #         weight: 700
   #  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

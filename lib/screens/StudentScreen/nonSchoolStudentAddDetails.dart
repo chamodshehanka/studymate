@@ -1,8 +1,13 @@
 //import 'package:flushbar/flushbar.dart';
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 //import 'package:googleapis/servicecontrol/v1.dart';
 //import 'package:studymate/auth.dart';
 //import 'package:studymate/models/Student.dart';
@@ -19,8 +24,14 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
+  final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   var type;
+   List<Student> studentList;
+  StudentService studentService = StudentService();
+  StreamSubscription<QuerySnapshot> studentSubscription;
+  List<String> genderTypeList;
+  //List<String> studentList;
   
 
   bool _autoValidate = false;
@@ -28,6 +39,20 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
   @override
   void initState() {
     super.initState();
+       
+     studentList = List();
+    studentSubscription?.cancel();
+    studentSubscription =
+        studentService.getStudentList().listen((QuerySnapshot snapshot) {
+      final List<Student> students = snapshot.documents
+          .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.studentList = students;
+      });
+    });
+
+    genderTypeList = ['Male', 'Female'];
   }
 
   Widget build(BuildContext context) {
@@ -52,7 +77,10 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
     final lastName = StudymateTextField("Last Name", _lastName,
      "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
 
-     
+    final birthday = StudymateTextField("Birthday (dd/mm/yyyy)", _birthday,
+     "name", false, Colors.grey, TextInputType.text, Icon(Icons.calendar_view_day,color: Colors.grey,));
+ 
+
 
     final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
      "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
@@ -61,14 +89,13 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
   
  
 
-  
-   
-
     final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
        _emailSignUp(
               firstName: _firstName.text,
               lastName: _lastName.text,
+              birthday: _birthday.text,
               phoneNumber: _phoneNumber.text,
+              type: type,
               
               context: context)
     }, Colors.deepPurple);
@@ -94,7 +121,8 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
                       SizedBox(height: 24.0),
                       lastName,
                       SizedBox(height: 24.0),
-                       SizedBox(height: 24.0),
+                      birthday,
+                      SizedBox(height: 24.0),
                       Padding(
               padding: const EdgeInsets.all(18.0),
               child: DropdownButtonFormField<String>(
@@ -122,9 +150,7 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
                 },
               ),
             ),
-                      SizedBox(height: 24.0),
-        
-                        
+                      SizedBox(height: 24.0), 
                            
                       phoneNumber,
                       SizedBox(height: 24.0),
@@ -150,8 +176,9 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
   void _emailSignUp(
       {String firstName,
       String lastName,
+      String birthday,
       String phoneNumber,
-      String password,
+      var type,
       BuildContext context}) async {
     if (_formKey.currentState.validate()) {
       try {

@@ -4,13 +4,12 @@ import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
-
 class ChangePasswordScreen extends StatefulWidget {
   _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _newPassword = new TextEditingController();
   final TextEditingController _confirmNewPassword = new TextEditingController();
 
@@ -36,19 +35,34 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           )),
     );
 
-    final newPassword = StudymateTextField("New Password", _newPassword,
-     "password", true, Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
+    final newPassword = StudymateTextField(
+        "New Password",
+        _newPassword,
+        "password",
+        true,
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.lock,
+          color: Colors.grey,
+        ));
 
-    final confirmNewPassword = StudymateTextField("Confirm New Password", _confirmNewPassword,
-     "confirm password", true, Colors.grey, TextInputType.text, Icon(Icons.lock,color: Colors.grey,));
- 
+    final confirmNewPassword = StudymateTextField(
+        "Confirm New Password",
+        _confirmNewPassword,
+        "confirm password",
+        true,
+        Colors.grey,
+        TextInputType.text,
+        Icon(
+          Icons.lock,
+          color: Colors.grey,
+        ));
 
-
-    final changePasswordButton = StudymateRaisedButton("Change Password", ()=>{
-     Navigator.of(context).pushNamed("/accountType")
-    }, Colors.deepPurple);
-    
-
+    final changePasswordButton = StudymateRaisedButton(
+        "Change Password",
+        () => {Navigator.of(context).pushNamed("/accountType")},
+        Colors.deepPurple);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -96,7 +110,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   // //       // await _changeLoadingVisible();
   // //       // Flushbar(
   // //       //   title: "Password Reset Email Sent",
-  // //       //   message: 
+  // //       //   message:
   // //       //       'Check your email and follow the instructions to reset your password.',
   // //       //   duration: Duration(seconds: 20)
   // //       // )..show(context);
@@ -109,9 +123,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   //       //   message: exception,
   //       //   duration: Duration(seconds: 10),
   //       // )..show(context);
-    //   }
-    // } else {
-    //   setState(() => _autoValidate = true);
-    // }
- // }
+  //   }
+  // } else {
+  //   setState(() => _autoValidate = true);
+  // }
+  // }
 }

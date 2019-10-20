@@ -1,4 +1,3 @@
-    
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +6,6 @@ import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
-
 class ForgotPasswordScreen extends StatefulWidget {
   _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
@@ -15,7 +13,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = new TextEditingController();
- 
+
   String userEmail;
   bool _autoValidate = false;
   bool _loadingVisible = false;
@@ -40,16 +38,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           )),
     );
 
-    final email = StudymateTextField("Email", _email,
-     "email", false, Colors.grey, TextInputType.emailAddress, Icon(Icons.email,color: Colors.grey,));
+    final email = StudymateTextField(
+        "Email",
+        _email,
+        "email",
+        false,
+        Colors.grey,
+        TextInputType.emailAddress,
+        Icon(
+          Icons.email,
+          color: Colors.grey,
+        ));
 
-
-    final forgotPasswordButton = StudymateRaisedButton("Forgot Password", ()=>{
-     
-     Authentication().forgotPasswordEmail(email.textEditingController.text)
-      
-    }, Colors.deepPurple);
-    
+    final forgotPasswordButton = StudymateRaisedButton(
+        "Forgot Password",
+        () => {
+              Authentication()
+                  .forgotPasswordEmail(email.textEditingController.text)
+            },
+        Colors.deepPurple);
 
     final signInLabel = FlatButton(
       child: Text(
@@ -62,6 +69,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Forgot password'),
+      ),
       backgroundColor: Colors.white,
       body: LoadingScreen(
           child: Form(
@@ -105,11 +115,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         await Authentication().forgotPasswordEmail(email);
         await _changeLoadingVisible();
         Flushbar(
-          title: "Password Reset Email Sent",
-          message: 
-              'Check your email and follow the instructions to reset your password.',
-          duration: Duration(seconds: 20)
-        )..show(context);
+            title: "Password Reset Email Sent",
+            message:
+                'Check your email and follow the instructions to reset your password.',
+            duration: Duration(seconds: 20))
+          ..show(context);
       } catch (e) {
         _changeLoadingVisible();
         print("Forgot Password Error: $e");
