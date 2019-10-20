@@ -21,7 +21,6 @@ class ProfileUIScreen extends StatefulWidget {
 }
 
 class _ProfileUIScreenState extends State<ProfileUIScreen> {
-   
   Color gradientStar = Colors.orange[200];
   BaseAuthentication _authentication = Authentication();
 
@@ -30,8 +29,7 @@ class _ProfileUIScreenState extends State<ProfileUIScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-    Stack(
+      body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
           Column(
@@ -159,16 +157,14 @@ class _ProfileUIScreenState extends State<ProfileUIScreen> {
           ),
         ],
       ),
-       floatingActionButton: FloatingActionButton(
-        
+      floatingActionButton: FloatingActionButton(
         child: Icon(Icons.close, color: Colors.white),
         onPressed: () {
           _authentication.signOut();
           Navigator.pushNamed(context, '/welcome');
         },
-
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      );
+    );
   }
 }
