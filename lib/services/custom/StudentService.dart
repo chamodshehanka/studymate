@@ -40,19 +40,6 @@ class StudentService {
     });
   }
 
-  //   static Future<Student> getUserFirestore(String userId) async {
-  //   if (userId != null) {
-  //     return Firestore.instance
-  //         .collection('student')
-  //         .document(userId)
-  //         .get()
-  //         .then((documentSnapshot) => Student.fromMap();
-  //   } else {
-  //     print('firestore studentId can not be null');
-  //     return null;
-  //   }
-  // }
-
   Future<DocumentSnapshot> getByID(String uid) {
     return studentsCollection.document(uid).get();
   }
