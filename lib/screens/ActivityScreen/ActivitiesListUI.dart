@@ -3,12 +3,12 @@ import 'package:studymate/screens/ActivityScreen/tabs/LeisureActivityTab.dart';
 import 'package:studymate/screens/ActivityScreen/tabs/OtherActivityTab.dart';
 import 'package:studymate/screens/ActivityScreen/tabs/SocialActivityTab.dart';
 
-class ActivityScreen extends StatefulWidget {
+class ActivityListScreen extends StatefulWidget {
 
-  _ActivityScreenState createState() => _ActivityScreenState();
+  _ActivityListScreenState createState() => _ActivityListScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> {
+class _ActivityListScreenState extends State<ActivityListScreen> {
   
   @override
   Widget build(BuildContext context) {
