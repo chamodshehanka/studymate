@@ -15,32 +15,32 @@ import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
 
-
 class NonSchoolStudentAddDetailsScreen extends StatefulWidget {
-  _NonSchoolStudentAddDetailsScreenState createState() => _NonSchoolStudentAddDetailsScreenState();
+  _NonSchoolStudentAddDetailsScreenState createState() =>
+      _NonSchoolStudentAddDetailsScreenState();
 }
 
-class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDetailsScreen> {
+class _NonSchoolStudentAddDetailsScreenState
+    extends State<NonSchoolStudentAddDetailsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _firstName = new TextEditingController();
   final TextEditingController _lastName = new TextEditingController();
   final TextEditingController _birthday = new TextEditingController();
   final TextEditingController _phoneNumber = new TextEditingController();
   var type;
-   List<Student> studentList;
+  List<Student> studentList;
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> studentSubscription;
   List<String> genderTypeList;
   //List<String> studentList;
-  
 
   bool _autoValidate = false;
   bool _loadingVisible = false;
   @override
   void initState() {
     super.initState();
-       
-     studentList = List();
+
+    studentList = List();
     studentSubscription?.cancel();
     studentSubscription =
         studentService.getStudentList().listen((QuerySnapshot snapshot) {
@@ -71,35 +71,54 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
           )),
     );
 
-    final firstName = StudymateTextField("First Name", _firstName,
-     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+    final firstName = StudymateTextField(
+        labelText: "First Name",
+        textEditingController: _firstName,
+        validation: "name",
+        icon: Icon(
+          Icons.person,
+          color: Colors.grey,
+        ));
 
-    final lastName = StudymateTextField("Last Name", _lastName,
-     "name", false, Colors.grey, TextInputType.text, Icon(Icons.person,color: Colors.grey,));
+    final lastName = StudymateTextField(
+        labelText: "Last Name",
+        textEditingController: _lastName,
+        validation: "name",
+        icon: Icon(
+          Icons.person,
+          color: Colors.grey,
+        ));
 
-    final birthday = StudymateTextField("Birthday (dd/mm/yyyy)", _birthday,
-     "name", false, Colors.grey, TextInputType.text, Icon(Icons.calendar_view_day,color: Colors.grey,));
- 
+    final birthday = StudymateTextField(
+        labelText: "Birthday (dd/mm/yyyy)",
+        textEditingController: _birthday,
+        validation: "name",
+        icon: Icon(
+          Icons.calendar_view_day,
+          color: Colors.grey,
+        ));
 
+    final phoneNumber = StudymateTextField(
+        labelText: "Phone Number",
+        textEditingController: _phoneNumber,
+        validation: "phone",
+        icon: Icon(
+          Icons.phone_android,
+          color: Colors.grey,
+        ));
 
-    final phoneNumber = StudymateTextField("Phone Number", _phoneNumber,
-     "phone", false, Colors.grey, TextInputType.text, Icon(Icons.phone_android,color: Colors.grey,));
-
-  
-  
- 
-
-    final signUpButton = StudymateRaisedButton("Sign Up", ()=>{
-       _emailSignUp(
-              firstName: _firstName.text,
-              lastName: _lastName.text,
-              birthday: _birthday.text,
-              phoneNumber: _phoneNumber.text,
-              type: type,
-              
-              context: context)
-    }, Colors.deepPurple);
-    
+    final signUpButton = StudymateRaisedButton(
+        "Sign Up",
+        () => {
+              _emailSignUp(
+                  firstName: _firstName.text,
+                  lastName: _lastName.text,
+                  birthday: _birthday.text,
+                  phoneNumber: _phoneNumber.text,
+                  type: type,
+                  context: context)
+            },
+        Colors.deepPurple);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -124,39 +143,36 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
                       birthday,
                       SizedBox(height: 24.0),
                       Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: DropdownButtonFormField<String>(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 5.0),
-                      child: Icon(Icons.person, color: Colors.grey),
-                    )),
-                value: type,
-                hint: Text('Gender'),
-                items: ["Male", "Female"]
-                    .map((label) => DropdownMenuItem(
-                          child: Text(label),
-                          value: label,
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() => type = value);
-                },
-              ),
-            ),
-                      SizedBox(height: 24.0), 
-                           
+                        padding: const EdgeInsets.all(18.0),
+                        child: DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                borderSide: BorderSide(),
+                              ),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 10.0, 20.0, 10.0),
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only(left: 5.0),
+                                child: Icon(Icons.person, color: Colors.grey),
+                              )),
+                          value: type,
+                          hint: Text('Gender'),
+                          items: ["Male", "Female"]
+                              .map((label) => DropdownMenuItem(
+                                    child: Text(label),
+                                    value: label,
+                                  ))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() => type = value);
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 24.0),
                       phoneNumber,
                       SizedBox(height: 24.0),
-                      
                       signUpButton,
-                      
                     ],
                   ),
                 ),
@@ -184,7 +200,7 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
       try {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
- 
+
         // await Auth.signUp(email, password).then((uID) {
         //   Auth.addUserSettingsDB(new User(
         //     userId: uID,
@@ -193,7 +209,7 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
         //     lastName: lastName,
         //   ));
         // });
-      
+
         await Navigator.pushNamed(context, '/home');
       } catch (e) {
         _changeLoadingVisible();
@@ -209,6 +225,4 @@ class _NonSchoolStudentAddDetailsScreenState extends State<NonSchoolStudentAddDe
       setState(() => _autoValidate = true);
     }
   }
-   
 }
-

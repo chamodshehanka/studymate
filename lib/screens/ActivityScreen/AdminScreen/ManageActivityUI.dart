@@ -74,13 +74,10 @@ class _ManageActivityScreenState extends State<ManageActivityScreen> {
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: StudymateTextField(
-                    'Activity Name',
-                    nameController,
-                    'name',
-                    false,
-                    Colors.grey,
-                    TextInputType.text,
-                    Icon(Icons.local_activity, color: Colors.grey)),
+                    labelText: 'Activity Name',
+                    textEditingController: nameController,
+                    validation: 'name',
+                    icon: Icon(Icons.local_activity, color: Colors.grey)),
               ),
               Padding(
                   padding: EdgeInsets.all(8.0),

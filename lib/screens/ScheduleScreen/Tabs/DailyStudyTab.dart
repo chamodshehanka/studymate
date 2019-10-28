@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,7 +11,6 @@ import 'package:studymate/services/custom/StudentService.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
-
 class DailyStudyTab extends StatefulWidget {
   DailyStudyTab();
 
@@ -23,7 +21,7 @@ class DailyStudyTab extends StatefulWidget {
 class _DailyStudyTabState extends State<DailyStudyTab> {
   ScheduleService scheduleService = new ScheduleService();
   StudentService studentService = new StudentService();
-  
+
   BaseAuthentication baseAuthentication = Authentication();
   StreamSubscription<QuerySnapshot> dailyTaskSubscription;
   String studentId;
@@ -37,20 +35,27 @@ class _DailyStudyTabState extends State<DailyStudyTab> {
       setState(() {
         studentId = user.toString();
         int today = DateTime.now().weekday;
-        switch(today){
-          case 1:day = "monday";
+        switch (today) {
+          case 1:
+            day = "monday";
             break;
-          case 2:day = "tuesday";
+          case 2:
+            day = "tuesday";
             break;
-          case 3:day = "wednesday";
+          case 3:
+            day = "wednesday";
             break;
-          case 4:day = "thursday";
+          case 4:
+            day = "thursday";
             break;
-          case 5:day = "friday";
+          case 5:
+            day = "friday";
             break;
-          case 6:day = "saturday";
+          case 6:
+            day = "saturday";
             break;
-          case 7:day = "sunday";
+          case 7:
+            day = "sunday";
             break;
         }
       });
@@ -67,7 +72,6 @@ class _DailyStudyTabState extends State<DailyStudyTab> {
           this.todayStudyTaskList = tasks;
         });
       });
-      
     });
   }
 
@@ -79,22 +83,24 @@ class _DailyStudyTabState extends State<DailyStudyTab> {
 
   @override
   Widget build(BuildContext context) {
-Card makeCard(ScheduleTask studyTask) => Card(
-          elevation: 8.0,
-          margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-          child: Slidable(child: Container(
+    Card makeCard(ScheduleTask studyTask) => Card(
+        elevation: 8.0,
+        margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+        child: Slidable(
+          child: Container(
             decoration: BoxDecoration(color: Colors.deepPurpleAccent),
             child: buildTilesList(studyTask),
           ),
           actionPane: SlidableDrawerActionPane(),
           secondaryActions: <Widget>[
-            IconSlideAction(caption: 'Add Daily Progress',
-            color: Colors.greenAccent,
-            icon: Icons.create,
-            onTap: ()=> addTaskProgress(studyTask),),
-          ],)
-         
-        );
+            IconSlideAction(
+              caption: 'Add Daily Progress',
+              color: Colors.greenAccent,
+              icon: Icons.create,
+              onTap: () => addTaskProgress(studyTask),
+            ),
+          ],
+        ));
 
     final dailyStudyTabBody = Container(
       child: ListView.builder(
@@ -111,21 +117,25 @@ Card makeCard(ScheduleTask studyTask) => Card(
       backgroundColor: Colors.white10,
     );
   }
-    void addTaskProgress(ScheduleTask task) {
-        DateTime date = DateTime.now();
 
-  
+  void addTaskProgress(ScheduleTask task) {
+    DateTime date = DateTime.now();
 
-        String today = (date.year.toString()+"-"+date.month.toString()+"-"+date.day.toString());
-        DateTime start = DateTime.parse(task.start);
-        DateTime end = DateTime.parse(task.end);
-        Duration duration = end.difference(start);
-  
-         showDialog(
-              context: context,
-              builder: (_) {
-                return AddProgressDialog(studentId,task,today,duration.inMinutes.toString());
-              });
+    String today = (date.year.toString() +
+        "-" +
+        date.month.toString() +
+        "-" +
+        date.day.toString());
+    DateTime start = DateTime.parse(task.start);
+    DateTime end = DateTime.parse(task.end);
+    Duration duration = end.difference(start);
+
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AddProgressDialog(
+              studentId, task, today, duration.inMinutes.toString());
+        });
   }
 }
 
@@ -159,19 +169,17 @@ class AddProgressDialog extends StatefulWidget {
   final String today;
   final String duration;
 
-  AddProgressDialog(this.studentId,this.task,this.today,this.duration);
+  AddProgressDialog(this.studentId, this.task, this.today, this.duration);
   @override
   _AddProgressDialogState createState() => new _AddProgressDialogState();
 }
-class _AddProgressDialogState extends State<AddProgressDialog> {
 
-  
+class _AddProgressDialogState extends State<AddProgressDialog> {
   final _formKey = GlobalKey<FormState>();
 
   var scheduledDuration;
   TextEditingController completeController = new TextEditingController();
   TextEditingController remarksController = new TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -182,21 +190,37 @@ class _AddProgressDialogState extends State<AddProgressDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(height: 24),
-            StudymateTextField("Completed Time",completeController,"text",true,Colors.grey,TextInputType.text,Icon(Icons.lock,color: Colors.grey,)),
+            StudymateTextField(
+                labelText: "Completed Time",
+                textEditingController: completeController,
+                validation: "text",
+                icon: Icon(
+                  Icons.lock,
+                  color: Colors.grey,
+                )),
             SizedBox(height: 24),
-            StudymateTextField("Remarks", remarksController,"" , false, Colors.grey,TextInputType.text, Icon(Icons.lock,color: Colors.grey,)),
-          
-
-         
-
+            StudymateTextField(
+                labelText: "Remarks",
+                textEditingController: remarksController,
+                validation: "",
+                icon: Icon(
+                  Icons.lock,
+                  color: Colors.grey,
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: StudymateRaisedButton("Add Progress", () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-                  
-                  prefix0.ScheduleService().addTaskProgress(widget.studentId, widget.task.name, int.parse(completeController.text), int.parse(widget.duration),
-                  remarksController.text, widget.today,widget.task.type);
+
+                  prefix0.ScheduleService().addTaskProgress(
+                      widget.studentId,
+                      widget.task.name,
+                      int.parse(completeController.text),
+                      int.parse(widget.duration),
+                      remarksController.text,
+                      widget.today,
+                      widget.task.type);
                 }
               }, Colors.deepPurple),
             )
@@ -206,4 +230,3 @@ class _AddProgressDialogState extends State<AddProgressDialog> {
     );
   }
 }
-

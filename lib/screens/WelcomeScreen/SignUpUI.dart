@@ -35,13 +35,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     };
 
     _nameField = new StudymateTextField(
-        'Name',
-        _nameController,
-        null,
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(Icons.text_fields, color: Colors.grey));
+        labelText: 'Name',
+        textEditingController: _nameController,
+        validation: null,
+        icon: Icon(Icons.text_fields, color: Colors.grey));
 
     // _nameField = new StudymateTextField(
     //   'Name',

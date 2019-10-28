@@ -130,61 +130,46 @@ class _SchoolStudentAddDetailsScreenState
     );
 
     final firstName = StudymateTextField(
-        "First Name",
-        _firstName,
-        "name",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "First Name",
+        textEditingController: _firstName,
+        validation: "name",
+        icon: Icon(
           Icons.person,
           color: Colors.grey,
         ));
 
     final lastName = StudymateTextField(
-        "Last Name",
-        _lastName,
-        "name",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Last Name",
+        textEditingController: _lastName,
+        validation: "name",
+        icon: Icon(
           Icons.person,
           color: Colors.grey,
         ));
 
     final birthday = StudymateTextField(
-        "Birthday",
-        _birthday,
-        "birthday",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Birthday",
+        textEditingController: _birthday,
+        validation: "birthday",
+        icon: Icon(
           Icons.calendar_view_day,
           color: Colors.grey,
         ));
 
     final phoneNumber = StudymateTextField(
-        "Phone Number",
-        _phoneNumber,
-        "phone",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Phone Number",
+        textEditingController: _phoneNumber,
+        validation: "phone",
+        icon: Icon(
           Icons.phone_android,
           color: Colors.grey,
         ));
 
     final schoolName = StudymateTextField(
-        "School Name",
-        _schoolName,
-        "school",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "School Name",
+        textEditingController: _schoolName,
+        validation: "school",
+        icon: Icon(
           Icons.school,
           color: Colors.grey,
         ));
