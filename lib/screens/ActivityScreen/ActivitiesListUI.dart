@@ -4,12 +4,10 @@ import 'package:studymate/screens/ActivityScreen/tabs/OtherActivityTab.dart';
 import 'package:studymate/screens/ActivityScreen/tabs/SocialActivityTab.dart';
 
 class ActivityListScreen extends StatefulWidget {
-
   _ActivityListScreenState createState() => _ActivityListScreenState();
 }
 
 class _ActivityListScreenState extends State<ActivityListScreen> {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +37,7 @@ class _ActivityListScreenState extends State<ActivityListScreen> {
           //   child: Icon(Icons.show_chart),
           //   onPressed: () => Navigator.pushNamed(context, '/activityProgress'),
           // ),
-         ),
+        ),
       ),
     );
   }

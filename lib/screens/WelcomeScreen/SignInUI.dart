@@ -45,24 +45,20 @@ class _SignInScreenState extends State<SignInScreen> {
     mascotAnimationType = 'success';
 
     _emailField = StudymateTextField(
-        "Email Address",
-        emailController,
-        "email",
-        false,
-        Colors.grey,
-        TextInputType.emailAddress,
-        Icon(
+        labelText: "Email Address",
+        textEditingController: emailController,
+        validation: "email",
+        keyboardType: TextInputType.emailAddress,
+        icon: Icon(
           Icons.email,
           color: Colors.grey,
         ));
     _passwordField = StudymateTextField(
-        "Password",
-        passwordController,
-        "password",
-        true,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Password",
+        textEditingController: passwordController,
+        validation: "password",
+        obscureText: true,
+        icon: Icon(
           Icons.lock,
           color: Colors.grey,
         ));
