@@ -7,6 +7,8 @@ class RewardDashboardScreen extends StatefulWidget {
 class _RewardDashboardScreenState extends State<RewardDashboardScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(),
+    );
   }
 }
