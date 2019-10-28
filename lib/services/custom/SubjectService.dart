@@ -8,9 +8,6 @@ final CollectionReference subjectCollection =
     Firestore.instance.collection(CommonConstants.subjectCollectionName);
 
 class SubjectService {
-  // static final SubejectService _SubjectService = SubjectService();
-  // factory SubjectService() => _subjectService;
-
   Future<Subject> createSubject(String name, String type) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(subjectCollection.document());
@@ -87,7 +84,6 @@ class SubjectService {
     };
 
     return Firestore.instance
-    
         .runTransaction(updateTransaction)
         .then((result) => result['updated'])
         .catchError((error) {
