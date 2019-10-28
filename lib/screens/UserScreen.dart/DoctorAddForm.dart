@@ -49,109 +49,87 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
     );
 
     final firstName = StudymateTextField(
-        "First Name",
-        _firstName,
-        "name",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "First Name",
+        textEditingController: _firstName,
+        validation: "name",
+        icon: Icon(
           Icons.person,
           color: Colors.grey,
         ));
 
     final lastName = StudymateTextField(
-        "Last Name",
-        _lastName,
-        "name",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Last Name",
+        textEditingController: _lastName,
+        validation: "name",
+        icon: Icon(
           Icons.person,
           color: Colors.grey,
         ));
 
     final nicNumber = StudymateTextField(
-        "NIC number",
-        _nicNumber,
-        "NIC number",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "NIC number",
+        textEditingController: _nicNumber,
+        validation: "NIC number",
+        icon: Icon(
           Icons.credit_card,
           color: Colors.grey,
         ));
 
     final slmcRegNumber = StudymateTextField(
-        "SLMC reg number",
-        _slmcRegNumber,
-        "SLMC reg number",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "SLMC reg number",
+        textEditingController: _slmcRegNumber,
+        validation: "SLMC reg number",
+        icon: Icon(
           Icons.credit_card,
           color: Colors.grey,
         ));
 
     final email = StudymateTextField(
-        "Email",
-        _email,
-        "email",
-        false,
-        Colors.grey,
-        TextInputType.emailAddress,
-        Icon(
+        labelText: "Email",
+        textEditingController: _email,
+        validation: "email",
+        keyboardType: TextInputType.emailAddress,
+        icon: Icon(
           Icons.email,
           color: Colors.grey,
         ));
 
     final password = StudymateTextField(
-        'Password',
-        _password,
-        'password',
-        true,
-        Colors.grey,
-        TextInputType.visiblePassword,
-        Icon(
+        labelText: 'Password',
+        textEditingController: _password,
+        validation: 'password',
+        obscureText: true,
+        keyboardType: TextInputType.visiblePassword,
+        icon: Icon(
           Icons.lock,
           color: Colors.grey,
         ));
 
     final confirmPassword = StudymateTextField(
-        'Confirm password',
-        _confirmPassword,
-        'password',
-        true,
-        Colors.grey,
-        TextInputType.visiblePassword,
-        Icon(
+        labelText: 'Confirm password',
+        textEditingController: _confirmPassword,
+        validation: 'password',
+        obscureText: true,
+        keyboardType: TextInputType.visiblePassword,
+        icon: Icon(
           Icons.lock,
           color: Colors.grey,
         ));
 
     final phoneNumber = StudymateTextField(
-        "Phone Number",
-        _phoneNumber,
-        "phone number",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Phone Number",
+        textEditingController: _phoneNumber,
+        validation: "phone number",
+        icon: Icon(
           Icons.phone,
           color: Colors.grey,
         ));
 
     final workingPlace = StudymateTextField(
-        "Working palce",
-        _workingPlace,
-        "working place",
-        false,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Working palce",
+        textEditingController: _workingPlace,
+        validation: "working place",
+        icon: Icon(
           Icons.place,
           color: Colors.grey,
         ));

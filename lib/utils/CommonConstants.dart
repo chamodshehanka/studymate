@@ -9,6 +9,7 @@ class CommonConstants extends InheritedWidget {
   static final String adminsCollectionName = 'admins';
   static final String preferredActivitiesCollectionName = 'preferredActivities';
   static final String socialActivitiesCollectionName = 'socialActivities';
+  static final String subjectCollectionName = 'Subjects';
   static final String leisureActivitiesCollectionName = 'leisureActivities';
   static final String activityProgressCollectionName = 'ActivityProgress';
   static final String doctorCollectionName = 'doctors';

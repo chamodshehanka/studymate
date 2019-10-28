@@ -82,16 +82,20 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
           ),
         );
 
-    final activityTabBody = Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: activityList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeCard(activityList[index]);
-        },
-      ),
-    );
+    final activityTabBody = activityList != null
+        ? Container(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: activityList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return makeCard(activityList[index]);
+              },
+            ),
+          )
+        : Container(
+            child: Text('Activities are not available!!'),
+          );
 
     return Scaffold(backgroundColor: Colors.white10, body: activityTabBody);
   }

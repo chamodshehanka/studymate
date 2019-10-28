@@ -35,7 +35,6 @@ class _ManageStudentScreenState extends State<ManageStudentScreen> {
     schoolName.text = widget.student.schoolName;
     birthday.text = widget.student.birthday;
     type.text = widget.student.birthday;
-
   }
 
   @override
@@ -58,8 +57,8 @@ class _ManageStudentScreenState extends State<ManageStudentScreen> {
             builder: (BuildContext context) {
               return StudymateDialogBox(
                 title: 'Are you sure?',
-                description: widget.student.firstName +
-                    ' student will be deleted!',
+                description:
+                    widget.student.firstName + ' student will be deleted!',
                 confirmation: true,
                 confirmationAction: studentDeleteAction,
                 tigerAnimationType: 'fail',
@@ -82,38 +81,26 @@ class _ManageStudentScreenState extends State<ManageStudentScreen> {
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: StudymateTextField(
-                    'First name',
-                    firstName,
-                    'text',
-                    false,
-                    Colors.grey,
-                    TextInputType.text,
-                    Icon(Icons.person, color: Colors.grey)),
-                
+                    labelText: 'First name',
+                    textEditingController: firstName,
+                    validation: 'text',
+                    icon: Icon(Icons.person, color: Colors.grey)),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: StudymateTextField(
-                    'Phone number',
-                    phoneNumber,
-                    'text',
-                    false,
-                    Colors.grey,
-                    TextInputType.text,
-                    Icon(Icons.phone_android, color: Colors.grey)),
-                
+                    labelText: 'Phone number',
+                    textEditingController: phoneNumber,
+                    validation: 'text',
+                    icon: Icon(Icons.phone_android, color: Colors.grey)),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: StudymateTextField(
-                    'School name',
-                    schoolName,
-                    'text',
-                    false,
-                    Colors.grey,
-                    TextInputType.text,
-                    Icon(Icons.school, color: Colors.grey)),
-                
+                    labelText: 'School name',
+                    textEditingController: schoolName,
+                    validation: 'text',
+                    icon: Icon(Icons.school, color: Colors.grey)),
               ),
               // Padding(
               //   padding: EdgeInsets.all(8.0),
@@ -125,9 +112,9 @@ class _ManageStudentScreenState extends State<ManageStudentScreen> {
               //       Colors.grey,
               //       TextInputType.text,
               //       Icon(Icons.calendar_view_day, color: Colors.grey)),
-                
+
               // ),
-             
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -146,21 +133,16 @@ class _ManageStudentScreenState extends State<ManageStudentScreen> {
 
                           if (widget.student.id != null) {
                             Student updatedStudent = Student(
-                               widget.student.id,
-                               firstName.text,
-                               lastName.text,
-                               email.text,
-                               true,
-                               phoneNumber.text,
-                               schoolName.text,
-                               birthday.text,
-                               type.text,
-
-
-                                
-
-
-                                );
+                              widget.student.id,
+                              firstName.text,
+                              lastName.text,
+                              email.text,
+                              true,
+                              phoneNumber.text,
+                              schoolName.text,
+                              birthday.text,
+                              type.text,
+                            );
 
                             Future isUpdated =
                                 studentService.updateStudent(updatedStudent);

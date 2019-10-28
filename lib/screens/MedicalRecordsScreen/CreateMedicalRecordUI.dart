@@ -42,13 +42,10 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
             child: Container(
               width: 255,
               child: StudymateTextField(
-                  'Student Name',
-                  _studentNameController,
-                  'name',
-                  false,
-                  Colors.grey,
-                  TextInputType.text,
-                  Icon(Icons.search, color: Colors.grey)),
+                  labelText: 'Student Name',
+                  textEditingController: _studentNameController,
+                  validation: 'name',
+                  icon: Icon(Icons.search, color: Colors.grey)),
             ),
           ),
           Padding(
@@ -56,19 +53,22 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
             child: Container(
               width: 255,
               child: StudymateTextField(
-                  'Doctor Name',
-                  _doctorNameController,
-                  'name',
-                  false,
-                  Colors.grey,
-                  TextInputType.text,
-                  Icon(Icons.search, color: Colors.grey)),
+                  labelText: 'Doctor Name',
+                  textEditingController: _doctorNameController,
+                  validation: 'name',
+                  icon: Icon(Icons.search, color: Colors.grey)),
             ),
           ),
-          StudymateTextField('Record Details', _recordDetailsController, 'name',
-              false, Colors.grey, TextInputType.text, Icon(Icons.comment)),
-          StudymateTextField('Record Details', _commentController, 'name',
-              false, Colors.grey, TextInputType.text, Icon(Icons.comment)),
+          StudymateTextField(
+              labelText: 'Record Details',
+              textEditingController: _recordDetailsController,
+              validation: 'name',
+              icon: Icon(Icons.comment)),
+          StudymateTextField(
+              labelText: 'Record Details',
+              textEditingController: _commentController,
+              validation: 'name',
+              icon: Icon(Icons.comment)),
           Container(),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,8 +124,7 @@ class _CreateMedicalRecordScreenState extends State<CreateMedicalRecordScreen> {
     isAdded.then((value) {
       if (value != null) {
         Navigator.pop(context);
-      }
-      else {
+      } else {
         print("Didnt add");
       }
     });

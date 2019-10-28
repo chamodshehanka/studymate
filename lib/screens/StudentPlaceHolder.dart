@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
+import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
-
-import 'HomeScreen/HomeUI.dart';
 
 class StudentPlaceholder extends StatefulWidget {
   final int index;
@@ -24,7 +23,7 @@ class _StudentPlaceholderState extends State<StudentPlaceholder> {
         break;
 
       case 2:
-        return ActivityScreen();
+        return ActivityListScreen();
         break;
 
       default:

@@ -143,16 +143,11 @@ class _StudymateDialogState extends State<StudymateDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             StudymateTextField(
-                'Activity Name',
-                nameController,
-                'name',
-                false,
-                Colors.grey,
-                TextInputType.text,
-                Icon(
-                  Icons.local_activity,
-                  color: Colors.grey,
-                )),
+              labelText: 'Activity Name',
+              textEditingController: nameController,
+              validation: 'name',
+              icon: Icon(Icons.local_activity, color: Colors.grey),
+            ),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: DropdownButtonFormField<String>(

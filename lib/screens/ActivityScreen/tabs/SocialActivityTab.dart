@@ -92,20 +92,27 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
           ),
         );
 
-    final avtivityBody = Container(
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: socialActivityList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return makeCard(socialActivityList[index]);
-        },
-      ),
-    );
+    final activityBody = socialActivityList != null
+        ? Container(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: socialActivityList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return makeCard(socialActivityList[index]);
+              },
+            ),
+          )
+        : Container(
+            alignment: Alignment.center,
+            child: Text(
+              'Social Activities are not available!!',
+              style: TextStyle(backgroundColor: Colors.red, fontSize: 15),
+            ));
 
     return Scaffold(
       backgroundColor: Colors.white10,
-      body: avtivityBody,
+      body: activityBody,
     );
   }
 

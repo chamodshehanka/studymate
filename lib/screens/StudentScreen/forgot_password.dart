@@ -39,13 +39,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     );
 
     final email = StudymateTextField(
-        "Email",
-        _email,
-        "email",
-        false,
-        Colors.grey,
-        TextInputType.emailAddress,
-        Icon(
+        labelText: "Email",
+        textEditingController: _email,
+        validation: "email",
+        icon: Icon(
           Icons.email,
           color: Colors.grey,
         ));

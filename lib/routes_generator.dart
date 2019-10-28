@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/ActivityScreen/ActivitiesUI.dart';
+import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityDashboardUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ActivityAdminDashboardUI.dart';
@@ -57,7 +57,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => ActivityAdminDashboardScreen());
       case '/activity':
-        return MaterialPageRoute(builder: (_) => ActivityScreen());
+        return MaterialPageRoute(builder: (_) => ActivityListScreen());
       case '/adminActivityList':
         return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
@@ -72,7 +72,7 @@ class RouteGenerator {
       case '/homeAdmin':
         return MaterialPageRoute(builder: (_) => HomeScreenAdmin());
       case '/forgotPassword':
-        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());  
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case '/medicalRecord':
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       case '/createMedicalRecord':

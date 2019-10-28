@@ -42,37 +42,31 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
     );
 
     final email = StudymateTextField(
-        "Email",
-        _email,
-        "email",
-        false,
-        Colors.grey,
-        TextInputType.emailAddress,
-        Icon(
+        labelText: "Email",
+        textEditingController: _email,
+        validation: "email",
+        keyboardType: TextInputType.emailAddress,
+        icon: Icon(
           Icons.email,
           color: Colors.grey,
         ));
 
     final password = StudymateTextField(
-        "Password",
-        _password,
-        "password",
-        true,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Password",
+        textEditingController: _password,
+        validation: "password",
+        obscureText: true,
+        icon: Icon(
           Icons.lock,
           color: Colors.grey,
         ));
 
     final confirmPassword = StudymateTextField(
-        "Confirm password",
-        _confirmPassword,
-        "confirmPassword",
-        true,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Confirm password",
+        textEditingController: _confirmPassword,
+        validation: "confirmPassword",
+        obscureText: true,
+        icon: Icon(
           Icons.lock,
           color: Colors.grey,
         ));
@@ -137,8 +131,8 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         await _changeLoadingVisible();
 
-       Student student=
-            Student('id', null, null, email, null, null, null, null,null);
+        Student student =
+            Student('id', null, null, email, null, null, null, null, null);
 
         _authentication.signUp(email, password, 'student', student);
         await Navigator.pushNamed(context, '/homeAdmin');

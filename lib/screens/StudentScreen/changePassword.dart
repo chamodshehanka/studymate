@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 import 'package:studymate/widgets/loading.dart';
@@ -36,25 +35,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
 
     final newPassword = StudymateTextField(
-        "New Password",
-        _newPassword,
-        "password",
-        true,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "New Password",
+        textEditingController: _newPassword,
+        validation: "password",
+        obscureText: true,
+        color: Colors.grey,
+        icon: Icon(
           Icons.lock,
           color: Colors.grey,
         ));
 
     final confirmNewPassword = StudymateTextField(
-        "Confirm New Password",
-        _confirmNewPassword,
-        "confirm password",
-        true,
-        Colors.grey,
-        TextInputType.text,
-        Icon(
+        labelText: "Confirm New Password",
+        textEditingController: _confirmNewPassword,
+        validation: "confirm password",
+        obscureText: true,
+        color: Colors.grey,
+        icon: Icon(
           Icons.lock,
           color: Colors.grey,
         ));
