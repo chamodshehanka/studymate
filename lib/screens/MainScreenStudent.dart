@@ -6,7 +6,7 @@ class StudentMainScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _StudentMainScreenState();
-  }
+  }  
 }
 
 class _StudentMainScreenState extends State<StudentMainScreen> {
