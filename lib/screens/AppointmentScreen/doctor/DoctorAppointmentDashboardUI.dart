@@ -14,6 +14,7 @@ class _DoctorAppointmentDashboardScreenState
         title: Text('Appointment Dashboard'),
         backgroundColor: Colors.deepPurpleAccent,
       ),
+      body: Container(),
     );
   }
 }
