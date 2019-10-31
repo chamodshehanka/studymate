@@ -45,6 +45,7 @@ dependencies:
   curved_navigation_bar:
   flutter_datetime_picker:
   fab_circular_menu: ^0.1.1
+  flurry_navigation: ^0.1.2
   
   flutter_local_notifications: ^0.8.4
   flutter_full_pdf_viewer: ^1.0.4
@@ -78,6 +79,14 @@ flutter:
     - assets/images/minion.png
     - assets/images/kids.png
     - assets/images/user.png
+    - assets/images/home.png
+    - assets/images/daily.png
+    - assets/images/chat.png
+    - assets/images/profile.png
+    - assets/images/appointment.png
+    - assets/images/subject.png
+    - assets/images/weekly.png
+    - assets/images/activities.png
     - assets/images/leisure.png
     - assets/images/speaking.jpg
     - assets/images/swimming.jpg

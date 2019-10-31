@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityDashboardUI.dart';
 import 'package:studymate/screens/ActivityScreen/ActivityProgressUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ActivityAdminDashboardUI.dart';
@@ -7,15 +6,12 @@ import 'package:studymate/screens/ActivityScreen/AdminScreen/ActivityReportUI.da
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/screens/ChatScreen/ChatUI.dart';
-import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
 import 'package:studymate/screens/MainScreenStudent.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/CreateMedicalRecordUI.dart';
 import 'package:studymate/screens/MedicalRecordsScreen/MedicalRecordUI.dart';
-import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/Reports/DailyReportGeneration.dart';
-import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
 import 'package:studymate/screens/StudentScreen/AccountTypeUI.dart';
 import 'package:studymate/screens/StudentScreen/changePassword.dart';
 import 'package:studymate/screens/StudentScreen/forgot_password.dart';
@@ -43,21 +39,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => WelcomeScreen());
       case '/signUp':
         return MaterialPageRoute(builder: (_) => SignUpScreen());
-      case '/home':
-        return MaterialPageRoute(builder: (_) => HomeScreen());
       case '/signin':
         return MaterialPageRoute(builder: (_) => SignInScreen());
       case '/accountType':
         return MaterialPageRoute(builder: (_) => AccountTypeScreen());
-      case '/daily':
-        return MaterialPageRoute(builder: (_) => DailyScheduleScreen());
       case '/activityDashboard':
         return MaterialPageRoute(builder: (_) => ActivityDashboardScreen());
       case '/adminActivityDashboard':
         return MaterialPageRoute(
             builder: (_) => ActivityAdminDashboardScreen());
-      case '/activity':
-        return MaterialPageRoute(builder: (_) => ActivityListScreen());
       case '/adminActivityList':
         return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
@@ -101,8 +91,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
       case '/studentMain':
         return MaterialPageRoute(builder: (_) => StudentMainScreen());
-      case '/weeklySchedule':
-        return MaterialPageRoute(builder: (_) => WeeklyPlanScreen());
       case '/studentDailyReport':
         return MaterialPageRoute(builder: (_) => ReportGeneration());
       default:
