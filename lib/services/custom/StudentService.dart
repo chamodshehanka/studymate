@@ -246,9 +246,9 @@ if(syllabus=='Grade 6-9'){
           await tx.get(Firestore.instance
               .collection(CommonConstants.studentsCollectionName)
               .document(studentId)
-              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
               .document(syllabus)
-              .collection(CommonConstants.socialActivitiesCollectionName)
+              .collection(CommonConstants.grade69SubjectsCollectionName)
               .document(preferredSubject.name));
         }
         else if(syllabus=='Ordinary Level'){
@@ -256,9 +256,9 @@ if(syllabus=='Grade 6-9'){
           await tx.get(Firestore.instance
               .collection(CommonConstants.studentsCollectionName)
               .document(studentId)
-              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
               .document(syllabus)
-              .collection(CommonConstants.socialActivitiesCollectionName)
+              .collection(CommonConstants.olSubjectsCollectionName)
               .document(preferredSubject.name));
         }
         else if(syllabus=='Advanced Level'){
@@ -266,9 +266,9 @@ if(syllabus=='Grade 6-9'){
           await tx.get(Firestore.instance
               .collection(CommonConstants.studentsCollectionName)
               .document(studentId)
-              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
               .document(syllabus)
-              .collection(CommonConstants.socialActivitiesCollectionName)
+              .collection(CommonConstants.alSubjectsCollectionName)
               .document(preferredSubject.name));
         }
 
@@ -301,9 +301,9 @@ if(syllabus=='Grade 6-9'){
           await tx.get(Firestore.instance
               .collection(CommonConstants.studentsCollectionName)
               .document(studentId)
-              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
               .document(syllabus)
-              .collection(CommonConstants.socialActivitiesCollectionName)
+              .collection(CommonConstants.grade69SubjectsCollectionName)
               .document(subjectName));
         }
         else if(syllabus=='Ordinary Level'){
@@ -311,9 +311,9 @@ if(syllabus=='Grade 6-9'){
           await tx.get(Firestore.instance
               .collection(CommonConstants.studentsCollectionName)
               .document(studentId)
-              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
               .document(syllabus)
-              .collection(CommonConstants.socialActivitiesCollectionName)
+              .collection(CommonConstants.olSubjectsCollectionName)
               .document(subjectName));
         }
         else if(syllabus=='Advanced Level'){
@@ -321,9 +321,9 @@ if(syllabus=='Grade 6-9'){
           await tx.get(Firestore.instance
               .collection(CommonConstants.studentsCollectionName)
               .document(studentId)
-              .collection(CommonConstants.preferredActivitiesCollectionName)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
               .document(syllabus)
-              .collection(CommonConstants.socialActivitiesCollectionName)
+              .collection(CommonConstants.alSubjectsCollectionName)
               .document(subjectName));
         }
 
