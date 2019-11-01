@@ -432,7 +432,7 @@ class _CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 10,
+      bottom: 0,
       left: 10,
       right: 10,
       // alignment: Alignment.bottomCenter,
