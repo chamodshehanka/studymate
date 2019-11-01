@@ -182,7 +182,7 @@ packages:
       name: flushbar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.0"
+    version: "1.9.1"
   flutter:
     dependency: "direct main"
     description: flutter
