@@ -1,6 +1,7 @@
 import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
 import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
 import 'package:studymate/screens/SubjectsScreen/SubjectListUI.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/widgets/Navigation/extended_navbar_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
@@ -14,6 +15,7 @@ class StudentMainScreen extends StatefulWidget {
 }
 
 class _StudentMainScreenState extends State<StudentMainScreen> {
+  BaseAuthentication _authentication = Authentication();
   Widget activeScreen = HomeScreen();
   @override
   Widget build(BuildContext context) {
@@ -84,8 +86,18 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
         
       ],
       searchWidget: Container(
-        height: 50,
-        color: Colors.redAccent,
+        height: 200,
+        child: Row(
+          children: <Widget>[
+            RaisedButton(
+              child: Icon(Icons.close),
+              onPressed: () {
+          _authentication.signOut();
+          Navigator.pushNamed(context, '/welcome');
+        },
+            ),
+          ],
+        ),
       ),
       // onTap: (button) {},
       // currentBottomBarCenterPercent: (currentBottomBarParallexPercent) {},

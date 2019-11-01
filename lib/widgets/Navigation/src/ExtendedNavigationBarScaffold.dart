@@ -628,12 +628,12 @@ class _CustomBottomNavigationBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Icon(
-                  Icons.search,
+                  Icons.settings,
                   size: 30,
                   color: navBarIconColor,
                 ),
                 Text(
-                  'Search',
+                  'Quick Access',
                   style: ktitleStyle.copyWith(
                     fontSize: 13,
                     color: navBarIconColor,
