@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/PreferredSubject.dart';
@@ -122,13 +123,20 @@ class _AdvancedLevelTabState extends State<AdvancedLevelTab> {
           bool isSubjectPreferred =
               isSubjectAlreadyPreferred(subject);
 
-          String snackBarMessage = 'Adding to List';
-          if (isSubjectPreferred) snackBarMessage = 'Removing from prefer';
+           String flushBarMessage;
+          if (isSubjectPreferred){
+            flushBarMessage = 'Removing from prefer';
+          }
+          else{
+            flushBarMessage = 'Adding to List';
+          }
+Flushbar(
+          message: flushBarMessage,
+          backgroundColor: Colors.deepPurple,
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+          duration: Duration(seconds: 3),
 
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text(snackBarMessage),
-            backgroundColor: Colors.deepPurple,
-          ));
+        )..show(context);
 
           // Pass subject
           PreferredSubject preferredSubject =
@@ -144,15 +152,19 @@ class _AdvancedLevelTabState extends State<AdvancedLevelTab> {
 
               // Preferred Subject Adding SnackBar
               if (isAdded != null) {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: new Text('Added to preferred List'),
-                  backgroundColor: Colors.green,
-                ));
+                 Flushbar(
+                message: 'Added to preferred List',
+                backgroundColor: Colors.green,
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
               } else {
-                Scaffold.of(context).showSnackBar(new SnackBar(
-                  content: new Text('Adding failed!'),
-                  backgroundColor: Colors.redAccent,
-                ));
+                 Flushbar(
+                message: 'Adding failed!',
+                backgroundColor: Colors.redAccent,
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
               }
             });
           } else {
@@ -165,15 +177,19 @@ class _AdvancedLevelTabState extends State<AdvancedLevelTab> {
                       studentId, subject.name, subject.type);
               isDeleted.then((result) {
                 if (result) {
-                  Scaffold.of(context).showSnackBar(new SnackBar(
-                    content: new Text('Successfully Removed'),
-                    backgroundColor: Colors.green,
-                  ));
+                   Flushbar(
+                message: 'Successfully Removed',
+                backgroundColor: Colors.green,
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
                 } else {
-                  Scaffold.of(context).showSnackBar(new SnackBar(
-                    content: new Text('Adding failed!'),
-                    backgroundColor: Colors.redAccent,
-                  ));
+                  Flushbar(
+                message: 'Adding Failed!',
+                backgroundColor: Colors.redAccent,
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
                 }
               });
             });
