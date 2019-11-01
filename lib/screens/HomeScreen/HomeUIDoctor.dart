@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreenDoctor> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.deepPurpleAccent,
       ),
       backgroundColor: Colors.white,
       drawer: Drawer(
@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreenDoctor> {
         crossAxisCount: 2,
         children: <Widget>[
           HomeTile(Icons.calendar_today, "Appointments", Colors.amber,
-              "/DoctorAppointmentScreen"),
+              "/doctorAppointmentDashboard"),
           HomeTile(Icons.healing, "Medical Records", Colors.lightBlue, "/medicalRecord"),
           HomeTile(Icons.timeline, "Progress Tracker", Colors.cyan, ""),
           HomeTile(
