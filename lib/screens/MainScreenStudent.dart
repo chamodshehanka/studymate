@@ -1,112 +1,134 @@
-import 'package:flutter/material.dart';
-import 'package:flurry_navigation/flurry_navigation.dart';
-import 'package:flurry_navigation/flurry_menu.dart';
-import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
-import 'package:studymate/screens/BottomSection.dart';
-import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
-
+import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
+import 'package:studymate/screens/SubjectsScreen/SubjectListUI.dart';
+import 'package:studymate/widgets/Navigation/extended_navbar_scaffold.dart';
+import 'package:flutter/material.dart';
+import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
+import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 
 
 class StudentMainScreen extends StatefulWidget {
-  @override
-  _StudentMainScreenState createState() => new _StudentMainScreenState();
+  StudentMainScreen({Key key}) : super(key: key);
+
+  _StudentMainScreenState createState() => _StudentMainScreenState();
 }
 
 class _StudentMainScreenState extends State<StudentMainScreen> {
-  //Decalre active screen var with the the default screen somewhere accesible to the contentScreen attributes
-  var activeScreen = studentHome;
+  Widget activeScreen = HomeScreen();
+  @override
   Widget build(BuildContext context) {
-    return new FlurryNavigation(
-      // The curve of the screen (Double)
-      curveRadius: (MediaQuery.of(context).size.width *MediaQuery.of(context).size.height)/4980,
-      // The Icon data of the icon the BottomLeft
-      expandIcon: Image.asset("assets/expand.png"),
-      // The size of the icon on the BottomLeft (Double)
-      iconSize: ((MediaQuery.of(context).size.width * MediaQuery.of(context).size.height)/15420),
-      // The content of the screen
-      contentScreen: activeScreen,
-      menuScreen: new FlurryMenu(
-        bgColor: Colors.deepPurple,
-      // The content of the bottom sction of the menu screen
-//BottomSection() Class is an example of what you can use
+    return ExtendedNavigationBarScaffold(
+      body: activeScreen,
+      elevation: 0,
+      navBarColor: Colors.deepPurple,
+      navBarIconColor: Colors.white,
+      moreButtons: [
 
-bottomSection: BottomSection(),
-        menu: new SideMenu(
-          items: [
-            new SideMenuItem(
-              id:'home', //You can set this to whatever you want but dont duplicate it
-              icon:'assets/images/home.png', //Set this to the data for the icon of the button
-              isSelected: true,
-              selectedBtnColor: Colors.deepPurpleAccent,
-              disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),
-            new SideMenuItem(
-              id: 'daily',
-              icon: 'assets/images/daily.png',
-              isSelected: false,
-              selectedBtnColor: Colors.deepPurpleAccent,
-              disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),
-            new SideMenuItem(
-              id:'weekly',
-              icon:'assets/images/weekly.png',
-              isSelected: false,
-              selectedBtnColor: Colors.deepPurpleAccent,
-              disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),
-            new SideMenuItem(
-              id:'activity',
-              icon:'assets/images/activities.png',
-              isSelected:false,
-             selectedBtnColor: Colors.deepPurpleAccent,
-             disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),
-              new SideMenuItem(
-              id: 'subject',
-              icon: 'assets/images/subject.png',
-              isSelected: false,
-              selectedBtnColor: Colors.deepPurpleAccent,
-              disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),
-              new SideMenuItem(
-              id: 'appointment',
-              icon: 'assets/images/appointment.png',
-              isSelected: false,
-              selectedBtnColor: Colors.deepPurpleAccent,
-              disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),
-              new SideMenuItem(
-              id: 'chat',
-              icon: 'assets/images/chat.png',
-              isSelected: false,
-              selectedBtnColor: Colors.deepPurpleAccent,
-              disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),new SideMenuItem(
-              id: 'profile',
-              icon: 'assets/images/profile.png',
-              isSelected: false,
-              selectedBtnColor: Colors.deepPurpleAccent,
-              disabledBtnColor: Colors.white,
-              btnShape: BoxShape.circle),
-
-
-          ],
+        MoreButtonModel(
+          icon: Icons.home,
+          label: 'Home',
+          onTap: () {
+            setState(() {
+              activeScreen = HomeScreen();
+            });
+          },
         ),
-        onMenuItemSelected: (String itemId) {
-          if (itemId == 'home') {
-            setState(() => activeScreen = studentHome);
-          } else if (itemId == 'daily') {
-            setState(() => activeScreen = dailySchedule);
-          } else if (itemId == 'weekly') {
-            setState(() => activeScreen = activityList);
-          } else if (itemId == 'activity') {
-            setState(() => activeScreen = activityList);
-          } else if (itemId == 'activity') {
-            setState(() => activeScreen = activityList);
-          }
+        MoreButtonModel(
+          icon: Icons.today,
+          label: 'Daily Schedule',
+          onTap: () {
+             setState(() {
+              activeScreen = DailyScheduleScreen();
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.calendar_today,
+          label: 'Schedules',
+          onTap: () {
+            setState(() {
+              activeScreen = WeeklyPlanScreen();
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.local_activity,
+          label: 'Activities',
+          onTap: () {
+                 setState(() {
+              activeScreen = ActivityListScreen();  
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.library_books,
+          label: 'Subjects',
+          onTap: () {
+             setState(() {
+              activeScreen = SubjectListScreen();  
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.local_hospital,
+          label: 'Appointments',
+          onTap: () {},
+        ),
+        null,
+        MoreButtonModel(
+          icon: Icons.chat,
+          label: 'Chat',
+          onTap: () {},
+        ),
+        null,
+        
+      ],
+      searchWidget: Container(
+        height: 50,
+        color: Colors.redAccent,
+      ),
+      // onTap: (button) {},
+      // currentBottomBarCenterPercent: (currentBottomBarParallexPercent) {},
+      // currentBottomBarMorePercent: (currentBottomBarMorePercent) {},
+      // currentBottomBarSearchPercent: (currentBottomBarSearchPercent) {},
+      parallexCardPageTransformer: PageTransformer(
+        pageViewBuilder: (context, visibilityResolver) {
+          return PageView.builder(
+            controller: PageController(viewportFraction: 0.85),
+            itemCount: parallaxCardItemsList.length,
+            itemBuilder: (context, index) {
+              final item = parallaxCardItemsList[index];
+              final pageVisibility =
+                  visibilityResolver.resolvePageVisibility(index);
+              return ParallaxCardsWidget(
+                item: item,
+                pageVisibility: pageVisibility,
+              );
+            },
+          );
         },
       ),
     );
   }
+
+  final parallaxCardItemsList = <ParallaxCardItem>[
+    ParallaxCardItem(
+        title: 'Some Random Route 1',
+        body: 'Place 1',
+        background: Container(
+          color: Colors.orange,
+        )),
+    ParallaxCardItem(
+        title: 'Some Random Route 2',
+        body: 'Place 2',
+        background: Container(
+          color: Colors.redAccent,
+        )),
+    ParallaxCardItem(
+        title: 'Some Random Route 3',
+        body: 'Place 1',
+        background: Container(
+          color: Colors.blue,
+        )),
+  ];
 }

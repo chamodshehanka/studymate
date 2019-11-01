@@ -18,7 +18,6 @@ import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
-import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/UserScreen.dart/AdminAddForm.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
 import 'package:studymate/screens/UserScreen.dart/StudentAddForm.dart';
@@ -26,7 +25,6 @@ import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
-import 'package:studymate/screens/SubjectsScreen/UDSubjectUI.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -75,12 +73,8 @@ class RouteGenerator {
       case '/nonSchoolStudentAddDetails':
         return MaterialPageRoute(
             builder: (_) => NonSchoolStudentAddDetailsScreen());
-      case '/subject':
-        return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/profileUI':
         return MaterialPageRoute(builder: (_) => ProfileUIScreen());
-      case '/udSubject':
-        return MaterialPageRoute(builder: (_) => UDSubjectUI());
       case '/doctorAdd':
         return MaterialPageRoute(builder: (_) => DoctorAddScreen());
       case '/studentAdd':
