@@ -40,10 +40,8 @@ dependencies:
   path_provider: 
   flutter_slidable: ^0.5.3
   percent_indicator: ^2.1.1
-  curved_navigation_bar:
   flutter_datetime_picker:
   fab_circular_menu: ^0.1.1
-  flurry_navigation: ^0.1.2
   flushbar: ^1.9.1
   flutter_local_notifications: ^0.8.4
   progress_dialog:

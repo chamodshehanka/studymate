@@ -106,13 +106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  curved_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: curved_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.1"
   fab_circular_menu:
     dependency: "direct main"
     description:
@@ -169,13 +162,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.9"
-  flurry_navigation:
-    dependency: "direct main"
-    description:
-      name: flurry_navigation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   flushbar:
     dependency: "direct main"
     description:
@@ -276,7 +262,7 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1+4"
+    version: "0.5.4+3"
   intl:
     dependency: "direct main"
     description:

@@ -27,6 +27,8 @@ import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
 import 'package:studymate/screens/SubjectsScreen/AdminScreen/AdminSubjectUI.dart';
 import 'package:studymate/screens/SubjectsScreen/AdminScreen/ManageSubjectUI.dart';
+import 'package:studymate/screens/RewardScreen/AdminScreen/AdminBadgeListUI.dart';
+import 'package:studymate/screens/RewardScreen/AdminScreen/AddBadge.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -62,6 +64,10 @@ class RouteGenerator {
       case '/manageSubject':
         return MaterialPageRoute(
             builder: (_) => ManageSubjectScreen(subject: null));
+      case '/adminBadgeList':
+        return MaterialPageRoute(builder: (_) => AdminBadgeListScreen());
+      case '/adminCreateBadge':
+        return MaterialPageRoute(builder: (_) => AddBadgeScreen());  
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
