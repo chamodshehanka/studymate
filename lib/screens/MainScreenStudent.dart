@@ -6,8 +6,6 @@ import 'package:studymate/screens/BottomSection.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
 
-
-
 class StudentMainScreen extends StatefulWidget {
   @override
   _StudentMainScreenState createState() => new _StudentMainScreenState();
