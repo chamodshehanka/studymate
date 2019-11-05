@@ -6,7 +6,6 @@ import 'package:studymate/widgets/Navigation/extended_navbar_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUI.dart';
-import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
 
 class StudentMainScreen extends StatefulWidget {
   StudentMainScreen({Key key}) : super(key: key);
@@ -25,7 +24,6 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
       navBarColor: Colors.deepPurple,
       navBarIconColor: Colors.white,
       moreButtons: [
-
         MoreButtonModel(
           icon: Icons.home,
           label: 'Home',
@@ -39,7 +37,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           icon: Icons.today,
           label: 'Daily Schedule',
           onTap: () {
-             setState(() {
+            setState(() {
               activeScreen = DailyScheduleScreen();
             });
           },
@@ -57,8 +55,8 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           icon: Icons.local_activity,
           label: 'Activities',
           onTap: () {
-                 setState(() {
-              activeScreen = ActivityListScreen();  
+            setState(() {
+              activeScreen = ActivityListScreen();
             });
           },
         ),
@@ -66,8 +64,8 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           icon: Icons.library_books,
           label: 'Subjects',
           onTap: () {
-             setState(() {
-              activeScreen = SubjectListScreen();  
+            setState(() {
+              activeScreen = SubjectListScreen();
             });
           },
         ),
@@ -83,7 +81,6 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
           onTap: () {},
         ),
         null,
-        
       ],
       searchWidget: Container(
         height: 200,
@@ -92,9 +89,9 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
             RaisedButton(
               child: Icon(Icons.close),
               onPressed: () {
-          _authentication.signOut();
-          Navigator.pushNamed(context, '/welcome');
-        },
+                _authentication.signOut();
+                Navigator.pushNamed(context, '/welcome');
+              },
             ),
           ],
         ),
