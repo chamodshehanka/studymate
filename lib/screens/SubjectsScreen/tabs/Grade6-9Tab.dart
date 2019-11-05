@@ -3,28 +3,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studymate/models/Activity.dart';
-import 'package:studymate/models/ActivityProgress.dart';
-import 'package:studymate/models/PreferredActivity.dart';
+import 'package:studymate/models/PreferredSubject.dart';
+import 'package:studymate/models/Subject.dart';
+import 'package:studymate/models/SubjectProgress.dart';
 import 'package:studymate/services/Authentication.dart';
-import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
+import 'package:studymate/services/custom/SubjectService.dart';
 
-class LeisureActivityTab extends StatefulWidget {
-  LeisureActivityTab({Key key, this.title});
+class Grade69Tab extends StatefulWidget {
+  Grade69Tab({Key key, this.title});
   final String title;
 
   @override
-  _LeisureActivityTabState createState() => _LeisureActivityTabState();
+  _Grade69TabState createState() => _Grade69TabState();
 }
 
-class _LeisureActivityTabState extends State<LeisureActivityTab> {
-  List<Activity> activityList;
-  List<ActivityProgress> studentActivitiesList;
-  ActivityService activityService = ActivityService();
+class _Grade69TabState extends State<Grade69Tab> {
+  List<Subject> subjectList;
+  List<SubjectProgress> studentSubjectsList;
+  SubjectService subjectService = SubjectService();
   StudentService studentService = StudentService();
-  StreamSubscription<QuerySnapshot> activitySubscription;
-  StreamSubscription<QuerySnapshot> studentActivitiesSubscription;
+  StreamSubscription<QuerySnapshot> subjectSubscription;
+  StreamSubscription<QuerySnapshot> studentSubjectsSubscription;
   String studentId;
   BaseAuthentication _authentication = Authentication();
 
@@ -32,34 +32,34 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
   void initState() {
     super.initState();
 
-    activityList = List();
-    activitySubscription?.cancel();
-    activitySubscription = activityService
-        .getLeisureActivityList()
+    subjectList = List();
+    subjectSubscription?.cancel();
+    subjectSubscription = subjectService
+        .getGrade69SubjectList()
         .listen((QuerySnapshot snapshot) {
-      final List<Activity> activities = snapshot.documents
-          .map((documentSnapshot) => Activity.fromMap(documentSnapshot.data))
+      final List<Subject> subjects = snapshot.documents
+          .map((documentSnapshot) => Subject.fromMap(documentSnapshot.data))
           .toList();
       setState(() {
-        this.activityList = activities;
+        this.subjectList = subjects;
       });
     });
 
     _authentication.getCurrentUser().then((user) {
       studentId = user;
 
-      // Student Preferred Activities List
-      studentActivitiesList = List();
-      studentActivitiesSubscription?.cancel();
-      studentActivitiesSubscription = studentService
-          .getAllPreferredActivities(studentId, 'Leisure')
+      // Student Preferred Subjects List
+      studentSubjectsList = List();
+      studentSubjectsSubscription?.cancel();
+      studentSubjectsSubscription = studentService
+          .getAllPreferredSubjects(studentId, 'Grade 6-9')
           .listen((QuerySnapshot snapshot) {
-        final List<ActivityProgress> activityProgress = snapshot.documents
+        final List<SubjectProgress> subjectProgress = snapshot.documents
             .map((documentSnapshot) =>
-                ActivityProgress.fromMap(documentSnapshot.data))
+                SubjectProgress.fromMap(documentSnapshot.data))
             .toList();
         setState(() {
-          studentActivitiesList = activityProgress;
+          studentSubjectsList = subjectProgress;
         });
       });
     });
@@ -67,41 +67,41 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
 
   @override
   void dispose() {
-    activitySubscription?.cancel();
-    studentActivitiesSubscription?.cancel();
+    subjectSubscription?.cancel();
+    studentSubjectsSubscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Card makeCard(Activity leisureActivity) => Card(
+    Card makeCard(Subject subject) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Container(
             decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-            child: buildTilesList(leisureActivity),
+            child: buildTilesList(subject),
           ),
         );
 
-    final activityTabBody = activityList != null
+    final subjectTabBody = subjectList != null
         ? Container(
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: activityList.length,
+              itemCount: subjectList.length,
               itemBuilder: (BuildContext context, int index) {
-                return makeCard(activityList[index]);
+                return makeCard(subjectList[index]);
               },
             ),
           )
         : Container(
-            child: Text('Activities are not available!!'),
+            child: Text('Subjects are not available!!'),
           );
 
-    return Scaffold(backgroundColor: Colors.white10, body: activityTabBody);
+    return Scaffold(backgroundColor: Colors.white10, body: subjectTabBody);
   }
 
-  buildTilesList(Activity leisureActivity) => ListTile(
+  buildTilesList(Subject subject) => ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         leading: Container(
           padding: EdgeInsets.only(right: 12.0),
@@ -109,28 +109,27 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
               border: new Border(
                   right: new BorderSide(width: 1.0, color: Colors.white30))),
           child: Text(
-            leisureActivity.type,
+            subject.type,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
         title: Text(
-          leisureActivity.name,
+          subject.name,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         trailing:
-            Icon(getTileIcon(leisureActivity), color: Colors.white, size: 30.0),
+            Icon(getTileIcon(subject), color: Colors.white, size: 30.0),
         onTap: () {
-          bool isActivityPreferred =
-              isActivityAlreadyPreferred(leisureActivity);
+          bool isSubjectPreferred =
+              isSubjectAlreadyPreferred(subject);
 
-          String flushBarMessage;
-          if (isActivityPreferred){
+           String flushBarMessage;
+          if (isSubjectPreferred){
             flushBarMessage = 'Removing from prefer';
           }
           else{
             flushBarMessage = 'Adding to List';
           }
-          
 Flushbar(
           message: flushBarMessage,
           backgroundColor: Colors.deepPurple,
@@ -139,29 +138,28 @@ Flushbar(
 
         )..show(context);
 
-          // Pass activity
-          PreferredActivity preferredActivity =
-              PreferredActivity(leisureActivity.name, 0);
+          // Pass subject
+          PreferredSubject preferredSubject =
+              PreferredSubject(subject.name, 0);
 
-          if (!isActivityPreferred) {
+          if (!isSubjectPreferred) {
             _authentication.getCurrentUser().then((user) {
               studentId = user;
-              // Activity Adding
-              Future<ActivityProgress> isAdded =
-                  studentService.addToPreferredActivities(
-                      studentId, preferredActivity, leisureActivity.type);
+              // Subject Adding
+              Future<SubjectProgress> isAdded =
+                  studentService.addToPreferredSubjects(
+                      studentId, preferredSubject, subject.type);
 
-              // Preferred Activity Adding SnackBar
+              // Preferred Subject Adding SnackBar
               if (isAdded != null) {
-               Flushbar(
+                 Flushbar(
                 message: 'Added to preferred List',
                 backgroundColor: Colors.green,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
                 duration: Duration(seconds: 3),
               )..show(context);
-           
               } else {
-                Flushbar(
+                 Flushbar(
                 message: 'Adding failed!',
                 backgroundColor: Colors.redAccent,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
@@ -173,57 +171,50 @@ Flushbar(
             _authentication.getCurrentUser().then((user) {
               studentId = user;
 
-              // Preferred Activity removing
+              // Preferred Subject removing
               Future<dynamic> isDeleted =
-                  studentService.deleteFromPreferredActivities(
-                      studentId, leisureActivity.name, leisureActivity.type);
+                  studentService.deleteFromPreferredSubjects(
+                      studentId, subject.name, subject.type);
               isDeleted.then((result) {
                 if (result) {
-                 Flushbar(
+                  Flushbar(
                 message: 'Successfully Removed',
                 backgroundColor: Colors.green,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
                 duration: Duration(seconds: 3),
               )..show(context);
-        } else {
-          Flushbar(
+                } else {
+                  Flushbar(
                 message: 'Adding Failed!',
                 backgroundColor: Colors.redAccent,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
                 duration: Duration(seconds: 3),
               )..show(context);
-        }
+                }
               });
             });
           }
         },
       );
 
-  // To chech whether activity is already preferred
-  bool isActivityAlreadyPreferred(Activity activity) {
-    bool isActivityAlreadyPreferred = false;
+  // To chech whether subject is already preferred
+  bool isSubjectAlreadyPreferred(Subject subject) {
+    bool isSubjectAlreadyPreferred = false;
 
-    studentActivitiesList.forEach((preferredActivity) {
-      if (activity.name == preferredActivity.name)
-        isActivityAlreadyPreferred = true;
+    studentSubjectsList.forEach((preferredSubject) {
+      if (subject.name == preferredSubject.name)
+        isSubjectAlreadyPreferred = true;
     });
 
-    return isActivityAlreadyPreferred;
+    return isSubjectAlreadyPreferred;
   }
 
   // Gets Icons to Tiles
-  IconData getTileIcon(Activity activity) {
+  IconData getTileIcon(Subject subject) {
     IconData iconData = Icons.add_circle_outline;
-    if (isActivityAlreadyPreferred(activity))
+    if (isSubjectAlreadyPreferred(subject))
       iconData = Icons.remove_circle_outline;
     return iconData;
   }
 
-  // String getActivityProgressId(Activity activity) {
-  //   String id;
-  //   studentActivitiesList.forEach((studentActivity) {
-  //     if (activity.name == studentActivity.name) id = studentActivity.id;
-  //   });
-  //   return id;
-  // }
 }

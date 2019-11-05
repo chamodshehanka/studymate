@@ -19,7 +19,6 @@ import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
-import 'package:studymate/screens/SubjectsScreen/SubjectUI.dart';
 import 'package:studymate/screens/UserScreen.dart/AdminAddForm.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
 import 'package:studymate/screens/UserScreen.dart/StudentAddForm.dart';
@@ -27,7 +26,10 @@ import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:studymate/screens/WelcomeScreen/WelcomeUI.dart';
-import 'package:studymate/screens/SubjectsScreen/UDSubjectUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/AdminSubjectUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/ManageSubjectUI.dart';
+import 'package:studymate/screens/RewardScreen/AdminScreen/AdminBadgeListUI.dart';
+import 'package:studymate/screens/RewardScreen/AdminScreen/AddBadge.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -58,6 +60,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => ActivityProgressScreen());
       case '/activityReports':
         return MaterialPageRoute(builder: (_) => ActivityReportScreen());
+      case '/adminSubjectList':
+        return MaterialPageRoute(builder: (_) => AdminSubjectListScreen());
+      case '/manageSubject':
+        return MaterialPageRoute(
+            builder: (_) => ManageSubjectScreen(subject: null));
+      case '/adminBadgeList':
+        return MaterialPageRoute(builder: (_) => AdminBadgeListScreen());
+      case '/adminCreateBadge':
+        return MaterialPageRoute(builder: (_) => AddBadgeScreen());  
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
@@ -76,12 +87,8 @@ class RouteGenerator {
       case '/nonSchoolStudentAddDetails':
         return MaterialPageRoute(
             builder: (_) => NonSchoolStudentAddDetailsScreen());
-      case '/subject':
-        return MaterialPageRoute(builder: (_) => SubjectsScreen());
       case '/profileUI':
         return MaterialPageRoute(builder: (_) => ProfileUIScreen());
-      case '/udSubject':
-        return MaterialPageRoute(builder: (_) => UDSubjectUI());
       case '/doctorAdd':
         return MaterialPageRoute(builder: (_) => DoctorAddScreen());
       case '/studentAdd':

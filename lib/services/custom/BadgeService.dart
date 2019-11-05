@@ -1,4 +1,8 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:studymate/models/Badge.dart';
 
 final CollectionReference badgeCollection =
@@ -6,16 +10,22 @@ final CollectionReference badgeCollection =
 
 class BadgeService {
   Future<Badge> createBadge(
-      String name, String type, String milestone, String description) {
+      String name, String type, String task,String milestone, String description,File image) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(badgeCollection.document());
 
       final Badge badge =
-          new Badge(ds.documentID, name, type, milestone, description);
+          new Badge(ds.documentID, name, type, task,milestone, description);
       final Map<String, dynamic> data = badge.toMap();
 
       await tx.set(ds.reference, data);
-
+      if(data!=null){
+        StorageReference firebaseStorage = FirebaseStorage.instance.ref().child('badges').child(ds.documentID);
+        StorageUploadTask firebaseUpload = firebaseStorage.putFile(image);
+        if(firebaseUpload!=null){
+          log("Succesfull");
+        }
+      }
       return data;
     };
 
@@ -59,6 +69,7 @@ class BadgeService {
 
   Stream<QuerySnapshot> getBadgeList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = badgeCollection.snapshots();
+    
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);

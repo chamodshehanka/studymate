@@ -57,10 +57,10 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
           HomeTile(Icons.local_activity, "Activity Manager",
               Colors.deepPurpleAccent, "/adminActivityDashboard"),
           HomeTile(
-              Icons.book, "Subject Manager", Colors.lightBlue, "/udSubject"),
+              Icons.book, "Subject Manager", Colors.lightBlue, "/adminSubjectList"),
           HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
               "/forgotPassword"),
-          HomeTile(Icons.stars, "Rewards Manager", Colors.pink, "/rewards"),
+          HomeTile(Icons.stars, "Rewards Manager", Colors.pink, "/adminBadgeList"),
           HomeTile(
               Icons.settings, "Admin Test", Colors.black, "/medicalRecord"),
         ],

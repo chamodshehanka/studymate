@@ -10,6 +10,7 @@ import 'package:studymate/models/PreferredActivity.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
 import 'package:studymate/services/custom/StudentService.dart';
+import 'package:flushbar/flushbar.dart';
 
 class SocialActivityTab extends StatefulWidget {
   SocialActivityTab({Key key, this.title});
@@ -137,13 +138,16 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       onTap: () {
         bool isActivityPreferred = isActivityAlreadyPreferred(socialActivity);
 
-        String snackBarMessage = 'Adding to List';
-        if (isActivityPreferred) snackBarMessage = 'Removing from prefer';
+        String flushBarMessage = 'Adding to List';
+        if (isActivityPreferred) flushBarMessage = 'Removing from prefer';
 
-        Scaffold.of(context).showSnackBar(new SnackBar(
-          content: new Text(snackBarMessage),
+        Flushbar(
+          message: flushBarMessage,
           backgroundColor: Colors.deepPurple,
-        ));
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          duration: Duration(seconds: 3),
+
+        )..show(context);
 
         // Pass activity
         PreferredActivity preferredActivity =
@@ -160,15 +164,22 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
 
             // Preferred Activity Adding SnackBar
             if (isAdded != null) {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: new Text('Added to preferred List'),
+              Flushbar(
+                message: 'Added to preferred List',
                 backgroundColor: Colors.green,
-              ));
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
+           
+              
+              
             } else {
-              Scaffold.of(context).showSnackBar(new SnackBar(
-                content: new Text('Adding failed!'),
+                Flushbar(
+                message: 'Adding failed!',
                 backgroundColor: Colors.redAccent,
-              ));
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
             }
           });
         } else {
@@ -212,15 +223,19 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
           studentId, activity.name, activity.type);
       isDeleted.then((result) {
         if (result) {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Successfully Removed'),
-            backgroundColor: Colors.green,
-          ));
+          Flushbar(
+                message: 'Successfully Removed',
+                backgroundColor: Colors.green,
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
         } else {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Adding failed!'),
-            backgroundColor: Colors.redAccent,
-          ));
+          Flushbar(
+                message: 'Adding Failed!',
+                backgroundColor: Colors.redAccent,
+                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                duration: Duration(seconds: 3),
+              )..show(context);
         }
       });
     });
