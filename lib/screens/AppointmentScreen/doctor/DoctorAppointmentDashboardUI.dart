@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/AppointmentScreen/doctor/tabs/NotApprovedAppointmentTab.dart';
+import 'package:studymate/screens/AppointmentScreen/doctor/tabs/ApprovedAppointmentTab.dart';
 
 class DoctorAppointmentDashboardScreen extends StatefulWidget {
   _DoctorAppointmentDashboardScreenState createState() =>
@@ -27,12 +28,14 @@ class _DoctorAppointmentDashboardScreenState
             body: TabBarView(
               children: <Widget>[
                 NotApprovedAppointmentsTab(),
-                NotApprovedAppointmentsTab(),
+                ApprovedAppointmentsTab(),
               ],
             ),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add, color: Colors.white),
-              onPressed: () {},
+              onPressed: () {
+                // Create a Appointment impl
+              },
             ),
           )),
     );
