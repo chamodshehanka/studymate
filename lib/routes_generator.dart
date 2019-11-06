@@ -19,7 +19,7 @@ import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
-import 'package:studymate/screens/UserScreen.dart/AdminAddForm.dart';
+import 'package:studymate/screens/UserScreen.dart/AdminManager.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
 import 'package:studymate/screens/UserScreen.dart/StudentAddForm.dart';
 import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
@@ -93,8 +93,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => DoctorAddScreen());
       case '/studentAdd':
         return MaterialPageRoute(builder: (_) => StudentAddScreen());
-      case '/adminAdd':
-        return MaterialPageRoute(builder: (_) => AdminAddScreen());
+      case '/adminManage':
+        return MaterialPageRoute(builder: (_) => AdminManagerScreen());
       case '/changePassword':
         return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
       case '/studentMain':

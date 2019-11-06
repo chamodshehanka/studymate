@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
           HomeTile(Icons.verified_user, "Student Manager", Colors.red,
               "/studentAdd"),
           HomeTile(
-              Icons.calendar_today, "Admin Manager", Colors.amber, "/adminAdd"),
+              Icons.calendar_today, "Admin Manager", Colors.amber, "/adminManage"),
           HomeTile(Icons.calendar_today, "Doctor Manager", Colors.amber,
               "/doctorAdd"),
           HomeTile(Icons.local_activity, "Activity Manager",
