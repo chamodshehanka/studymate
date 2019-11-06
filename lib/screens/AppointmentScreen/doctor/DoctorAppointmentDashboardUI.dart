@@ -28,7 +28,7 @@ class _DoctorAppointmentDashboardScreenState
             body: TabBarView(
               children: <Widget>[
                 NotApprovedAppointmentsTab(),
-                ApprovedAppointmentsTab(),
+                ApprovedAppointmentTab(),
               ],
             ),
             floatingActionButton: FloatingActionButton(
