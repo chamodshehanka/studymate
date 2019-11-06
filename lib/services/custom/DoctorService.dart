@@ -29,7 +29,21 @@ class DoctorService {
   }
 
   Future delete(String id) {
-    return null;
+    final TransactionHandler deleteTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(doctorCollection.document(id));
+
+      await tx.delete(ds.reference);
+      
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 
   Stream<QuerySnapshot> getAll({int offset, int limit}) {

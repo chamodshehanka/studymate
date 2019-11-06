@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:studymate/models/Admin.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/AdminServices.dart';
 import 'package:studymate/services/custom/StudentService.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 
 class AdminListView extends StatefulWidget {
   AdminListView({Key key, this.title});
@@ -21,11 +23,18 @@ class _AdminListViewState extends State<AdminListView> {
   AdminService adminService = AdminService();
   StudentService studentService = StudentService();
   StreamSubscription<QuerySnapshot> adminsSubscription;
+  String currentUser;
+  BaseAuthentication baseAuthentication = Authentication();
 
   @override
   void initState() {
     super.initState();
 
+baseAuthentication.getCurrentUser().then(((user){
+  setState(() {
+    currentUser = user.toString();
+  });
+}));
     adminList = List();
     adminsSubscription?.cancel();
     adminsSubscription = adminService
@@ -61,7 +70,7 @@ class _AdminListViewState extends State<AdminListView> {
              IconSlideAction(caption: 'Delete',
             color: Colors.redAccent,
             icon: Icons.delete,
-            onTap: ()=> {},),
+            onTap: ()=> deleteAdmin(admin),),
             IconSlideAction(caption: 'Update',
             color: Colors.yellowAccent,
             icon: Icons.update,
@@ -77,7 +86,7 @@ class _AdminListViewState extends State<AdminListView> {
               shrinkWrap: true,
               itemCount: adminList.length,
               itemBuilder: (BuildContext context, int index) {
-                if(adminList[index].firstName!=null&&adminList[index].lastName!=null)
+                if(adminList[index].firstName!=null&&adminList[index].lastName!=null&&adminList[index].id!=currentUser)
                   return makeCard(adminList[index]);
                 else
                   return null;
@@ -118,4 +127,39 @@ class _AdminListViewState extends State<AdminListView> {
       onTap: () {
       });
 
+
+void deleteAdmin(Admin admin) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return StudymateDialogBox(
+                title: 'Are you sure?',
+                description: admin.firstName + " "+admin.lastName+
+                    ' ,Administrator will be permanently deleted!',
+                confirmation: true,
+                confirmationAction: (){
+      Future<dynamic> isDeleted =
+          adminService.delete(admin.id);
+      isDeleted.then((result) {
+        if (result) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Successfully Deleted'),
+            backgroundColor: Colors.green,
+          ));
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Deletion Failed!'),
+            backgroundColor: Colors.redAccent,
+          ));
+
+        }
+      }
+      );
+      Navigator.pop(context);
+    },
+                tigerAnimationType: 'fail',
+              );
+            });
+  }
 }

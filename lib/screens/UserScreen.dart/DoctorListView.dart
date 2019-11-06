@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:studymate/models/Doctor.dart';
 import 'package:studymate/services/custom/DoctorService.dart';
+import 'package:studymate/widgets/StudymateDialogBox.dart';
 
 
 class DoctorListView extends StatefulWidget {
@@ -60,7 +61,7 @@ class _DoctorListViewState extends State<DoctorListView> {
              IconSlideAction(caption: 'Delete',
             color: Colors.redAccent,
             icon: Icons.delete,
-            onTap: ()=> {},),
+            onTap: ()=> deleteDoctor(doctor),),
             IconSlideAction(caption: 'Update',
             color: Colors.yellowAccent,
             icon: Icons.update,
@@ -117,4 +118,39 @@ class _DoctorListViewState extends State<DoctorListView> {
       onTap: () {
       });
 
+
+void deleteDoctor(Doctor doctor){
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return StudymateDialogBox(
+                title: 'Are you sure?',
+                description: doctor.firstName +" "+ doctor.lastName+
+                    ' ,Doctor will be permanently deleted!',
+                confirmation: true,
+                confirmationAction: (){
+      Future<dynamic> isDeleted =
+          doctorService.delete(doctor.id);
+      isDeleted.then((result) {
+        if (result) {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Successfully Deleted'),
+            backgroundColor: Colors.green,
+          ));
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text('Deletion Failed!'),
+            backgroundColor: Colors.redAccent,
+          ));
+
+        }
+      }
+      );
+      Navigator.pop(context);
+    },
+                tigerAnimationType: 'fail',
+              );
+            });
+  }
 }
