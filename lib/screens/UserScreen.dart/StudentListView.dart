@@ -4,38 +4,36 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:studymate/models/Admin.dart';
-import 'package:studymate/services/custom/AdminServices.dart';
+import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/custom/StudentService.dart';
 
-class AdminListView extends StatefulWidget {
-  AdminListView({Key key, this.title});
+class StudentListView extends StatefulWidget {
+  StudentListView({Key key, this.title});
   final String title;
 
   @override
-  _AdminListViewState createState() => _AdminListViewState();
+  _StudentListViewState createState() => _StudentListViewState();
 }
 
-class _AdminListViewState extends State<AdminListView> {
-  List<Admin> adminList;
-  AdminService adminService = AdminService();
+class _StudentListViewState extends State<StudentListView> {
+  List<Student> studentList;
   StudentService studentService = StudentService();
-  StreamSubscription<QuerySnapshot> adminsSubscription;
+  StreamSubscription<QuerySnapshot> studentsSubscription;
 
   @override
   void initState() {
     super.initState();
 
-    adminList = List();
-    adminsSubscription?.cancel();
-    adminsSubscription = adminService
-        .getAll()
+    studentList = List();
+    studentsSubscription?.cancel();
+    studentsSubscription = studentService
+        .getStudentList()
         .listen((QuerySnapshot snapshot) {
-      final List<Admin> admins = snapshot.documents
-          .map((documentSnapshot) => Admin.fromMap(documentSnapshot.data))
+      final List<Student> students = snapshot.documents
+          .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
           .toList();
       setState(() {
-        this.adminList = admins;
+        this.studentList = students;
       });
     });
 
@@ -43,22 +41,22 @@ class _AdminListViewState extends State<AdminListView> {
 
   @override
   void dispose() {
-    adminsSubscription?.cancel();
+    studentsSubscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Card makeCard(Admin admin) => Card(
+    Card makeCard(Student student) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Slidable(
             child: Container(
                 decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-                child: buildTilesList(admin)),
+                child: buildTilesList(student)),
             actionPane: SlidableDrawerActionPane(),
             secondaryActions: <Widget>[
-             IconSlideAction(caption: 'Delete',
+              IconSlideAction(caption: 'Delete',
             color: Colors.redAccent,
             icon: Icons.delete,
             onTap: ()=> {},),
@@ -70,15 +68,15 @@ class _AdminListViewState extends State<AdminListView> {
           ),
         );
 
-    final adminBody = adminList != null
+    final studentBody = studentList != null
         ? Container(
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: adminList.length,
+              itemCount: studentList.length,
               itemBuilder: (BuildContext context, int index) {
-                if(adminList[index].firstName!=null&&adminList[index].lastName!=null)
-                  return makeCard(adminList[index]);
+                 if(studentList[index].firstName!=null&&studentList[index].lastName!=null)
+                  return makeCard(studentList[index]);
                 else
                   return null;
               },
@@ -87,17 +85,17 @@ class _AdminListViewState extends State<AdminListView> {
         : Container(
             alignment: Alignment.center,
             child: Text(
-              'No Any Administrators!!',
+              'No Any Students!!',
               style: TextStyle(backgroundColor: Colors.red, fontSize: 15),
             ));
 
     return Scaffold(
       backgroundColor: Colors.white10,
-      body: adminBody,
+      body: studentBody,
     );
   }
 
-  buildTilesList(Admin admin) => ListTile(
+  buildTilesList(Student student) => ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       leading: Container(
         padding: EdgeInsets.only(right: 12.0),
@@ -105,12 +103,12 @@ class _AdminListViewState extends State<AdminListView> {
             border: new Border(
                 right: new BorderSide(width: 1.0, color: Colors.white30))),
         child: Text(
-          admin.contactNo,
+          student.type,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       title: Text(
-        admin.firstName+" "+admin.lastName,
+        student.firstName+" "+student.lastName,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       trailing:

@@ -33,7 +33,18 @@ class DoctorService {
   }
 
   Stream<QuerySnapshot> getAll({int offset, int limit}) {
-    return null;
+     Stream<QuerySnapshot> snapshots =
+        doctorCollection.snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
   }
 
   Future<Doctor> getByID(String id) {

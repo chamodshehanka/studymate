@@ -20,8 +20,8 @@ import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart'
 import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/UserScreen.dart/AdminManager.dart';
-import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
-import 'package:studymate/screens/UserScreen.dart/StudentAddForm.dart';
+import 'package:studymate/screens/UserScreen.dart/DoctorManager.dart';
+import 'package:studymate/screens/UserScreen.dart/StudentManager.dart';
 import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
@@ -89,10 +89,10 @@ class RouteGenerator {
             builder: (_) => NonSchoolStudentAddDetailsScreen());
       case '/profileUI':
         return MaterialPageRoute(builder: (_) => ProfileUIScreen());
-      case '/doctorAdd':
-        return MaterialPageRoute(builder: (_) => DoctorAddScreen());
-      case '/studentAdd':
-        return MaterialPageRoute(builder: (_) => StudentAddScreen());
+      case '/doctorManage':
+        return MaterialPageRoute(builder: (_) => DoctorManagerScreen());
+      case '/studentManage':
+        return MaterialPageRoute(builder: (_) => StudentManagerScreen());
       case '/adminManage':
         return MaterialPageRoute(builder: (_) => AdminManagerScreen());
       case '/changePassword':

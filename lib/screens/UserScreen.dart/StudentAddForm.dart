@@ -26,21 +26,7 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
   }
 
   Widget build(BuildContext context) {
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 60.0,
-          child: ClipOval(
-            child: Image.asset(
-              'assets/images/default.png',
-              fit: BoxFit.cover,
-              width: 120.0,
-              height: 120.0,
-            ),
-          )),
-    );
-
+  
     final email = StudymateTextField(
         labelText: "Email",
         textEditingController: _email,
@@ -96,8 +82,6 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      logo,
-                      SizedBox(height: 48.0),
                       email,
                       SizedBox(height: 24.0),
                       password,

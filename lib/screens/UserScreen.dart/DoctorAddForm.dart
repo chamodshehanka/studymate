@@ -33,20 +33,6 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
   }
 
   Widget build(BuildContext context) {
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 40.0,
-          child: ClipOval(
-              // child: Image.asset(
-              //   'assets/images/user.png',
-              //   fit: BoxFit.cover,
-              //   width: 80.0,
-              //   height: 80.0,
-              // ),
-              )),
-    );
 
     final firstName = StudymateTextField(
         labelText: "First Name",
@@ -165,8 +151,6 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      logo,
-                      SizedBox(height: 1.0),
                       firstName,
                       SizedBox(height: 1.0),
                       lastName,

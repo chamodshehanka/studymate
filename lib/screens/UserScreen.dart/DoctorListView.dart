@@ -4,38 +4,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:studymate/models/Admin.dart';
-import 'package:studymate/services/custom/AdminServices.dart';
-import 'package:studymate/services/custom/StudentService.dart';
+import 'package:studymate/models/Doctor.dart';
+import 'package:studymate/services/custom/DoctorService.dart';
 
-class AdminListView extends StatefulWidget {
-  AdminListView({Key key, this.title});
+
+class DoctorListView extends StatefulWidget {
+  DoctorListView({Key key, this.title});
   final String title;
 
   @override
-  _AdminListViewState createState() => _AdminListViewState();
+  _DoctorListViewState createState() => _DoctorListViewState();
 }
 
-class _AdminListViewState extends State<AdminListView> {
-  List<Admin> adminList;
-  AdminService adminService = AdminService();
-  StudentService studentService = StudentService();
-  StreamSubscription<QuerySnapshot> adminsSubscription;
+class _DoctorListViewState extends State<DoctorListView> {
+  List<Doctor> doctorList;
+  DoctorService doctorService = DoctorService();
+  StreamSubscription<QuerySnapshot> doctorssSubscription;
 
   @override
   void initState() {
     super.initState();
 
-    adminList = List();
-    adminsSubscription?.cancel();
-    adminsSubscription = adminService
+    doctorList = List();
+    doctorssSubscription?.cancel();
+    doctorssSubscription = doctorService
         .getAll()
         .listen((QuerySnapshot snapshot) {
-      final List<Admin> admins = snapshot.documents
-          .map((documentSnapshot) => Admin.fromMap(documentSnapshot.data))
+      final List<Doctor> doctors = snapshot.documents
+          .map((documentSnapshot) => Doctor.fromMap(documentSnapshot.data))
           .toList();
       setState(() {
-        this.adminList = admins;
+        this.doctorList = doctors;
       });
     });
 
@@ -43,19 +42,19 @@ class _AdminListViewState extends State<AdminListView> {
 
   @override
   void dispose() {
-    adminsSubscription?.cancel();
+    doctorssSubscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Card makeCard(Admin admin) => Card(
+    Card makeCard(Doctor doctor) => Card(
           elevation: 8.0,
           margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: Slidable(
             child: Container(
                 decoration: BoxDecoration(color: Colors.deepPurpleAccent),
-                child: buildTilesList(admin)),
+                child: buildTilesList(doctor)),
             actionPane: SlidableDrawerActionPane(),
             secondaryActions: <Widget>[
              IconSlideAction(caption: 'Delete',
@@ -70,15 +69,15 @@ class _AdminListViewState extends State<AdminListView> {
           ),
         );
 
-    final adminBody = adminList != null
+    final studentBody = doctorList != null
         ? Container(
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: adminList.length,
+              itemCount: doctorList.length,
               itemBuilder: (BuildContext context, int index) {
-                if(adminList[index].firstName!=null&&adminList[index].lastName!=null)
-                  return makeCard(adminList[index]);
+                if(doctorList[index].firstName!=null&&doctorList[index].lastName!=null)
+                  return makeCard(doctorList[index]);
                 else
                   return null;
               },
@@ -87,17 +86,17 @@ class _AdminListViewState extends State<AdminListView> {
         : Container(
             alignment: Alignment.center,
             child: Text(
-              'No Any Administrators!!',
+              'No Any Doctors!!',
               style: TextStyle(backgroundColor: Colors.red, fontSize: 15),
             ));
 
     return Scaffold(
       backgroundColor: Colors.white10,
-      body: adminBody,
+      body: studentBody,
     );
   }
 
-  buildTilesList(Admin admin) => ListTile(
+  buildTilesList(Doctor doctor) => ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       leading: Container(
         padding: EdgeInsets.only(right: 12.0),
@@ -105,12 +104,12 @@ class _AdminListViewState extends State<AdminListView> {
             border: new Border(
                 right: new BorderSide(width: 1.0, color: Colors.white30))),
         child: Text(
-          admin.contactNo,
+          doctor.workPlace,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       title: Text(
-        admin.firstName+" "+admin.lastName,
+        doctor.firstName+" "+doctor.lastName,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       trailing:
