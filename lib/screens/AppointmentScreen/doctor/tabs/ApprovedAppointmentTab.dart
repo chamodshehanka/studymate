@@ -6,17 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:studymate/models/Appointment.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 
-class NotApprovedAppointmentsTab extends StatefulWidget {
-  _NotApprovedAppointmentsTabState createState() =>
-      _NotApprovedAppointmentsTabState();
+class ApprovedAppointmentTab extends StatefulWidget {
+  _ApprovedAppointmentTabState createState() => _ApprovedAppointmentTabState();
 }
 
-class _NotApprovedAppointmentsTabState
-    extends State<NotApprovedAppointmentsTab> {
+class _ApprovedAppointmentTabState extends State<ApprovedAppointmentTab> {
   List<Appointment> appointmentList;
   AppointmentService appointmentService = AppointmentService();
   StreamSubscription<QuerySnapshot> appointmentSubscription;
-  // BaseAuthentication _authentication = Authentication();
 
   @override
   void initState() {
@@ -25,7 +22,7 @@ class _NotApprovedAppointmentsTabState
     appointmentList = List();
     appointmentSubscription?.cancel();
     appointmentSubscription = appointmentService
-        .getNotApprovedAppointments()
+        .getApprovedAppointments()
         .listen((QuerySnapshot snapshot) {
       final List<Appointment> appointments = snapshot.documents
           .map((documentSnapshot) => Appointment.fromMap(documentSnapshot.data))
