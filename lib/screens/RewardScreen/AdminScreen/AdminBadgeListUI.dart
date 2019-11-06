@@ -7,8 +7,7 @@ import 'package:studymate/models/Badge.dart';
 import 'package:studymate/services/custom/BadgeService.dart';
 
 class AdminBadgeListScreen extends StatefulWidget {
-  _AdminBadgeListScreenState createState() =>
-      _AdminBadgeListScreenState();
+  _AdminBadgeListScreenState createState() => _AdminBadgeListScreenState();
 }
 
 class _AdminBadgeListScreenState extends State<AdminBadgeListScreen> {
@@ -34,7 +33,7 @@ class _AdminBadgeListScreenState extends State<AdminBadgeListScreen> {
     });
 
     // Dropdown Items load
-    badgeTypeList = ['Study', 'Social','Leisure'];
+    badgeTypeList = ['Study', 'Social', 'Leisure'];
   }
 
   @override
@@ -64,8 +63,7 @@ class _AdminBadgeListScreenState extends State<AdminBadgeListScreen> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           trailing: Icon(Icons.mode_edit, color: Colors.white, size: 30.0),
-          onTap: () => {
-          },
+          onTap: () => {},
         );
 
     Card makeCard(Badge badge) => Card(
