@@ -22,6 +22,7 @@ import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
 import 'package:studymate/screens/UserScreen.dart/AdminManager.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorManager.dart';
 import 'package:studymate/screens/UserScreen.dart/StudentManager.dart';
+import 'package:studymate/screens/UserScreen.dart/UserManager.dart';
 import 'package:studymate/screens/WelcomeScreen/SignInUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SignUpUI.dart';
 import 'package:studymate/screens/WelcomeScreen/SplashScreen.dart';
@@ -73,6 +74,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':
         return MaterialPageRoute(builder: (_) => HomeScreenAdmin());
+      case '/userManager':
+        return MaterialPageRoute(builder: (_) => UserManagerScreen());
       case '/forgotPassword':
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case '/medicalRecord':
