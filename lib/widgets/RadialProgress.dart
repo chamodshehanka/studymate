@@ -24,7 +24,7 @@ class _RadialProgressState extends State<RadialProgress>
           progressDegrees = widget.goalCompleted * _progressAnimation.value;
         });
       });
-    _radialProgressAnimationController.forward();
+    _radialProgressAnimationController.forward(from: 0.0);
   }
 
   @override
