@@ -3,7 +3,9 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ActivityProgress.dart';
 import 'package:studymate/models/PreferredActivity.dart';
+import 'package:studymate/models/PreferredSubject.dart';
 import 'package:studymate/models/Student.dart';
+import 'package:studymate/models/SubjectProgress.dart';
 import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference studentsCollection =
@@ -190,4 +192,153 @@ class StudentService {
     }
     return snapshots;
   }
+
+    Stream<QuerySnapshot> getAllPreferredSubjects(
+      String uid, String syllabus,
+      {int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots;
+        if(syllabus=='Grade 6-9'){
+           snapshots = 
+           studentsCollection
+            .document(uid)
+            .collection(CommonConstants.preferredSubjectsCollectionName)
+            .document(syllabus)
+            .collection(CommonConstants.grade69SubjectsCollectionName)
+            .snapshots();
+        }
+        else if(syllabus=='Ordinary Level'){
+           snapshots = 
+           studentsCollection
+            .document(uid)
+            .collection(CommonConstants.preferredSubjectsCollectionName)
+            .document(syllabus)
+            .collection(CommonConstants.olSubjectsCollectionName)
+            .snapshots();
+        }
+        else if(syllabus=='Advanced Level'){
+           snapshots = 
+           studentsCollection
+            .document(uid)
+            .collection(CommonConstants.preferredSubjectsCollectionName)
+            .document(syllabus)
+            .collection(CommonConstants.alSubjectsCollectionName)
+            .snapshots();
+        }
+   
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+    return snapshots;
+  }
+
+  // Have to change
+  Future<SubjectProgress> addToPreferredSubjects(String studentId,
+      PreferredSubject preferredSubject, String syllabus) {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+ DocumentSnapshot ds;
+if(syllabus=='Grade 6-9'){
+           ds = 
+          await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
+              .document(syllabus)
+              .collection(CommonConstants.grade69SubjectsCollectionName)
+              .document(preferredSubject.name));
+        }
+        else if(syllabus=='Ordinary Level'){
+            ds =
+          await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
+              .document(syllabus)
+              .collection(CommonConstants.olSubjectsCollectionName)
+              .document(preferredSubject.name));
+        }
+        else if(syllabus=='Advanced Level'){
+            ds =
+          await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
+              .document(syllabus)
+              .collection(CommonConstants.alSubjectsCollectionName)
+              .document(preferredSubject.name));
+        }
+
+      final PreferredActivity prefer = new PreferredActivity(
+          preferredSubject.name, preferredSubject.totalHours);
+
+      final Map<String, dynamic> data = prefer.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return SubjectProgress.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
+  }
+
+  // Have to delete
+  Future<dynamic> deleteFromPreferredSubjects(
+      String studentId, String subjectName, String syllabus) {
+    final TransactionHandler deleteTransaction = (Transaction tx) async {
+DocumentSnapshot ds ;
+
+if(syllabus=='Grade 6-9'){
+           ds = 
+          await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
+              .document(syllabus)
+              .collection(CommonConstants.grade69SubjectsCollectionName)
+              .document(subjectName));
+        }
+        else if(syllabus=='Ordinary Level'){
+            ds =
+          await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
+              .document(syllabus)
+              .collection(CommonConstants.olSubjectsCollectionName)
+              .document(subjectName));
+        }
+        else if(syllabus=='Advanced Level'){
+            ds =
+          await tx.get(Firestore.instance
+              .collection(CommonConstants.studentsCollectionName)
+              .document(studentId)
+              .collection(CommonConstants.preferredSubjectsCollectionName)
+              .document(syllabus)
+              .collection(CommonConstants.alSubjectsCollectionName)
+              .document(subjectName));
+        }
+
+      await tx.delete(ds.reference);
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
+  }
+
+
 }

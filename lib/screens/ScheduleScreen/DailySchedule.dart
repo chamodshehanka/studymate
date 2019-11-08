@@ -7,15 +7,10 @@ import 'package:studymate/screens/ScheduleScreen/Tabs/DailySocialTab.dart';
 import 'package:studymate/screens/ScheduleScreen/Tabs/DailyStudyTab.dart';
 
 
-
-
 class DailyScheduleScreen extends StatefulWidget {
   _DailyScheduleScreenState createState() => _DailyScheduleScreenState();
   
 }
-
-
-
 class _DailyScheduleScreenState extends State<DailyScheduleScreen> {
    
  

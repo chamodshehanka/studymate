@@ -1,42 +1,143 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:studymate/screens/ScheduleScreen/DailySchedule.dart';
+import 'package:studymate/screens/ScheduleScreen/WeeklyPlanScreen.dart';
+import 'package:studymate/screens/SubjectsScreen/SubjectListUI.dart';
+import 'package:studymate/services/Authentication.dart';
+import 'package:studymate/widgets/Navigation/extended_navbar_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/StudentPlaceHolder.dart';
+import 'package:studymate/screens/ActivityScreen/ActivitiesListUI.dart';
+import 'package:studymate/screens/HomeScreen/HomeUI.dart';
 
 class StudentMainScreen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _StudentMainScreenState();
-  }
+  StudentMainScreen({Key key}) : super(key: key);
+
+  _StudentMainScreenState createState() => _StudentMainScreenState();
 }
 
 class _StudentMainScreenState extends State<StudentMainScreen> {
-  int _currentIndex = 0;
-  final List<Widget> _children = [
-    StudentPlaceholder(0),
-    StudentPlaceholder(1),
-    StudentPlaceholder(2),
-    StudentPlaceholder(3),
-  ];
+  BaseAuthentication _authentication = Authentication();
+  Widget activeScreen = HomeScreen();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _children[_currentIndex], // new
-      bottomNavigationBar: CurvedNavigationBar(
-        color: Colors.deepPurple,
-        buttonBackgroundColor: Colors.deepPurple,
-        backgroundColor: Colors.white,
-        items: <Widget>[
-          Icon(Icons.home, size: 30, color: Colors.white),
-          Icon(Icons.calendar_today, size: 30, color: Colors.white),
-          Icon(Icons.favorite, size: 30, color: Colors.white),
-          Icon(Icons.person, size: 30, color: Colors.white),
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+    return ExtendedNavigationBarScaffold(
+      body: activeScreen,
+      elevation: 0,
+      navBarColor: Colors.deepPurple,
+      navBarIconColor: Colors.white,
+      moreButtons: [
+        MoreButtonModel(
+          icon: Icons.home,
+          label: 'Home',
+          onTap: () {
+            setState(() {
+              activeScreen = HomeScreen();
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.today,
+          label: 'Daily Schedule',
+          onTap: () {
+            setState(() {
+              activeScreen = DailyScheduleScreen();
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.calendar_today,
+          label: 'Schedules',
+          onTap: () {
+            setState(() {
+              activeScreen = WeeklyPlanScreen();
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.local_activity,
+          label: 'Activities',
+          onTap: () {
+            setState(() {
+              activeScreen = ActivityListScreen();
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.library_books,
+          label: 'Subjects',
+          onTap: () {
+            setState(() {
+              activeScreen = SubjectListScreen();
+            });
+          },
+        ),
+        MoreButtonModel(
+          icon: Icons.local_hospital,
+          label: 'Appointments',
+          onTap: () {},
+        ),
+        null,
+        MoreButtonModel(
+          icon: Icons.chat,
+          label: 'Chat',
+          onTap: () {},
+        ),
+        null,
+      ],
+      searchWidget: Container(
+        height: 200,
+        child: Row(
+          children: <Widget>[
+            RaisedButton(
+              child: Icon(Icons.close),
+              onPressed: () {
+                _authentication.signOut();
+                Navigator.pushNamed(context, '/welcome');
+              },
+            ),
+          ],
+        ),
+      ),
+      // onTap: (button) {},
+      // currentBottomBarCenterPercent: (currentBottomBarParallexPercent) {},
+      // currentBottomBarMorePercent: (currentBottomBarMorePercent) {},
+      // currentBottomBarSearchPercent: (currentBottomBarSearchPercent) {},
+      parallexCardPageTransformer: PageTransformer(
+        pageViewBuilder: (context, visibilityResolver) {
+          return PageView.builder(
+            controller: PageController(viewportFraction: 0.85),
+            itemCount: parallaxCardItemsList.length,
+            itemBuilder: (context, index) {
+              final item = parallaxCardItemsList[index];
+              final pageVisibility =
+                  visibilityResolver.resolvePageVisibility(index);
+              return ParallaxCardsWidget(
+                item: item,
+                pageVisibility: pageVisibility,
+              );
+            },
+          );
         },
       ),
     );
   }
+
+  final parallaxCardItemsList = <ParallaxCardItem>[
+    ParallaxCardItem(
+        title: 'Some Random Route 1',
+        body: 'Place 1',
+        background: Container(
+          color: Colors.orange,
+        )),
+    ParallaxCardItem(
+        title: 'Some Random Route 2',
+        body: 'Place 2',
+        background: Container(
+          color: Colors.redAccent,
+        )),
+    ParallaxCardItem(
+        title: 'Some Random Route 3',
+        body: 'Place 1',
+        background: Container(
+          color: Colors.blue,
+        )),
+  ];
 }

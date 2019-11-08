@@ -38,6 +38,9 @@ class Validator {
         return validateTime(value);
       case 'Place':
         return validatePlace(value);
+      case 'TimeDuration':
+        return validateTimeDuration(value);
+        break;
       default:
         return null;
     }
@@ -159,6 +162,15 @@ class Validator {
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
       return 'Please enter the place ';
+    else
+      return null;
+  }
+
+  static String validateTimeDuration(value) {
+    Pattern pattern = r'^[0-9]*$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Please enter in numbers';
     else
       return null;
   }

@@ -18,6 +18,10 @@ class CommonConstants extends InheritedWidget {
   static final String scheduleCollection = 'schedule';
   static final String dailylogCollection = 'dailyLogs';
   static final String appointmentCollectionName = 'appointment';
+  static final String preferredSubjectsCollectionName = 'preferredSubjects';
+  static final String grade69SubjectsCollectionName = 'grade69';
+  static final String olSubjectsCollectionName = 'ordinaryLevel';
+  static final String alSubjectsCollectionName = 'advancedLevel';
 
   // Cloud Functions Names
   static final String addAdminFunction = 'addAdmin';

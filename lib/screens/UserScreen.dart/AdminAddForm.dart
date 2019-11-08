@@ -33,20 +33,7 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
   }
 
   Widget build(BuildContext context) {
-    final logo = Hero(
-      tag: 'hero',
-      child: CircleAvatar(
-          backgroundColor: Colors.transparent,
-          radius: 60.0,
-          child: ClipOval(
-            child: Image.asset(
-              'assets/images/default.png',
-              fit: BoxFit.cover,
-              width: 120.0,
-              height: 120.0,
-            ),
-          )),
-    );
+
 
     final firstName = StudymateTextField(
         labelText: "First Name",
@@ -151,8 +138,6 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      logo,
-                      SizedBox(height: 1.0),
                       firstName,
                       SizedBox(height: 1.0),
                       lastName,

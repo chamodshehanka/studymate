@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Admin.dart';
+import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/utils/CommonConstants.dart';
 
 final CollectionReference adminsCollection =
     Firestore.instance.collection(CommonConstants.adminsCollectionName);
+BaseAuthentication authentication = Authentication();
 
 class AdminService {
   Future<Admin> create(Admin admin, String authId) {
@@ -28,12 +30,37 @@ class AdminService {
     });
   }
 
-  Future delete(String id) {
-    return null;
+  Future delete(String id) async{
+     final TransactionHandler deleteTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(adminsCollection.document(id));
+
+      await tx.delete(ds.reference);
+      
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 
   Stream<QuerySnapshot> getAll({int offset, int limit}) {
-    return null;
+        Stream<QuerySnapshot> snapshots =
+        adminsCollection.snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
   }
 
   Future<Admin> getByID(String id) {

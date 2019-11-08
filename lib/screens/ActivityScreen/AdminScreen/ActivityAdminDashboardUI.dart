@@ -9,8 +9,8 @@ import 'package:studymate/models/Activity.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/CloudFunctionsService.dart';
 import 'package:studymate/services/custom/ActivityService.dart';
-import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
-import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
+// import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
+// import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
@@ -118,9 +118,10 @@ class _ActivityAdminDashboardScreenState
     Size media = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Container(
+      body: Column(
+        children: <Widget>[      
+      Container(
         height: media.height,
-        width: media.width,
         child: Stack(
           children: <Widget>[
             ClipPath(
@@ -138,13 +139,13 @@ class _ActivityAdminDashboardScreenState
               ),
             ),
             Positioned(
-              top: 50,
+              top: 30,
               width: media.width,
               child: Container(
                 alignment: Alignment.center,
                 child: Text(
                   'Activities Dashboard',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
             ),
@@ -191,21 +192,21 @@ class _ActivityAdminDashboardScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Activities Usage',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.deepPurple,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Expanded(
-                      child: Container(
-                        child: _buildActivitiesChart(media),
-                      ),
-                    ),
+                    // Text(
+                    //   'Activities Usage',
+                    //   textAlign: TextAlign.left,
+                    //   style: TextStyle(
+                    //     color: Colors.deepPurple,
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.w500,
+                    //   ),
+                    // ),
+                    SizedBox(height: 50),
+                    // Expanded(
+                    //   child: Container(
+                    //     child: _buildActivitiesChart(media),
+                    //   ),
+                    // ),
                     SizedBox(height: 5),
                     Text(
                       'Quick Actions',
@@ -352,6 +353,8 @@ class _ActivityAdminDashboardScreenState
           ],
         ),
       ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         heroTag: null,
@@ -379,25 +382,25 @@ class _ActivityAdminDashboardScreenState
   }
 
   // Have to impl
-  Widget _buildActivitiesChart(Size media) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          alignment: Alignment.center,
-          height: 100,
-          child: InkWell(
-            onTap: () {
-              _graphAnimationController.forward();
-            },
-            child: Graph(
-                animationController: _graphAnimationController,
-                values: monthData),
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildActivitiesChart(Size media) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: <Widget>[
+  //       Container(
+  //         alignment: Alignment.center,
+  //         height: 100,
+  //         child: InkWell(
+  //           onTap: () {
+  //             _graphAnimationController.forward();
+  //           },
+  //           child: Graph(
+  //               animationController: _graphAnimationController,
+  //               values: monthData),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget buildDashboardRow1() {
     return Expanded(

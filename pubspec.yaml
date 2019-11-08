@@ -24,7 +24,6 @@ dependencies:
   cloud_firestore: ^0.12.9
   firebase_auth: 0.14.0+2
   firebase_messaging: ^5.1.6
-  flushbar: ^1.3.1
   firebase_storage: ^3.0.6
   cloud_functions: 0.4.1+1
   shared_preferences: any
@@ -38,16 +37,13 @@ dependencies:
   intl:
   image_picker:
   flare_flutter: ^1.5.8
-  pdf: ^1.3.22
   path_provider: 
   flutter_slidable: ^0.5.3
   percent_indicator: ^2.1.1
-  curved_navigation_bar:
   flutter_datetime_picker:
   fab_circular_menu: ^0.1.1
-  
+  flushbar: ^1.9.1
   flutter_local_notifications: ^0.8.4
-  flutter_full_pdf_viewer: ^1.0.4
   progress_dialog:
   syncfusion_flutter_charts: ^17.3.14
 
@@ -78,6 +74,14 @@ flutter:
     - assets/images/minion.png
     - assets/images/kids.png
     - assets/images/user.png
+    - assets/images/home.png
+    - assets/images/daily.png
+    - assets/images/chat.png
+    - assets/images/profile.png
+    - assets/images/appointment.png
+    - assets/images/subject.png
+    - assets/images/weekly.png
+    - assets/images/activities.png
     - assets/images/leisure.png
     - assets/images/speaking.jpg
     - assets/images/swimming.jpg

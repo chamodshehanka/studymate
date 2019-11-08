@@ -48,19 +48,15 @@ class _HomeScreenState extends State<HomeScreenAdmin> {
         crossAxisSpacing: 10.0,
         crossAxisCount: 2,
         children: <Widget>[
-          HomeTile(Icons.verified_user, "Student Manager", Colors.red,
-              "/studentAdd"),
-          HomeTile(
-              Icons.calendar_today, "Admin Manager", Colors.amber, "/adminAdd"),
-          HomeTile(Icons.calendar_today, "Doctor Manager", Colors.amber,
-              "/doctorAdd"),
+          HomeTile(Icons.verified_user, "User Manager", Colors.red,
+              "/userManager"),
           HomeTile(Icons.local_activity, "Activity Manager",
               Colors.deepPurpleAccent, "/adminActivityDashboard"),
           HomeTile(
-              Icons.book, "Subject Manager", Colors.lightBlue, "/udSubject"),
+              Icons.book, "Subject Manager", Colors.lightBlue, "/adminSubjectList"),
           HomeTile(Icons.supervised_user_circle, "Profile", Colors.red,
               "/forgotPassword"),
-          HomeTile(Icons.stars, "Rewards Manager", Colors.pink, "/rewards"),
+          HomeTile(Icons.stars, "Rewards Manager", Colors.pink, "/adminBadgeList"),
           HomeTile(
               Icons.settings, "Admin Test", Colors.black, "/medicalRecord"),
         ],

@@ -4,38 +4,28 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Appointment.dart';
 import 'package:studymate/utils/CommonConstants.dart';
 
-//Create Collection and give it Name as "appointment" as appoiintmentCollectionName to CommanConstants
 final CollectionReference appointmentCollection =
-    Firestore.instance.collection(CommonConstants.appointmentCollectionName);//Utils/CommanConstants
+    Firestore.instance.collection(CommonConstants.appointmentCollectionName);
 
-//Create Service Class to DB
 class AppointmentService {
-//Create method as "createAppointment" to create a appointment
-//Type is <Appointment>(Form details)
-  Future<Appointment> createAppointment(String specialDescription,String date,String time,String place) {
-    //create transactional handler
+  Future<Appointment> createAppointment(
+      String specialDescription, String date, String time, String place) {
     final TransactionHandler createTransaction = (Transaction tx) async {
-      //Create Document Snapshot get that perticular documents
-      final DocumentSnapshot ds = await tx.get(appointmentCollection.document());
-      //assigning details previously mentions in that create new appointment form properties
-      //***Create instance */passing all the details recieve from my form
-      final Appointment appointment = new Appointment(ds.documentID, specialDescription,date,time,place);
-      //We are create Map function and we are give it as "data"
-      //use to map and send it back to the firestore
+      final DocumentSnapshot ds =
+          await tx.get(appointmentCollection.document());
+
+      final Appointment appointment = new Appointment(
+          ds.documentID, specialDescription, date, time, place, false);
+
       final Map<String, dynamic> data = appointment.toMap();
-      //when we wants to set data to refrence
-      /**Set our document snapshot with the reference and assign with data */
+
       await tx.set(ds.reference, data);
-      //**all are map to the data */
-      //& return data
+
       return data;
     };
-    //Run transaction and Create transaction
-    //onece it is done return Appointment from map
+
     return Firestore.instance.runTransaction(createTransaction).then((mapData) {
       return Appointment.fromMap(mapData);
-      //if not catch error
-      //retrn null and print error
     }).catchError((error) {
       print('error: $error');
       return null;
@@ -45,6 +35,38 @@ class AppointmentService {
   //Get All Appointments
   Stream<QuerySnapshot> getAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = appointmentCollection.snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
+  }
+
+  // Get Not Approved Appointments
+  Stream<QuerySnapshot> getNotApprovedAppointments({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots =
+        appointmentCollection.where('isApproved', isEqualTo: false).snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
+  }
+
+  // Get Not Approved Appointments
+  Stream<QuerySnapshot> getApprovedAppointments({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots =
+        appointmentCollection.where('isApproved', isEqualTo: true).snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -77,7 +99,8 @@ class AppointmentService {
 
   Future<dynamic> deleteAppointment(String id) async {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
-      final DocumentSnapshot ds = await tx.get(appointmentCollection.document(id));
+      final DocumentSnapshot ds =
+          await tx.get(appointmentCollection.document(id));
 
       await tx.delete(ds.reference);
       return {'deleted': true};

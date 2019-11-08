@@ -10,7 +10,6 @@ import 'package:studymate/screens/ScheduleScreen/Tabs/TuesdayTab.dart';
 import 'package:studymate/screens/ScheduleScreen/Tabs/WednesdayTab.dart';
 import 'package:studymate/services/custom/ScheduleServices.dart';
 
-
 class WeeklyPlanScreen extends StatefulWidget {
   _WeeklyPlanScreenState createState() => _WeeklyPlanScreenState();
   

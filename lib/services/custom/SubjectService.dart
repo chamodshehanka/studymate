@@ -28,10 +28,10 @@ class SubjectService {
     });
   }
 
-  //Get Only GRADE89Subjects
-  Stream<QuerySnapshot> getGrade89SubjectList({int offset, int limit}) {
+  //Get Only GRADE69Subjects
+  Stream<QuerySnapshot> getGrade69SubjectList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
-        subjectCollection.where('type', isEqualTo: 'Grade89').snapshots();
+        subjectCollection.where('type', isEqualTo: 'Grade 6-9').snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -44,9 +44,9 @@ class SubjectService {
   }
 
   //Get Only OLevel Subjects
-  Stream<QuerySnapshot> getOLevelSubjectList({int offset, int limit}) {
+  Stream<QuerySnapshot> getOrdinaryLevelSubjectList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
-        subjectCollection.where('type', isEqualTo: 'OL').snapshots();
+        subjectCollection.where('type', isEqualTo: 'Ordinary Level').snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -59,6 +59,21 @@ class SubjectService {
     return snapshots;
   }
 
+//Get Only ALevel Subjects
+ Stream<QuerySnapshot> getAdvancedLevelSubjectList({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots =
+        subjectCollection.where('type', isEqualTo: 'Advanced Level').snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
+  }
   //Get All Subjects
   Stream<QuerySnapshot> getSubjectList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = subjectCollection.snapshots();

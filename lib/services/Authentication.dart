@@ -47,6 +47,7 @@ class Authentication implements BaseAuthentication {
     return _firebaseAuth.signOut();
   }
 
+
   @override
   Future<String> signUp(
       String email, String password, String userType, Object userObject) async {
