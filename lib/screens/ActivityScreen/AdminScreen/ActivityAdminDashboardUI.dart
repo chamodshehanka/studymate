@@ -119,240 +119,244 @@ class _ActivityAdminDashboardScreenState
 
     return Scaffold(
       body: Column(
-        children: <Widget>[      
-      Container(
-        height: media.height,
-        child: Stack(
-          children: <Widget>[
-            ClipPath(
-              clipper: CurveClipper(),
-              child: Container(
-                width: media.width,
-                height: media.height * .25,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xff5f27cd), Color(0xff341f97)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 30,
-              width: media.width,
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  'Activities Dashboard',
-                  style: TextStyle(color: Colors.white, fontSize: 30),
-                ),
-              ),
-            ),
-            Positioned(
-              top: media.height * .08,
-              width: media.width,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 20,
-                ),
-                child: Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Color(0xffeff2f3),
-                          offset: Offset(1, 5.0),
-                          blurRadius: 3.0)
-                    ],
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      buildDashboardRow1(),
-                      Divider(
-                        color: Colors.grey,
-                        height: 1,
-                      ),
-                      buildDashboardRow2(),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            // Second position Layer
-            Positioned(
-              top: media.height * .38,
-              height: (media.height * .66) - 100,
-              width: media.width,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    // Text(
-                    //   'Activities Usage',
-                    //   textAlign: TextAlign.left,
-                    //   style: TextStyle(
-                    //     color: Colors.deepPurple,
-                    //     fontSize: 16,
-                    //     fontWeight: FontWeight.w500,
-                    //   ),
-                    // ),
-                    SizedBox(height: 50),
-                    // Expanded(
-                    //   child: Container(
-                    //     child: _buildActivitiesChart(media),
-                    //   ),
-                    // ),
-                    SizedBox(height: 5),
-                    Text(
-                      'Quick Actions',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.deepPurple),
-                    ),
-                    SizedBox(height: 5),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 190,
-                                  child: StudymateRaisedButton(
-                                      'Manage Activities',
-                                      viewActivitiesList,
-                                      Colors.deepPurpleAccent),
-                                ),
-                                Container(
-                                  width: 190,
-                                  child: StudymateRaisedButton(
-                                    'Activities Usage',
-                                    viewActivitiesList,
-                                    Colors.deepPurpleAccent,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 190,
-                                  child: StudymateRaisedButton('Send Message',
-                                      sendMessage, Colors.deepPurpleAccent),
-                                ),
-                                Container(
-                                  width: 190,
-                                  child: StudymateRaisedButton(
-                                      'Create Activity',
-                                      sendMessage,
-                                      Colors.deepPurpleAccent),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // Floating Menu Overlay
-            Positioned(
-              top: 0,
-              child: FadeTransition(
-                opacity: _controller,
-                child: GestureDetector(
-                  onTap: () {
-                    _controller.reverse();
-                  },
+        children: <Widget>[
+          Container(
+            height: media.height,
+            child: Stack(
+              children: <Widget>[
+                ClipPath(
+                  clipper: CurveClipper(),
                   child: Container(
-                    width: _heightAnimation.value > 5 ? media.width : 0,
-                    height: _heightAnimation.value > 5 ? media.height : 0,
-                    color: Colors.black54,
+                    width: media.width,
+                    height: media.height * .25,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xff5f27cd), Color(0xff341f97)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  top: 30,
+                  width: media.width,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Activities Dashboard',
+                      style: TextStyle(color: Colors.white, fontSize: 30),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: media.height * .08,
+                  width: media.width,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 20,
+                    ),
+                    child: Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color(0xffeff2f3),
+                              offset: Offset(1, 5.0),
+                              blurRadius: 3.0)
+                        ],
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          buildDashboardRow1(),
+                          Divider(
+                            color: Colors.grey,
+                            height: 1,
+                          ),
+                          buildDashboardRow2(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                // Second position Layer
+                Positioned(
+                  top: media.height * .38,
+                  height: (media.height * .66) - 100,
+                  width: media.width,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // Text(
+                        //   'Activities Usage',
+                        //   textAlign: TextAlign.left,
+                        //   style: TextStyle(
+                        //     color: Colors.deepPurple,
+                        //     fontSize: 16,
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+                        SizedBox(height: 50),
+                        // Expanded(
+                        //   child: Container(
+                        //     child: _buildActivitiesChart(media),
+                        //   ),
+                        // ),
+                        SizedBox(height: 5),
+                        Text(
+                          'Quick Actions',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.deepPurple),
+                        ),
+                        SizedBox(height: 5),
+                        Expanded(
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 190,
+                                      child: StudymateRaisedButton(
+                                          'Manage Activities',
+                                          viewActivitiesList,
+                                          Colors.deepPurpleAccent),
+                                    ),
+                                    Container(
+                                      width: 190,
+                                      child: StudymateRaisedButton(
+                                        'Activities Usage',
+                                        viewActivitiesList,
+                                        Colors.deepPurpleAccent,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 190,
+                                      child: StudymateRaisedButton(
+                                          'Send Message',
+                                          sendMessage,
+                                          Colors.deepPurpleAccent),
+                                    ),
+                                    Container(
+                                      width: 190,
+                                      child: StudymateRaisedButton(
+                                          'Create Activity',
+                                          sendMessage,
+                                          Colors.deepPurpleAccent),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Floating Menu Overlay
+                Positioned(
+                  top: 0,
+                  child: FadeTransition(
+                    opacity: _controller,
+                    child: GestureDetector(
+                      onTap: () {
+                        _controller.reverse();
+                      },
+                      child: Container(
+                        width: _heightAnimation.value > 5 ? media.width : 0,
+                        height: _heightAnimation.value > 5 ? media.height : 0,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  width: 56, // width of floating button
+                  height: _heightAnimation.value,
+                  bottom: 28, // middle of floating button
+                  left: (media.width / 2) + 134,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurpleAccent,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(5),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 30),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Visibility(
+                            visible: _heightAnimation.value > 210,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.list,
+                                color: Colors.white,
+                                size: _iconSizeAnimation.value,
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, '/adminActivityList');
+                                _controller.reverse();
+                              },
+                            ),
+                          ),
+                          Visibility(
+                            visible: _heightAnimation.value > 160,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.history,
+                                color: Colors.white,
+                                size: _iconSizeAnimation.value,
+                              ),
+                              onPressed: () {
+                                // impl
+                                _controller.reverse();
+                              },
+                            ),
+                          ),
+                          Visibility(
+                            visible: _heightAnimation.value > 90,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.insert_drive_file,
+                                color: Colors.white,
+                                size: _iconSizeAnimation.value,
+                              ),
+                              onPressed: () {
+                                // Report generating UI
+                                Navigator.pushNamed(
+                                    context, '/activityReports');
+                                _controller.reverse();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Positioned(
-              width: 56, // width of floating button
-              height: _heightAnimation.value,
-              bottom: 28, // middle of floating button
-              left: (media.width / 2) + 134,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.deepPurpleAccent,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(5),
-                    bottomRight: Radius.circular(5),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5, bottom: 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Visibility(
-                        visible: _heightAnimation.value > 210,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.list,
-                            color: Colors.white,
-                            size: _iconSizeAnimation.value,
-                          ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/adminActivityList');
-                            _controller.reverse();
-                          },
-                        ),
-                      ),
-                      Visibility(
-                        visible: _heightAnimation.value > 160,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.history,
-                            color: Colors.white,
-                            size: _iconSizeAnimation.value,
-                          ),
-                          onPressed: () {
-                            // impl
-                            _controller.reverse();
-                          },
-                        ),
-                      ),
-                      Visibility(
-                        visible: _heightAnimation.value > 90,
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.insert_drive_file,
-                            color: Colors.white,
-                            size: _iconSizeAnimation.value,
-                          ),
-                          onPressed: () {
-                            // Report generating UI
-                            Navigator.pushNamed(context, '/activityReports');
-                            _controller.reverse();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
