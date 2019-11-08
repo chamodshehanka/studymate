@@ -61,11 +61,7 @@ class _DoctorListViewState extends State<DoctorListView> {
              IconSlideAction(caption: 'Delete',
             color: Colors.redAccent,
             icon: Icons.delete,
-            onTap: ()=> deleteDoctor(doctor),),
-            IconSlideAction(caption: 'Update',
-            color: Colors.yellowAccent,
-            icon: Icons.update,
-            onTap: ()=> {},)
+            onTap: ()=> deleteDoctor(doctor),)
             ],
           ),
         );

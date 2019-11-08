@@ -1,46 +1,84 @@
-import 'dart:developer';
-import 'dart:io';
+
+import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:studymate/models/Activity.dart';
-import 'package:studymate/services/Authentication.dart';
-import 'package:studymate/services/CloudFunctionsService.dart';
-import 'package:studymate/services/custom/ActivityService.dart';
-// import 'package:studymate/widgets/ActivitiesGraph/Graph.dart';
-// import 'package:studymate/widgets/ActivitiesGraph/GraphData.dart';
+import 'package:studymate/models/Admin.dart';
+import 'package:studymate/models/Doctor.dart';
+import 'package:studymate/models/Student.dart';
+import 'package:studymate/services/custom/AdminServices.dart';
+import 'package:studymate/services/custom/DoctorService.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 import 'package:studymate/widgets/CurveClipper.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
-class ActivityAdminDashboardScreen extends StatefulWidget {
-  _ActivityAdminDashboardScreenState createState() =>
-      _ActivityAdminDashboardScreenState();
+class UserManagerScreen extends StatefulWidget {
+  _UserManagerScreenState createState() =>
+      _UserManagerScreenState();
 }
 
-class _ActivityAdminDashboardScreenState
-    extends State<ActivityAdminDashboardScreen> with TickerProviderStateMixin {
-  int noOfAllActivities = 0;
-  int noOfLeisureActivities = 0;
-  int noOfSocialActivities = 0;
-  int noOfOtherActivities = 0;
+class _UserManagerScreenState
+    extends State<UserManagerScreen> with TickerProviderStateMixin {
+  int noOfAllUsers = 0;
+  int noOfDoctors = 0;
+  int noOfStudents = 0;
+  int noOfAdmins = 0;
   double countFontSize = 42;
   Color countNumColor = Colors.deepPurple;
+  StreamSubscription<QuerySnapshot> studentsSubscription;
+  StreamSubscription<QuerySnapshot> adminsSubscription;
+  StreamSubscription<QuerySnapshot> doctorsSubscription;
+  StudentService studentService = StudentService();
+  AdminService adminService = AdminService();
+  DoctorService doctorService = DoctorService();
   AnimationController _controller;
   Animation<double> _heightAnimation;
   Animation<double> _iconSizeAnimation;
-  AnimationController _graphAnimationController;
-  CloudFunctionService cloudFunctionService = CloudFunctionService();
-  FirebaseMessaging _fcm = FirebaseMessaging();
-  BaseAuthentication _authentication = Authentication();
 
-  @override
+    @override
   void initState() {
     super.initState();
 
-    // To get activities count
-    _getActivitiesCount();
+     studentsSubscription?.cancel();
+    studentsSubscription = studentService
+        .getStudentList()
+        .listen((QuerySnapshot snapshot) {
+      final List<Student> students = snapshot.documents
+          .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.noOfStudents = students.length;
+        this.noOfAllUsers+=noOfStudents;
+      });
+    });
+
+
+    adminsSubscription?.cancel();
+    adminsSubscription = adminService
+        .getAll()
+        .listen((QuerySnapshot snapshot) {
+      final List<Admin> admins = snapshot.documents
+          .map((documentSnapshot) => Admin.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.noOfAdmins = admins.length;
+        this.noOfAllUsers+=noOfAdmins;
+      });
+    });
+
+    doctorsSubscription?.cancel();
+    doctorsSubscription = adminService
+        .getAll()
+        .listen((QuerySnapshot snapshot) {
+      final List<Doctor> doctors = snapshot.documents
+          .map((documentSnapshot) => Doctor.fromMap(documentSnapshot.data))
+          .toList();
+      setState(() {
+        this.noOfDoctors = doctors.length;
+        this.noOfAllUsers+=noOfDoctors;
+      });
+    });
 
     // Theme block
     _controller = new AnimationController(
@@ -59,58 +97,6 @@ class _ActivityAdminDashboardScreenState
       setState(() {});
     });
 
-    // Graph Animations
-    _graphAnimationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
-
-    // fcm
-    _fcm.configure(onMessage: (Map<String, dynamic> message) async {
-      showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                content: ListTile(
-                  title: Text(message['notification']['title']),
-                  subtitle: Text(message['notification']['body']),
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text('Ok'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  )
-                ],
-              ));
-    }, onResume: (Map<String, dynamic> message) async {
-      print('On Resume');
-    }, onLaunch: (Map<String, dynamic> message) async {
-      print('On launch');
-    });
-
-    _saveDeviceToken();
-  }
-
-  _saveDeviceToken() async {
-    _authentication.getCurrentUser().then((userId) async {
-      String uid = userId;
-      String _fcmToken = await _fcm.getToken();
-      if (_fcmToken != null) {
-        var tokenRef = Firestore.instance
-            .collection('admins')
-            .document(uid)
-            .collection('tokens')
-            .document(_fcmToken);
-        await tokenRef.setData({
-          'token': _fcmToken,
-          'createdAt': FieldValue.serverTimestamp(),
-          'platform': Platform.operatingSystem
-        });
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _graphAnimationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -118,10 +104,9 @@ class _ActivityAdminDashboardScreenState
     Size media = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Column(
-        children: <Widget>[      
-      Container(
+      body: Container(
         height: media.height,
+        width: media.width,
         child: Stack(
           children: <Widget>[
             ClipPath(
@@ -144,7 +129,7 @@ class _ActivityAdminDashboardScreenState
               child: Container(
                 alignment: Alignment.center,
                 child: Text(
-                  'Activities Dashboard',
+                  'User Dashboard',
                   style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
@@ -192,22 +177,7 @@ class _ActivityAdminDashboardScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    // Text(
-                    //   'Activities Usage',
-                    //   textAlign: TextAlign.left,
-                    //   style: TextStyle(
-                    //     color: Colors.deepPurple,
-                    //     fontSize: 16,
-                    //     fontWeight: FontWeight.w500,
-                    //   ),
-                    // ),
-                    SizedBox(height: 50),
-                    // Expanded(
-                    //   child: Container(
-                    //     child: _buildActivitiesChart(media),
-                    //   ),
-                    // ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 100),
                     Text(
                       'Quick Actions',
                       textAlign: TextAlign.left,
@@ -226,15 +196,15 @@ class _ActivityAdminDashboardScreenState
                                 Container(
                                   width: 190,
                                   child: StudymateRaisedButton(
-                                      'Manage Activities',
-                                      viewActivitiesList,
+                                      'Manage Admins',
+                                      manageAdmins,
                                       Colors.deepPurpleAccent),
                                 ),
                                 Container(
                                   width: 190,
                                   child: StudymateRaisedButton(
-                                    'Activities Usage',
-                                    viewActivitiesList,
+                                    'Manage Doctors',
+                                    manageDoctors,
                                     Colors.deepPurpleAccent,
                                   ),
                                 ),
@@ -244,14 +214,14 @@ class _ActivityAdminDashboardScreenState
                               children: <Widget>[
                                 Container(
                                   width: 190,
-                                  child: StudymateRaisedButton('Send Message',
-                                      sendMessage, Colors.deepPurpleAccent),
+                                  child: StudymateRaisedButton('Manage Students',
+                                      manageStudents, Colors.deepPurpleAccent),
                                 ),
                                 Container(
                                   width: 190,
                                   child: StudymateRaisedButton(
-                                      'Create Activity',
-                                      sendMessage,
+                                      'Admin Home',
+                                      goToAdminHome,
                                       Colors.deepPurpleAccent),
                                 ),
                               ],
@@ -312,7 +282,6 @@ class _ActivityAdminDashboardScreenState
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, '/adminActivityList');
-                            _controller.reverse();
                           },
                         ),
                       ),
@@ -326,7 +295,6 @@ class _ActivityAdminDashboardScreenState
                           ),
                           onPressed: () {
                             // impl
-                            _controller.reverse();
                           },
                         ),
                       ),
@@ -341,7 +309,6 @@ class _ActivityAdminDashboardScreenState
                           onPressed: () {
                             // Report generating UI
                             Navigator.pushNamed(context, '/activityReports');
-                            _controller.reverse();
                           },
                         ),
                       ),
@@ -352,8 +319,6 @@ class _ActivityAdminDashboardScreenState
             ),
           ],
         ),
-      ),
-        ],
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 0,
@@ -381,28 +346,7 @@ class _ActivityAdminDashboardScreenState
     );
   }
 
-  // Have to impl
-  // Widget _buildActivitiesChart(Size media) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.center,
-  //     children: <Widget>[
-  //       Container(
-  //         alignment: Alignment.center,
-  //         height: 100,
-  //         child: InkWell(
-  //           onTap: () {
-  //             _graphAnimationController.forward();
-  //           },
-  //           child: Graph(
-  //               animationController: _graphAnimationController,
-  //               values: monthData),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  Widget buildDashboardRow1() {
+Widget buildDashboardRow1() {
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -413,11 +357,7 @@ class _ActivityAdminDashboardScreenState
                 children: <Widget>[
                   Container(
                     width: 70,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: ExactAssetImage('assets/images/kids.png'),
-                          fit: BoxFit.contain),
-                    ),
+                    child: Icon(Icons.supervised_user_circle,size: 80,),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -426,13 +366,13 @@ class _ActivityAdminDashboardScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Activities',
+                          'Users',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          noOfAllActivities.toString(),
+                          noOfAllUsers.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: countFontSize,
@@ -452,13 +392,8 @@ class _ActivityAdminDashboardScreenState
               child: Row(
                 children: <Widget>[
                   Container(
-                    width: 75,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: ExactAssetImage('assets/images/leisure.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    width: 70,
+                    child: Icon(Icons.school,size: 80,),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -467,13 +402,13 @@ class _ActivityAdminDashboardScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Leisure',
+                          'Students',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          noOfLeisureActivities.toString(),
+                          noOfStudents.toString(),
                           style: TextStyle(
                               color: countNumColor,
                               fontWeight: FontWeight.w500,
@@ -502,12 +437,7 @@ class _ActivityAdminDashboardScreenState
                 children: <Widget>[
                   Container(
                     width: 70,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: ExactAssetImage('assets/images/speaking.jpg'),
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                    child: Icon(Icons.local_hospital,size: 80,),
                   ),
                   SizedBox(
                     width: 10,
@@ -517,11 +447,11 @@ class _ActivityAdminDashboardScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Social',
+                        Text('Doctors',
                             style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold)),
-                        Text(noOfSocialActivities.toString(),
+                        Text(noOfDoctors.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: countFontSize,
@@ -542,14 +472,9 @@ class _ActivityAdminDashboardScreenState
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: <Widget>[
-                  Container(
-                    width: 75,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: ExactAssetImage('assets/images/swimming.jpg'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                   Container(
+                    width: 70,
+                    child: Icon(Icons.settings,size: 80,),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -557,11 +482,11 @@ class _ActivityAdminDashboardScreenState
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text('Other',
+                        Text('Admins',
                             style: TextStyle(
                                 color: Colors.purple,
                                 fontWeight: FontWeight.bold)),
-                        Text(noOfOtherActivities.toString(),
+                        Text(noOfAdmins.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: countFontSize,
@@ -577,38 +502,20 @@ class _ActivityAdminDashboardScreenState
       ),
     );
   }
-
-  // Get Activities count from Activity Collection
-  void _getActivitiesCount() {
-    Stream<QuerySnapshot> activityList = ActivityService().getActivityList();
-    activityList.forEach((activity) {
-      setState(() {
-        noOfAllActivities = activity.documents.length;
-        activity.documents.forEach((doc) {
-          Activity activity = Activity.fromMap(doc.data);
-          if (activity.type == 'Social') {
-            noOfSocialActivities++;
-          } else if (activity.type == 'Leisure') {
-            noOfLeisureActivities++;
-          }
-        });
-      });
-    });
+  void manageDoctors() {
+    Navigator.pushNamed(context, '/doctorManage');
   }
 
-  // View Activities List UI
-  void viewActivitiesList() {
-    Navigator.pushNamed(context, '/adminActivityList');
+
+  void manageStudents() {
+    Navigator.pushNamed(context, '/studentManage');
   }
 
-  // View Activities Usage UI
-  void viewActivitiesUsage() {}
+  void manageAdmins() {
+    Navigator.pushNamed(context, '/adminManage');
+  }
 
-  void sendMessage() {
-    _authentication.getCurrentUser().then((authId) {
-      cloudFunctionService.cloudNotificationFunction(authId);
-    }).catchError((error) {
-      log(error.toString());
-    });
+  void goToAdminHome() {
+    Navigator.pushNamed(context, '/homeAdmin');
   }
 }

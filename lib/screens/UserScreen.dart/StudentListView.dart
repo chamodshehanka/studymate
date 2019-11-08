@@ -60,11 +60,7 @@ class _StudentListViewState extends State<StudentListView> {
               IconSlideAction(caption: 'Delete',
             color: Colors.redAccent,
             icon: Icons.delete,
-            onTap: ()=> deleteStudent(student),),
-            IconSlideAction(caption: 'Update',
-            color: Colors.yellowAccent,
-            icon: Icons.update,
-            onTap: ()=> {},)
+            onTap: ()=> deleteStudent(student),)
             ],
           ),
         );

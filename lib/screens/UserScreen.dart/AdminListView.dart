@@ -70,11 +70,7 @@ baseAuthentication.getCurrentUser().then(((user){
              IconSlideAction(caption: 'Delete',
             color: Colors.redAccent,
             icon: Icons.delete,
-            onTap: ()=> deleteAdmin(admin),),
-            IconSlideAction(caption: 'Update',
-            color: Colors.yellowAccent,
-            icon: Icons.update,
-            onTap: ()=> {},)
+            onTap: ()=> deleteAdmin(admin),)
             ],
           ),
         );
