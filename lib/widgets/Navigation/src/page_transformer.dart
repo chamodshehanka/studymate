@@ -121,6 +121,8 @@ class _PageTransformerState extends State<PageTransformer> {
             viewPortFraction: viewPortFraction,
           );
         });
+        // Had to return true for prevent warning
+        return true;
       },
       child: pageView,
     );
