@@ -30,16 +30,14 @@ class _AdminListViewState extends State<AdminListView> {
   void initState() {
     super.initState();
 
-baseAuthentication.getCurrentUser().then(((user){
-  setState(() {
-    currentUser = user.toString();
-  });
-}));
+    baseAuthentication.getCurrentUser().then(((user) {
+      setState(() {
+        currentUser = user.toString();
+      });
+    }));
     adminList = List();
     adminsSubscription?.cancel();
-    adminsSubscription = adminService
-        .getAll()
-        .listen((QuerySnapshot snapshot) {
+    adminsSubscription = adminService.getAll().listen((QuerySnapshot snapshot) {
       final List<Admin> admins = snapshot.documents
           .map((documentSnapshot) => Admin.fromMap(documentSnapshot.data))
           .toList();
@@ -47,7 +45,6 @@ baseAuthentication.getCurrentUser().then(((user){
         this.adminList = admins;
       });
     });
-
   }
 
   @override
@@ -67,10 +64,12 @@ baseAuthentication.getCurrentUser().then(((user){
                 child: buildTilesList(admin)),
             actionPane: SlidableDrawerActionPane(),
             secondaryActions: <Widget>[
-             IconSlideAction(caption: 'Delete',
-            color: Colors.redAccent,
-            icon: Icons.delete,
-            onTap: ()=> deleteAdmin(admin),)
+              IconSlideAction(
+                caption: 'Delete',
+                color: Colors.redAccent,
+                icon: Icons.delete,
+                onTap: () => deleteAdmin(admin),
+              )
             ],
           ),
         );
@@ -82,7 +81,9 @@ baseAuthentication.getCurrentUser().then(((user){
               shrinkWrap: true,
               itemCount: adminList.length,
               itemBuilder: (BuildContext context, int index) {
-                if(adminList[index].firstName!=null&&adminList[index].lastName!=null&&adminList[index].id!=currentUser)
+                if (adminList[index].firstName != null &&
+                    adminList[index].lastName != null &&
+                    adminList[index].id != currentUser)
                   return makeCard(adminList[index]);
                 else
                   return null;
@@ -115,47 +116,43 @@ baseAuthentication.getCurrentUser().then(((user){
         ),
       ),
       title: Text(
-        admin.firstName+" "+admin.lastName,
+        admin.firstName + " " + admin.lastName,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      trailing:
-          Icon(Icons.view_list),
-      onTap: () {
-      });
+      trailing: Icon(Icons.view_list),
+      onTap: () {});
 
-
-void deleteAdmin(Admin admin) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return StudymateDialogBox(
-                title: 'Are you sure?',
-                description: admin.firstName + " "+admin.lastName+
-                    ' ,Administrator will be permanently deleted!',
-                confirmation: true,
-                confirmationAction: (){
-      Future<dynamic> isDeleted =
-          adminService.delete(admin.id);
-      isDeleted.then((result) {
-        if (result) {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Successfully Deleted'),
-            backgroundColor: Colors.green,
-          ));
-        } else {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Deletion Failed!'),
-            backgroundColor: Colors.redAccent,
-          ));
-
-        }
-      }
-      );
-      Navigator.pop(context);
-    },
-                tigerAnimationType: 'fail',
-              );
-            });
+  void deleteAdmin(Admin admin) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return StudymateDialogBox(
+            title: 'Are you sure?',
+            description: admin.firstName +
+                " " +
+                admin.lastName +
+                ' ,Administrator will be permanently deleted!',
+            confirmation: true,
+            confirmationAction: () {
+              Future<dynamic> isDeleted = adminService.delete(admin.id);
+              isDeleted.then((result) {
+                if (result) {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Successfully Deleted'),
+                    backgroundColor: Colors.green,
+                  ));
+                } else {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Deletion Failed!'),
+                    backgroundColor: Colors.redAccent,
+                  ));
+                }
+              });
+              Navigator.pop(context);
+            },
+            tigerAnimationType: 'fail',
+          );
+        });
   }
 }

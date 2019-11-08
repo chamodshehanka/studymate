@@ -8,7 +8,6 @@ import 'package:studymate/models/Doctor.dart';
 import 'package:studymate/services/custom/DoctorService.dart';
 import 'package:studymate/widgets/StudymateDialogBox.dart';
 
-
 class DoctorListView extends StatefulWidget {
   DoctorListView({Key key, this.title});
   final String title;
@@ -28,9 +27,8 @@ class _DoctorListViewState extends State<DoctorListView> {
 
     doctorList = List();
     doctorssSubscription?.cancel();
-    doctorssSubscription = doctorService
-        .getAll()
-        .listen((QuerySnapshot snapshot) {
+    doctorssSubscription =
+        doctorService.getAll().listen((QuerySnapshot snapshot) {
       final List<Doctor> doctors = snapshot.documents
           .map((documentSnapshot) => Doctor.fromMap(documentSnapshot.data))
           .toList();
@@ -38,7 +36,6 @@ class _DoctorListViewState extends State<DoctorListView> {
         this.doctorList = doctors;
       });
     });
-
   }
 
   @override
@@ -58,10 +55,12 @@ class _DoctorListViewState extends State<DoctorListView> {
                 child: buildTilesList(doctor)),
             actionPane: SlidableDrawerActionPane(),
             secondaryActions: <Widget>[
-             IconSlideAction(caption: 'Delete',
-            color: Colors.redAccent,
-            icon: Icons.delete,
-            onTap: ()=> deleteDoctor(doctor),)
+              IconSlideAction(
+                caption: 'Delete',
+                color: Colors.redAccent,
+                icon: Icons.delete,
+                onTap: () => deleteDoctor(doctor),
+              )
             ],
           ),
         );
@@ -73,7 +72,8 @@ class _DoctorListViewState extends State<DoctorListView> {
               shrinkWrap: true,
               itemCount: doctorList.length,
               itemBuilder: (BuildContext context, int index) {
-                if(doctorList[index].firstName!=null&&doctorList[index].lastName!=null)
+                if (doctorList[index].firstName != null &&
+                    doctorList[index].lastName != null)
                   return makeCard(doctorList[index]);
                 else
                   return null;
@@ -106,47 +106,43 @@ class _DoctorListViewState extends State<DoctorListView> {
         ),
       ),
       title: Text(
-        doctor.firstName+" "+doctor.lastName,
+        doctor.firstName + " " + doctor.lastName,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      trailing:
-          Icon(Icons.view_list),
-      onTap: () {
-      });
+      trailing: Icon(Icons.view_list),
+      onTap: () {});
 
-
-void deleteDoctor(Doctor doctor){
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return StudymateDialogBox(
-                title: 'Are you sure?',
-                description: doctor.firstName +" "+ doctor.lastName+
-                    ' ,Doctor will be permanently deleted!',
-                confirmation: true,
-                confirmationAction: (){
-      Future<dynamic> isDeleted =
-          doctorService.delete(doctor.id);
-      isDeleted.then((result) {
-        if (result) {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Successfully Deleted'),
-            backgroundColor: Colors.green,
-          ));
-        } else {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Deletion Failed!'),
-            backgroundColor: Colors.redAccent,
-          ));
-
-        }
-      }
-      );
-      Navigator.pop(context);
-    },
-                tigerAnimationType: 'fail',
-              );
-            });
+  void deleteDoctor(Doctor doctor) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return StudymateDialogBox(
+            title: 'Are you sure?',
+            description: doctor.firstName +
+                " " +
+                doctor.lastName +
+                ' ,Doctor will be permanently deleted!',
+            confirmation: true,
+            confirmationAction: () {
+              Future<dynamic> isDeleted = doctorService.delete(doctor.id);
+              isDeleted.then((result) {
+                if (result) {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Successfully Deleted'),
+                    backgroundColor: Colors.green,
+                  ));
+                } else {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Deletion Failed!'),
+                    backgroundColor: Colors.redAccent,
+                  ));
+                }
+              });
+              Navigator.pop(context);
+            },
+            tigerAnimationType: 'fail',
+          );
+        });
   }
 }

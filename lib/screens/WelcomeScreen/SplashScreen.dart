@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:studymate/services/Authentication.dart';
 import 'package:studymate/services/custom/ScheduleServices.dart';
 
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -15,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   BaseAuthentication _auth = Authentication();
   Future<FirebaseUser> firebaseUser = FirebaseAuth.instance.currentUser();
-  
+
   // Future<List> _getDailySocialFromSharedPrefs() async{
   //     final prefs = await SharedPreferences.getInstance();
   //     final dailySocial = prefs.get('dailySocial');
@@ -23,33 +22,42 @@ class _SplashScreenState extends State<SplashScreen> {
 
   // }
 
-  Future<void> _setDailyTimeToSharedPrefs(String studentId) async{
-      final prefs = await SharedPreferences.getInstance();
-      ScheduleService scheduleService = new ScheduleService();
+  Future<void> _setDailyTimeToSharedPrefs(String studentId) async {
+    final prefs = await SharedPreferences.getInstance();
+    ScheduleService scheduleService = new ScheduleService();
 
-      int today = DateTime.now().weekday;
-      String day;
-        switch(today){
-          case 1:day = "monday";
-            break;
-          case 2:day = "tuesday";
-            break;
-          case 3:day = "wednesday";
-            break;
-          case 4:day = "thursday";
-            break;
-          case 5:day = "friday";
-            break;
-          case 6:day = "saturday";
-            break;
-          case 7:day = "sunday";
-            break;
-        }
+    int today = DateTime.now().weekday;
+    String day;
+    switch (today) {
+      case 1:
+        day = "monday";
+        break;
+      case 2:
+        day = "tuesday";
+        break;
+      case 3:
+        day = "wednesday";
+        break;
+      case 4:
+        day = "thursday";
+        break;
+      case 5:
+        day = "friday";
+        break;
+      case 6:
+        day = "saturday";
+        break;
+      case 7:
+        day = "sunday";
+        break;
+    }
 
-        await prefs.setInt('dailySocial',scheduleService.getDailySocialTime(day, studentId));
-        await prefs.setInt('dailyStudy',scheduleService.getDailyStudyTime(day, studentId));
-        await prefs.setInt('dailyLeisure',scheduleService.getDailyLeisureTime(day, studentId));
-
+    await prefs.setInt(
+        'dailySocial', scheduleService.getDailySocialTime(day, studentId));
+    await prefs.setInt(
+        'dailyStudy', scheduleService.getDailyStudyTime(day, studentId));
+    await prefs.setInt(
+        'dailyLeisure', scheduleService.getDailyLeisureTime(day, studentId));
   }
 
   void initState() {
@@ -68,13 +76,12 @@ class _SplashScreenState extends State<SplashScreen> {
               Navigator.pushNamed(context, '/homeDoctor');
             } else if (isStudent) {
               final prefs = await SharedPreferences.getInstance();
-              
-              if(prefs.get('dailySocial') == null){
+
+              if (prefs.get('dailySocial') == null) {
                 log("Inside Prefs");
                 _setDailyTimeToSharedPrefs(currentUser);
               }
               Navigator.pushNamed(context, '/studentMain');
-              
             }
           });
         });

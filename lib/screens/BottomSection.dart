@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BottomSection extends StatefulWidget {
   const BottomSection({
-    Key key, 
+    Key key,
   }) : super(key: key);
 
   @override
@@ -20,9 +20,7 @@ class _BottomSectionState extends State<BottomSection> {
               physics: BouncingScrollPhysics(),
               pageSnapping: true,
               scrollDirection: Axis.vertical,
-              children: <Widget>[
-               
-              ],
+              children: <Widget>[],
             )),
         Divider(
           height: 1,

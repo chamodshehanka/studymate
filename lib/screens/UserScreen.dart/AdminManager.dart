@@ -6,19 +6,20 @@ import 'package:studymate/screens/UserScreen.dart/AdminListView.dart';
 
 class AdminManagerScreen extends StatefulWidget {
   _AdminManagerScreenState createState() => _AdminManagerScreenState();
-  
 }
 
-
-
 class _AdminManagerScreenState extends State<AdminManagerScreen> {
- 
   @override
   void initState() {
     super.initState();
-    DateTime date =  DateTime.now();
-      log((date.year.toString()+"-"+date.month.toString()+"-"+date.day.toString()));
+    DateTime date = DateTime.now();
+    log((date.year.toString() +
+        "-" +
+        date.month.toString() +
+        "-" +
+        date.day.toString()));
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +31,7 @@ class _AdminManagerScreenState extends State<AdminManagerScreen> {
               "Admin Manager",
             ),
             backgroundColor: Colors.deepPurple,
-            centerTitle:true,
+            centerTitle: true,
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(text: "Add Admin"),
@@ -44,8 +45,7 @@ class _AdminManagerScreenState extends State<AdminManagerScreen> {
               AdminListView(),
             ],
           ),
-      
-         ),
+        ),
       ),
     );
   }

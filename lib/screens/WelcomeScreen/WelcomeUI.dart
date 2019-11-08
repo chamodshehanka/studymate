@@ -46,12 +46,12 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
-            child: StudymateRaisedButton("Log In", ()=>{
-              Navigator.pushNamed(context, "/signin")
-            }, Colors.deepPurpleAccent)
-          ),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
+              child: StudymateRaisedButton(
+                  "Log In",
+                  () => {Navigator.pushNamed(context, "/signin")},
+                  Colors.deepPurpleAccent)),
         ],
       ),
     );

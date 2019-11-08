@@ -27,9 +27,8 @@ class _StudentListViewState extends State<StudentListView> {
 
     studentList = List();
     studentsSubscription?.cancel();
-    studentsSubscription = studentService
-        .getStudentList()
-        .listen((QuerySnapshot snapshot) {
+    studentsSubscription =
+        studentService.getStudentList().listen((QuerySnapshot snapshot) {
       final List<Student> students = snapshot.documents
           .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
           .toList();
@@ -37,7 +36,6 @@ class _StudentListViewState extends State<StudentListView> {
         this.studentList = students;
       });
     });
-
   }
 
   @override
@@ -57,10 +55,12 @@ class _StudentListViewState extends State<StudentListView> {
                 child: buildTilesList(student)),
             actionPane: SlidableDrawerActionPane(),
             secondaryActions: <Widget>[
-              IconSlideAction(caption: 'Delete',
-            color: Colors.redAccent,
-            icon: Icons.delete,
-            onTap: ()=> deleteStudent(student),)
+              IconSlideAction(
+                caption: 'Delete',
+                color: Colors.redAccent,
+                icon: Icons.delete,
+                onTap: () => deleteStudent(student),
+              )
             ],
           ),
         );
@@ -72,7 +72,8 @@ class _StudentListViewState extends State<StudentListView> {
               shrinkWrap: true,
               itemCount: studentList.length,
               itemBuilder: (BuildContext context, int index) {
-                 if(studentList[index].firstName!=null&&studentList[index].lastName!=null)
+                if (studentList[index].firstName != null &&
+                    studentList[index].lastName != null)
                   return makeCard(studentList[index]);
                 else
                   return null;
@@ -105,47 +106,44 @@ class _StudentListViewState extends State<StudentListView> {
         ),
       ),
       title: Text(
-        student.firstName+" "+student.lastName,
+        student.firstName + " " + student.lastName,
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      trailing:
-          Icon(Icons.view_list),
-      onTap: () {
-      });
+      trailing: Icon(Icons.view_list),
+      onTap: () {});
 
-
-void deleteStudent(Student student) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return StudymateDialogBox(
-                title: 'Are you sure?',
-                description: student.firstName + " "+student.lastName+
-                    ' ,Student will be permanently deleted!',
-                confirmation: true,
-                confirmationAction: (){
-      Future<dynamic> isDeleted =
-          studentService.deleteStudent(student.id);
-      isDeleted.then((result) {
-        if (result) {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Successfully Deleted'),
-            backgroundColor: Colors.green,
-          ));
-        } else {
-          Scaffold.of(context).showSnackBar(new SnackBar(
-            content: new Text('Deletion Failed!'),
-            backgroundColor: Colors.redAccent,
-          ));
-
-        }
-      }
-      );
-      Navigator.pop(context);
-    },
-                tigerAnimationType: 'fail',
-              );
-            });
+  void deleteStudent(Student student) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return StudymateDialogBox(
+            title: 'Are you sure?',
+            description: student.firstName +
+                " " +
+                student.lastName +
+                ' ,Student will be permanently deleted!',
+            confirmation: true,
+            confirmationAction: () {
+              Future<dynamic> isDeleted =
+                  studentService.deleteStudent(student.id);
+              isDeleted.then((result) {
+                if (result) {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Successfully Deleted'),
+                    backgroundColor: Colors.green,
+                  ));
+                } else {
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text('Deletion Failed!'),
+                    backgroundColor: Colors.redAccent,
+                  ));
+                }
+              });
+              Navigator.pop(context);
+            },
+            tigerAnimationType: 'fail',
+          );
+        });
   }
 }
