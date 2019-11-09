@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:studymate/screens/SubjectsScreen/tabs/AdvancedLevelTab.dart';
-import 'package:studymate/screens/SubjectsScreen/tabs/Grade6-9Tab.dart';
-import 'package:studymate/screens/SubjectsScreen/tabs/OrdinaryLevelTab.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/tabs/AdvancedLevelTab.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/tabs/Grade6-9Tab.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/tabs/OrdinaryLevelTab.dart';
 
 
 class SubjectListScreen extends StatefulWidget {

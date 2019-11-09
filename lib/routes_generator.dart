@@ -19,6 +19,7 @@ import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/SubjectAdminDashboard.dart';
 import 'package:studymate/screens/UserScreen.dart/AdminManager.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorManager.dart';
 import 'package:studymate/screens/UserScreen.dart/StudentManager.dart';
@@ -52,6 +53,9 @@ class RouteGenerator {
       case '/adminActivityDashboard':
         return MaterialPageRoute(
             builder: (_) => ActivityAdminDashboardScreen());
+       case '/adminSubjectDashboard':
+        return MaterialPageRoute(
+            builder: (_) => SubjectAdminDashboardScreen());
       case '/adminActivityList':
         return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
