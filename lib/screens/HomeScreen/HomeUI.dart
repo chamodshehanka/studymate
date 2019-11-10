@@ -8,6 +8,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final double containerWidth = 150;
+  // RadialProgress _radialProgress = RadialProgress();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // _radialProgress
+  }
 
   @override
   Widget build(BuildContext context) {
