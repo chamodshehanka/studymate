@@ -9,7 +9,7 @@ class RadialProgress extends StatefulWidget {
 
 class _RadialProgressState extends State<RadialProgress>
     with SingleTickerProviderStateMixin {
-  AnimationController _radialProgressAnimationController;
+  static AnimationController _radialProgressAnimationController;
   Animation<double> _progressAnimation;
   var progressDegrees = 0.0;
 

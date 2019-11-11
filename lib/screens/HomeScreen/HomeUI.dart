@@ -8,13 +8,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final double containerWidth = 150;
-  // RadialProgress _radialProgress = RadialProgress();
 
   @override
   void initState() {
     super.initState();
-
-    // _radialProgress
   }
 
   @override
@@ -45,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SizedBox(height: 15.0),
                       Text(
-                        "80",
+                        "70",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 40.0,
@@ -61,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        "To Go",
+                        "to Go",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0,
