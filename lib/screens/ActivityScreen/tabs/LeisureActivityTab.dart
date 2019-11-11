@@ -215,12 +215,4 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
       iconData = Icons.remove_circle_outline;
     return iconData;
   }
-
-  // String getActivityProgressId(Activity activity) {
-  //   String id;
-  //   studentActivitiesList.forEach((studentActivity) {
-  //     if (activity.name == studentActivity.name) id = studentActivity.id;
-  //   });
-  //   return id;
-  // }
 }

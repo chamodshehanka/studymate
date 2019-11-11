@@ -9,13 +9,26 @@ final CollectionReference appointmentCollection =
 
 class AppointmentService {
   Future<Appointment> createAppointment(
-      String specialDescription, String date, String time, String place) {
+      String specialDescription,
+      String date,
+      String time,
+      String place,
+      String doctorName,
+      String studentName,
+      bool isApproved) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
           await tx.get(appointmentCollection.document());
 
       final Appointment appointment = new Appointment(
-          ds.documentID, specialDescription, date, time, place, false);
+          ds.documentID,
+          specialDescription,
+          date,
+          time,
+          place,
+          doctorName,
+          studentName,
+          isApproved);
 
       final Map<String, dynamic> data = appointment.toMap();
 

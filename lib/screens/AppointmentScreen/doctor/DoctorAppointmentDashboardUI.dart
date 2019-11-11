@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/AppointmentScreen/doctor/tabs/NotApprovedAppointmentTab.dart';
 import 'package:studymate/screens/AppointmentScreen/doctor/tabs/ApprovedAppointmentTab.dart';
+import 'package:studymate/screens/AppointmentScreen/doctor/utils/AppointmentDialog.dart';
 
 class DoctorAppointmentDashboardScreen extends StatefulWidget {
   _DoctorAppointmentDashboardScreenState createState() =>
@@ -20,8 +21,8 @@ class _DoctorAppointmentDashboardScreenState
               backgroundColor: Colors.deepPurpleAccent,
               bottom: TabBar(
                 tabs: <Widget>[
-                  Tab(icon: Icon(Icons.access_time)),
-                  Tab(icon: Icon(Icons.access_time))
+                  Tab(icon: Text('Not Approved')),
+                  Tab(icon: Text('Approved'))
                 ],
               ),
             ),
@@ -32,12 +33,22 @@ class _DoctorAppointmentDashboardScreenState
               ],
             ),
             floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.deepPurpleAccent,
               child: Icon(Icons.add, color: Colors.white),
               onPressed: () {
-                // Create a Appointment impl
+                /// Create Appointment impl
+                _showMakeAppointmentDialog(context);
               },
             ),
           )),
     );
+  }
+
+  void _showMakeAppointmentDialog(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (_) {
+          return AppointmentDialog();
+        });
   }
 }
