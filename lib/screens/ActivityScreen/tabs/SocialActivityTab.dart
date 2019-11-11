@@ -105,6 +105,7 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
             ),
           )
         : Container(
+            padding: EdgeInsets.only(top: 20),
             alignment: Alignment.center,
             child: Text(
               'Social Activities are not available!!',
@@ -146,7 +147,6 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
           backgroundColor: Colors.deepPurple,
           margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
           duration: Duration(seconds: 3),
-
         )..show(context);
 
         // Pass activity
@@ -170,11 +170,8 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
                 duration: Duration(seconds: 3),
               )..show(context);
-           
-              
-              
             } else {
-                Flushbar(
+              Flushbar(
                 message: 'Adding failed!',
                 backgroundColor: Colors.redAccent,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
@@ -207,14 +204,6 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
     return iconData;
   }
 
-  // String getActivityProgressId(Activity activity) {
-  //   String id;
-  //   studentActivitiesList.forEach((studentActivity) {
-  //     if (activity.name == studentActivity.name) id = studentActivity.id;
-  //   });
-  //   return id;
-  // }
-
   void deleteActivityProgress(Activity activity) {
     _authentication.getCurrentUser().then((user) {
       studentId = user;
@@ -224,18 +213,18 @@ class _SocialActivityTabState extends State<SocialActivityTab> {
       isDeleted.then((result) {
         if (result) {
           Flushbar(
-                message: 'Successfully Removed',
-                backgroundColor: Colors.green,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                duration: Duration(seconds: 3),
-              )..show(context);
+            message: 'Successfully Removed',
+            backgroundColor: Colors.green,
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+            duration: Duration(seconds: 3),
+          )..show(context);
         } else {
           Flushbar(
-                message: 'Adding Failed!',
-                backgroundColor: Colors.redAccent,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                duration: Duration(seconds: 3),
-              )..show(context);
+            message: 'Adding Failed!',
+            backgroundColor: Colors.redAccent,
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+            duration: Duration(seconds: 3),
+          )..show(context);
         }
       });
     });

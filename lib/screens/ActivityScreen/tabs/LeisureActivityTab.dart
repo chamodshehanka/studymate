@@ -124,20 +124,18 @@ class _LeisureActivityTabState extends State<LeisureActivityTab> {
               isActivityAlreadyPreferred(leisureActivity);
 
           String flushBarMessage;
-          if (isActivityPreferred){
+          if (isActivityPreferred) {
             flushBarMessage = 'Removing from prefer';
-          }
-          else{
+          } else {
             flushBarMessage = 'Adding to List';
           }
-          
-Flushbar(
-          message: flushBarMessage,
-          backgroundColor: Colors.deepPurple,
-          margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
-          duration: Duration(seconds: 3),
 
-        )..show(context);
+          Flushbar(
+            message: flushBarMessage,
+            backgroundColor: Colors.deepPurple,
+            margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+            duration: Duration(seconds: 3),
+          )..show(context);
 
           // Pass activity
           PreferredActivity preferredActivity =
@@ -153,20 +151,19 @@ Flushbar(
 
               // Preferred Activity Adding SnackBar
               if (isAdded != null) {
-               Flushbar(
-                message: 'Added to preferred List',
-                backgroundColor: Colors.green,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                duration: Duration(seconds: 3),
-              )..show(context);
-           
+                Flushbar(
+                  message: 'Added to preferred List',
+                  backgroundColor: Colors.green,
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                  duration: Duration(seconds: 3),
+                )..show(context);
               } else {
                 Flushbar(
-                message: 'Adding failed!',
-                backgroundColor: Colors.redAccent,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                duration: Duration(seconds: 3),
-              )..show(context);
+                  message: 'Adding failed!',
+                  backgroundColor: Colors.redAccent,
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                  duration: Duration(seconds: 3),
+                )..show(context);
               }
             });
           } else {
@@ -179,20 +176,20 @@ Flushbar(
                       studentId, leisureActivity.name, leisureActivity.type);
               isDeleted.then((result) {
                 if (result) {
-                 Flushbar(
-                message: 'Successfully Removed',
-                backgroundColor: Colors.green,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                duration: Duration(seconds: 3),
-              )..show(context);
-        } else {
-          Flushbar(
-                message: 'Adding Failed!',
-                backgroundColor: Colors.redAccent,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                duration: Duration(seconds: 3),
-              )..show(context);
-        }
+                  Flushbar(
+                    message: 'Successfully Removed',
+                    backgroundColor: Colors.green,
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                    duration: Duration(seconds: 3),
+                  )..show(context);
+                } else {
+                  Flushbar(
+                    message: 'Adding Failed!',
+                    backgroundColor: Colors.redAccent,
+                    margin: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                    duration: Duration(seconds: 3),
+                  )..show(context);
+                }
               });
             });
           }
@@ -218,12 +215,4 @@ Flushbar(
       iconData = Icons.remove_circle_outline;
     return iconData;
   }
-
-  // String getActivityProgressId(Activity activity) {
-  //   String id;
-  //   studentActivitiesList.forEach((studentActivity) {
-  //     if (activity.name == studentActivity.name) id = studentActivity.id;
-  //   });
-  //   return id;
-  // }
 }
