@@ -79,36 +79,83 @@ class _AppointmentDialog extends State<AppointmentDialog> {
               validation: 'name',
               icon: Icon(Icons.description, color: Colors.grey),
             ),
-            DropdownButtonFormField<String>(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                    borderSide: BorderSide(),
-                  ),
-                  contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.only(left: 5.0),
-                    child: Icon(Icons.directions_run, color: Colors.grey),
-                  )),
-              value: doctorName,
-              hint: Text('Select Doctor'),
-              items: doctorNamesList
-                  .map((label) => DropdownMenuItem(
-                        child: Text(label),
-                        value: label,
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  doctorName = value;
-                });
-              },
+            Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                      borderSide: BorderSide(),
+                    ),
+                    contentPadding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.only(left: 5.0),
+                      child: Icon(Icons.directions_run, color: Colors.grey),
+                    )),
+                value: doctorName,
+                hint: Text('Select Doctor'),
+                items: doctorNamesList
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    doctorName = value;
+                  });
+                },
+              ),
             ),
 
-            // Button Actions
+            SizedBox(height: 15),
+
+            /// Button Actions
             Row(
-              children: <Widget>[],
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                /// Create Appointment
+                RaisedButton(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  color: Colors.deepPurpleAccent,
+                  textColor: Colors.white,
+                  child: Text("Create"),
+                  onPressed: () {
+                    /// Adding to DB
+                    _appointmentService.createAppointment(
+                        'specialDescription',
+                        'date',
+                        'time',
+                        'place',
+                        doctorName,
+                        studentName,
+                        false);
+
+                    ///
+                    Navigator.pop(context);
+                  },
+                ),
+
+                /// To make a gap between them
+                SizedBox(width: 10),
+
+                /// Cancel Button
+                RaisedButton(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
+                  child: Text("Cancel"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
             ),
           ],
         ),
