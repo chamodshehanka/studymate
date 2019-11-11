@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Appointment.dart';
+import 'package:studymate/screens/AppointmentScreen/doctor/utils/AppointmentViewMoreDialog.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 
 class NotApprovedAppointmentsTab extends StatefulWidget {
@@ -118,9 +118,13 @@ class _NotApprovedAppointmentsTabState
           color: Colors.white,
           size: 35,
         ),
-        onTap: () {
-          /// When doctor tap to more
-          log('message');
-        },
+        onTap: () =>
+
+            /// When doctor tap to more
+            showDialog(
+                context: context,
+                builder: (_) {
+                  return AppointmentViewMoreDialog(appointment: appointment);
+                }),
       );
 }
