@@ -3,16 +3,17 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:studymate/models/Appointment.dart';
 import 'package:studymate/models/Doctor.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 import 'package:studymate/services/custom/DoctorService.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
-class AppointmentDialog extends StatefulWidget {
-  _AppointmentDialog createState() => _AppointmentDialog();
+class CreateAppointmentDialog extends StatefulWidget {
+  _CreateAppointmentDialog createState() => _CreateAppointmentDialog();
 }
 
-class _AppointmentDialog extends State<AppointmentDialog> {
+class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
   final _formKeyAppointment = GlobalKey<FormState>();
   final isApprovedController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -126,17 +127,23 @@ class _AppointmentDialog extends State<AppointmentDialog> {
                   child: Text("Create"),
                   onPressed: () {
                     /// Adding to DB
-                    _appointmentService.createAppointment(
-                        'specialDescription',
-                        'date',
-                        'time',
-                        'place',
-                        doctorName,
-                        studentName,
-                        false);
+                    Future<Appointment> isAdded =
+                        _appointmentService.createAppointment(Appointment(
+                            null,
+                            'specialDescription',
+                            'date',
+                            'time',
+                            'place',
+                            doctorName,
+                            studentName,
+                            false));
 
-                    ///
-                    Navigator.pop(context);
+                    if (isAdded != null) {
+                      Navigator.pop(context);
+                    } else {
+                      /// When something went wrong
+                      // Navigator.pop(context);
+                    }
                   },
                 ),
 

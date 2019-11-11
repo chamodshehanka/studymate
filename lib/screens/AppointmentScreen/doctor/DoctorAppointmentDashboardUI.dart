@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/AppointmentScreen/doctor/tabs/NotApprovedAppointmentTab.dart';
 import 'package:studymate/screens/AppointmentScreen/doctor/tabs/ApprovedAppointmentTab.dart';
-import 'package:studymate/screens/AppointmentScreen/doctor/utils/AppointmentDialog.dart';
+import 'package:studymate/screens/AppointmentScreen/doctor/utils/CreateAppointmentDialog.dart';
 
 class DoctorAppointmentDashboardScreen extends StatefulWidget {
   _DoctorAppointmentDashboardScreenState createState() =>
@@ -48,7 +48,7 @@ class _DoctorAppointmentDashboardScreenState
     showDialog(
         context: context,
         builder: (_) {
-          return AppointmentDialog();
+          return CreateAppointmentDialog();
         });
   }
 }
