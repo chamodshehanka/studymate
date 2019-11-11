@@ -1,4 +1,9 @@
+
+
+import 'dart:developer' as prefix0;
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class RadialProgress extends StatefulWidget {
@@ -11,12 +16,100 @@ class _RadialProgressState extends State<RadialProgress>
     with SingleTickerProviderStateMixin {
   AnimationController _radialProgressAnimationController;
   Animation<double> _progressAnimation;
+  SharedPreferences prefs;
+  int socialMinutes;
+  int studyMinutes;
+  int leisureMinutes;
+
   var progressDegrees = 0.0;
+
+ Future<SharedPreferences> getSPInstance() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    return prefs;
+  }
+  
   @override
   void initState() {
     super.initState();
+
+    getSPInstance().then((instance) {
+      setState(() {
+        prefs = instance;
+      });
+        int today = DateTime.now().weekday;
+    switch (today) {
+      case 1:
+        {
+          setState(() {
+            socialMinutes = prefs.getInt('socialMon');
+            leisureMinutes = prefs.getInt('leisureMon');
+            studyMinutes = prefs.getInt('studyMon');
+          });
+        }
+        break;
+      case 2:
+        {          setState(() {
+            socialMinutes = prefs.getInt('socialTue');
+            leisureMinutes = prefs.getInt('leisureTue');
+            studyMinutes = prefs.getInt('studyTue');
+          });
+          
+        }
+        break;
+      case 3:
+        {          setState(() {
+            socialMinutes = prefs.getInt('socialWed');
+            leisureMinutes = prefs.getInt('leisureWed');
+            studyMinutes = prefs.getInt('studyWed');
+          });
+          
+        }
+        break;
+      case 4:
+        {          setState(() {
+            socialMinutes = prefs.getInt('socialThu');
+            leisureMinutes = prefs.getInt('leisureThu');
+            studyMinutes = prefs.getInt('studyThu');
+          });
+          
+        }
+        break;
+      case 5:
+        {          setState(() {
+            socialMinutes = prefs.getInt('socialFri');
+            leisureMinutes = prefs.getInt('leisureFri');
+            studyMinutes = prefs.getInt('studyFri');
+          });
+          
+        }
+        break;
+      case 6:
+        {          setState(() {
+            socialMinutes = prefs.getInt('socialSat');
+            leisureMinutes = prefs.getInt('leisureSat');
+            studyMinutes = prefs.getInt('studySat');
+          });
+          
+        }
+        break;
+      case 7:
+        {          setState(() {
+            socialMinutes = prefs.getInt('socialSun');
+            leisureMinutes = prefs.getInt('leisureSun');
+            studyMinutes = prefs.getInt('studySun');
+          });
+          
+        }
+        break;
+    }
+    prefix0.log(socialMinutes.toString());
+    prefix0.log(leisureMinutes.toString());
+    prefix0.log(studyMinutes.toString());
+    });
+
     _radialProgressAnimationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
+        AnimationController(vsync: this, duration: Duration(seconds: 5));
     _progressAnimation = Tween(begin: 0.0, end: 360.0).animate(CurvedAnimation(
         parent: _radialProgressAnimationController, curve: Curves.easeIn))
       ..addListener(() {
@@ -25,6 +118,10 @@ class _RadialProgressState extends State<RadialProgress>
         });
       });
     _radialProgressAnimationController.forward(from: 0.0);
+
+    // log(socialMinutes);
+    // log(leisureMinutes);
+    // log(studyMinutes);
   }
 
   @override
