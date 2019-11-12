@@ -87,7 +87,12 @@ class _AppointmentViewMoreDialogState extends State<AppointmentViewMoreDialog> {
                         _appointmentService.updateAppointment(appointment);
 
                     isUpdated.then((result) {
-                      log(result.toString());
+                      if (result) {
+                        Navigator.pop(context);
+                      } else {
+                        log("didn't update");
+                        Navigator.pop(context);
+                      }
                     });
                   },
                 ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Appointment.dart';
@@ -92,8 +91,7 @@ class AppointmentService {
     final TransactionHandler updateTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
           await tx.get(appointmentCollection.document(appointment.id));
-      log('App ID : '+appointment.isApproved.toString());
-      print('DS : ' + appointment.toMap().toString());
+
       await tx.update(ds.reference, appointment.toMap());
       return {'updated': true};
     };
