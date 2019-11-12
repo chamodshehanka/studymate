@@ -26,7 +26,6 @@ class _StudentAddScreenState extends State<StudentAddScreen> {
   }
 
   Widget build(BuildContext context) {
-  
     final email = StudymateTextField(
         labelText: "Email",
         textEditingController: _email,

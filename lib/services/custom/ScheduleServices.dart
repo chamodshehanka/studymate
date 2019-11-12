@@ -1,7 +1,6 @@
 
 import 'dart:async';
 import 'dart:core';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/ScheduleTask.dart';
@@ -20,6 +19,8 @@ final CollectionReference studentsCollection =
               .collection(CommonConstants.scheduleCollection)
               .document("weeklyschedule")
               .collection(day)
+              .document(day)
+              .collection(day+"Tasks")
               .document());
       DateTime start = DateTime.parse(scheduleTask.start);
       DateTime end = DateTime.parse(scheduleTask.end);
@@ -31,7 +32,6 @@ final CollectionReference studentsCollection =
       final Map<String, dynamic> data = scheduleTask.toMap();
 
       await tx.set(ds.reference, data);
-
       return data;
     };
 
@@ -50,7 +50,10 @@ final CollectionReference studentsCollection =
               .document(studentId)
               .collection(CommonConstants.scheduleCollection)
               .document("weeklyschedule")
-              .collection(day).snapshots();
+              .collection(day)
+              .document(day)
+              .collection(day+"Tasks")
+              .snapshots();
     return snapshots;
   }
 
@@ -65,6 +68,8 @@ final CollectionReference studentsCollection =
               .collection(CommonConstants.scheduleCollection)
               .document("weeklyschedule")
               .collection(day)
+              .document(day)
+              .collection(day+"Tasks")
               .document(taskId));
 
       await tx.delete(ds.reference);
@@ -92,6 +97,8 @@ final CollectionReference studentsCollection =
               .collection(CommonConstants.scheduleCollection)
               .document("weeklyschedule")
               .collection(day)
+              .document(day)
+              .collection(day+"Tasks")
               .document(task.id));
 
 
@@ -118,7 +125,11 @@ final CollectionReference studentsCollection =
               .document(studentId)
               .collection(CommonConstants.scheduleCollection)
               .document('weeklyschedule')
-              .collection(day).where('type', isEqualTo: 'Social').snapshots();
+              .collection(day)
+              .document(day)
+              .collection(day+"Tasks")
+              .where('type', isEqualTo: 'Social')
+              .snapshots();
     return snapshots;
   }
 
@@ -129,7 +140,11 @@ final CollectionReference studentsCollection =
               .document(studentId)
               .collection(CommonConstants.scheduleCollection)
               .document('weeklyschedule')
-              .collection(day).where('type', isEqualTo: 'Study').snapshots();
+              .collection(day)
+              .document(day)
+              .collection(day+"Tasks")
+              .where('type', isEqualTo: 'Study')
+              .snapshots();
     return snapshots;
   }
 
@@ -140,7 +155,11 @@ final CollectionReference studentsCollection =
               .document(studentId)
               .collection(CommonConstants.scheduleCollection)
               .document('weeklyschedule')
-              .collection(day).where('type', isEqualTo: 'Leisure').snapshots();
+              .collection(day)
+              .document(day)
+              .collection(day+"Tasks")
+              .where('type', isEqualTo: 'Leisure')
+              .snapshots();
     return snapshots;
   }
 
@@ -183,63 +202,71 @@ final CollectionReference studentsCollection =
   }
 
 
-  int getDailySocialTime(String day,String studentId){
-        int totalMinutes = 0;
-        StreamSubscription<QuerySnapshot> dailyTaskSubscription;
-        List<ScheduleTask> list = List();
-      dailyTaskSubscription?.cancel();
-      dailyTaskSubscription = getDailySocialTaskList(studentId, day)
-          .listen((QuerySnapshot snapshot) {
-        final List<ScheduleTask> tasks = snapshot.documents
-            .map((documentSnapshot) =>
-                ScheduleTask.fromMap(documentSnapshot.data))
-            .toList();
+  int getDailySocialTime (String day,String studentId){
+    int total;
+           final TransactionHandler getTransaction = (Transaction tx) async {
+       DocumentSnapshot ds = 
+           await tx.get(Firestore.instance
+              .collection(CommonConstants.dailylogCollection)
+               .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document('weeklyschedule')
+              .collection(day)
+              .document(day));
 
-          list = tasks;
-           
-      });
-      log(list.toString());
+              total = ds.data['totalSocial'];
 
- for(int i = 0 ; i< list.length ; i++){
-              totalMinutes+=list[i].duration;
-            }
-      return totalMinutes;
+   
+    };
+       if(getTransaction!=null)
+          return total;
+    else
+        return 0;   
   }
 
-   int getDailyLeisureTime(String day,String studentId){
-        int totalMinutes = 0;
-        StreamSubscription<QuerySnapshot> dailyTaskSubscription;
-      dailyTaskSubscription?.cancel();
-      dailyTaskSubscription = getDailyLeisureTaskList(studentId, day)
-          .listen((QuerySnapshot snapshot) {
-        final List<ScheduleTask> tasks = snapshot.documents
-            .map((documentSnapshot) =>
-                ScheduleTask.fromMap(documentSnapshot.data))
-            .toList();
-            for(int i = 0 ; i< tasks.length ; i++){
-              totalMinutes+=tasks[i].duration;
-            }
-      });
+   int getDailyLeisureTime(String day,String studentId) {
 
-      return totalMinutes;
+   int total;
+           final TransactionHandler getTransaction = (Transaction tx) async {
+       DocumentSnapshot ds = 
+           await tx.get(Firestore.instance
+              .collection(CommonConstants.dailylogCollection)
+               .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document('weeklyschedule')
+              .collection(day)
+              .document(day));
+
+              total = ds.data['totalLeisure'];
+
+      
+    };
+       if(getTransaction!=null)
+          return total;
+    else
+        return 0;   
   }
 
    int getDailyStudyTime(String day,String studentId){
-        int totalMinutes = 0;
-        StreamSubscription<QuerySnapshot> dailyTaskSubscription;
-      dailyTaskSubscription?.cancel();
-      dailyTaskSubscription = getDailyStudyTaskList(studentId, day)
-          .listen((QuerySnapshot snapshot) {
-        final List<ScheduleTask> tasks = snapshot.documents
-            .map((documentSnapshot) =>
-                ScheduleTask.fromMap(documentSnapshot.data))
-            .toList();
-            for(int i = 0 ; i< tasks.length ; i++){
-              totalMinutes+=tasks[i].duration;
-            }
-      });
+       int total;
+           final TransactionHandler getTransaction = (Transaction tx) async {
+       DocumentSnapshot ds = 
+           await tx.get(Firestore.instance
+              .collection(CommonConstants.dailylogCollection)
+               .document(studentId)
+              .collection(CommonConstants.scheduleCollection)
+              .document('weeklyschedule')
+              .collection(day)
+              .document(day));
 
-      return totalMinutes;
+              total = ds.data['totalStudy'];
+
+     
+    };
+    if(getTransaction!=null)
+          return total;
+    else
+        return 0;      
   }
 
   List<ScheduleTask> sortSchedule(List<ScheduleTask> taskList){

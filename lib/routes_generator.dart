@@ -6,7 +6,6 @@ import 'package:studymate/screens/ActivityScreen/AdminScreen/ActivityReportUI.da
 import 'package:studymate/screens/ActivityScreen/AdminScreen/AdminActivityUI.dart';
 import 'package:studymate/screens/ActivityScreen/AdminScreen/ManageActivityUI.dart';
 import 'package:studymate/screens/AppointmentScreen/doctor/DoctorAppointmentDashboardUI.dart';
-import 'package:studymate/screens/ChatScreen/ChatUI.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIAdmin.dart';
 import 'package:studymate/screens/HomeScreen/HomeUIDoctor.dart';
 import 'package:studymate/screens/MainScreenStudent.dart';
@@ -19,6 +18,7 @@ import 'package:studymate/screens/StudentScreen/forgot_password.dart';
 import 'package:studymate/screens/StudentScreen/nonSchoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/schoolStudentAddDetails.dart';
 import 'package:studymate/screens/StudentScreen/studentProfileUI.dart';
+import 'package:studymate/screens/SubjectsScreen/AdminScreen/SubjectAdminDashboard.dart';
 import 'package:studymate/screens/UserScreen.dart/AdminManager.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorManager.dart';
 import 'package:studymate/screens/UserScreen.dart/StudentManager.dart';
@@ -52,6 +52,9 @@ class RouteGenerator {
       case '/adminActivityDashboard':
         return MaterialPageRoute(
             builder: (_) => ActivityAdminDashboardScreen());
+       case '/adminSubjectDashboard':
+        return MaterialPageRoute(
+            builder: (_) => SubjectAdminDashboardScreen());
       case '/adminActivityList':
         return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
@@ -82,8 +85,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MedicalRecordUIScreen());
       case '/createMedicalRecord':
         return MaterialPageRoute(builder: (_) => CreateMedicalRecordScreen());
-      case '/chat':
-        return MaterialPageRoute(builder: (_) => ChatScreen());
       case '/schoolStudentAddDetails':
         return MaterialPageRoute(
             builder: (_) => SchoolStudentAddDetailsScreen());

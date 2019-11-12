@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Appointment.dart';
@@ -8,14 +9,22 @@ final CollectionReference appointmentCollection =
     Firestore.instance.collection(CommonConstants.appointmentCollectionName);
 
 class AppointmentService {
-  Future<Appointment> createAppointment(
-      String specialDescription, String date, String time, String place) {
+  Future<Appointment> createAppointment(Appointment appointment) {
+    Appointment appointmentData = appointment;
+
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
           await tx.get(appointmentCollection.document());
 
       final Appointment appointment = new Appointment(
-          ds.documentID, specialDescription, date, time, place, false);
+          ds.documentID,
+          appointmentData.description,
+          appointmentData.date,
+          appointmentData.time,
+          appointmentData.place,
+          appointmentData.doctorName,
+          appointmentData.studentName,
+          appointmentData.isApproved);
 
       final Map<String, dynamic> data = appointment.toMap();
 
@@ -32,7 +41,7 @@ class AppointmentService {
     });
   }
 
-  //Get All Appointments
+  /// Get All Appointments
   Stream<QuerySnapshot> getAppointmentList({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = appointmentCollection.snapshots();
 
@@ -47,7 +56,7 @@ class AppointmentService {
     return snapshots;
   }
 
-  // Get Not Approved Appointments
+  /// Get Not Approved Appointments
   Stream<QuerySnapshot> getNotApprovedAppointments({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
         appointmentCollection.where('isApproved', isEqualTo: false).snapshots();
@@ -63,7 +72,7 @@ class AppointmentService {
     return snapshots;
   }
 
-  // Get Not Approved Appointments
+  /// Get Approved Appointments
   Stream<QuerySnapshot> getApprovedAppointments({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots =
         appointmentCollection.where('isApproved', isEqualTo: true).snapshots();
@@ -83,7 +92,8 @@ class AppointmentService {
     final TransactionHandler updateTransaction = (Transaction tx) async {
       final DocumentSnapshot ds =
           await tx.get(appointmentCollection.document(appointment.id));
-
+      log('App ID : '+appointment.isApproved.toString());
+      print('DS : ' + appointment.toMap().toString());
       await tx.update(ds.reference, appointment.toMap());
       return {'updated': true};
     };

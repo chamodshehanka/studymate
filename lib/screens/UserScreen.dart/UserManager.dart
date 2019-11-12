@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,12 +13,11 @@ import 'package:studymate/widgets/CurveClipper.dart';
 import 'package:studymate/widgets/StudymateRaisedButton.dart';
 
 class UserManagerScreen extends StatefulWidget {
-  _UserManagerScreenState createState() =>
-      _UserManagerScreenState();
+  _UserManagerScreenState createState() => _UserManagerScreenState();
 }
 
-class _UserManagerScreenState
-    extends State<UserManagerScreen> with TickerProviderStateMixin {
+class _UserManagerScreenState extends State<UserManagerScreen>
+    with TickerProviderStateMixin {
   int noOfAllUsers = 0;
   int noOfDoctors = 0;
   int noOfStudents = 0;
@@ -36,47 +34,42 @@ class _UserManagerScreenState
   Animation<double> _heightAnimation;
   Animation<double> _iconSizeAnimation;
 
-    @override
+  @override
   void initState() {
     super.initState();
 
-     studentsSubscription?.cancel();
-    studentsSubscription = studentService
-        .getStudentList()
-        .listen((QuerySnapshot snapshot) {
+    studentsSubscription?.cancel();
+    studentsSubscription =
+        studentService.getStudentList().listen((QuerySnapshot snapshot) {
       final List<Student> students = snapshot.documents
           .map((documentSnapshot) => Student.fromMap(documentSnapshot.data))
           .toList();
       setState(() {
         this.noOfStudents = students.length;
-        this.noOfAllUsers+=noOfStudents;
+        this.noOfAllUsers += noOfStudents;
       });
     });
 
-
     adminsSubscription?.cancel();
-    adminsSubscription = adminService
-        .getAll()
-        .listen((QuerySnapshot snapshot) {
+    adminsSubscription = adminService.getAll().listen((QuerySnapshot snapshot) {
       final List<Admin> admins = snapshot.documents
           .map((documentSnapshot) => Admin.fromMap(documentSnapshot.data))
           .toList();
       setState(() {
         this.noOfAdmins = admins.length;
-        this.noOfAllUsers+=noOfAdmins;
+        this.noOfAllUsers += noOfAdmins;
       });
     });
 
     doctorsSubscription?.cancel();
-    doctorsSubscription = adminService
-        .getAll()
-        .listen((QuerySnapshot snapshot) {
+    doctorsSubscription =
+        adminService.getAll().listen((QuerySnapshot snapshot) {
       final List<Doctor> doctors = snapshot.documents
           .map((documentSnapshot) => Doctor.fromMap(documentSnapshot.data))
           .toList();
       setState(() {
         this.noOfDoctors = doctors.length;
-        this.noOfAllUsers+=noOfDoctors;
+        this.noOfAllUsers += noOfDoctors;
       });
     });
 
@@ -96,7 +89,6 @@ class _UserManagerScreenState
     _controller.addListener(() {
       setState(() {});
     });
-
   }
 
   @override
@@ -195,10 +187,8 @@ class _UserManagerScreenState
                               children: <Widget>[
                                 Container(
                                   width: 190,
-                                  child: StudymateRaisedButton(
-                                      'Manage Admins',
-                                      manageAdmins,
-                                      Colors.deepPurpleAccent),
+                                  child: StudymateRaisedButton('Manage Admins',
+                                      manageAdmins, Colors.deepPurpleAccent),
                                 ),
                                 Container(
                                   width: 190,
@@ -214,15 +204,15 @@ class _UserManagerScreenState
                               children: <Widget>[
                                 Container(
                                   width: 190,
-                                  child: StudymateRaisedButton('Manage Students',
-                                      manageStudents, Colors.deepPurpleAccent),
+                                  child: StudymateRaisedButton(
+                                      'Manage Students',
+                                      manageStudents,
+                                      Colors.deepPurpleAccent),
                                 ),
                                 Container(
                                   width: 190,
-                                  child: StudymateRaisedButton(
-                                      'Admin Home',
-                                      goToAdminHome,
-                                      Colors.deepPurpleAccent),
+                                  child: StudymateRaisedButton('Admin Home',
+                                      goToAdminHome, Colors.deepPurpleAccent),
                                 ),
                               ],
                             ),
@@ -346,7 +336,7 @@ class _UserManagerScreenState
     );
   }
 
-Widget buildDashboardRow1() {
+  Widget buildDashboardRow1() {
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -357,7 +347,10 @@ Widget buildDashboardRow1() {
                 children: <Widget>[
                   Container(
                     width: 70,
-                    child: Icon(Icons.supervised_user_circle,size: 80,),
+                    child: Icon(
+                      Icons.supervised_user_circle,
+                      size: 80,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -393,7 +386,10 @@ Widget buildDashboardRow1() {
                 children: <Widget>[
                   Container(
                     width: 70,
-                    child: Icon(Icons.school,size: 80,),
+                    child: Icon(
+                      Icons.school,
+                      size: 80,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -437,7 +433,10 @@ Widget buildDashboardRow1() {
                 children: <Widget>[
                   Container(
                     width: 70,
-                    child: Icon(Icons.local_hospital,size: 80,),
+                    child: Icon(
+                      Icons.local_hospital,
+                      size: 80,
+                    ),
                   ),
                   SizedBox(
                     width: 10,
@@ -472,9 +471,12 @@ Widget buildDashboardRow1() {
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: <Widget>[
-                   Container(
+                  Container(
                     width: 70,
-                    child: Icon(Icons.settings,size: 80,),
+                    child: Icon(
+                      Icons.settings,
+                      size: 80,
+                    ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -502,10 +504,10 @@ Widget buildDashboardRow1() {
       ),
     );
   }
+
   void manageDoctors() {
     Navigator.pushNamed(context, '/doctorManage');
   }
-
 
   void manageStudents() {
     Navigator.pushNamed(context, '/studentManage');

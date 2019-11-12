@@ -78,7 +78,9 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
         MoreButtonModel(
           icon: Icons.chat,
           label: 'Chat',
-          onTap: () {},
+          onTap: () {
+             Navigator.pushNamed(context, '/chatMain');
+          },
         ),
         null,
       ],

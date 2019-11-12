@@ -6,19 +6,20 @@ import 'package:studymate/screens/UserScreen.dart/StudentListView.dart';
 
 class StudentManagerScreen extends StatefulWidget {
   _StudentManagerScreenState createState() => _StudentManagerScreenState();
-  
 }
 
-
-
 class _StudentManagerScreenState extends State<StudentManagerScreen> {
- 
   @override
   void initState() {
     super.initState();
-    DateTime date =  DateTime.now();
-      log((date.year.toString()+"-"+date.month.toString()+"-"+date.day.toString()));
+    DateTime date = DateTime.now();
+    log((date.year.toString() +
+        "-" +
+        date.month.toString() +
+        "-" +
+        date.day.toString()));
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +31,7 @@ class _StudentManagerScreenState extends State<StudentManagerScreen> {
               "Student Manager",
             ),
             backgroundColor: Colors.deepPurple,
-            centerTitle:true,
+            centerTitle: true,
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(text: "Add Student"),
@@ -44,8 +45,7 @@ class _StudentManagerScreenState extends State<StudentManagerScreen> {
               StudentListView(),
             ],
           ),
-      
-         ),
+        ),
       ),
     );
   }

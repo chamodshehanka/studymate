@@ -33,8 +33,6 @@ class _AdminAddScreenState extends State<AdminAddScreen> {
   }
 
   Widget build(BuildContext context) {
-
-
     final firstName = StudymateTextField(
         labelText: "First Name",
         textEditingController: _firstName,

@@ -154,62 +154,69 @@ exports.doctorNotificatinFunction = functions.https.onCall(async (data, context)
 });
 
 
-exports.dailyLeisureProgressFunction = functions.firestore
-    .document('dailyLogs/{documentId}/{dayCollection}/{dayDocId}/{tasks}/{tasks}/{collectionName}/{docId}')
+exports.changeSchduleTime = functions.firestore
+    .document('students/{studentId}/{schedule}/{weeklyschedule}/{day}/{day}/{dayTasks}/{taskId}')
     .onWrite(async (change, context) => {
-
         const newData = change.after.data();
         const oldData = change.before.data();
-        if (newData !== null && oldData !== null) {
-            const documentId = context.params.documentId;
-            const dayCollection = context.params.dayCollection;
-            const difference = newData.completed - oldData.completed;
-            const collectionName = context.params.collectionName;
+        if (newData !== oldData) {
+            const querySnapshot = await admin.firestore().collection("students")
+                .doc(context.params.studentId)
+                .collection(context.params.schedule)
+                .doc(context.params.weeklySchedule)
+                .collection(context.params.day)
+                .doc(context.params.day);
 
-            const doc = await admin.firestore().collection('dailyLogs').doc(documentId)
-                .collection(dayCollection).doc(dayCollection).collection('tasks').doc('tasks').get();
 
-            const docData = doc.data();
+            const dif = newData.duration - oldData.duration;
+            let val = 0;
+            querySnapshot.get().then((data) => {
+                val = data.data().totalSocial;
+            }).catch((error) => {
+                console.log(error)
+            })
 
-            let progress;
-
-            switch (collectionName) {
-                case "Leisure": {
-                    progress = docData.totalLeisure + difference;
-                    admin.firestore().collection('dailyLogs')
-                        .doc(documentId).collection(dayCollection)
-                        .doc(dayCollection).collection("tasks").doc("tasks")
-                        .update({ dailyLeisure: progress })
-                        .then(() => console.log('Success'))
-                        .catch(err => console.log(err));
-                }
-                    break;
-                case "Social": {
-                    progress = docData.totalSocial + difference;
-                    admin.firestore().collection('dailyLogs')
-                        .doc(documentId).collection(dayCollection)
-                        .doc(dayCollection).collection("tasks").doc("tasks")
-                        .update({ dailySocial: progress })
-                        .then(() => console.log('Success'))
-                        .catch(err => console.log(err));
-                }
-                    break;
-                default: {
-                    progress = docData.totalStudy + difference;
-                    admin.firestore().collection('dailyLogs')
-                        .doc(documentId).collection(dayCollection)
-                        .doc(dayCollection).collection("tasks").doc("tasks")
-                        .update({ dailyStudy: progress })
-                        .then(() => console.log('Success'))
-                        .catch(err => console.log(err));
-                }
+            const newTotal = val + dif;
+            if (newData.type === "Social") {
+                querySnapshot.set({
+                    totalSocial: newTotal,
+                }, { merge: true }).catch((error) => {
+                    console.log(error)
+                });
+               
+                    return {
+                        error: 'Changed Successfully'
+                    }
+                
             }
-
-            return ("Updated Daily Progress");
+            else if(newData.type === "Leisure"){
+                querySnapshot.set({
+                    totalLeisure: newTotal,
+                }, { merge: true }).catch((error) => {
+                    console.log(error)
+                });
+               
+                    return {
+                        error: 'Changed Successfully'
+                    }
+            }
+            else{
+                querySnapshot.set({
+                    totalStudy: newTotal,
+                }, { merge: true }).catch((error) => {
+                    console.log(error)
+                });
+               
+                    return {
+                        error: 'Changed Successfully'
+                    }
+            }
+          
+            
         }
         else {
             return {
-                error: 'Something went wrong'
+                error: 'No Change'
             }
         }
     });

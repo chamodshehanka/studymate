@@ -33,7 +33,6 @@ class _DoctorAddScreenState extends State<DoctorAddScreen> {
   }
 
   Widget build(BuildContext context) {
-
     final firstName = StudymateTextField(
         labelText: "First Name",
         textEditingController: _firstName,

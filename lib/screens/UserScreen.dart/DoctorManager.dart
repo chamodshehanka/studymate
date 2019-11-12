@@ -1,19 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorAddForm.dart';
 import 'package:studymate/screens/UserScreen.dart/DoctorListView.dart';
 
-
 class DoctorManagerScreen extends StatefulWidget {
   _DoctorManagerScreenState createState() => _DoctorManagerScreenState();
-  
 }
 
-
-
 class _DoctorManagerScreenState extends State<DoctorManagerScreen> {
- 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +18,7 @@ class _DoctorManagerScreenState extends State<DoctorManagerScreen> {
               "Doctor Manager",
             ),
             backgroundColor: Colors.deepPurple,
-            centerTitle:true,
+            centerTitle: true,
             bottom: TabBar(
               tabs: <Widget>[
                 Tab(text: "Add Doctor"),
@@ -39,8 +32,7 @@ class _DoctorManagerScreenState extends State<DoctorManagerScreen> {
               DoctorListView(),
             ],
           ),
-      
-         ),
+        ),
       ),
     );
   }

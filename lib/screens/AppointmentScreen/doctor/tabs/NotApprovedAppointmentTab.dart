@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Appointment.dart';
+import 'package:studymate/screens/AppointmentScreen/doctor/utils/AppointmentViewMoreDialog.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 
 class NotApprovedAppointmentsTab extends StatefulWidget {
@@ -16,7 +17,6 @@ class _NotApprovedAppointmentsTabState
   List<Appointment> appointmentList;
   AppointmentService appointmentService = AppointmentService();
   StreamSubscription<QuerySnapshot> appointmentSubscription;
-  // BaseAuthentication _authentication = Authentication();
 
   @override
   void initState() {
@@ -85,9 +85,28 @@ class _NotApprovedAppointmentsTabState
           padding: EdgeInsets.only(right: 12.0),
           decoration: BoxDecoration(
               border: Border(right: BorderSide(width: 1, color: Colors.white))),
-          child: Text(
-            appointment.date,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                appointment.studentName,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 3),
+              Text(
+                appointment.date,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 3),
+              Text(
+                appointment.time,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
         title: Text(
@@ -95,9 +114,17 @@ class _NotApprovedAppointmentsTabState
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         trailing: Icon(
-          Icons.filter_list,
+          Icons.check,
           color: Colors.white,
-          size: 30,
+          size: 35,
         ),
+        onTap: () =>
+
+            /// When doctor tap to more
+            showDialog(
+                context: context,
+                builder: (_) {
+                  return AppointmentViewMoreDialog(appointment: appointment);
+                }),
       );
 }

@@ -16,7 +16,7 @@ class _ActivityDashboardScreenState extends State<ActivityDashboardScreen> {
     );
   }
 
-  // Activity Dashboard Body
+  /// Activity Dashboard Body
   Widget buildBody(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
