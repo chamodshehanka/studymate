@@ -40,8 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       case 1:
         {
           day = "monday";
-          if(!prefs.containsKey('socialMon'))
-              addScheduleTimeMonday(0, 0, 0);
+          if (!prefs.containsKey('socialMon')) addScheduleTimeMonday(0, 0, 0);
           if (prefs.getInt('socialMon') == 0) {
             available = false;
           }
@@ -49,8 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
         break;
       case 2:
         {
-          if(!prefs.containsKey('socialTue'))
-              addScheduleTimeTuesday(0, 0, 0);
+          if (!prefs.containsKey('socialTue')) addScheduleTimeTuesday(0, 0, 0);
           day = "tuesday";
           if (prefs.getInt('socialTue') == 0) {
             available = false;
@@ -59,18 +57,17 @@ class _SplashScreenState extends State<SplashScreen> {
         break;
       case 3:
         {
-          if(!prefs.containsKey('socialWed'))
-              addScheduleTimeWednesday(0, 0, 0);
+          if (!prefs.containsKey('socialWed'))
+            addScheduleTimeWednesday(0, 0, 0);
           day = "wednesday";
-          if (prefs.getInt('socialWed')==0) {
+          if (prefs.getInt('socialWed') == 0) {
             available = false;
           }
         }
         break;
       case 4:
         {
-          if(!prefs.containsKey('socialThu'))
-              addScheduleTimeThursday(0, 0, 0);
+          if (!prefs.containsKey('socialThu')) addScheduleTimeThursday(0, 0, 0);
           day = "thursday";
           if (prefs.getInt('socialThu') == 0) {
             available = false;
@@ -79,8 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
         break;
       case 5:
         {
-          if(!prefs.containsKey('socialFri'))
-              addScheduleTimeFriday(0, 0, 0);
+          if (!prefs.containsKey('socialFri')) addScheduleTimeFriday(0, 0, 0);
           day = "friday";
           if (prefs.getInt('socialFri') == 0) {
             available = false;
@@ -89,8 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
         break;
       case 6:
         {
-          if(!prefs.containsKey('socialSat'))
-              addScheduleTimeSaturday(0, 0, 0);
+          if (!prefs.containsKey('socialSat')) addScheduleTimeSaturday(0, 0, 0);
           day = "saturday";
           if (prefs.getInt('socialSat') == 0) {
             available = false;
@@ -99,8 +94,7 @@ class _SplashScreenState extends State<SplashScreen> {
         break;
       case 7:
         {
-          if(!prefs.containsKey('socialSun'))
-              addScheduleTimeSunday(0, 0, 0);
+          if (!prefs.containsKey('socialSun')) addScheduleTimeSunday(0, 0, 0);
           day = "sunday";
           if (prefs.getInt('socialSun') == 0) {
             available = false;
@@ -109,7 +103,6 @@ class _SplashScreenState extends State<SplashScreen> {
         break;
     }
     if (!available) {
-    
       int leisure = scheduleService.getDailyLeisureTime(day, studentId);
       int study = scheduleService.getDailyStudyTime(day, studentId);
 
@@ -158,7 +151,7 @@ class _SplashScreenState extends State<SplashScreen> {
             if (isAdmin) {
               if (!prefs.containsKey('currentUserA')) {
                 AdminService().getByID(user.uid).then((cUser) {
-                  Admin admin = cUser;
+                  Admin admin = Admin.fromMap(cUser.data);
                   addAdminToSP(admin);
                 });
               }
@@ -166,7 +159,7 @@ class _SplashScreenState extends State<SplashScreen> {
             } else if (isDoctor) {
               if (!prefs.containsKey('currentUserD')) {
                 DoctorService().getByID(user.uid).then((cUser) {
-                  Doctor doctor = cUser;
+                  Doctor doctor = Doctor.fromMap(cUser.data);
                   addDoctorToSP(doctor);
                 });
               }
@@ -184,6 +177,9 @@ class _SplashScreenState extends State<SplashScreen> {
             }
           });
         });
+      } else {
+        log('Current User is null');
+        Navigator.pushNamed(context, '/welcome');
       }
     }).catchError((e) {
       log('ERROR : ' + e.toString());
