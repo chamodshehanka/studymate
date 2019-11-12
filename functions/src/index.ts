@@ -155,7 +155,7 @@ exports.doctorNotificatinFunction = functions.https.onCall(async (data, context)
 
 
 exports.changeSchduleTime = functions.firestore
-    .document('students/{studentId}/{schedule}/{weeklyschedule}/{day}/{day}/{dayTasks}/{taskId}')
+    .document('students/{studentId}/schedule/{weeklyschedule}/day/{day}/dayTasks/{taskId}')
     .onWrite(async (change, context) => {
         const newData = change.after.data();
         const oldData = change.before.data();
