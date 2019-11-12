@@ -63,8 +63,8 @@ class AdminService {
     return snapshots;
   }
 
-  Future<Admin> getByID(String id) {
-    return null;
+  Future<DocumentSnapshot> getByID(String uid) {
+    return adminsCollection.document(uid).get();
   }
 
   Future update(Admin admin) {
