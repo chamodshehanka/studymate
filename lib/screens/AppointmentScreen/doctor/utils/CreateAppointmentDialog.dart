@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,8 +47,12 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
     });
 
     /// Fill out doctorNames List
-    doctorsList.forEach((doctor) =>
-        doctorNamesList.add(doctor.firstName + ' ' + doctor.lastName));
+    doctorsList.forEach((doctor) {
+      doctorNamesList.add(doctor.firstName + ' ' + doctor.lastName);
+      log(doctor.firstName + ' ' + doctor.lastName);
+    });
+
+    log('message : ' + doctorNamesList.length.toString());
   }
 
   @override

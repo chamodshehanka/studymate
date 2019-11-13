@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Doctor.dart';
 import 'package:studymate/utils/CommonConstants.dart';
@@ -48,6 +50,8 @@ class DoctorService {
 
   Stream<QuerySnapshot> getAll({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = doctorCollection.snapshots();
+
+    log('Doctor : ' + CommonConstants.doctorCollectionName);
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
