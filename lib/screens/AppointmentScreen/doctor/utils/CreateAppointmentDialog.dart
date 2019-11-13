@@ -42,17 +42,19 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
           snapshot.documents.map((doc) => Doctor.fromMap(doc.data)).toList();
 
       setState(() {
-        this.doctorsList = doctors;
+        doctorsList = doctors;
+
+        log('Doc len 1 : ' + doctorsList.length.toString());
+
+        /// Fill out doctorNames List
+        doctorsList.forEach((doctor) {
+          doctorNamesList.add(doctor.firstName + ' ' + doctor.lastName);
+          log(doctor.firstName + ' ' + doctor.lastName);
+        });
       });
     });
 
-    /// Fill out doctorNames List
-    doctorsList.forEach((doctor) {
-      doctorNamesList.add(doctor.firstName + ' ' + doctor.lastName);
-      log(doctor.firstName + ' ' + doctor.lastName);
-    });
-
-    log('message : ' + doctorNamesList.length.toString());
+    log('Doc len :' + doctorsList.length.toString());
   }
 
   @override
@@ -86,7 +88,7 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
               icon: Icon(Icons.description, color: Colors.grey),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12),
+              padding: const EdgeInsets.only(left: 1, right: 1),
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -94,9 +96,9 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
                       borderSide: BorderSide(),
                     ),
                     contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 10.0),
+                        EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 20.0, 10.0),
                     prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 5.0),
+                      padding: EdgeInsets.only(left: 1.0),
                       child: Icon(Icons.directions_run, color: Colors.grey),
                     )),
                 value: doctorName,
