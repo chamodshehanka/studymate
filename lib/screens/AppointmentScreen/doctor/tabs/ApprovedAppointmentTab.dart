@@ -112,7 +112,7 @@ class _ApprovedAppointmentTabState extends State<ApprovedAppointmentTab> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         trailing: Icon(
-          Icons.check,
+          Icons.check_box,
           color: Colors.white,
           size: 35,
         ),

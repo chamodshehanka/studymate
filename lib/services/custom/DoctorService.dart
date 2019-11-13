@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studymate/models/Doctor.dart';
 import 'package:studymate/utils/CommonConstants.dart';
@@ -49,6 +51,8 @@ class DoctorService {
   Stream<QuerySnapshot> getAll({int offset, int limit}) {
     Stream<QuerySnapshot> snapshots = doctorCollection.snapshots();
 
+    log('Doctor : ' + CommonConstants.doctorCollectionName);
+
     if (offset != null) {
       snapshots = snapshots.skip(offset);
     }
@@ -65,6 +69,20 @@ class DoctorService {
   }
 
   Future update(Doctor doctor) {
-    return null;
+    final TransactionHandler updateTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds =
+          await tx.get(doctorCollection.document(doctor.id));
+
+      await tx.update(ds.reference, doctor.toMap());
+      return {'updated': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(updateTransaction)
+        .then((result) => result['updated'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 }
