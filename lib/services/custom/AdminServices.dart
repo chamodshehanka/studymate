@@ -63,11 +63,25 @@ class AdminService {
     return snapshots;
   }
 
-  Future<Admin> getByID(String id) {
-    return null;
+  Future<DocumentSnapshot> getByID(String uid) {
+    return adminsCollection.document(uid).get();
   }
 
   Future update(Admin admin) {
-    return null;
+    final TransactionHandler updateTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds =
+          await tx.get(adminsCollection.document(admin.id));
+
+      await tx.update(ds.reference, admin.toMap());
+      return {'updated': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(updateTransaction)
+        .then((result) => result['updated'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 }

@@ -114,7 +114,7 @@ class _NotApprovedAppointmentsTabState
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         trailing: Icon(
-          Icons.check,
+          Icons.check_box_outline_blank,
           color: Colors.white,
           size: 35,
         ),

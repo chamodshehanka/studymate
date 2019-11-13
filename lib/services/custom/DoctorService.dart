@@ -33,7 +33,7 @@ class DoctorService {
       final DocumentSnapshot ds = await tx.get(doctorCollection.document(id));
 
       await tx.delete(ds.reference);
-      
+
       return {'deleted': true};
     };
 
@@ -47,8 +47,7 @@ class DoctorService {
   }
 
   Stream<QuerySnapshot> getAll({int offset, int limit}) {
-     Stream<QuerySnapshot> snapshots =
-        doctorCollection.snapshots();
+    Stream<QuerySnapshot> snapshots = doctorCollection.snapshots();
 
     if (offset != null) {
       snapshots = snapshots.skip(offset);
@@ -61,11 +60,25 @@ class DoctorService {
     return snapshots;
   }
 
-  Future<Doctor> getByID(String id) {
-    return null;
+  Future<DocumentSnapshot> getByID(String uid) {
+    return doctorCollection.document(uid).get();
   }
 
   Future update(Doctor doctor) {
-    return null;
+    final TransactionHandler updateTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds =
+          await tx.get(doctorCollection.document(doctor.id));
+
+      await tx.update(ds.reference, doctor.toMap());
+      return {'updated': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(updateTransaction)
+        .then((result) => result['updated'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
   }
 }
