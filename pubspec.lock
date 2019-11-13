@@ -106,13 +106,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  dash_chat:
-    dependency: "direct main"
-    description:
-      name: dash_chat
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.8"
   fab_circular_menu:
     dependency: "direct main"
     description:
@@ -202,13 +195,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.4"
-  flutter_parsed_text:
-    dependency: transitive
-    description:
-      name: flutter_parsed_text
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.3"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -270,13 +256,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
-  image_picker:
-    dependency: "direct main"
-    description:
-      name: image_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.4+3"
   intl:
     dependency: "direct main"
     description:
@@ -305,6 +284,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.7"
+  multi_image_picker:
+    dependency: "direct main"
+    description:
+      name: multi_image_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.5.9"
   path:
     dependency: transitive
     description:
@@ -429,13 +415,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.5"
-  transparent_image:
-    dependency: transitive
-    description:
-      name: transparent_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   typed_data:
     dependency: transitive
     description:
@@ -457,13 +436,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0+5"
-  uuid:
-    dependency: transitive
-    description:
-      name: uuid
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2"
   vector_math:
     dependency: transitive
     description:

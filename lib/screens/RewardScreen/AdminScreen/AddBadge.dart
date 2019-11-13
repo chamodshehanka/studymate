@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:studymate/models/Activity.dart';
 import 'package:studymate/models/Badge.dart';
 import 'package:studymate/models/Subject.dart';
@@ -30,6 +30,8 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
   final nameController = TextEditingController();
   final milestoneController = TextEditingController();
   final descriptionController = TextEditingController();
+  List<Asset> images = [];
+  String _error = '';
 
   List socialList = List();
   List leisureList = List();
@@ -84,18 +86,65 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
     });
   }
 
+ Widget buildGridView() {
+    return GridView.count(
+      crossAxisCount: 1,
+      children: List.generate(images.length, (index) {
+        Asset asset = images[index];
+        return AssetThumb(
+          asset: asset,
+          width: 300,
+          height: 300,
+        );
+      }),
+    );
+  }
+
+   Future<void> removeAssets() async{
+    List<Asset> resultList = [];
+      setState(() {
+      images = resultList;
+    });
+  }
+
+  Future<void> loadAssets() async {
+    List<Asset> resultList = List<Asset>();
+    String error = "";
+
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 10,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          actionBarColor: "#abcdef",
+          actionBarTitle: "iTech Support Solutions",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          selectCircleStrokeColor: "#000000",
+        ),
+      );
+
+      for (var r in resultList) {
+        var t = await r.filePath;
+        print(t);
+      }
+    } on Exception catch (e) {
+      error = e.toString();
+    }
+    if (!mounted) return;
+
+    setState(() {
+      images = resultList;
+      _error = error;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    //display image selected from gallery
-    imageSelectorGallery() async {
-      galleryFile = await ImagePicker.pickImage(
-        source: ImageSource.gallery,
-        // maxHeight: 50.0,
-        // maxWidth: 50.0,
-      );
-      print("You selected gallery image : " + galleryFile.path);
-      setState(() {});
-    }
+    
+
 
     return new Scaffold(
       appBar: new AppBar(
@@ -111,11 +160,25 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    displaySelectedFile(galleryFile),
-                    RaisedButton(
-                      child: new Text('Select Image from Gallery'),
-                      onPressed: imageSelectorGallery,
-                    ),
+                    Center(
+                          child: _error!= "" ? Text(_error.toString(),style: TextStyle(color: Colors.red),):Text("")
+                        ),
+                        SizedBox(
+                          height: images.length!=0 ? 130 :0,
+                          child: buildGridView(),
+                        ),
+                   RaisedButton(
+                            color: Colors.green,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              child: Text(
+                                "Pick Images",
+                                style: TextStyle(
+                                    fontSize: 15.0, color: Colors.white),
+                              ),
+                          onPressed: loadAssets,
+                        ),
                     StudymateTextField(
                       labelText: 'Badge Name',
                       textEditingController: nameController,
