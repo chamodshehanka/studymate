@@ -143,7 +143,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _auth.getCurrentUser().then((currentUser) {
       if (currentUser != null) {
         firebaseUser.then((user) {
-          /// TODO:  Error here @dcjc29 fix this. Exception is throwing in Debug console
+          ///  Error here @dcjc29 fix this. Exception is throwing in Debug console
           user.getIdToken().then((result) async {
             bool isAdmin = result.claims['moderator'] ?? false;
             bool isDoctor = result.claims['doctor'] ?? false;
