@@ -113,7 +113,7 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
 
     try {
       resultList = await MultiImagePicker.pickImages(
-        maxImages: 10,
+        maxImages: 1,
         enableCamera: true,
         selectedAssets: images,
         cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
@@ -164,8 +164,11 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
                           child: _error!= "" ? Text(_error.toString(),style: TextStyle(color: Colors.red),):Text("")
                         ),
                         SizedBox(
-                          height: images.length!=0 ? 130 :0,
-                          child: buildGridView(),
+                          height: images.length!=0 ? 120 :0,
+                          width:120,
+                       
+                            child:  buildGridView(),
+                          
                         ),
                    RaisedButton(
                             color: Colors.green,
@@ -173,7 +176,7 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10.0))),
                               child: Text(
-                                "Pick Images",
+                                "Pick Image",
                                 style: TextStyle(
                                     fontSize: 15.0, color: Colors.white),
                               ),
@@ -293,7 +296,7 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
                                   task,
                                   milestoneController.text,
                                   descriptionController.text,
-                                  galleryFile);
+                                  images);
                               if (isAdded != null) {
                                 Navigator.pop(context);
                               } else {
@@ -323,18 +326,6 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
           );
         },
       ),
-    );
-  }
-
-  Widget displaySelectedFile(File file) {
-    return new SizedBox(
-      height: 150.0,
-      width: 150.0,
-//child: new Card(child: new Text(''+galleryFile.toString())),
-//child: new Image.file(galleryFile),
-      child: file == null
-          ? new Text('Sorry nothing selected!!')
-          : new Image.file(file),
     );
   }
 }
