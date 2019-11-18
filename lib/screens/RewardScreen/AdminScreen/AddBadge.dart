@@ -185,7 +185,7 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
                     StudymateTextField(
                       labelText: 'Badge Name',
                       textEditingController: nameController,
-                      validation: 'name',
+                      validation: 'text',
                       icon: Icon(Icons.text_fields, color: Colors.grey),
                     ),
                     Container(
@@ -275,7 +275,7 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
                     StudymateTextField(
                       labelText: 'Badge Description',
                       textEditingController: descriptionController,
-                      validation: 'name',
+                      validation: 'text',
                       icon: Icon(Icons.text_fields, color: Colors.grey),
                     ),
                     Row(
