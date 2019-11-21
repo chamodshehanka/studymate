@@ -1,13 +1,14 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:studymate/models/Appointment.dart';
 import 'package:studymate/models/Doctor.dart';
+import 'package:studymate/models/Student.dart';
 import 'package:studymate/services/custom/AppointmentService.dart';
 import 'package:studymate/services/custom/DoctorService.dart';
+import 'package:studymate/services/custom/StudentService.dart';
 import 'package:studymate/widgets/StudymateTextField.dart';
 
 class CreateAppointmentDialog extends StatefulWidget {
@@ -25,9 +26,13 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
   var studentName;
   AppointmentService _appointmentService = AppointmentService();
   DoctorService _doctorService = DoctorService();
+  StudentService _studentService = StudentService();
   StreamSubscription<QuerySnapshot> doctorsSubscription;
+  StreamSubscription<QuerySnapshot> studentsSubscription;
   List<Doctor> doctorsList;
   List<String> doctorNamesList;
+  List<Student> studentsList;
+  List<String> studentNamesList;
 
   @override
   void initState() {
@@ -44,22 +49,41 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
       setState(() {
         doctorsList = doctors;
 
-        log('Doc len 1 : ' + doctorsList.length.toString());
+        /// to remove existing names
+        doctorNamesList.clear();
 
         /// Fill out doctorNames List
         doctorsList.forEach((doctor) {
           doctorNamesList.add(doctor.firstName + ' ' + doctor.lastName);
-          log(doctor.firstName + ' ' + doctor.lastName);
         });
       });
     });
 
-    log('Doc len :' + doctorsList.length.toString());
+    studentsList = List();
+    studentNamesList = List();
+    studentsSubscription?.cancel();
+    studentsSubscription =
+        _studentService.getStudentList().listen((QuerySnapshot snapshot) {
+      final List<Student> students =
+          snapshot.documents.map((doc) => Student.fromMap(doc.data)).toList();
+
+      setState(() {
+        studentsList = students;
+
+        /// to remove existing names
+        studentNamesList.clear();
+
+        studentsList.forEach((student) {
+          studentNamesList.add(student.firstName + student.lastName);
+        });
+      });
+    });
   }
 
   @override
   void dispose() {
     doctorsSubscription?.cancel();
+    studentsSubscription?.cancel();
     super.dispose();
   }
 
@@ -80,7 +104,37 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // Student Select
+            // Student Dropdown
+            Padding(
+              padding: const EdgeInsets.only(left: 1, right: 1),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    borderSide: BorderSide(),
+                  ),
+                  contentPadding:
+                      EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 20.0, 10.0),
+                  // prefixIcon: Padding(
+                  //   padding: EdgeInsets.only(left: 1.0),
+                  //   child: Icon(Icons.directions_run, color: Colors.grey),
+                  // ),
+                ),
+                value: studentName,
+                hint: Text('Select Student'),
+                items: studentNamesList
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    studentName = value;
+                  });
+                },
+              ),
+            ),
             StudymateTextField(
               labelText: 'Description',
               textEditingController: descriptionController,
@@ -91,16 +145,17 @@ class _CreateAppointmentDialog extends State<CreateAppointmentDialog> {
               padding: const EdgeInsets.only(left: 1, right: 1),
               child: DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 20.0, 10.0),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.only(left: 1.0),
-                      child: Icon(Icons.directions_run, color: Colors.grey),
-                    )),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                    borderSide: BorderSide(),
+                  ),
+                  contentPadding:
+                      EdgeInsetsDirectional.fromSTEB(30.0, 10.0, 20.0, 10.0),
+                  // prefixIcon: Padding(
+                  //   padding: EdgeInsets.only(left: 1.0),
+                  //   child: Icon(Icons.directions_run, color: Colors.grey),
+                  // ),
+                ),
                 value: doctorName,
                 hint: Text('Select Doctor'),
                 items: doctorNamesList
