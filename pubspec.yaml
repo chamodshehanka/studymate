@@ -34,7 +34,6 @@ dependencies:
   carousel_slider: ^0.0.4
   googleapis: ^0.54.0
   intl:
-  image_picker:
   flare_flutter: ^1.5.8
   path_provider: 
   flutter_slidable: ^0.5.3
@@ -46,7 +45,8 @@ dependencies:
   progress_dialog:
   syncfusion_flutter_charts: ^17.3.14
   shared_preferences: ^0.5.3
-  dash_chat: ^1.0.8
+  multi_image_picker: ^4.5.9
+  flutter_native_image: ^0.0.4
 
 dev_dependencies:
   flutter_launcher_icons: ^0.7.2+1

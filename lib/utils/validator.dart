@@ -28,8 +28,12 @@ class Validator {
         break;
       case 'text':
         return validateText(value);
+          break;
       case 'working place':
         return validateWorkingPlace(value);
+          break;
+      case 'text':
+        return validateText(value);
         break;
         
       case 'Date':
@@ -175,8 +179,12 @@ class Validator {
       return null;
   }
 
-  static String validateText(value) {
-    return null;
+    static String validateText(value) {
+
+    if (value=="")
+      return 'Field Cannot Be Empty';
+    else
+      return null;
   }
 
 }
