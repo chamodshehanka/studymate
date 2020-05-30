@@ -1,8 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:studymate/models/Badge.dart';
 
 final CollectionReference badgeCollection =
@@ -10,22 +11,30 @@ final CollectionReference badgeCollection =
 
 class BadgeService {
   Future<Badge> createBadge(
-      String name, String type, String task,String milestone, String description,File image) {
+      String name, String type, String task,String milestone, String description, List<Asset> images) {
     final TransactionHandler createTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(badgeCollection.document());
+
+      for (Asset image in images) {
+        StorageReference firebaseStorage = FirebaseStorage.instance
+            .ref()
+            .child('badges')
+            .child(ds.documentID);
+
+        image.filePath.then(((path) async {
+        ImageProperties properties = await FlutterNativeImage.getImageProperties(path);
+File compressedFile = await FlutterNativeImage.compressImage(path, quality: 80, 
+    targetWidth: 1000, 
+    targetHeight: (properties.height * 600 / properties.width).round());
+          firebaseStorage.putFile(compressedFile);
+        }));
+      }
 
       final Badge badge =
           new Badge(ds.documentID, name, type, task,milestone, description);
       final Map<String, dynamic> data = badge.toMap();
 
       await tx.set(ds.reference, data);
-      if(data!=null){
-        StorageReference firebaseStorage = FirebaseStorage.instance.ref().child('badges').child(ds.documentID);
-        StorageUploadTask firebaseUpload = firebaseStorage.putFile(image);
-        if(firebaseUpload!=null){
-          log("Succesfull");
-        }
-      }
       return data;
     };
 
