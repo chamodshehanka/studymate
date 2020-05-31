@@ -86,7 +86,7 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
     });
   }
 
- Widget buildGridView() {
+  Widget buildGridView() {
     return GridView.count(
       crossAxisCount: 1,
       children: List.generate(images.length, (index) {
@@ -100,9 +100,9 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
     );
   }
 
-   Future<void> removeAssets() async{
+  Future<void> removeAssets() async {
     List<Asset> resultList = [];
-      setState(() {
+    setState(() {
       images = resultList;
     });
   }
@@ -143,9 +143,6 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
-
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Create A Badge'),
@@ -161,27 +158,28 @@ class AddBadgeScreenState extends State<AddBadgeScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Center(
-                          child: _error!= "" ? Text(_error.toString(),style: TextStyle(color: Colors.red),):Text("")
-                        ),
-                        SizedBox(
-                          height: images.length!=0 ? 120 :0,
-                          width:120,
-                       
-                            child:  buildGridView(),
-                          
-                        ),
-                   RaisedButton(
-                            color: Colors.green,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                              child: Text(
-                                "Pick Image",
-                                style: TextStyle(
-                                    fontSize: 15.0, color: Colors.white),
-                              ),
-                          onPressed: loadAssets,
-                        ),
+                        child: _error != ""
+                            ? Text(
+                                _error.toString(),
+                                style: TextStyle(color: Colors.red),
+                              )
+                            : Text("")),
+                    SizedBox(
+                      height: images.length != 0 ? 120 : 0,
+                      width: 120,
+                      child: buildGridView(),
+                    ),
+                    RaisedButton(
+                      color: Colors.green,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      child: Text(
+                        "Pick Image",
+                        style: TextStyle(fontSize: 15.0, color: Colors.white),
+                      ),
+                      onPressed: loadAssets,
+                    ),
                     StudymateTextField(
                       labelText: 'Badge Name',
                       textEditingController: nameController,

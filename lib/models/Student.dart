@@ -9,8 +9,16 @@ class Student {
   String _birthday;
   String _type;
 
-  Student(this._id, this._firstName, this._lastName,this._email, this._schooling,  this._phoneNumber,this._schoolName,
-      this._birthday, this._type);
+  Student(
+      this._id,
+      this._firstName,
+      this._lastName,
+      this._email,
+      this._schooling,
+      this._phoneNumber,
+      this._schoolName,
+      this._birthday,
+      this._type);
 
   Student.map(dynamic student) {
     this._id = student['id'];

@@ -52,9 +52,8 @@ class RouteGenerator {
       case '/adminActivityDashboard':
         return MaterialPageRoute(
             builder: (_) => ActivityAdminDashboardScreen());
-       case '/adminSubjectDashboard':
-        return MaterialPageRoute(
-            builder: (_) => SubjectAdminDashboardScreen());
+      case '/adminSubjectDashboard':
+        return MaterialPageRoute(builder: (_) => SubjectAdminDashboardScreen());
       case '/adminActivityList':
         return MaterialPageRoute(builder: (_) => AdminActivityListScreen());
       case '/manageActivity':
@@ -72,7 +71,7 @@ class RouteGenerator {
       case '/adminBadgeList':
         return MaterialPageRoute(builder: (_) => AdminBadgeListScreen());
       case '/adminCreateBadge':
-        return MaterialPageRoute(builder: (_) => AddBadgeScreen());  
+        return MaterialPageRoute(builder: (_) => AddBadgeScreen());
       case '/homeDoctor':
         return MaterialPageRoute(builder: (_) => HomeScreenDoctor());
       case '/homeAdmin':

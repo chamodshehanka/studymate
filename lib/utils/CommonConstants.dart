@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class CommonConstants extends InheritedWidget {
-  static CommonConstants of(BuildContext context) =>
-      context.inheritFromWidgetOfExactType(CommonConstants);
+  // static CommonConstants of(BuildContext context) =>
+  //     context.inheritFromWidgetOfExactType(CommonConstants);
 
   // Collections Names
   static final String activityCollectionName = 'Activities';
